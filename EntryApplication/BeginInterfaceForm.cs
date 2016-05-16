@@ -49,7 +49,21 @@ namespace EntryApplication
             sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;Integrated Security=True;");
             sqlConnection.Open();
 
-            // Testcode. This will display all the patrons in the list
+            LoadAllPatrons();
+        }
+
+        // A second constructor, not really neccesary atm
+        private void BeginInterfaceForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        // Load all patrons
+        private void LoadAllPatrons()
+        {
+            outputDataView.Rows.Clear();
+
+            // Initialize all of the patrons into the list
             SqlCommand patronsCommand = new SqlCommand("SELECT * FROM Patrons;", sqlConnection);
             SqlDataReader patrons = null;
 
@@ -57,16 +71,10 @@ namespace EntryApplication
             patrons = patronsCommand.ExecuteReader();
             while (patrons.Read())
             {
-                string lastVisit = patrons[dateOfLastVisit].ToString();
-                addDataRow(patrons[firstName].ToString(), patrons[lastName].ToString(), lastVisit);
+                string lastVisit = SqlString2Std(patrons[dateOfLastVisit].ToString());
+                AddDataRow(patrons[firstName].ToString(), patrons[lastName].ToString(), lastVisit, patrons[dateOfBirth], patrons[guardians], patrons[children]);
             }
             patrons.Close();
-        }
-
-        // A second constructor, not really neccesary atm
-        private void BeginInterfaceForm_Load(object sender, EventArgs e)
-        {
-
         }
 
         // For formatting purposes, convert an sql '-' delimited string to a more standard '/' delimited string
@@ -80,7 +88,7 @@ namespace EntryApplication
         }
 
         // Shorthand for adding a set of values to the outputDataView
-        private void addDataRow(params object[] values)
+        private void AddDataRow(params object[] values)
         {
             this.outputDataView.Rows.Add(values);
         }
@@ -101,6 +109,8 @@ namespace EntryApplication
             if (e.KeyCode == Keys.Space)
             {
                 e.SuppressKeyPress = true;
+                LoadAllPatrons();
+
                 if (!String.IsNullOrEmpty(searchBox.Text))
                 {
                     searchBox.SelectionStart = 0;
@@ -119,7 +129,7 @@ namespace EntryApplication
             outputDataView.Rows.Clear();
             while (results.Read())
             {
-                addDataRow(results[firstName].ToString(), results[lastName].ToString(), results[dateOfLastVisit].ToString());
+                AddDataRow(results[firstName].ToString(), results[lastName].ToString(), results[dateOfLastVisit].ToString(), results[dateOfBirth], results[guardians], results[children]);
             }
             results.Close();
         }

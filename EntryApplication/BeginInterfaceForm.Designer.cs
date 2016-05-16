@@ -41,6 +41,8 @@
             this.patronLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronLastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.guardian = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.childs = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +59,7 @@
             // searchBox
             // 
             this.searchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox.Location = new System.Drawing.Point(12, 65);
+            this.searchBox.Location = new System.Drawing.Point(255, 65);
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(467, 28);
             this.searchBox.TabIndex = 2;
@@ -76,7 +78,7 @@
             // 
             // addPatronButton
             // 
-            this.addPatronButton.Location = new System.Drawing.Point(900, 131);
+            this.addPatronButton.Location = new System.Drawing.Point(1134, 147);
             this.addPatronButton.Name = "addPatronButton";
             this.addPatronButton.Size = new System.Drawing.Size(150, 46);
             this.addPatronButton.TabIndex = 5;
@@ -85,7 +87,7 @@
             // 
             // editPatronButton
             // 
-            this.editPatronButton.Location = new System.Drawing.Point(900, 214);
+            this.editPatronButton.Location = new System.Drawing.Point(1134, 221);
             this.editPatronButton.Name = "editPatronButton";
             this.editPatronButton.Size = new System.Drawing.Size(150, 46);
             this.editPatronButton.TabIndex = 6;
@@ -94,7 +96,7 @@
             // 
             // visitPrintButton
             // 
-            this.visitPrintButton.Location = new System.Drawing.Point(900, 475);
+            this.visitPrintButton.Location = new System.Drawing.Point(1134, 493);
             this.visitPrintButton.Name = "visitPrintButton";
             this.visitPrintButton.Size = new System.Drawing.Size(150, 46);
             this.visitPrintButton.TabIndex = 7;
@@ -104,7 +106,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(127, 45);
+            this.label3.Location = new System.Drawing.Point(400, 47);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(184, 17);
             this.label3.TabIndex = 8;
@@ -121,19 +123,21 @@
             this.patronFirstName,
             this.patronLastName,
             this.patronLastVisit,
-            this.patronAge});
+            this.patronAge,
+            this.guardian,
+            this.childs});
             this.outputDataView.Location = new System.Drawing.Point(12, 131);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.ReadOnly = true;
             this.outputDataView.RowTemplate.Height = 24;
-            this.outputDataView.Size = new System.Drawing.Size(801, 430);
+            this.outputDataView.Size = new System.Drawing.Size(1065, 500);
             this.outputDataView.TabIndex = 3;
             // 
             // dateLabel
             // 
             this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(720, 75);
+            this.dateLabel.Location = new System.Drawing.Point(1131, 91);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(92, 17);
             this.dateLabel.TabIndex = 9;
@@ -163,11 +167,26 @@
             this.patronAge.Name = "patronAge";
             this.patronAge.ReadOnly = true;
             // 
+            // guardian
+            // 
+            this.guardian.HeaderText = "Guardians";
+            this.guardian.MinimumWidth = 100;
+            this.guardian.Name = "guardian";
+            this.guardian.ReadOnly = true;
+            this.guardian.Width = 200;
+            // 
+            // childs
+            // 
+            this.childs.HeaderText = "Children";
+            this.childs.Name = "childs";
+            this.childs.ReadOnly = true;
+            this.childs.Width = 200;
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1062, 593);
+            this.ClientSize = new System.Drawing.Size(1296, 661);
             this.Controls.Add(this.dateLabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.visitPrintButton);
@@ -200,6 +219,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronLastName;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronLastVisit;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronAge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn guardian;
+        private System.Windows.Forms.DataGridViewTextBoxColumn childs;
     }
 }
 
