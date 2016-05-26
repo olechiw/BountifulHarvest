@@ -36,13 +36,13 @@
             this.visitPrintButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.outputDataView = new System.Windows.Forms.DataGridView();
-            this.dateLabel = new System.Windows.Forms.Label();
             this.patronFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronLastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.guardian = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.childs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,6 +84,7 @@
             this.addPatronButton.TabIndex = 5;
             this.addPatronButton.Text = "Add Patron Entry";
             this.addPatronButton.UseVisualStyleBackColor = true;
+            this.addPatronButton.Click += new System.EventHandler(this.addPatronButtonClick);
             // 
             // editPatronButton
             // 
@@ -134,15 +135,6 @@
             this.outputDataView.Size = new System.Drawing.Size(1065, 500);
             this.outputDataView.TabIndex = 3;
             // 
-            // dateLabel
-            // 
-            this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(1131, 91);
-            this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(92, 17);
-            this.dateLabel.TabIndex = 9;
-            this.dateLabel.Text = "Today\'s Date";
-            // 
             // patronFirstName
             // 
             this.patronFirstName.HeaderText = "First Name";
@@ -181,6 +173,15 @@
             this.childs.Name = "childs";
             this.childs.ReadOnly = true;
             this.childs.Width = 200;
+            // 
+            // dateLabel
+            // 
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.Location = new System.Drawing.Point(1131, 91);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(92, 17);
+            this.dateLabel.TabIndex = 9;
+            this.dateLabel.Text = "Today\'s Date";
             // 
             // BeginInterfaceForm
             // 

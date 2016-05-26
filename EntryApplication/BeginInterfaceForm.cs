@@ -37,6 +37,8 @@ namespace EntryApplication
             InitializeComponent();
 
             // Manual initialization
+            outputDataView.Columns[4].SortMode = DataGridViewColumnSortMode.NotSortable;
+            outputDataView.Columns[5].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             // Setup the dataview
             outputDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -122,7 +124,7 @@ namespace EntryApplication
         // Update the data table with the results given the search box text
         private void UpdateResults(string query)
         {
-            SqlCommand searchCommand = new SqlCommand("SELECT * FROM Patrons WHERE FirstName LIKE '" + query + "%' OR LastName LIKE '" + query + "%'", sqlConnection);
+            SqlCommand searchCommand = new SqlCommand("SELECT * FROM Patrons WHERE FirstName LIKE '" + query + "%' OR LastName LIKE '" + query + "%' OR Guardians LIKE '%" + query + "%' OR Children LIKE '%" + query + "%'", sqlConnection);
 
             SqlDataReader results = searchCommand.ExecuteReader();
 
@@ -132,6 +134,12 @@ namespace EntryApplication
                 AddDataRow(results[firstName].ToString(), results[lastName].ToString(), results[dateOfLastVisit].ToString(), results[dateOfBirth], results[guardians], results[children]);
             }
             results.Close();
+        }
+
+        private void addPatronButtonClick(object sender, EventArgs e)
+        {
+            NewPatronForm form = new NewPatronForm();
+            form.ShowDialog();
         }
     }
 }
