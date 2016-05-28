@@ -8,3 +8,4 @@ Z:\Bountiful Harvest\BountifulHarvest\EntryApplication\obj\Debug\EntryApplicatio
 Z:\Bountiful Harvest\BountifulHarvest\EntryApplication\obj\Debug\EntryApplication.csproj.GenerateResource.Cache
 Z:\Bountiful Harvest\BountifulHarvest\EntryApplication\obj\Debug\EntryApplication.exe
 Z:\Bountiful Harvest\BountifulHarvest\EntryApplication\obj\Debug\EntryApplication.pdb
+Z:\Bountiful Harvest\BountifulHarvest\EntryApplication\obj\Debug\EntryApplication.csproj.ResolveComReference.cache

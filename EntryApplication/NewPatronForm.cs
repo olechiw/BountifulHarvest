@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Printing;
+using Microsoft.Office.Interop.Word;
 
 namespace EntryApplication
 {
@@ -52,5 +53,7 @@ namespace EntryApplication
                 }
             }
         }
+
+        private 
     }
 }
