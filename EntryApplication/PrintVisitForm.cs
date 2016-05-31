@@ -18,6 +18,7 @@ namespace EntryApplication
 
         private string firstName, lastName, allowedPortions, date;
 
+        // Constructor
         public PrintVisitForm(string patronFirstName, string patronLastName, int patronAllowedPortions, string date)
         {
             firstName = patronFirstName;
@@ -28,6 +29,7 @@ namespace EntryApplication
             InitializeComponent();
             print.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(screenPrintPrintPage);
         }
+
         // When the screenPrint document is about to be printed
         private void screenPrintPrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
@@ -36,12 +38,13 @@ namespace EntryApplication
             drawGenericText(e.Graphics, "Middle Name", 100, 0);
         }
 
+        // Given arguments of coordinates, graphics, and text, draws a simple string
         private void drawGenericText(Graphics g, string text, int x, int y)
         {
             g.DrawString(text, new Font(FontFamily.GenericSansSerif, 30, FontStyle.Regular), new SolidBrush(Color.Black), 0, 0);
         }
 
-
+        // When the print button is clicked
         private void printButtonClick(object sender, EventArgs e)
         {
             using (PrintDialog pD = new PrintDialog())
@@ -55,6 +58,7 @@ namespace EntryApplication
             }
         }
 
+        // Extra constructor, currently unimplemented
         private void PrintVisitForm_Load(object sender, EventArgs e)
         {
 
