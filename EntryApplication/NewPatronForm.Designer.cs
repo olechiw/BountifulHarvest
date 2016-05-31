@@ -42,7 +42,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.testPrintButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -164,22 +163,11 @@
             this.label8.TabIndex = 13;
             this.label8.Text = "Middle Initial";
             // 
-            // testPrintButton
-            // 
-            this.testPrintButton.Location = new System.Drawing.Point(498, 398);
-            this.testPrintButton.Name = "testPrintButton";
-            this.testPrintButton.Size = new System.Drawing.Size(75, 23);
-            this.testPrintButton.TabIndex = 14;
-            this.testPrintButton.Text = "TestPrint";
-            this.testPrintButton.UseVisualStyleBackColor = true;
-            this.testPrintButton.Click += new System.EventHandler(this.testPrintButtonClick);
-            // 
             // NewPatronForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 593);
-            this.Controls.Add(this.testPrintButton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label7);
@@ -217,6 +205,5 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button testPrintButton;
     }
 }

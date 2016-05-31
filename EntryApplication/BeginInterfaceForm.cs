@@ -136,10 +136,25 @@ namespace EntryApplication
             results.Close();
         }
 
+        // When the button to enter a new patron is clicked
         private void addPatronButtonClick(object sender, EventArgs e)
         {
             NewPatronForm form = new NewPatronForm();
             form.ShowDialog();
+        }
+
+        // When the button to print a report is clicked
+        private void printVisitButtonClick(object sender, EventArgs e)
+        {
+            DataGridViewRow row = outputDataView.SelectedRows[0];
+
+            string firstName = row.Cells[0].Value.ToString();
+            string lastName = row.Cells[1].Value.ToString();
+
+            // Calculate the amount of portions allowed
+            //--TODO--//
+
+
         }
     }
 }
