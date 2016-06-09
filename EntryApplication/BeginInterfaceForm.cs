@@ -48,7 +48,7 @@ namespace EntryApplication
             dateLabel.Text = "Today's Date is: " + today.ToString(dateCode);
 
             // Connect to the local SQL Database
-            sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;Integrated Security=True;");
+            sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;User Id=sa; Password=potato");
             sqlConnection.Open();
 
             LoadAllPatrons();
@@ -154,7 +154,11 @@ namespace EntryApplication
             // Calculate the amount of portions allowed
             //--TODO--//
 
+            int portionsAllowed = 1;
+            DateTime today = DateTime.Today;
 
+            PrintVisitForm printForm = new PrintVisitForm(firstName, lastName, portionsAllowed, today.ToString(dateCode));
+            printForm.ShowDialog();
         }
     }
 }

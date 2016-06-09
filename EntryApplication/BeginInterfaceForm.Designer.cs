@@ -103,6 +103,7 @@
             this.visitPrintButton.TabIndex = 7;
             this.visitPrintButton.Text = "Print A Visit";
             this.visitPrintButton.UseVisualStyleBackColor = true;
+            this.visitPrintButton.Click += new System.EventHandler(this.printVisitButtonClick);
             // 
             // label3
             // 

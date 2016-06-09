@@ -41,9 +41,9 @@
             this.firstNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.firstNameLabel.Location = new System.Drawing.Point(72, 60);
             this.firstNameLabel.Name = "firstNameLabel";
-            this.firstNameLabel.Size = new System.Drawing.Size(160, 32);
+            this.firstNameLabel.Size = new System.Drawing.Size(167, 32);
             this.firstNameLabel.TabIndex = 0;
-            this.firstNameLabel.Text = "First Name:";
+            this.firstNameLabel.Text = "First Name: ";
             // 
             // lastNameLabel
             // 
@@ -51,9 +51,9 @@
             this.lastNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lastNameLabel.Location = new System.Drawing.Point(72, 143);
             this.lastNameLabel.Name = "lastNameLabel";
-            this.lastNameLabel.Size = new System.Drawing.Size(159, 32);
+            this.lastNameLabel.Size = new System.Drawing.Size(166, 32);
             this.lastNameLabel.TabIndex = 1;
-            this.lastNameLabel.Text = "Last Name:";
+            this.lastNameLabel.Text = "Last Name: ";
             // 
             // datelabel
             // 
@@ -61,9 +61,9 @@
             this.datelabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.datelabel.Location = new System.Drawing.Point(72, 231);
             this.datelabel.Name = "datelabel";
-            this.datelabel.Size = new System.Drawing.Size(188, 32);
+            this.datelabel.Size = new System.Drawing.Size(195, 32);
             this.datelabel.TabIndex = 2;
-            this.datelabel.Text = "Today\'s Date:";
+            this.datelabel.Text = "Today\'s Date: ";
             // 
             // printButton
             // 
