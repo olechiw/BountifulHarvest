@@ -39,6 +39,7 @@ namespace EntryApplication
             // Manual initialization
             outputDataView.Columns[4].SortMode = DataGridViewColumnSortMode.NotSortable;
             outputDataView.Columns[5].SortMode = DataGridViewColumnSortMode.NotSortable;
+            outputDataView.Columns[6].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             // Setup the dataview
             outputDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -74,7 +75,7 @@ namespace EntryApplication
             while (patrons.Read())
             {
                 string lastVisit = SqlString2Std(patrons[dateOfLastVisit].ToString());
-                AddDataRow(patrons[firstName].ToString(), patrons[lastName].ToString(), lastVisit, patrons[dateOfBirth], patrons[guardians], patrons[children]);
+                AddDataRow(patrons[firstName].ToString(), patrons[middleInitial].ToString(),  patrons[lastName].ToString(), lastVisit, patrons[dateOfBirth], patrons[guardians], patrons[children]);
             }
             patrons.Close();
         }
@@ -149,7 +150,8 @@ namespace EntryApplication
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
             string firstName = row.Cells[0].Value.ToString();
-            string lastName = row.Cells[1].Value.ToString();
+            string lastName = row.Cells[2].Value.ToString();
+            string middleInitial = row.Cells[1].Value.ToString();
 
             // Calculate the amount of portions allowed
             //--TODO--//
@@ -157,7 +159,7 @@ namespace EntryApplication
             int portionsAllowed = 1;
             DateTime today = DateTime.Today;
 
-            PrintVisitForm printForm = new PrintVisitForm(firstName, lastName, portionsAllowed, today.ToString(dateCode));
+            PrintVisitForm printForm = new PrintVisitForm(firstName, middleInitial, lastName, portionsAllowed, today.ToString(dateCode));
             printForm.ShowDialog();
         }
     }

@@ -18,11 +18,8 @@ namespace EntryApplication
 
         private string firstName, lastName, allowedPortions, date;
 
-        private bool successfullyPrinted = false;
-        public bool SuccessfullyPrinted() => successfullyPrinted;
-
         // Constructor
-        public PrintVisitForm(string patronFirstName, string patronLastName, int patronAllowedPortions, string date)
+        public PrintVisitForm(string patronFirstName, string middleInitial, string patronLastName, int patronAllowedPortions, string date)
         {
             firstName = patronFirstName;
             lastName = patronLastName;
@@ -36,6 +33,7 @@ namespace EntryApplication
             this.firstNameLabel.Text += firstName;
             this.lastNameLabel.Text += lastName;
             this.datelabel.Text += this.date;
+            this.middleInitialLabel.Text += middleInitial;
         }
 
         // When the screenPrint document is about to be printed
@@ -64,8 +62,12 @@ namespace EntryApplication
                     print.Print();
                 }
             }
+
             this.Close();
         }
+
+        // In case the user wants to cancel
+        private void cancelButtonClick(object sender, EventArgs e) => this.Close();
 
         // Extra constructor, currently unimplemented
         private void PrintVisitForm_Load(object sender, EventArgs e)

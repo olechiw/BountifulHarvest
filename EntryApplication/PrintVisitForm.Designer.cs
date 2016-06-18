@@ -33,6 +33,9 @@
             this.datelabel = new System.Windows.Forms.Label();
             this.printButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.middleInitialLabel = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // firstNameLabel
@@ -49,7 +52,7 @@
             // 
             this.lastNameLabel.AutoSize = true;
             this.lastNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastNameLabel.Location = new System.Drawing.Point(72, 143);
+            this.lastNameLabel.Location = new System.Drawing.Point(72, 215);
             this.lastNameLabel.Name = "lastNameLabel";
             this.lastNameLabel.Size = new System.Drawing.Size(166, 32);
             this.lastNameLabel.TabIndex = 1;
@@ -59,7 +62,7 @@
             // 
             this.datelabel.AutoSize = true;
             this.datelabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.datelabel.Location = new System.Drawing.Point(72, 231);
+            this.datelabel.Location = new System.Drawing.Point(574, 60);
             this.datelabel.Name = "datelabel";
             this.datelabel.Size = new System.Drawing.Size(195, 32);
             this.datelabel.TabIndex = 2;
@@ -86,11 +89,45 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "PRINT";
             // 
+            // middleInitialLabel
+            // 
+            this.middleInitialLabel.AutoSize = true;
+            this.middleInitialLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.middleInitialLabel.Location = new System.Drawing.Point(78, 138);
+            this.middleInitialLabel.Name = "middleInitialLabel";
+            this.middleInitialLabel.Size = new System.Drawing.Size(46, 32);
+            this.middleInitialLabel.TabIndex = 5;
+            this.middleInitialLabel.Text = "M:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(78, 397);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(180, 32);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Date of Birth:";
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancelButton.Location = new System.Drawing.Point(78, 460);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(128, 66);
+            this.cancelButton.TabIndex = 7;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButtonClick);
+            // 
             // PrintVisitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 593);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.middleInitialLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.printButton);
             this.Controls.Add(this.datelabel);
@@ -111,5 +148,8 @@
         private System.Windows.Forms.Label datelabel;
         private System.Windows.Forms.Button printButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label middleInitialLabel;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button cancelButton;
     }
 }
