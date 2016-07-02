@@ -44,6 +44,7 @@
             this.patronAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.guardian = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.childs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.spouseColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,7 +130,8 @@
             this.patronLastVisit,
             this.patronAge,
             this.guardian,
-            this.childs});
+            this.childs,
+            this.spouseColumn});
             this.outputDataView.Location = new System.Drawing.Point(12, 131);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
@@ -192,6 +194,12 @@
             this.childs.ReadOnly = true;
             this.childs.Width = 200;
             // 
+            // spouseColumn
+            // 
+            this.spouseColumn.HeaderText = "Spouse";
+            this.spouseColumn.Name = "spouseColumn";
+            this.spouseColumn.ReadOnly = true;
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -232,6 +240,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronAge;
         private System.Windows.Forms.DataGridViewTextBoxColumn guardian;
         private System.Windows.Forms.DataGridViewTextBoxColumn childs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn spouseColumn;
     }
 }
 

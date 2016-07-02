@@ -153,12 +153,37 @@ namespace EntryApplication
             string lastName = row.Cells[2].Value.ToString();
             string middleInitial = row.Cells[1].Value.ToString();
 
+            int portionsAllowed;
             // Calculate the amount of portions allowed
-            //--TODO--//
+            if (row.Cells[5].Value.ToString()!="")
+            {
+                // Is a child.
+                portionsAllowed = 0;
+            }
+            else
+            {
+                // Get the number of children
+                int providees = row.Cells[6].Value.ToString().Split(',').Length;
 
-            int portionsAllowed = 1;
+                // Check for a spouse
+                if (row.Cells[7].Value.ToString() != "")
+                    providees++;
+
+                // 1 Limit
+                if (providees <= 3)
+                    portionsAllowed = 1;
+
+                // 2 Limits
+                else if (providees <= 5)
+                    portionsAllowed = 2;
+
+                // 3 Limits
+                else
+                    portionsAllowed = 3;
+            }
             DateTime today = DateTime.Today;
 
+            // Show the form
             PrintVisitForm printForm = new PrintVisitForm(firstName, middleInitial, lastName, portionsAllowed, today.ToString(dateCode));
             printForm.ShowDialog();
         }
