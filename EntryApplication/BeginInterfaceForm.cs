@@ -55,7 +55,7 @@ namespace EntryApplication
             LoadAllPatrons();
         }
 
-        // A second constructor, not really neccesary atm
+        // A second constructor, currently unused
         private void BeginInterfaceForm_Load(object sender, EventArgs e)
         {
 

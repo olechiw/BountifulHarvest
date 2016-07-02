@@ -36,6 +36,7 @@
             this.middleInitialLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.portionsAllowedLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // firstNameLabel
@@ -120,11 +121,22 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButtonClick);
             // 
+            // portionsAllowedLabel
+            // 
+            this.portionsAllowedLabel.AutoSize = true;
+            this.portionsAllowedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.portionsAllowedLabel.Location = new System.Drawing.Point(580, 229);
+            this.portionsAllowedLabel.Name = "portionsAllowedLabel";
+            this.portionsAllowedLabel.Size = new System.Drawing.Size(236, 32);
+            this.portionsAllowedLabel.TabIndex = 8;
+            this.portionsAllowedLabel.Text = "Portions Allowed:";
+            // 
             // PrintVisitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 593);
+            this.Controls.Add(this.portionsAllowedLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.middleInitialLabel);
@@ -134,7 +146,7 @@
             this.Controls.Add(this.lastNameLabel);
             this.Controls.Add(this.firstNameLabel);
             this.Name = "PrintVisitForm";
-            this.Text = "PrintVisitForm";
+            this.Text = "Print a Patron Visit";
             this.Load += new System.EventHandler(this.PrintVisitForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -151,5 +163,6 @@
         private System.Windows.Forms.Label middleInitialLabel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Label portionsAllowedLabel;
     }
 }
