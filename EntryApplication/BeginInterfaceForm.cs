@@ -15,6 +15,20 @@ using System.Data.SqlTypes;
 
 namespace EntryApplication
 {
+    // Data about a patron
+    struct Patron
+    {
+        string firstName,
+            lastName,
+            middleInitial,
+
+            spouse,
+            dateOfBirth;
+
+        List<string> guardians,
+            children;
+    }
+
     public partial class BeginInterfaceForm : Form
     {
         // Hardcoded strings for all of the column names in SQL

@@ -11,6 +11,8 @@ namespace EntryApplication
 {
     public partial class NewPatronForm : System.Windows.Forms.Form
     {
+        Patron newPatron;
+
         public NewPatronForm()
         {
             InitializeComponent();
