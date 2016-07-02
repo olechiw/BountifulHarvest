@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Word = Microsoft.Office.Interop.Word;
 using DocumentFormat.OpenXml.Packaging;
@@ -11,7 +13,8 @@ namespace EntryApplication
 {
     public partial class NewPatronForm : System.Windows.Forms.Form
     {
-        Patron newPatron;
+        private Patron newPatron = new Patron();
+        public Patron GetData() => newPatron;
 
         public NewPatronForm()
         {
@@ -34,11 +37,35 @@ namespace EntryApplication
                 relativesDataView.Rows.Add();
         }
 
+        // When the '+' button is clicked to add a row, add a row.
         private void addRowButtonClick(object sender, EventArgs e) => relativesDataView.Rows.Add();
 
+        // Record all of the data, and close the window
         private void submitButtonClick(object sender, EventArgs e)
         {
+            // Fill the newPatron structure
+            newPatron.firstName = firstNameTextBox.Text.ToString();
+            newPatron.lastName = lastNameTextBox.Text.ToString();
+            newPatron.middleInitial = middleInitialTextBox.Text.ToString();
 
+            // Iterate through all of the dataview, and record each entry
+            for (int i = 0; i < relativesDataView.Rows.Count; ++i)
+            {
+                // Get the person's name
+                string relative = relativesDataView.Rows[i].Cells[0].ToString();
+
+                // Get the person's relation
+                string relativeType = relativesDataView.Rows[i].Cells[1].ToString();
+                if (relativeType == "Parent/Guardian")
+                    newPatron.guardians.Add(relative);
+                else if (relativeType == "Child")
+                    newPatron.children.Add(relative);
+                else if (relativeType == "Spouse")
+                    newPatron.spouse = relative;
+            }
+
+            // Get the person's date of birth, in sql string format
+            newPatron.dateOfBirth = yearTextBox.Text.ToString() + '-' + monthTextBox.Text.ToString() + '-' + dayTextBox.Text.ToString();
         }
     }
 }

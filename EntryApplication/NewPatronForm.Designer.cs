@@ -37,10 +37,10 @@
             this.dayTextBox = new System.Windows.Forms.TextBox();
             this.yearTextBox = new System.Windows.Forms.TextBox();
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lastNameTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.middleInitialTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.relativesDataView = new System.Windows.Forms.DataGridView();
             this.personName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -125,12 +125,12 @@
             this.firstNameTextBox.Size = new System.Drawing.Size(144, 22);
             this.firstNameTextBox.TabIndex = 8;
             // 
-            // textBox1
+            // lastNameTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(573, 90);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(129, 22);
-            this.textBox1.TabIndex = 9;
+            this.lastNameTextBox.Location = new System.Drawing.Point(573, 90);
+            this.lastNameTextBox.Name = "lastNameTextBox";
+            this.lastNameTextBox.Size = new System.Drawing.Size(129, 22);
+            this.lastNameTextBox.TabIndex = 9;
             // 
             // label6
             // 
@@ -152,12 +152,12 @@
             this.label7.TabIndex = 11;
             this.label7.Text = "Last Name";
             // 
-            // textBox2
+            // middleInitialTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(434, 90);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(53, 22);
-            this.textBox2.TabIndex = 12;
+            this.middleInitialTextBox.Location = new System.Drawing.Point(434, 90);
+            this.middleInitialTextBox.Name = "middleInitialTextBox";
+            this.middleInitialTextBox.Size = new System.Drawing.Size(53, 22);
+            this.middleInitialTextBox.TabIndex = 12;
             // 
             // label8
             // 
@@ -227,10 +227,10 @@
             this.Controls.Add(this.addRowButton);
             this.Controls.Add(this.relativesDataView);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.middleInitialTextBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lastNameTextBox);
             this.Controls.Add(this.firstNameTextBox);
             this.Controls.Add(this.yearTextBox);
             this.Controls.Add(this.dayTextBox);
@@ -259,10 +259,10 @@
         private System.Windows.Forms.TextBox dayTextBox;
         private System.Windows.Forms.TextBox yearTextBox;
         private System.Windows.Forms.TextBox firstNameTextBox;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox lastNameTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox middleInitialTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView relativesDataView;
         private System.Windows.Forms.DataGridViewTextBoxColumn personName;

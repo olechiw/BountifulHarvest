@@ -16,16 +16,16 @@ using System.Data.SqlTypes;
 namespace EntryApplication
 {
     // Data about a patron
-    struct Patron
+    public struct Patron
     {
-        string firstName,
+        public string firstName,
             lastName,
             middleInitial,
 
             spouse,
             dateOfBirth;
 
-        List<string> guardians,
+        public List<string> guardians,
             children;
     }
 
@@ -89,7 +89,7 @@ namespace EntryApplication
             while (patrons.Read())
             {
                 string lastVisit = SqlString2Std(patrons[dateOfLastVisit].ToString());
-                AddDataRow(patrons[firstName].ToString(), patrons[middleInitial].ToString(),  patrons[lastName].ToString(), lastVisit, patrons[dateOfBirth], patrons[guardians], patrons[children]);
+                AddDataRow(patrons[firstName].ToString(), patrons[middleInitial].ToString(),  patrons[lastName].ToString(), lastVisit, SqlString2Std(patrons[dateOfBirth].ToString()), patrons[guardians], patrons[children]);
             }
             patrons.Close();
         }
@@ -146,7 +146,7 @@ namespace EntryApplication
             outputDataView.Rows.Clear();
             while (results.Read())
             {
-                AddDataRow(results[firstName].ToString(), results[lastName].ToString(), results[dateOfLastVisit].ToString(), results[dateOfBirth], results[guardians], results[children]);
+                AddDataRow(results[firstName].ToString(), results[lastName].ToString(), SqlString2Std(results[dateOfLastVisit].ToString()), SqlString2Std(results[dateOfBirth].ToString()), results[guardians], results[children]);
             }
             results.Close();
         }
