@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Sql;
 using System.Data.SqlClient;
+using System.ServiceProcess;
 using System.Data.SqlTypes;
 
 
@@ -62,11 +63,43 @@ namespace EntryApplication
             DateTime today = DateTime.Today;
             dateLabel.Text = "Today's Date is: " + today.ToString(dateCode);
 
+            // Start the SQL Server!
+
             // Connect to the local SQL Database
             sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;User Id=sa; Password=potato");
             sqlConnection.Open();
 
             LoadAllPatrons();
+        }
+
+        // Initalize and start the SQL server
+        private void InitializeSQLServer()
+        {
+            string serviceName = "MSQL$SQLEXPRESSS";
+            string status;
+
+            ServiceController controller = new ServiceController(serviceName);
+            try
+            {
+                status = controller.Status.ToString();
+            }
+            catch (Exception ex)
+            {
+                // This should never happen!!
+            }
+            if (controller.Status.Equals(ServiceControllerStatus.Stopped) | controller.Status.Equals(ServiceControllerStatus.StopPending))
+            {
+                try
+                {
+                    // Start the service
+                    controller.Start();
+                    controller.WaitForStatus(ServiceControllerStatus.Running);
+                }
+                catch (Exception ex)
+                {
+                    // Failed to start. Also should never happen
+                }
+            }
         }
 
         // A second constructor, currently unused
@@ -97,11 +130,18 @@ namespace EntryApplication
         // For formatting purposes, convert an sql '-' delimited string to a more standard '/' delimited string
         private string SqlString2Std(string sqlString)
         {
-            string[] split = sqlString.Split('-');
-            string year = split[0];
-            string month = split[1];
-            string day = split[2];
-            return month + '/' + day + '/' + year;
+            if (sqlString != "")
+            {
+                string[] split = sqlString.Split('-');
+                string year = split[0];
+                string month = split[1];
+                string day = split[2];
+                return month + '/' + day + '/' + year;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         // Shorthand for adding a set of values to the outputDataView
