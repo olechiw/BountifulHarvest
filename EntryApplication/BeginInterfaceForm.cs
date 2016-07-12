@@ -36,8 +36,8 @@ namespace EntryApplication
         private const string firstName = "FirstName";
         private const string lastName = "LastName";
         private const string middleInitial = "MiddleInitial";
-        private const string guardians = "Guardians";
-        private const string children = "Children";
+        private const string Guardians = "Guardians";
+        private const string childrens = "Children";
         private const string spouse = "Spouse";
         private const string dateOfLastVisit = "LastVisit";
         private const string dateOfBirth = "DateOfBirth";
@@ -123,7 +123,7 @@ namespace EntryApplication
             while (patrons.Read())
             {
                 string lastVisit = SqlString2Std(patrons[dateOfLastVisit].ToString());
-                AddDataRow(patrons[firstName].ToString(), patrons[middleInitial].ToString(),  patrons[lastName].ToString(), lastVisit, SqlString2Std(patrons[dateOfBirth].ToString()), patrons[guardians], patrons[children], patrons[spouse]);
+                AddDataRow(patrons[firstName].ToString(), patrons[middleInitial].ToString(),  patrons[lastName].ToString(), lastVisit, SqlString2Std(patrons[dateOfBirth].ToString()), patrons[Guardians], patrons[childrens], patrons[spouse]);
             }
             patrons.Close();
         }
@@ -187,7 +187,7 @@ namespace EntryApplication
             outputDataView.Rows.Clear();
             while (results.Read())
             {
-                AddDataRow(results[firstName].ToString(), results[lastName].ToString(), SqlString2Std(results[dateOfLastVisit].ToString()), SqlString2Std(results[dateOfBirth].ToString()), results[guardians], results[children], results[spouse]);
+                AddDataRow(results[firstName].ToString(), results[lastName].ToString(), SqlString2Std(results[dateOfLastVisit].ToString()), SqlString2Std(results[dateOfBirth].ToString()), results[Guardians], results[childrens], results[spouse]);
             }
             results.Close();
         }
@@ -197,6 +197,67 @@ namespace EntryApplication
         {
             NewPatronForm form = new NewPatronForm();
             form.ShowDialog();
+
+            if (form.Saved())
+            {
+                Patron p = form.GetData();
+                string data = p.firstName + ','
+                    + p.middleInitial + ','
+                    + p.lastName + ','
+                    + p.spouse + ','
+                    + p.guardians + ','
+                    + p.children + ','
+                    + ','
+                    + p.dateOfBirth + ',';
+
+                // Add in the values
+                SqlCommand addCommand = new SqlCommand("INSERT INTO Patrons VALUES (" + data + ")", sqlConnection);
+                addCommand.ExecuteNonQuery();
+            }
+        }
+
+        // When the button to edit an existing patron is clicked
+        private void editPatronButtonClick(object sender, EventArgs e)
+        {
+            DataGridViewRow row = outputDataView.SelectedRows[0];
+
+            string firstName = row.Cells[0].Value.ToString();
+            string lastName = row.Cells[2].Value.ToString();
+            string middleInitial = row.Cells[1].Value.ToString();
+            string dateOfBirth = row.Cells[4].Value.ToString();
+            string guardians = row.Cells[5].Value.ToString();
+            string children = row.Cells[6].Value.ToString();
+            string spouse = row.Cells[7].Value.ToString();
+
+            NewPatronForm form = new NewPatronForm(firstName, lastName, middleInitial, dateOfBirth, guardians, children, spouse);
+            form.ShowDialog();
+
+            if (form.Saved())
+            {
+                Patron p = form.GetData();
+                string data = p.firstName + ','
+                    + p.middleInitial + ','
+                    + p.lastName + ','
+                    + p.spouse + ','
+                    + p.guardians + ','
+                    + p.children + ','
+                    + ','
+                    + p.dateOfBirth + ',';
+
+                // Remove old values
+                string command = "DELETE FROM Patrons WHERE" +
+                    patronFirstName + "=" + firstName + " AND "
+                    + patronLastName + "=" + lastName + " AND "
+                    + middleI + "=" + middleInitial + " AND "
+                    + childrens + "=" + children + " AND "
+                    + Guardians + "=" + guardians + " AND "
+                    + spouseColumn + "=" + spouse;
+                SqlCommand delCommand = new SqlCommand(command, sqlConnection);
+                delCommand.BeginExecuteNonQuery();
+
+                SqlCommand addCommand = new SqlCommand("INSERT INTO Patrons VALUES (" + data + ")");
+                addCommand.BeginExecuteNonQuery();
+            }
         }
 
         // When the button to print a report is clicked
