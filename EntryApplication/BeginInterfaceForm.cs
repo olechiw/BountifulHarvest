@@ -38,6 +38,7 @@ namespace EntryApplication
         private const string middleInitial = "MiddleInitial";
         private const string guardians = "Guardians";
         private const string children = "Children";
+        private const string spouse = "Spouse";
         private const string dateOfLastVisit = "LastVisit";
         private const string dateOfBirth = "DateOfBirth";
 
@@ -122,7 +123,7 @@ namespace EntryApplication
             while (patrons.Read())
             {
                 string lastVisit = SqlString2Std(patrons[dateOfLastVisit].ToString());
-                AddDataRow(patrons[firstName].ToString(), patrons[middleInitial].ToString(),  patrons[lastName].ToString(), lastVisit, SqlString2Std(patrons[dateOfBirth].ToString()), patrons[guardians], patrons[children]);
+                AddDataRow(patrons[firstName].ToString(), patrons[middleInitial].ToString(),  patrons[lastName].ToString(), lastVisit, SqlString2Std(patrons[dateOfBirth].ToString()), patrons[guardians], patrons[children], patrons[spouse]);
             }
             patrons.Close();
         }
@@ -186,7 +187,7 @@ namespace EntryApplication
             outputDataView.Rows.Clear();
             while (results.Read())
             {
-                AddDataRow(results[firstName].ToString(), results[lastName].ToString(), SqlString2Std(results[dateOfLastVisit].ToString()), SqlString2Std(results[dateOfBirth].ToString()), results[guardians], results[children]);
+                AddDataRow(results[firstName].ToString(), results[lastName].ToString(), SqlString2Std(results[dateOfLastVisit].ToString()), SqlString2Std(results[dateOfBirth].ToString()), results[guardians], results[children], results[spouse]);
             }
             results.Close();
         }

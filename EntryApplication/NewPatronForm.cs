@@ -16,6 +16,7 @@ namespace EntryApplication
         private Patron newPatron = new Patron();
         public Patron GetData() => newPatron;
 
+
         public NewPatronForm()
         {
             InitializeComponent();
@@ -35,6 +36,33 @@ namespace EntryApplication
             // Fill a buffer of empty spaces for user to add names
             for (int i = 0; i < 10; ++i)
                 relativesDataView.Rows.Add();
+        }
+
+        // An alternate constructor for editing patrons
+        public NewPatronForm(string firstName, string lastName, string middleInitial, string dateOfBirth, string guardians, string children, string spouse)
+        {
+            // Standard init
+            InitializeComponent();
+
+
+            // Create a combobox with options as to what type of relative the given person is. Add this to the columns
+            DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn();
+            combo.HeaderText = "Relation Type";
+            combo.Name = "combo";
+            combo.MaxDropDownItems = 4;
+            combo.Items.Add("Parent/Guardian");
+            combo.Items.Add("Child");
+            combo.Items.Add("Spouse");
+            relativesDataView.Columns.Add(combo);
+
+
+            // Fill a buffer of empty spaces for user to add names
+            for (int i = 0; i < 10; ++i)
+                relativesDataView.Rows.Add();
+
+            firstNameTextBox.Text = firstName;
+            lastNameTextBox.Text = lastName;
+            middleInitialTextBox.Text = middleInitial;
         }
 
         // When the '+' button is clicked to add a row, add a row.
@@ -66,6 +94,8 @@ namespace EntryApplication
 
             // Get the person's date of birth, in sql string format
             newPatron.dateOfBirth = yearTextBox.Text.ToString() + '-' + monthTextBox.Text.ToString() + '-' + dayTextBox.Text.ToString();
+            if ((yearTextBox.Text.ToString() == "") || (monthTextBox.Text.ToString() == "") || (dayTextBox.Text.ToString() == "")
+                newPatron.dateOfBirth = "";
         }
     }
 }
