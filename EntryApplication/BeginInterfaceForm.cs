@@ -201,14 +201,14 @@ namespace EntryApplication
             if (form.Saved())
             {
                 Patron p = form.GetData();
-                string data = p.firstName + ','
-                    + p.middleInitial + ','
-                    + p.lastName + ','
-                    + p.spouse + ','
-                    + p.guardians + ','
-                    + p.children + ','
-                    + ','
-                    + p.dateOfBirth + ',';
+                string data = "'" + p.firstName + "'" + ','
+                    + "'" + p.middleInitial + "'" + ','
+                    + "'" + p.lastName + "'" + ','
+                    + "'" + p.spouse + "'" + ','
+                    + "'" + p.guardians + "'" + ','
+                    + "'" + p.children + "'" + ','
+                    + "''" + ','
+                    + "'" + p.dateOfBirth + "'";
 
                 // Add in the values
                 SqlCommand addCommand = new SqlCommand("INSERT INTO Patrons VALUES (" + data + ")", sqlConnection);
@@ -235,23 +235,23 @@ namespace EntryApplication
             if (form.Saved())
             {
                 Patron p = form.GetData();
-                string data = p.firstName + ','
-                    + p.middleInitial + ','
-                    + p.lastName + ','
-                    + p.spouse + ','
-                    + p.guardians + ','
-                    + p.children + ','
-                    + ','
-                    + p.dateOfBirth + ',';
+                string data = "'" + p.firstName + "'" + ','
+                    + "'" + p.middleInitial + "'" + ','
+                    + "'" + p.lastName + "'" + ','
+                    + "'" + p.spouse + "'" + ','
+                    + "'" + p.guardians + "'" + ','
+                    + "'" + p.children + "'" + ','
+                    + "''" + ','
+                    + "'" + p.dateOfBirth + "'";
 
                 // Remove old values
                 string command = "DELETE FROM Patrons WHERE" +
-                    patronFirstName + "=" + firstName + " AND "
-                    + patronLastName + "=" + lastName + " AND "
-                    + middleI + "=" + middleInitial + " AND "
-                    + childrens + "=" + children + " AND "
-                    + Guardians + "=" + guardians + " AND "
-                    + spouseColumn + "=" + spouse;
+                    patronFirstName + "='" + firstName + "' AND "
+                    + patronLastName + "='" + lastName + "' AND "
+                    + middleI + "='" + middleInitial + "' AND "
+                    + childrens + "='" + children + "' AND "
+                    + Guardians + "='" + guardians + "' AND "
+                    + spouseColumn + "='" + spouse + "'";
                 SqlCommand delCommand = new SqlCommand(command, sqlConnection);
                 delCommand.BeginExecuteNonQuery();
 

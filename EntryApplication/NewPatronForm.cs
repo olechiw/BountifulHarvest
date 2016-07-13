@@ -110,9 +110,9 @@ namespace EntryApplication
         private void submitButtonClick(object sender, EventArgs e)
         {
             // Fill the newPatron structure
-            newPatron.firstName = (firstNameTextBox.Text.ToString() == "" ? "''" : "'" + firstNameTextBox.Text.ToString() + "'");
-            newPatron.lastName = (lastNameTextBox.Text.ToString() == "" ? "''" : lastNameTextBox.Text.ToString());
-            newPatron.middleInitial = (middleInitialTextBox.Text.ToString() == "" ? "''" : "'" + middleInitialTextBox.Text.ToString() + "'");
+            newPatron.firstName = firstNameTextBox.Text.ToString();
+            newPatron.lastName = lastNameTextBox.Text.ToString();
+            newPatron.middleInitial = middleInitialTextBox.Text.ToString();
 
             // Iterate through all of the dataview, and record each entry
             for (int i = 0; i < relativesDataView.Rows.Count; ++i)
