@@ -37,14 +37,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.outputDataView = new System.Windows.Forms.DataGridView();
             this.dateLabel = new System.Windows.Forms.Label();
-            this.patronFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.middleI = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronFirstNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.middleIColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronLastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronGenderColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronLastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.guardian = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.childs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.spouseColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronFamilyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.morePatronInfoButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +52,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(182, 96);
+            this.label1.Location = new System.Drawing.Point(25, 96);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(109, 32);
             this.label1.TabIndex = 1;
@@ -80,7 +80,7 @@
             // 
             // addPatronButton
             // 
-            this.addPatronButton.Location = new System.Drawing.Point(1134, 147);
+            this.addPatronButton.Location = new System.Drawing.Point(1169, 159);
             this.addPatronButton.Name = "addPatronButton";
             this.addPatronButton.Size = new System.Drawing.Size(150, 46);
             this.addPatronButton.TabIndex = 5;
@@ -90,7 +90,7 @@
             // 
             // editPatronButton
             // 
-            this.editPatronButton.Location = new System.Drawing.Point(1134, 221);
+            this.editPatronButton.Location = new System.Drawing.Point(1169, 221);
             this.editPatronButton.Name = "editPatronButton";
             this.editPatronButton.Size = new System.Drawing.Size(150, 46);
             this.editPatronButton.TabIndex = 6;
@@ -99,7 +99,7 @@
             // 
             // visitPrintButton
             // 
-            this.visitPrintButton.Location = new System.Drawing.Point(1134, 493);
+            this.visitPrintButton.Location = new System.Drawing.Point(1169, 349);
             this.visitPrintButton.Name = "visitPrintButton";
             this.visitPrintButton.Size = new System.Drawing.Size(150, 46);
             this.visitPrintButton.TabIndex = 7;
@@ -124,48 +124,53 @@
             this.outputDataView.AllowUserToResizeRows = false;
             this.outputDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.outputDataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.patronFirstName,
-            this.middleI,
-            this.patronLastName,
+            this.patronFirstNameColumn,
+            this.middleIColumn,
+            this.patronLastNameColumn,
+            this.patronGenderColumn,
             this.patronLastVisit,
             this.patronAge,
-            this.guardian,
-            this.childs,
-            this.spouseColumn});
+            this.patronFamilyColumn});
             this.outputDataView.Location = new System.Drawing.Point(12, 131);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.ReadOnly = true;
             this.outputDataView.RowTemplate.Height = 24;
-            this.outputDataView.Size = new System.Drawing.Size(1065, 500);
+            this.outputDataView.Size = new System.Drawing.Size(1125, 500);
             this.outputDataView.TabIndex = 3;
             // 
             // dateLabel
             // 
             this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(1131, 91);
+            this.dateLabel.Location = new System.Drawing.Point(968, 47);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(92, 17);
             this.dateLabel.TabIndex = 9;
             this.dateLabel.Text = "Today\'s Date";
             // 
-            // patronFirstName
+            // patronFirstNameColumn
             // 
-            this.patronFirstName.HeaderText = "First Name";
-            this.patronFirstName.Name = "patronFirstName";
-            this.patronFirstName.ReadOnly = true;
+            this.patronFirstNameColumn.HeaderText = "First Name";
+            this.patronFirstNameColumn.Name = "patronFirstNameColumn";
+            this.patronFirstNameColumn.ReadOnly = true;
             // 
-            // middleI
+            // middleIColumn
             // 
-            this.middleI.HeaderText = "M.I.";
-            this.middleI.Name = "middleI";
-            this.middleI.ReadOnly = true;
+            this.middleIColumn.HeaderText = "M.I.";
+            this.middleIColumn.Name = "middleIColumn";
+            this.middleIColumn.ReadOnly = true;
             // 
-            // patronLastName
+            // patronLastNameColumn
             // 
-            this.patronLastName.HeaderText = "Last Name";
-            this.patronLastName.Name = "patronLastName";
-            this.patronLastName.ReadOnly = true;
+            this.patronLastNameColumn.HeaderText = "Last Name";
+            this.patronLastNameColumn.Name = "patronLastNameColumn";
+            this.patronLastNameColumn.ReadOnly = true;
+            // 
+            // patronGenderColumn
+            // 
+            this.patronGenderColumn.HeaderText = "Gender";
+            this.patronGenderColumn.Name = "patronGenderColumn";
+            this.patronGenderColumn.ReadOnly = true;
             // 
             // patronLastVisit
             // 
@@ -179,32 +184,27 @@
             this.patronAge.Name = "patronAge";
             this.patronAge.ReadOnly = true;
             // 
-            // guardian
+            // patronFamilyColumn
             // 
-            this.guardian.HeaderText = "Guardians";
-            this.guardian.MinimumWidth = 100;
-            this.guardian.Name = "guardian";
-            this.guardian.ReadOnly = true;
-            this.guardian.Width = 200;
+            this.patronFamilyColumn.HeaderText = "Family";
+            this.patronFamilyColumn.Name = "patronFamilyColumn";
+            this.patronFamilyColumn.ReadOnly = true;
             // 
-            // childs
+            // morePatronInfoButton
             // 
-            this.childs.HeaderText = "Children";
-            this.childs.Name = "childs";
-            this.childs.ReadOnly = true;
-            this.childs.Width = 200;
-            // 
-            // spouseColumn
-            // 
-            this.spouseColumn.HeaderText = "Spouse";
-            this.spouseColumn.Name = "spouseColumn";
-            this.spouseColumn.ReadOnly = true;
+            this.morePatronInfoButton.Location = new System.Drawing.Point(1169, 285);
+            this.morePatronInfoButton.Name = "morePatronInfoButton";
+            this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
+            this.morePatronInfoButton.TabIndex = 10;
+            this.morePatronInfoButton.Text = "More Info";
+            this.morePatronInfoButton.UseVisualStyleBackColor = true;
             // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1296, 661);
+            this.ClientSize = new System.Drawing.Size(1368, 661);
+            this.Controls.Add(this.morePatronInfoButton);
             this.Controls.Add(this.dateLabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.visitPrintButton);
@@ -233,14 +233,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView outputDataView;
         private System.Windows.Forms.Label dateLabel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patronFirstName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn middleI;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patronLastName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronFirstNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn middleIColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronLastNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronGenderColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronLastVisit;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronAge;
-        private System.Windows.Forms.DataGridViewTextBoxColumn guardian;
-        private System.Windows.Forms.DataGridViewTextBoxColumn childs;
-        private System.Windows.Forms.DataGridViewTextBoxColumn spouseColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyColumn;
+        private System.Windows.Forms.Button morePatronInfoButton;
     }
 }
 

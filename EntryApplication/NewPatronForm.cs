@@ -30,9 +30,8 @@ namespace EntryApplication
             combo.HeaderText = "Relation Type";
             combo.Name = "combo";
             combo.MaxDropDownItems = 4;
-            combo.Items.Add("Parent/Guardian");
+            combo.Items.Add("Adult");
             combo.Items.Add("Child");
-            combo.Items.Add("Spouse");
             relativesDataView.Columns.Add(combo);
 
 
@@ -42,7 +41,7 @@ namespace EntryApplication
         }
 
         // An alternate constructor for editing patrons
-        public NewPatronForm(string firstName, string lastName, string middleInitial, string dateOfBirth, string guardians, string children, string spouse)
+        public NewPatronForm(string firstName, string lastName, string middleInitial, string gender, string dateOfBirth, string family)
         {
             // Standard init
             InitializeComponent();
@@ -53,9 +52,8 @@ namespace EntryApplication
             combo.HeaderText = "Relation Type";
             combo.Name = "combo";
             combo.MaxDropDownItems = 4;
-            combo.Items.Add("Parent/Guardian");
+            combo.Items.Add("Adult");
             combo.Items.Add("Child");
-            combo.Items.Add("Spouse");
             relativesDataView.Columns.Add(combo);
 
 
@@ -71,32 +69,15 @@ namespace EntryApplication
                 monthTextBox.Text = date[1];
                 dayTextBox.Text = date[2];
             }
-            //
-            // Relatives
-            //
             
-            // Guardians
-            if (guardians != "")
+            // Load family
+            if (family != "")
             {
-                string[] guardian = guardians.Split(',');
-                foreach (string relative in guardian)
-                {
-                    relativesDataView.Rows.Add(relative, "Parent/Guardian");
-                }
-            }
+                string[] familyMembers = family.Split(',');
 
-            // Children
-            if (guardians != "")
-            {
-                string[] child = children.Split(',');
-                foreach (string relative in child)
-                {
-                    relativesDataView.Rows.Add(relative, "Child");
-                }
+                foreach (string member in familyMembers)
+                    relativesDataView.Rows.Add(member);
             }
-
-            if (spouse != "")
-                relativesDataView.Rows.Add(spouse, "Spouse");
 
             // Fill a buffer of empty spaces for user to add names
             for (int i = 0; i < 10; ++i)
@@ -114,21 +95,7 @@ namespace EntryApplication
             newPatron.lastName = lastNameTextBox.Text.ToString();
             newPatron.middleInitial = middleInitialTextBox.Text.ToString();
 
-            // Iterate through all of the dataview, and record each entry
-            for (int i = 0; i < relativesDataView.Rows.Count; ++i)
-            {
-                // Get the person's name
-                string relative = relativesDataView.Rows[i].Cells[0].ToString();
-
-                // Get the person's relation
-                string relativeType = relativesDataView.Rows[i].Cells[1].ToString();
-                if (relativeType == "Parent/Guardian")
-                    newPatron.guardians.Add(relative);
-                else if (relativeType == "Child")
-                    newPatron.children.Add(relative);
-                else if (relativeType == "Spouse")
-                    newPatron.spouse = relative;
-            }
+            //////TODO:FAMILY
 
             // Get the person's date of birth, in sql string format
             newPatron.dateOfBirth = yearTextBox.Text.ToString() + '-' + monthTextBox.Text.ToString() + '-' + dayTextBox.Text.ToString();
