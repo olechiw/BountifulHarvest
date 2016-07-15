@@ -65,6 +65,8 @@ namespace EntryApplication
             dateLabel.Text = "Today's Date is: " + today.ToString(dateCode);
 
             // Start the SQL Server!
+            // InitializeSQLServer();
+            // Currently broken
 
             // Connect to the local SQL Database
             sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;User Id=sa; Password=potato");
@@ -76,30 +78,17 @@ namespace EntryApplication
         // Initalize and start the SQL server
         private void InitializeSQLServer()
         {
-            string serviceName = "MSQL$SQLEXPRESSS";
+            string serviceName = "MSSQL$SQLEXPRESS";
             string status;
 
-            ServiceController controller = new ServiceController(serviceName);
-            try
-            {
-                status = controller.Status.ToString();
-            }
-            catch (Exception ex)
-            {
-                // This should never happen!!
-            }
+            ServiceController controller = new ServiceController(serviceName, "JakobsPC");
+
+            status = controller.Status.ToString();
+
             if (controller.Status.Equals(ServiceControllerStatus.Stopped) | controller.Status.Equals(ServiceControllerStatus.StopPending))
             {
-                try
-                {
-                    // Start the service
-                    controller.Start();
-                    controller.WaitForStatus(ServiceControllerStatus.Running);
-                }
-                catch (Exception ex)
-                {
-                    // Failed to start. Also should never happen
-                }
+                controller.Start();
+                controller.WaitForStatus(ServiceControllerStatus.Running);
             }
         }
 
@@ -187,7 +176,7 @@ namespace EntryApplication
             outputDataView.Rows.Clear();
             while (results.Read())
             {
-                AddDataRow(results[firstName].ToString(), results[lastName].ToString(), SqlString2Std(results[dateOfLastVisit].ToString()), SqlString2Std(results[dateOfBirth].ToString()), results[Guardians], results[childrens], results[spouse]);
+                AddDataRow(results[firstName].ToString(), results[middleInitial].ToString(), results[lastName].ToString(), SqlString2Std(results[dateOfLastVisit].ToString()), SqlString2Std(results[dateOfBirth].ToString()), results[Guardians], results[childrens], results[spouse]);
             }
             results.Close();
         }
