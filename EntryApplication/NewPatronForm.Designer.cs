@@ -47,7 +47,7 @@
             this.addRowButton = new System.Windows.Forms.Button();
             this.relationsLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.commentsRichTextBox = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -184,7 +184,7 @@
             // personName
             // 
             this.personName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.personName.HeaderText = "Person Name";
+            this.personName.HeaderText = "Person First and Last Name";
             this.personName.Name = "personName";
             // 
             // addRowButton
@@ -218,19 +218,20 @@
             this.submitButton.UseVisualStyleBackColor = true;
             this.submitButton.Click += new System.EventHandler(this.submitButtonClick);
             // 
-            // textBox1
+            // commentsRichTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(67, 254);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 18;
+            this.commentsRichTextBox.Location = new System.Drawing.Point(48, 313);
+            this.commentsRichTextBox.Name = "commentsRichTextBox";
+            this.commentsRichTextBox.Size = new System.Drawing.Size(266, 138);
+            this.commentsRichTextBox.TabIndex = 19;
+            this.commentsRichTextBox.Text = "";
             // 
             // NewPatronForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 593);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.commentsRichTextBox);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.relationsLabel);
             this.Controls.Add(this.addRowButton);
@@ -274,10 +275,10 @@
         private System.Windows.Forms.TextBox middleInitialTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView relativesDataView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn personName;
         private System.Windows.Forms.Button addRowButton;
         private System.Windows.Forms.Label relationsLabel;
         private System.Windows.Forms.Button submitButton;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn personName;
+        private System.Windows.Forms.RichTextBox commentsRichTextBox;
     }
 }

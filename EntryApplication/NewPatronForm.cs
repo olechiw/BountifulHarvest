@@ -25,37 +25,16 @@ namespace EntryApplication
             InitializeComponent();
 
 
-            // Create a combobox with options as to what type of relative the given person is. Add this to the columns
-            DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn();
-            combo.HeaderText = "Relation Type";
-            combo.Name = "combo";
-            combo.MaxDropDownItems = 4;
-            combo.Items.Add("Adult");
-            combo.Items.Add("Child");
-            relativesDataView.Columns.Add(combo);
-
-
             // Fill a buffer of empty spaces for user to add names
             for (int i = 0; i < 10; ++i)
                 relativesDataView.Rows.Add();
         }
 
         // An alternate constructor for editing patrons
-        public NewPatronForm(string firstName, string lastName, string middleInitial, string gender, string dateOfBirth, string family)
+        public NewPatronForm(string firstName, string lastName, string middleInitial, string gender, string dateOfBirth, string family, string address, string phoneNumber, string comments)
         {
             // Standard init
             InitializeComponent();
-
-
-            // Create a combobox with options as to what type of relative the given person is. Add this to the columns
-            DataGridViewComboBoxColumn combo = new DataGridViewComboBoxColumn();
-            combo.HeaderText = "Relation Type";
-            combo.Name = "combo";
-            combo.MaxDropDownItems = 4;
-            combo.Items.Add("Adult");
-            combo.Items.Add("Child");
-            relativesDataView.Columns.Add(combo);
-
 
             firstNameTextBox.Text = firstName;
             lastNameTextBox.Text = lastName;
@@ -95,7 +74,10 @@ namespace EntryApplication
             newPatron.lastName = lastNameTextBox.Text.ToString();
             newPatron.middleInitial = middleInitialTextBox.Text.ToString();
 
-            //////TODO:FAMILY
+            string family = "";
+            // Get all of the family members
+            foreach (DataGridViewRow row in relativesDataView.Rows)
+                family += row.Cells[0].ToString();
 
             // Get the person's date of birth, in sql string format
             newPatron.dateOfBirth = yearTextBox.Text.ToString() + '-' + monthTextBox.Text.ToString() + '-' + dayTextBox.Text.ToString();

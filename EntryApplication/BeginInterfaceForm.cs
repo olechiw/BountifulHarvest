@@ -27,7 +27,8 @@ namespace EntryApplication
             dateOfBirth,
 
             phoneNumber,
-            address;
+            address,
+            comments;
     }
 
     public partial class BeginInterfaceForm : Form
@@ -42,7 +43,8 @@ namespace EntryApplication
         private const string patronDateOfBirth = "DateOfBirth";
         private const string patronAddress = "Address";
         private const string patronPhoneNumber = "PhoneNumber";
-        private const string comments = "Comments";
+        private const string patronComments = "Comments";
+        private const string patronInitialVisitDate = "InitialVisitDate";
 
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
@@ -223,15 +225,30 @@ namespace EntryApplication
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
             // Load existing data about patron
-            string firstName = row.Cells[0].Value.ToString();
-            string lastName = row.Cells[2].Value.ToString();
-            string middleInitial = row.Cells[1].Value.ToString();
-            string gender = row.Cells[3].Value.ToString();
-            string dateOfBirth = row.Cells[5].Value.ToString();
-            string family = row.Cells[6].Value.ToString();
+
+            string queryCommandString = "SELECT * FROM PATRONS WHERE "
+                + patronFirstName + "=" + row.Cells[0] + " AND "
+                + patronLastName + "=" + row.Cells[2] + " AND "
+                + patronFamily + "=" + row.Cells[6];
+
+            SqlCommand searchCommand = new SqlCommand(queryCommandString, sqlConnection);
+            SqlDataReader search = searchCommand.ExecuteReader();
+            search.Read();
+
+            string firstName, lastName, middleInitial, gender, dateOfBirth, family, address, phoneNumber, comments;
+            firstName = search[patronFirstName].ToString();
+            lastName = search[patronLastName].ToString();
+            middleInitial = search[patronMiddleInitial].ToString();
+            gender = search[patronGender].ToString();
+            dateOfBirth = search[patronDateOfBirth].ToString();
+            family = search[patronFamily].ToString();
+            address = search[patronAddress].ToString();
+            phoneNumber = search[patronPhoneNumber].ToString();
+            comments = search[patronComments].ToString();
+            
 
             // Get new data
-            NewPatronForm form = new NewPatronForm(firstName, lastName, middleInitial, dateOfBirth, family);
+            NewPatronForm form = new NewPatronForm(firstName, lastName, middleInitial, gender, dateOfBirth, family, address, phoneNumber, comments);
             form.ShowDialog();
 
             if (form.Saved())
@@ -241,9 +258,11 @@ namespace EntryApplication
                     + "'" + p.middleInitial + "'" + ','
                     + "'" + p.lastName + "'" + ','
                     + "'" + p.gender + "'" + ','
-                    + "''" + ','
+                    + "'" + search[patronDateOfLastVisit].ToString() + "'" + ','
                     + "'" + p.dateOfBirth + "'" + ','
-                    + "'" + p.family + "'";
+                    + "'" + p.family + "'" + ','
+                    + "'" + p.phoneNumber + "'" + ','
+                    + "'" + p.address + "'";
 
                 // Remove old values
                 string command = "DELETE FROM Patrons WHERE" +
@@ -258,6 +277,8 @@ namespace EntryApplication
                 SqlCommand addCommand = new SqlCommand("INSERT INTO Patrons VALUES (" + data + ")");
                 addCommand.BeginExecuteNonQuery();
             }
+
+            search.Close();
         }
 
         // When the button to print a report is clicked
