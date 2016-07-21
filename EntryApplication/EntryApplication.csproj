@@ -76,6 +76,12 @@
     <Compile Include="BeginInterfaceForm.Designer.cs">
       <DependentUpon>BeginInterfaceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MorePatronInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MorePatronInfoForm.Designer.cs">
+      <DependentUpon>MorePatronInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewPatronForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BeginInterfaceForm.resx">
       <DependentUpon>BeginInterfaceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MorePatronInfoForm.resx">
+      <DependentUpon>MorePatronInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewPatronForm.resx">
       <DependentUpon>NewPatronForm.cs</DependentUpon>

@@ -324,5 +324,16 @@ namespace EntryApplication
             PrintVisitForm printForm = new PrintVisitForm(firstName, middleInitial, lastName, portionsAllowed, today.ToString(dateCode));
             printForm.ShowDialog();
         }
+
+        private void morePatronInfoButtonClick(object sender, EventArgs e)
+        {
+            DataGridViewRow row = outputDataView.SelectedRows[0];
+
+            string firstName = row.Cells[0].Value.ToString();
+            string lastName = row.Cells[2].Value.ToString();
+            string middleInitial = row.Cells[1].Value.ToString();
+
+            string name = firstName + ' ' + middleInitial + ' ' + lastName;
+        }
     }
 }

@@ -36,8 +36,6 @@
             this.visitPrintButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.outputDataView = new System.Windows.Forms.DataGridView();
-            this.dateLabel = new System.Windows.Forms.Label();
-            this.morePatronInfoButton = new System.Windows.Forms.Button();
             this.patronFirstNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.middleIColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronLastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,6 +43,8 @@
             this.patronLastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronFamilyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateLabel = new System.Windows.Forms.Label();
+            this.morePatronInfoButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,7 +80,7 @@
             // 
             // addPatronButton
             // 
-            this.addPatronButton.Location = new System.Drawing.Point(1663, 150);
+            this.addPatronButton.Location = new System.Drawing.Point(1720, 140);
             this.addPatronButton.Name = "addPatronButton";
             this.addPatronButton.Size = new System.Drawing.Size(150, 46);
             this.addPatronButton.TabIndex = 5;
@@ -90,7 +90,7 @@
             // 
             // editPatronButton
             // 
-            this.editPatronButton.Location = new System.Drawing.Point(1663, 316);
+            this.editPatronButton.Location = new System.Drawing.Point(1720, 297);
             this.editPatronButton.Name = "editPatronButton";
             this.editPatronButton.Size = new System.Drawing.Size(150, 46);
             this.editPatronButton.TabIndex = 6;
@@ -99,7 +99,7 @@
             // 
             // visitPrintButton
             // 
-            this.visitPrintButton.Location = new System.Drawing.Point(1663, 557);
+            this.visitPrintButton.Location = new System.Drawing.Point(1720, 555);
             this.visitPrintButton.Name = "visitPrintButton";
             this.visitPrintButton.Size = new System.Drawing.Size(150, 46);
             this.visitPrintButton.TabIndex = 7;
@@ -136,26 +136,8 @@
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.ReadOnly = true;
             this.outputDataView.RowTemplate.Height = 24;
-            this.outputDataView.Size = new System.Drawing.Size(1590, 629);
+            this.outputDataView.Size = new System.Drawing.Size(1640, 708);
             this.outputDataView.TabIndex = 3;
-            // 
-            // dateLabel
-            // 
-            this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(968, 47);
-            this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(92, 17);
-            this.dateLabel.TabIndex = 9;
-            this.dateLabel.Text = "Today\'s Date";
-            // 
-            // morePatronInfoButton
-            // 
-            this.morePatronInfoButton.Location = new System.Drawing.Point(1663, 430);
-            this.morePatronInfoButton.Name = "morePatronInfoButton";
-            this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
-            this.morePatronInfoButton.TabIndex = 10;
-            this.morePatronInfoButton.Text = "More Info";
-            this.morePatronInfoButton.UseVisualStyleBackColor = true;
             // 
             // patronFirstNameColumn
             // 
@@ -206,11 +188,30 @@
             this.patronFamilyColumn.ReadOnly = true;
             this.patronFamilyColumn.Width = 250;
             // 
+            // dateLabel
+            // 
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.Location = new System.Drawing.Point(968, 47);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(92, 17);
+            this.dateLabel.TabIndex = 9;
+            this.dateLabel.Text = "Today\'s Date";
+            // 
+            // morePatronInfoButton
+            // 
+            this.morePatronInfoButton.Location = new System.Drawing.Point(1720, 429);
+            this.morePatronInfoButton.Name = "morePatronInfoButton";
+            this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
+            this.morePatronInfoButton.TabIndex = 10;
+            this.morePatronInfoButton.Text = "More Info";
+            this.morePatronInfoButton.UseVisualStyleBackColor = true;
+            this.morePatronInfoButton.Click += new System.EventHandler(this.morePatronInfoButtonClick);
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1914, 814);
+            this.ClientSize = new System.Drawing.Size(1914, 851);
             this.Controls.Add(this.morePatronInfoButton);
             this.Controls.Add(this.dateLabel);
             this.Controls.Add(this.label3);

@@ -34,7 +34,6 @@
             this.printButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.middleInitialLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.portionsAllowedLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -43,7 +42,7 @@
             // 
             this.firstNameLabel.AutoSize = true;
             this.firstNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.firstNameLabel.Location = new System.Drawing.Point(72, 60);
+            this.firstNameLabel.Location = new System.Drawing.Point(71, 60);
             this.firstNameLabel.Name = "firstNameLabel";
             this.firstNameLabel.Size = new System.Drawing.Size(167, 32);
             this.firstNameLabel.TabIndex = 0;
@@ -53,7 +52,7 @@
             // 
             this.lastNameLabel.AutoSize = true;
             this.lastNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastNameLabel.Location = new System.Drawing.Point(72, 215);
+            this.lastNameLabel.Location = new System.Drawing.Point(72, 230);
             this.lastNameLabel.Name = "lastNameLabel";
             this.lastNameLabel.Size = new System.Drawing.Size(166, 32);
             this.lastNameLabel.TabIndex = 1;
@@ -94,21 +93,11 @@
             // 
             this.middleInitialLabel.AutoSize = true;
             this.middleInitialLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.middleInitialLabel.Location = new System.Drawing.Point(78, 138);
+            this.middleInitialLabel.Location = new System.Drawing.Point(72, 150);
             this.middleInitialLabel.Name = "middleInitialLabel";
             this.middleInitialLabel.Size = new System.Drawing.Size(46, 32);
             this.middleInitialLabel.TabIndex = 5;
             this.middleInitialLabel.Text = "M:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(78, 397);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(180, 32);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Date of Birth:";
             // 
             // cancelButton
             // 
@@ -125,11 +114,11 @@
             // 
             this.portionsAllowedLabel.AutoSize = true;
             this.portionsAllowedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.portionsAllowedLabel.Location = new System.Drawing.Point(580, 229);
+            this.portionsAllowedLabel.Location = new System.Drawing.Point(574, 251);
             this.portionsAllowedLabel.Name = "portionsAllowedLabel";
-            this.portionsAllowedLabel.Size = new System.Drawing.Size(236, 32);
+            this.portionsAllowedLabel.Size = new System.Drawing.Size(206, 32);
             this.portionsAllowedLabel.TabIndex = 8;
-            this.portionsAllowedLabel.Text = "Portions Allowed:";
+            this.portionsAllowedLabel.Text = "Limits Allowed:";
             // 
             // PrintVisitForm
             // 
@@ -138,7 +127,6 @@
             this.ClientSize = new System.Drawing.Size(1062, 593);
             this.Controls.Add(this.portionsAllowedLabel);
             this.Controls.Add(this.cancelButton);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.middleInitialLabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.printButton);
@@ -161,7 +149,6 @@
         private System.Windows.Forms.Button printButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label middleInitialLabel;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label portionsAllowedLabel;
     }
