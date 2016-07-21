@@ -1,6 +1,6 @@
 ﻿namespace EntryApplication
 {
-    partial class MorePatronInfoForm
+    partial class MoreInfoForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,6 +35,8 @@
             this.lastVisitLabel = new System.Windows.Forms.Label();
             this.firstVisitLabel = new System.Windows.Forms.Label();
             this.closeButton = new System.Windows.Forms.Button();
+            this.familyLabel = new System.Windows.Forms.Label();
+            this.commentsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -100,7 +102,7 @@
             // closeButton
             // 
             this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.closeButton.Location = new System.Drawing.Point(1043, 508);
+            this.closeButton.Location = new System.Drawing.Point(1195, 558);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(185, 81);
             this.closeButton.TabIndex = 6;
@@ -108,11 +110,33 @@
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButtonClick);
             // 
-            // MorePatronInfoForm
+            // familyLabel
+            // 
+            this.familyLabel.AutoSize = true;
+            this.familyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.familyLabel.Location = new System.Drawing.Point(768, 346);
+            this.familyLabel.Name = "familyLabel";
+            this.familyLabel.Size = new System.Drawing.Size(127, 39);
+            this.familyLabel.TabIndex = 7;
+            this.familyLabel.Text = "Family:";
+            // 
+            // commentsLabel
+            // 
+            this.commentsLabel.AutoSize = true;
+            this.commentsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.commentsLabel.Location = new System.Drawing.Point(761, 484);
+            this.commentsLabel.Name = "commentsLabel";
+            this.commentsLabel.Size = new System.Drawing.Size(190, 39);
+            this.commentsLabel.TabIndex = 8;
+            this.commentsLabel.Text = "Comments:";
+            // 
+            // MoreInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1412, 691);
+            this.Controls.Add(this.commentsLabel);
+            this.Controls.Add(this.familyLabel);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.firstVisitLabel);
             this.Controls.Add(this.lastVisitLabel);
@@ -120,7 +144,7 @@
             this.Controls.Add(this.addressLabel);
             this.Controls.Add(this.dateOfBirthLabel);
             this.Controls.Add(this.nameLabel);
-            this.Name = "MorePatronInfoForm";
+            this.Name = "MoreInfoForm";
             this.Text = "More Info";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -136,5 +160,7 @@
         private System.Windows.Forms.Label lastVisitLabel;
         private System.Windows.Forms.Label firstVisitLabel;
         private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Label familyLabel;
+        private System.Windows.Forms.Label commentsLabel;
     }
 }

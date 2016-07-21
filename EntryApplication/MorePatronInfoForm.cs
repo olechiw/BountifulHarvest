@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace EntryApplication
 {
-    public partial class MorePatronInfoForm : Form
+    public partial class MoreInfoForm : Form
     {
         // Simple constructor, set the values of each text field to the corresponding arguments. Then use the SqlConnection to fill in the blanks
-        public MorePatronInfoForm()
+        public MoreInfoForm(string name, string dateOfBirth, string address, string phoneNumber, string lastVisit, string firstVisit, string family, string comments)
         {
+            // Load all of the labels
+            nameLabel.Text += name;
+            dateOfBirthLabel.Text += dateOfBirth;
+            addressLabel.Text += address;
+            phoneNumberLabel.Text += address;
+            lastVisitLabel.Text += lastVisit;
+            firstVisitLabel.Text += firstVisit;
+            familyLabel.Text += family;
+            commentsLabel.Text += comments;
+
             InitializeComponent();
         }
 

@@ -33,6 +33,7 @@ namespace EntryApplication
 
     public partial class BeginInterfaceForm : Form
     {
+        #region Constants for Querying SQL Columns
         // Hardcoded strings for all of the column names in SQL
         private const string patronFirstName = "FirstName";
         private const string patronLastName = "LastName";
@@ -45,6 +46,7 @@ namespace EntryApplication
         private const string patronPhoneNumber = "PhoneNumber";
         private const string patronComments = "Comments";
         private const string patronInitialVisitDate = "InitialVisitDate";
+        #endregion
 
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
@@ -325,6 +327,7 @@ namespace EntryApplication
             printForm.ShowDialog();
         }
 
+        // When the button to view more information about a patron is clicked
         private void morePatronInfoButtonClick(object sender, EventArgs e)
         {
             DataGridViewRow row = outputDataView.SelectedRows[0];
@@ -334,6 +337,27 @@ namespace EntryApplication
             string middleInitial = row.Cells[1].Value.ToString();
 
             string name = firstName + ' ' + middleInitial + ' ' + lastName;
+
+            string queryCommandString = "SELECT * FROM PATRONS WHERE "
+                + patronFirstName + "=" + row.Cells[0] + " AND "
+                + patronLastName + "=" + row.Cells[2] + " AND "
+                + patronFamily + "=" + row.Cells[6];
+
+            SqlCommand queryCommand = new SqlCommand(queryCommandString, sqlConnection);
+            SqlDataReader query = queryCommand.ExecuteReader();
+
+            string dateOfBirth = query[patronDateOfBirth].ToString();
+            string address = query[patronAddress].ToString();
+            string phoneNumber = query[patronPhoneNumber].ToString();
+            string lastVisit = query[patronDateOfLastVisit].ToString();
+            string firstVisit = query[patronInitialVisitDate].ToString();
+            string family = query[patronFamily].ToString();
+            string comments = query[patronComments].ToString();
+
+            query.Close();
+
+            MoreInfoForm form = new MoreInfoForm(name, dateOfBirth, address, phoneNumber, lastVisit, firstVisit, family, comments);
+            form.ShowDialog();
         }
     }
 }
