@@ -222,6 +222,7 @@
             this.Controls.Add(this.outputDataView);
             this.Controls.Add(this.searchBox);
             this.Controls.Add(this.label1);
+            this.MinimumSize = new System.Drawing.Size(1918, 898);
             this.Name = "BeginInterfaceForm";
             this.Text = "Bountiful Harvest Patron Database";
             this.Load += new System.EventHandler(this.BeginInterfaceForm_Load);

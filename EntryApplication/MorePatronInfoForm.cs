@@ -15,6 +15,8 @@ namespace EntryApplication
         // Simple constructor, set the values of each text field to the corresponding arguments. Then use the SqlConnection to fill in the blanks
         public MoreInfoForm(string name, string dateOfBirth, string address, string phoneNumber, string lastVisit, string firstVisit, string family, string comments)
         {
+            InitializeComponent();
+
             // Load all of the labels
             nameLabel.Text += name;
             dateOfBirthLabel.Text += dateOfBirth;
@@ -24,8 +26,6 @@ namespace EntryApplication
             firstVisitLabel.Text += firstVisit;
             familyLabel.Text += family;
             commentsLabel.Text += comments;
-
-            InitializeComponent();
         }
 
         // When the close button is clicked, exit the window

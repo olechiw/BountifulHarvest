@@ -42,60 +42,60 @@
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameLabel.Location = new System.Drawing.Point(68, 56);
+            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameLabel.Location = new System.Drawing.Point(12, 46);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(117, 39);
+            this.nameLabel.Size = new System.Drawing.Size(98, 32);
             this.nameLabel.TabIndex = 0;
             this.nameLabel.Text = "Name:";
             // 
             // dateOfBirthLabel
             // 
             this.dateOfBirthLabel.AutoSize = true;
-            this.dateOfBirthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateOfBirthLabel.Location = new System.Drawing.Point(61, 183);
+            this.dateOfBirthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateOfBirthLabel.Location = new System.Drawing.Point(12, 183);
             this.dateOfBirthLabel.Name = "dateOfBirthLabel";
-            this.dateOfBirthLabel.Size = new System.Drawing.Size(214, 39);
+            this.dateOfBirthLabel.Size = new System.Drawing.Size(180, 32);
             this.dateOfBirthLabel.TabIndex = 1;
             this.dateOfBirthLabel.Text = "Date of Birth:";
             // 
             // addressLabel
             // 
             this.addressLabel.AutoSize = true;
-            this.addressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addressLabel.Location = new System.Drawing.Point(68, 316);
+            this.addressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.addressLabel.Location = new System.Drawing.Point(12, 325);
             this.addressLabel.Name = "addressLabel";
-            this.addressLabel.Size = new System.Drawing.Size(151, 39);
+            this.addressLabel.Size = new System.Drawing.Size(122, 31);
             this.addressLabel.TabIndex = 2;
             this.addressLabel.Text = "Address:";
             // 
             // phoneNumberLabel
             // 
             this.phoneNumberLabel.AutoSize = true;
-            this.phoneNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.phoneNumberLabel.Location = new System.Drawing.Point(61, 466);
+            this.phoneNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.phoneNumberLabel.Location = new System.Drawing.Point(12, 467);
             this.phoneNumberLabel.Name = "phoneNumberLabel";
-            this.phoneNumberLabel.Size = new System.Drawing.Size(255, 39);
+            this.phoneNumberLabel.Size = new System.Drawing.Size(203, 31);
             this.phoneNumberLabel.TabIndex = 3;
             this.phoneNumberLabel.Text = "Phone Number:";
             // 
             // lastVisitLabel
             // 
             this.lastVisitLabel.AutoSize = true;
-            this.lastVisitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.lastVisitLabel.Location = new System.Drawing.Point(761, 77);
+            this.lastVisitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.lastVisitLabel.Location = new System.Drawing.Point(793, 47);
             this.lastVisitLabel.Name = "lastVisitLabel";
-            this.lastVisitLabel.Size = new System.Drawing.Size(164, 39);
+            this.lastVisitLabel.Size = new System.Drawing.Size(133, 31);
             this.lastVisitLabel.TabIndex = 4;
             this.lastVisitLabel.Text = "Last Visit:";
             // 
             // firstVisitLabel
             // 
             this.firstVisitLabel.AutoSize = true;
-            this.firstVisitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.firstVisitLabel.Location = new System.Drawing.Point(768, 225);
+            this.firstVisitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.firstVisitLabel.Location = new System.Drawing.Point(801, 226);
             this.firstVisitLabel.Name = "firstVisitLabel";
-            this.firstVisitLabel.Size = new System.Drawing.Size(166, 39);
+            this.firstVisitLabel.Size = new System.Drawing.Size(135, 31);
             this.firstVisitLabel.TabIndex = 5;
             this.firstVisitLabel.Text = "First Visit:";
             // 
@@ -113,20 +113,20 @@
             // familyLabel
             // 
             this.familyLabel.AutoSize = true;
-            this.familyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.familyLabel.Location = new System.Drawing.Point(768, 346);
+            this.familyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.familyLabel.Location = new System.Drawing.Point(801, 349);
             this.familyLabel.Name = "familyLabel";
-            this.familyLabel.Size = new System.Drawing.Size(127, 39);
+            this.familyLabel.Size = new System.Drawing.Size(102, 31);
             this.familyLabel.TabIndex = 7;
             this.familyLabel.Text = "Family:";
             // 
             // commentsLabel
             // 
             this.commentsLabel.AutoSize = true;
-            this.commentsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.commentsLabel.Location = new System.Drawing.Point(761, 484);
+            this.commentsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.commentsLabel.Location = new System.Drawing.Point(793, 487);
             this.commentsLabel.Name = "commentsLabel";
-            this.commentsLabel.Size = new System.Drawing.Size(190, 39);
+            this.commentsLabel.Size = new System.Drawing.Size(153, 31);
             this.commentsLabel.TabIndex = 8;
             this.commentsLabel.Text = "Comments:";
             // 
@@ -134,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1412, 691);
+            this.ClientSize = new System.Drawing.Size(1593, 691);
             this.Controls.Add(this.commentsLabel);
             this.Controls.Add(this.familyLabel);
             this.Controls.Add(this.closeButton);
@@ -144,6 +144,7 @@
             this.Controls.Add(this.addressLabel);
             this.Controls.Add(this.dateOfBirthLabel);
             this.Controls.Add(this.nameLabel);
+            this.MinimumSize = new System.Drawing.Size(1611, 738);
             this.Name = "MoreInfoForm";
             this.Text = "More Info";
             this.ResumeLayout(false);

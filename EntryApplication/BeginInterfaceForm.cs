@@ -180,7 +180,7 @@ namespace EntryApplication
         // Update the data table with the results given the search box text
         private void UpdateResults(string query)
         {
-            SqlCommand searchCommand = new SqlCommand("SELECT * FROM Patrons WHERE FirstName LIKE '" + query + "%' OR LastName LIKE '" + query + "%' OR Guardians LIKE '%" + query + "%' OR Children LIKE '%" + query + "%'", sqlConnection);
+            SqlCommand searchCommand = new SqlCommand("SELECT * FROM Patrons WHERE FirstName LIKE '" + query + "%' OR LastName LIKE '" + query + "%' OR Family LIKE '%" + query + "%'", sqlConnection);
 
             SqlDataReader results = searchCommand.ExecuteReader();
 
@@ -327,7 +327,7 @@ namespace EntryApplication
             printForm.ShowDialog();
         }
 
-        // When the button to view more information about a patron is clicked
+        // When the button to view more information about a patron is clicked\
         private void morePatronInfoButtonClick(object sender, EventArgs e)
         {
             DataGridViewRow row = outputDataView.SelectedRows[0];
@@ -339,14 +339,15 @@ namespace EntryApplication
             string name = firstName + ' ' + middleInitial + ' ' + lastName;
 
             string queryCommandString = "SELECT * FROM PATRONS WHERE "
-                + patronFirstName + "=" + row.Cells[0] + " AND "
-                + patronLastName + "=" + row.Cells[2] + " AND "
-                + patronFamily + "=" + row.Cells[6];
+                + patronFirstName + "='" + row.Cells[0].Value.ToString() +"' AND "
+                + patronLastName + "='" + row.Cells[2].Value.ToString() +"' AND "
+                + patronFamily + "='" + row.Cells[6].Value.ToString() + "'";
 
             SqlCommand queryCommand = new SqlCommand(queryCommandString, sqlConnection);
             SqlDataReader query = queryCommand.ExecuteReader();
+            query.Read();
 
-            string dateOfBirth = query[patronDateOfBirth].ToString();
+            string dateOfBirth = query[patronDateOfBirth].ToString(); ;
             string address = query[patronAddress].ToString();
             string phoneNumber = query[patronPhoneNumber].ToString();
             string lastVisit = query[patronDateOfLastVisit].ToString();
