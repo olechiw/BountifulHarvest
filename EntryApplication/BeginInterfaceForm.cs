@@ -70,32 +70,11 @@ namespace EntryApplication
             DateTime today = DateTime.Today;
             dateLabel.Text = "Today's Date is: " + today.ToString(dateCode);
 
-            // Start the SQL Server!
-            // InitializeSQLServer();
-            // Currently broken
-
             // Connect to the local SQL Database
             sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;User Id=sa; Password=potato");
             sqlConnection.Open();
 
             LoadAllPatrons();
-        }
-
-        // Initalize and start the SQL server
-        private void InitializeSQLServer()
-        {
-            string serviceName = "MSSQL$SQLEXPRESS";
-            string status;
-
-            ServiceController controller = new ServiceController(serviceName, "JakobsPC");
-
-            status = controller.Status.ToString();
-
-            if (controller.Status.Equals(ServiceControllerStatus.Stopped) | controller.Status.Equals(ServiceControllerStatus.StopPending))
-            {
-                controller.Start();
-                controller.WaitForStatus(ServiceControllerStatus.Running);
-            }
         }
 
         // A second constructor, currently unused
