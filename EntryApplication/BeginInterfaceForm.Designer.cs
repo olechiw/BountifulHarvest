@@ -96,6 +96,7 @@
             this.editPatronButton.TabIndex = 6;
             this.editPatronButton.Text = "Edit Patron Entry";
             this.editPatronButton.UseVisualStyleBackColor = true;
+            this.editPatronButton.Click += new System.EventHandler(this.editPatronButtonClick);
             // 
             // visitPrintButton
             // 

@@ -74,6 +74,8 @@ namespace EntryApplication
             sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;User Id=sa; Password=potato");
             sqlConnection.Open();
 
+            this.WindowState = FormWindowState.Maximized;
+
             LoadAllPatrons();
         }
 
@@ -208,24 +210,27 @@ namespace EntryApplication
             // Load existing data about patron
 
             string queryCommandString = "SELECT * FROM PATRONS WHERE "
-                + patronFirstName + "=" + row.Cells[0] + " AND "
-                + patronLastName + "=" + row.Cells[2] + " AND "
-                + patronFamily + "=" + row.Cells[6];
+                + patronFirstName + "='" + row.Cells[0].Value.ToString() + "' AND "
+                + patronLastName + "='" + row.Cells[2].Value.ToString() + "' AND "
+                + patronFamily + "='" + row.Cells[6].Value.ToString() + "'";
 
             SqlCommand searchCommand = new SqlCommand(queryCommandString, sqlConnection);
             SqlDataReader search = searchCommand.ExecuteReader();
             search.Read();
 
-            string firstName, lastName, middleInitial, gender, dateOfBirth, family, address, phoneNumber, comments;
+            string firstName, lastName, middleInitial, gender, lastVisit, dateOfBirth, family, address, phoneNumber, comments, initialVisitDate;
             firstName = search[patronFirstName].ToString();
             lastName = search[patronLastName].ToString();
             middleInitial = search[patronMiddleInitial].ToString();
             gender = search[patronGender].ToString();
+            lastVisit = search[patronDateOfLastVisit].ToString();
             dateOfBirth = search[patronDateOfBirth].ToString();
             family = search[patronFamily].ToString();
             address = search[patronAddress].ToString();
             phoneNumber = search[patronPhoneNumber].ToString();
             comments = search[patronComments].ToString();
+            initialVisitDate = search[patronInitialVisitDate].ToString();
+            search.Close();
             
 
             // Get new data
@@ -235,28 +240,26 @@ namespace EntryApplication
             if (form.Saved())
             {
                 Patron p = form.GetData();
-                string data = "'" + p.firstName + "'" + ','
-                    + "'" + p.middleInitial + "'" + ','
-                    + "'" + p.lastName + "'" + ','
-                    + "'" + p.gender + "'" + ','
-                    + "'" + search[patronDateOfLastVisit].ToString() + "'" + ','
-                    + "'" + p.dateOfBirth + "'" + ','
-                    + "'" + p.family + "'" + ','
-                    + "'" + p.phoneNumber + "'" + ','
-                    + "'" + p.address + "'";
+                string data = patronFirstName + "='" + p.firstName + "'" + ','
+                    + patronMiddleInitial + "='" + p.middleInitial + "'" + ','
+                    + patronLastName + "='" + p.lastName + "'" + ','
+                    + patronGender + "='" + p.gender + "'" + ','
+                    + patronDateOfLastVisit + "='" + lastVisit + "'" + ','
+                    + patronDateOfBirth + "='" + p.dateOfBirth + "'" + ','
+                    + patronFamily + "='" + p.family + "'" + ','
+                    + patronPhoneNumber + "='" + p.phoneNumber + "'" + ','
+                    + patronAddress + "='" + p.address + "'" + ','
+                    + patronComments + "='" + p.comments + "'" + ','
+                    + patronInitialVisitDate + "='" + initialVisitDate + "'";
 
-                // Remove old values
-                string command = "DELETE FROM Patrons WHERE" +
-                    patronFirstName + "='" + firstName + "' AND "
-                    + patronLastName + "='" + lastName + "' AND "
-                    + patronMiddleInitial + "='" + middleInitial + "' AND "
-                    + patronFamily + "='" + family;
-                SqlCommand delCommand = new SqlCommand(command, sqlConnection);
-                delCommand.BeginExecuteNonQuery();
+                // Remove old values and replace with new ones
+                string command = "UPDATE Patrons SET " + data + " WHERE "
+                + patronFirstName + "='" + row.Cells[0].Value.ToString() + "' AND "
+                + patronLastName + "='" + row.Cells[2].Value.ToString() + "' AND "
+                + patronFamily + "='" + row.Cells[6].Value.ToString() + "'";
 
-                // Add in the new values
-                SqlCommand addCommand = new SqlCommand("INSERT INTO Patrons VALUES (" + data + ")");
-                addCommand.BeginExecuteNonQuery();
+                SqlCommand updateCommand = new SqlCommand(command, sqlConnection);
+                updateCommand.ExecuteNonQuery();
             }
 
             search.Close();

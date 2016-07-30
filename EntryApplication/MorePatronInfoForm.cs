@@ -26,6 +26,8 @@ namespace EntryApplication
             firstVisitLabel.Text += firstVisit;
             familyLabel.Text += family;
             commentsLabel.Text += comments;
+
+            this.WindowState = FormWindowState.Maximized;
         }
 
         // When the close button is clicked, exit the window

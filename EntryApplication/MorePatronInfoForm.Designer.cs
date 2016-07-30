@@ -144,6 +144,7 @@
             this.Controls.Add(this.addressLabel);
             this.Controls.Add(this.dateOfBirthLabel);
             this.Controls.Add(this.nameLabel);
+            this.MaximumSize = new System.Drawing.Size(1611, 738);
             this.MinimumSize = new System.Drawing.Size(1611, 738);
             this.Name = "MoreInfoForm";
             this.Text = "More Info";
