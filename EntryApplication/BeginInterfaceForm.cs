@@ -188,17 +188,22 @@ namespace EntryApplication
             if (form.Saved())
             {
                 Patron p = form.GetData();
-                string data = "'" + p.firstName + "'" + ','
-                    + "'" + p.middleInitial + "'" + ','
-                    + "'" + p.lastName + "'" + ','
-                    + "'" + p.gender + "'" + ','
-                    + "''" + ','
-                    + "'" + p.dateOfBirth + "'" + ','
-                    + "'" + p.family + "'";
+                string data = "'" + p.firstName + "','"
+                    + p.middleInitial + "','"
+                    + p.lastName + "','"
+                    + p.gender + "','"
+                    + "',"
+                    + p.dateOfBirth + "','"
+                    + p.family + "','"
+                    + p.phoneNumber + "','"
+                    + p.address + "','"
+                    + p.comments + "','"
+                    + this.dateLabel.Text;
+
 
                 // Add in the values
                 SqlCommand addCommand = new SqlCommand("INSERT INTO Patrons VALUES (" + data + ")", sqlConnection);
-                addCommand.ExecuteNonQuery();
+                 addCommand.ExecuteNonQuery();
             }
         }
 

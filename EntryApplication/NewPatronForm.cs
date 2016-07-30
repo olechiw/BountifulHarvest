@@ -74,10 +74,11 @@ namespace EntryApplication
             newPatron.lastName = lastNameTextBox.Text.ToString();
             newPatron.middleInitial = middleInitialTextBox.Text.ToString();
 
-            string family = "";
+           newPatron.family = "";
             // Get all of the family members
             foreach (DataGridViewRow row in relativesDataView.Rows)
-                family += row.Cells[0].ToString();
+                if (row.Cells[0]!=null && row.Cells[0].Value!=null)
+                    newPatron.family += row.Cells[0].Value.ToString();
 
             // Get the person's date of birth, in sql string format
             newPatron.dateOfBirth = yearTextBox.Text.ToString() + '-' + monthTextBox.Text.ToString() + '-' + dayTextBox.Text.ToString();
