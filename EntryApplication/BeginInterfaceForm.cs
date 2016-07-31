@@ -51,6 +51,9 @@ namespace EntryApplication
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
 
+        // The date
+        private string date;
+
         // The connection to the local sql database
         private SqlConnection sqlConnection;
 
@@ -68,7 +71,8 @@ namespace EntryApplication
 
             // Show the date on the datemessage
             DateTime today = DateTime.Today;
-            dateLabel.Text = "Today's Date is: " + today.ToString(dateCode);
+            date = today.ToString(dateCode);
+            dateLabel.Text = "Today's Date is: " + date;
 
             // Connect to the local SQL Database
             sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;User Id=sa; Password=potato");
@@ -102,28 +106,11 @@ namespace EntryApplication
                     patrons[patronMiddleInitial].ToString(),
                     patrons[patronLastName].ToString(),
                     patrons[patronGender].ToString(),
-                    SqlString2Std(patrons[patronDateOfLastVisit].ToString()),
-                    SqlString2Std(patrons[patronDateOfBirth].ToString()),
+                    patrons[patronDateOfLastVisit].ToString(),
+                    patrons[patronDateOfBirth].ToString(),
                     patrons[patronFamily]);
             }
             patrons.Close();
-        }
-
-        // For formatting purposes, convert an sql '-' delimited string to a more standard '/' delimited string
-        private string SqlString2Std(string sqlString)
-        {
-            if (sqlString != "")
-            {
-                string[] split = sqlString.Split('-');
-                string year = split[0];
-                string month = split[1];
-                string day = split[2];
-                return month + '/' + day + '/' + year;
-            }
-            else
-            {
-                return "";
-            }
         }
 
         // Shorthand for adding a set of values to the outputDataView
@@ -172,8 +159,8 @@ namespace EntryApplication
                     results[patronMiddleInitial].ToString(),
                     results[patronLastName].ToString(),
                     results[patronGender].ToString(),
-                    SqlString2Std(results[patronDateOfLastVisit].ToString()),
-                    SqlString2Std(results[patronDateOfBirth].ToString()),
+                    results[patronDateOfLastVisit].ToString(),
+                    results[patronDateOfBirth].ToString(),
                     results[patronFamily].ToString());
             }
             results.Close();
@@ -192,18 +179,18 @@ namespace EntryApplication
                     + p.middleInitial + "','"
                     + p.lastName + "','"
                     + p.gender + "','"
-                    + "',"
+                    + "','"
                     + p.dateOfBirth + "','"
                     + p.family + "','"
                     + p.phoneNumber + "','"
                     + p.address + "','"
                     + p.comments + "','"
-                    + this.dateLabel.Text;
+                    + date + "'";
 
 
                 // Add in the values
                 SqlCommand addCommand = new SqlCommand("INSERT INTO Patrons VALUES (" + data + ")", sqlConnection);
-                 addCommand.ExecuteNonQuery();
+                addCommand.ExecuteNonQuery();
             }
         }
 

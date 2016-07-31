@@ -43,10 +43,10 @@ namespace EntryApplication
             // Load the date of birth
             if (dateOfBirth != "")
             {
-                string[] date = dateOfBirth.Split('-');
-                yearTextBox.Text = date[0];
-                monthTextBox.Text = date[1];
-                dayTextBox.Text = date[2];
+                string[] date = dateOfBirth.Split('/');
+                monthTextBox.Text = date[0];
+                dayTextBox.Text = date[1];
+                yearTextBox.Text = date[2];
             }
             
             // Load family
@@ -80,12 +80,15 @@ namespace EntryApplication
                 if (row.Cells[0]!=null && row.Cells[0].Value!=null)
                     newPatron.family += row.Cells[0].Value.ToString();
 
-            // Get the person's date of birth, in sql string format
-            newPatron.dateOfBirth = yearTextBox.Text.ToString() + '-' + monthTextBox.Text.ToString() + '-' + dayTextBox.Text.ToString();
-
             // If the user failed to enter a date, make it NULL
-            if ((yearTextBox.Text.ToString() == "") || (monthTextBox.Text.ToString() == "") || (dayTextBox.Text.ToString() == ""))
+            if (
+                (!string.IsNullOrWhiteSpace(yearTextBox.Text.ToString())) && 
+                (!string.IsNullOrWhiteSpace(monthTextBox.Text.ToString())) && 
+                (!string.IsNullOrWhiteSpace(dayTextBox.Text.ToString())))
+            { 
                 newPatron.dateOfBirth = "";
+                newPatron.dateOfBirth += monthTextBox.Text.ToString() + "/" + dayTextBox.Text.ToString() + "/" + yearTextBox.ToString() + "/";
+            }
 
             saved = true;
 
