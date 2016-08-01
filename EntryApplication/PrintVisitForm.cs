@@ -19,13 +19,13 @@ namespace EntryApplication
         private string firstName, lastName, middleInitial, limitsAllowed, numberInFamily, date;
 
         // Coordinates for where to draw each label
-        private readonly Point namePoint = new Point(235, 35);
-        private readonly Point limitsPoint = new Point(380, 275);
-        private readonly Point familyPoint = new Point(380, 360);
-        private readonly Point datePoint = new Point(630, 350);
+        private readonly Point namePoint = new Point(75, 780);
+        private readonly Point limitsPoint = new Point(123, 882);
+        private readonly Point familyPoint = new Point(123, 920);
+        private readonly Point datePoint = new Point(500, 980);
 
         // Name of the form's image file
-        private const string formImage = "Z:\\form.png";
+        private const string formImage = "Z:\\form2.png";
 
         // Constructor
         public PrintVisitForm(string patronFirstName, string patronMiddleInitial, string patronLastName, int patronLimitsAllowed, int patronNumberInFamily, string date)
@@ -68,7 +68,7 @@ namespace EntryApplication
 
         // Given arguments of coordinates, graphics, and text, draws a simple string
         private void DrawGenericText(Graphics g, string text, int x, int y) =>
-            g.DrawString(text, new Font(FontFamily.GenericSansSerif, 34, FontStyle.Regular), new SolidBrush(Color.Black), x, y);
+            g.DrawString(text, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), new SolidBrush(Color.Black), x, y);
 
         // When the print button is clicked
         private void printButtonClick(object sender, EventArgs e)
