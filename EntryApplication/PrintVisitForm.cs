@@ -22,7 +22,7 @@ namespace EntryApplication
         private readonly Point namePoint = new Point(75, 780);
         private readonly Point limitsPoint = new Point(123, 882);
         private readonly Point familyPoint = new Point(123, 920);
-        private readonly Point datePoint = new Point(500, 980);
+        private readonly Point datePoint = new Point(540, 970);
 
         // Name of the form's image file
         private const string formImage = "Z:\\form2.png";
