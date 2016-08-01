@@ -87,7 +87,7 @@ namespace EntryApplication
                 (!string.IsNullOrWhiteSpace(dayTextBox.Text.ToString())))
             { 
                 newPatron.dateOfBirth = "";
-                newPatron.dateOfBirth += monthTextBox.Text.ToString() + "/" + dayTextBox.Text.ToString() + "/" + yearTextBox.ToString() + "/";
+                newPatron.dateOfBirth += monthTextBox.Text.ToString() + "/" + dayTextBox.Text.ToString() + "/" + yearTextBox.Text.ToString() + "/";
             }
 
             saved = true;

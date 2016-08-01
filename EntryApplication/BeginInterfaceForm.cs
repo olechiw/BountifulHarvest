@@ -89,6 +89,18 @@ namespace EntryApplication
 
         }
 
+        // Use the SQL Connection to obtain a data reader for a specific row given first and last name in addtion to family
+        private SqlDataReader QuerySqlRow(string firstName, string lastName, string family)
+        {
+            string queryCommandString = "SELECT * FROM PATRONS WHERE "
+                + patronFirstName + "='" + firstName +"' AND "
+                + patronLastName + "='" + lastName +"' AND "
+                + patronFamily + "='" + family + "'";
+
+            SqlCommand command = new SqlCommand(queryCommandString, sqlConnection);
+            return command.ExecuteReader();
+        }
+
         // Load all patrons
         private void LoadAllPatrons()
         {
@@ -201,23 +213,19 @@ namespace EntryApplication
 
             // Load existing data about patron
 
-            string queryCommandString = "SELECT * FROM PATRONS WHERE "
-                + patronFirstName + "='" + row.Cells[0].Value.ToString() + "' AND "
-                + patronLastName + "='" + row.Cells[2].Value.ToString() + "' AND "
-                + patronFamily + "='" + row.Cells[6].Value.ToString() + "'";
+            string firstName = row.Cells[0].Value.ToString();
+            string lastName = row.Cells[2].Value.ToString();
+            string family = row.Cells[6].Value.ToString();
 
-            SqlCommand searchCommand = new SqlCommand(queryCommandString, sqlConnection);
-            SqlDataReader search = searchCommand.ExecuteReader();
+            SqlDataReader search = QuerySqlRow(firstName, lastName, family);
             search.Read();
 
-            string firstName, lastName, middleInitial, gender, lastVisit, dateOfBirth, family, address, phoneNumber, comments, initialVisitDate;
-            firstName = search[patronFirstName].ToString();
-            lastName = search[patronLastName].ToString();
+            // Obtain all of the data about the patron before editing.
+            string middleInitial, gender, lastVisit, dateOfBirth, address, phoneNumber, comments, initialVisitDate;
             middleInitial = search[patronMiddleInitial].ToString();
             gender = search[patronGender].ToString();
             lastVisit = search[patronDateOfLastVisit].ToString();
             dateOfBirth = search[patronDateOfBirth].ToString();
-            family = search[patronFamily].ToString();
             address = search[patronAddress].ToString();
             phoneNumber = search[patronPhoneNumber].ToString();
             comments = search[patronComments].ToString();
@@ -225,12 +233,13 @@ namespace EntryApplication
             search.Close();
             
 
-            // Get new data
+            // Get new data passing the old data on
             NewPatronForm form = new NewPatronForm(firstName, lastName, middleInitial, gender, dateOfBirth, family, address, phoneNumber, comments);
             form.ShowDialog();
 
             if (form.Saved())
             {
+                // Apply the changes! Gathering all the new values
                 Patron p = form.GetData();
                 string data = patronFirstName + "='" + p.firstName + "'" + ','
                     + patronMiddleInitial + "='" + p.middleInitial + "'" + ','
@@ -255,6 +264,8 @@ namespace EntryApplication
             }
 
             search.Close();
+
+            LoadAllPatrons();
         }
 
         // When the button to print a report is clicked
@@ -266,59 +277,43 @@ namespace EntryApplication
             string lastName = row.Cells[2].Value.ToString();
             string middleInitial = row.Cells[1].Value.ToString();
 
-            int portionsAllowed;
-            // Calculate the amount of portions allowed
-            if (row.Cells[5].Value.ToString()!="")
+            int limitsAllowed, family;
+            // Calculate the amount of limits Allowed
+            if (row.Cells[6].Value.ToString()!="")
             {
-                // Is a child.
-                portionsAllowed = 0;
+                family = 1;
+                limitsAllowed = 1;
             }
             else
             {
-                // Get the number of children
-                int providees = row.Cells[6].Value.ToString().Split(',').Length;
+                // Get the number of family members
+                family = row.Cells[6].Value.ToString().Split(',').Length;
 
-                // Check for a spouse
-                if (row.Cells[7].Value.ToString() != "")
-                    providees++;
+                if (family < 4)
+                    limitsAllowed = 1;
 
-                // 1 Limit
-                if (providees <= 3)
-                    portionsAllowed = 1;
-
-                // 2 Limits
-                else if (providees <= 5)
-                    portionsAllowed = 2;
-
-                // 3 Limits
+                else if (family < 6)
+                    limitsAllowed = 2;
                 else
-                    portionsAllowed = 3;
+                    limitsAllowed = 3;
             }
             DateTime today = DateTime.Today;
 
             // Show the form
-            PrintVisitForm printForm = new PrintVisitForm(firstName, middleInitial, lastName, portionsAllowed, today.ToString(dateCode));
+            PrintVisitForm printForm = new PrintVisitForm(firstName, middleInitial, lastName, limitsAllowed, family, today.ToString(dateCode));
             printForm.ShowDialog();
         }
 
-        // When the button to view more information about a patron is clicked\
+        // When the button to view more information about a patron is clicked
         private void morePatronInfoButtonClick(object sender, EventArgs e)
         {
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
             string firstName = row.Cells[0].Value.ToString();
             string lastName = row.Cells[2].Value.ToString();
-            string middleInitial = row.Cells[1].Value.ToString();
+            string family = row.Cells[6].Value.ToString();
 
-            string name = firstName + ' ' + middleInitial + ' ' + lastName;
-
-            string queryCommandString = "SELECT * FROM PATRONS WHERE "
-                + patronFirstName + "='" + row.Cells[0].Value.ToString() +"' AND "
-                + patronLastName + "='" + row.Cells[2].Value.ToString() +"' AND "
-                + patronFamily + "='" + row.Cells[6].Value.ToString() + "'";
-
-            SqlCommand queryCommand = new SqlCommand(queryCommandString, sqlConnection);
-            SqlDataReader query = queryCommand.ExecuteReader();
+            SqlDataReader query = QuerySqlRow(firstName, lastName, family);
             query.Read();
 
             string dateOfBirth = query[patronDateOfBirth].ToString(); ;
@@ -326,12 +321,11 @@ namespace EntryApplication
             string phoneNumber = query[patronPhoneNumber].ToString();
             string lastVisit = query[patronDateOfLastVisit].ToString();
             string firstVisit = query[patronInitialVisitDate].ToString();
-            string family = query[patronFamily].ToString();
             string comments = query[patronComments].ToString();
 
             query.Close();
 
-            MoreInfoForm form = new MoreInfoForm(name, dateOfBirth, address, phoneNumber, lastVisit, firstVisit, family, comments);
+            MoreInfoForm form = new MoreInfoForm(firstName + ' ' + row.Cells[1].Value.ToString() + ' ' + lastName, dateOfBirth, address, phoneNumber, lastVisit, firstVisit, family, comments);
             form.ShowDialog();
         }
     }

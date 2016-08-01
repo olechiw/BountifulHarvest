@@ -16,14 +16,25 @@ namespace EntryApplication
     {
         System.Drawing.Printing.PrintDocument print = new System.Drawing.Printing.PrintDocument();
 
-        private string firstName, lastName, allowedPortions, date;
+        private string firstName, lastName, middleInitial, limitsAllowed, numberInFamily, date;
+
+        // Coordinates for where to draw each label
+        private readonly Point namePoint = new Point(235, 35);
+        private readonly Point limitsPoint = new Point(380, 275);
+        private readonly Point familyPoint = new Point(380, 360);
+        private readonly Point datePoint = new Point(630, 350);
+
+        // Name of the form's image file
+        private const string formImage = "Z:\\form.png";
 
         // Constructor
-        public PrintVisitForm(string patronFirstName, string middleInitial, string patronLastName, int patronAllowedPortions, string date)
+        public PrintVisitForm(string patronFirstName, string patronMiddleInitial, string patronLastName, int patronLimitsAllowed, int patronNumberInFamily, string date)
         {
             firstName = patronFirstName;
             lastName = patronLastName;
-            allowedPortions = patronAllowedPortions.ToString();
+            middleInitial = patronMiddleInitial;
+            limitsAllowed = patronLimitsAllowed.ToString();
+            numberInFamily = patronNumberInFamily.ToString();
             this.date = date;
 
             InitializeComponent();
@@ -34,20 +45,30 @@ namespace EntryApplication
             this.lastNameLabel.Text += lastName;
             this.datelabel.Text += this.date;
             this.middleInitialLabel.Text += middleInitial;
+            this.limitsAllowedLabel.Text += limitsAllowed;
         }
 
         // When the screenPrint document is about to be printed
         private void screenPrintPrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            // Draw the report
-            drawGenericText(e.Graphics, "First Name: " + firstName, 200, 0);
-            drawGenericText(e.Graphics, "Last Name: " + lastName, 200, 50);
-            drawGenericText(e.Graphics, "Date: " + date, 200, 100);
+            // Create the full name of the person
+            string name = firstName + ' ' + middleInitial + ". " + lastName;
+
+            // Load the form image
+            Bitmap loadedImage = new Bitmap(formImage);
+
+            // Draw the image and the text which fills it out
+            Graphics g = e.Graphics;
+            g.DrawImage(loadedImage, new Point(0, 0));
+            DrawGenericText(g, name, namePoint.X, namePoint.Y);
+            DrawGenericText(g, limitsAllowed, limitsPoint.X, limitsPoint.Y);
+            DrawGenericText(g, numberInFamily, familyPoint.X, familyPoint.Y);
+            DrawGenericText(g, date, datePoint.X, datePoint.Y);
         }
 
         // Given arguments of coordinates, graphics, and text, draws a simple string
-        private void drawGenericText(Graphics g, string text, int x, int y) =>
-            g.DrawString(text, new Font(FontFamily.GenericSansSerif, 25, FontStyle.Regular), new SolidBrush(Color.Black), x, y);
+        private void DrawGenericText(Graphics g, string text, int x, int y) =>
+            g.DrawString(text, new Font(FontFamily.GenericSansSerif, 34, FontStyle.Regular), new SolidBrush(Color.Black), x, y);
 
         // When the print button is clicked
         private void printButtonClick(object sender, EventArgs e)
@@ -66,7 +87,7 @@ namespace EntryApplication
             this.Close();
         }
 
-        // In case the user wants to cancel
+        // In case the user wants to cancel printing, close the window
         private void cancelButtonClick(object sender, EventArgs e) => this.Close();
 
         // Extra constructor, currently unimplemented

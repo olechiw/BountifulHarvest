@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.middleInitialLabel = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.portionsAllowedLabel = new System.Windows.Forms.Label();
+            this.limitsAllowedLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // firstNameLabel
@@ -110,22 +110,22 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButtonClick);
             // 
-            // portionsAllowedLabel
+            // limitsAllowedLabel
             // 
-            this.portionsAllowedLabel.AutoSize = true;
-            this.portionsAllowedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.portionsAllowedLabel.Location = new System.Drawing.Point(574, 251);
-            this.portionsAllowedLabel.Name = "portionsAllowedLabel";
-            this.portionsAllowedLabel.Size = new System.Drawing.Size(206, 32);
-            this.portionsAllowedLabel.TabIndex = 8;
-            this.portionsAllowedLabel.Text = "Limits Allowed:";
+            this.limitsAllowedLabel.AutoSize = true;
+            this.limitsAllowedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.limitsAllowedLabel.Location = new System.Drawing.Point(574, 251);
+            this.limitsAllowedLabel.Name = "limitsAllowedLabel";
+            this.limitsAllowedLabel.Size = new System.Drawing.Size(206, 32);
+            this.limitsAllowedLabel.TabIndex = 8;
+            this.limitsAllowedLabel.Text = "Limits Allowed:";
             // 
             // PrintVisitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 593);
-            this.Controls.Add(this.portionsAllowedLabel);
+            this.Controls.Add(this.limitsAllowedLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.middleInitialLabel);
             this.Controls.Add(this.label1);
@@ -150,6 +150,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label middleInitialLabel;
         private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Label portionsAllowedLabel;
+        private System.Windows.Forms.Label limitsAllowedLabel;
     }
 }
