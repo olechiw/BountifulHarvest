@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//
+// StringTextBox - A special type of WindowsForms TextBox that only accepts latin characters
+//
+
 namespace EntryApplication
 {
     public class StringTextBox : TextBox
@@ -15,16 +19,20 @@ namespace EntryApplication
             this.KeyDown += textBoxKeyDown;
         }
 
+        // Whenever a key is pressed, make sure it is valid
         private void textBoxKeyDown(object sender, KeyEventArgs e)
         {
             Keys key = e.KeyCode;
 
+            // Latin characters are ok
             if ((key >= Keys.A) && (key <= Keys.Z))
                 return;
 
-            // Special exceptions (backspace)
+            // Special exceptions (backspace) are ok
             else if (key == Keys.Back)
                 return;
+            
+            // Otherwise, nothing will happen
             else
                 e.SuppressKeyPress = true;
         }

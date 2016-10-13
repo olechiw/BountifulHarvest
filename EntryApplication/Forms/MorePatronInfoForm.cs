@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//
+// MoreInfoForm - A very simple form which displays information about a patron in a more comprehensive manner
+//
+
 namespace EntryApplication
 {
     public partial class MoreInfoForm : Form

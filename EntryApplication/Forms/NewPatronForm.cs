@@ -9,6 +9,10 @@ using System.Drawing.Printing;
 using System.Windows.Forms;
 using System.Drawing;
 
+//
+// NewPatronForm - A form responsible for the editing of existing patron data, and creating new ones. Does not actually access SQL
+//
+
 namespace EntryApplication
 {
     public partial class NewPatronForm : System.Windows.Forms.Form

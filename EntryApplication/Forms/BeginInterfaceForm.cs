@@ -13,6 +13,9 @@ using System.Data.SqlClient;
 using System.ServiceProcess;
 using System.Data.SqlTypes;
 
+//
+// BeginInterfaceForm - This form's main entry point for the "entry" application. This will be responsible for directly accessing patron data at the entry desk
+//
 
 namespace EntryApplication
 {
@@ -48,7 +51,7 @@ namespace EntryApplication
         private const string patronInitialVisitDate = "InitialVisitDate";
         #endregion
 
-        // Constants for window size, tweakable
+        // Constants for window size, may need to be tweaked
         const int windowWidth = 1920;
         const int windowHeight = 1080;
 

@@ -8,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
+//
+// PrintVisitForm - A form which takes a patron's data and displays it to confirm. It then organizes and prints it.
+//
 
 namespace EntryApplication
 {
