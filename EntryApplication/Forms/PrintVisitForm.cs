@@ -1,4 +1,7 @@
-﻿using System;
+﻿//
+// Bountiful Harvest Alpha Version 1.0 - Jakob Olechiw, 10/12/2016
+//
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
