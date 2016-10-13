@@ -57,6 +57,7 @@ namespace EntryApplication
         // The connection to the local sql database
         private SqlConnection sqlConnection;
 
+        // Constructor
         public BeginInterfaceForm()
         {
             InitializeComponent();
@@ -79,6 +80,9 @@ namespace EntryApplication
             sqlConnection.Open();
 
             this.WindowState = FormWindowState.Maximized;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
 
             LoadAllPatrons();
         }
@@ -155,6 +159,10 @@ namespace EntryApplication
                     searchBox.SelectionLength = searchBox.Text.Length;
                 }
             }
+
+            // Backspace also updates the searchbox
+            else if ((e.KeyCode == Keys.Back) && (searchBox.Text.Length >= 2))
+                searchBoxChanged(null, null);
         }
 
         // Update the data table with the results given the search box text
