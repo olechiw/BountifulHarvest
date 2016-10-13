@@ -48,6 +48,10 @@ namespace EntryApplication
         private const string patronInitialVisitDate = "InitialVisitDate";
         #endregion
 
+        // Constants for window size, tweakable
+        const int windowWidth = 1920;
+        const int windowHeight = 1080;
+
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
 
@@ -82,6 +86,8 @@ namespace EntryApplication
             this.WindowState = FormWindowState.Maximized;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MaximumSize = new Size(windowWidth, windowHeight);
+            this.MinimumSize = new Size(windowWidth, windowHeight);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
 
             LoadAllPatrons();
