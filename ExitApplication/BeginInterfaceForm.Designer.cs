@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.patronFirstNameTextBox = new StringTextBox();
+            this.patronFirstNameTextBox = new ExitApplication.StringTextBox();
             this.patronNameLabel = new System.Windows.Forms.Label();
             this.visitDateLabel = new System.Windows.Forms.Label();
-            this.visitDateTextBox = new StringTextBox();
+            this.visitDateTextBox = new ExitApplication.StringTextBox();
             this.patronVisitLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -39,9 +39,9 @@
             this.middleInitialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPoundsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronMiddleInitialTextBox = new StringTextBox();
-            this.lastNameTextBox = new StringTextBox();
-            this.totalPoundsTextBox = new StringTextBox();
+            this.patronMiddleInitialTextBox = new ExitApplication.StringTextBox();
+            this.lastNameTextBox = new ExitApplication.StringTextBox();
+            this.totalPoundsTextBox = new ExitApplication.StringTextBox();
             this.poundsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -70,7 +70,7 @@
             // 
             this.visitDateLabel.AutoSize = true;
             this.visitDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.visitDateLabel.Location = new System.Drawing.Point(133, 263);
+            this.visitDateLabel.Location = new System.Drawing.Point(543, 125);
             this.visitDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.visitDateLabel.Name = "visitDateLabel";
             this.visitDateLabel.Size = new System.Drawing.Size(137, 32);
@@ -80,7 +80,7 @@
             // visitDateTextBox
             // 
             this.visitDateTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.visitDateTextBox.Location = new System.Drawing.Point(55, 318);
+            this.visitDateTextBox.Location = new System.Drawing.Point(463, 178);
             this.visitDateTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.visitDateTextBox.Name = "visitDateTextBox";
             this.visitDateTextBox.Size = new System.Drawing.Size(307, 38);
@@ -115,9 +115,9 @@
             this.middleInitialColumn,
             this.lastNameColumn,
             this.totalPoundsColumn});
-            this.dataGridView1.Location = new System.Drawing.Point(55, 452);
+            this.dataGridView1.Location = new System.Drawing.Point(65, 369);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(733, 264);
+            this.dataGridView1.Size = new System.Drawing.Size(1031, 364);
             this.dataGridView1.TabIndex = 6;
             // 
             // firstnameColumn
@@ -161,7 +161,7 @@
             // totalPoundsTextBox
             // 
             this.totalPoundsTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalPoundsTextBox.Location = new System.Drawing.Point(624, 318);
+            this.totalPoundsTextBox.Location = new System.Drawing.Point(932, 178);
             this.totalPoundsTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.totalPoundsTextBox.Name = "totalPoundsTextBox";
             this.totalPoundsTextBox.Size = new System.Drawing.Size(307, 38);
@@ -171,12 +171,12 @@
             // 
             this.poundsLabel.AutoSize = true;
             this.poundsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.poundsLabel.Location = new System.Drawing.Point(713, 282);
+            this.poundsLabel.Location = new System.Drawing.Point(1028, 125);
             this.poundsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.poundsLabel.Name = "poundsLabel";
-            this.poundsLabel.Size = new System.Drawing.Size(119, 32);
+            this.poundsLabel.Size = new System.Drawing.Size(140, 32);
             this.poundsLabel.TabIndex = 10;
-            this.poundsLabel.Text = "Pounds ";
+            this.poundsLabel.Text = "Total Lbs.";
             // 
             // BeginInterfaceForm
             // 
