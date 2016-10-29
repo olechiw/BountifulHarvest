@@ -54,6 +54,8 @@ namespace EntryApplication
         private const string patronInitialVisitDate = "InitialVisitDate";
         #endregion
 
+
+
         // Constants for window size, may need to be tweaked
         const int windowWidth = 1920;
         const int windowHeight = 1080;
@@ -64,8 +66,12 @@ namespace EntryApplication
         // The date
         private string date;
 
+
+
         // The connection to the local sql database
         private SqlConnection sqlConnection;
+
+
 
         // Constructor
         public BeginInterfaceForm()
@@ -99,11 +105,15 @@ namespace EntryApplication
             LoadAllPatrons();
         }
 
+
+
         // A second constructor, currently unused
         private void BeginInterfaceForm_Load(object sender, EventArgs e)
         {
 
         }
+
+
 
         // Use the SQL Connection to obtain a data reader for a specific row given first and last name in addtion to family
         private SqlDataReader QuerySqlRow(string firstName, string lastName, string family)
@@ -116,6 +126,8 @@ namespace EntryApplication
             SqlCommand command = new SqlCommand(queryCommandString, sqlConnection);
             return command.ExecuteReader();
         }
+
+
 
         // Load all patrons
         private void LoadAllPatrons()
@@ -141,11 +153,15 @@ namespace EntryApplication
             patrons.Close();
         }
 
+
+
         // Shorthand for adding a set of values to the outputDataView
         private void AddDataRow(params object[] values)
         {
             this.outputDataView.Rows.Add(values);
         }
+
+
 
         // Whenever a letter is added to or removed from the search box
         private void searchBoxChanged(object sender, EventArgs e)
@@ -155,6 +171,8 @@ namespace EntryApplication
                 UpdateResults(searchBox.Text);
             }
         }
+
+
 
         // Whenever a key is pressed in the search box
         private void searchBoxKeyDown(object sender, KeyEventArgs e)
@@ -177,6 +195,8 @@ namespace EntryApplication
                 searchBoxChanged(null, null);
         }
 
+
+
         // Update the data table with the results given the search box text
         private void UpdateResults(string query)
         {
@@ -197,6 +217,8 @@ namespace EntryApplication
             }
             results.Close();
         }
+
+
 
         // When the button to enter a new patron is clicked
         private void addPatronButtonClick(object sender, EventArgs e)
@@ -225,6 +247,8 @@ namespace EntryApplication
                 addCommand.ExecuteNonQuery();
             }
         }
+
+
 
         // When the button to edit an existing patron is clicked
         private void editPatronButtonClick(object sender, EventArgs e)
@@ -288,6 +312,8 @@ namespace EntryApplication
             LoadAllPatrons();
         }
 
+
+
         // When the button to print a report is clicked
         private void printVisitButtonClick(object sender, EventArgs e)
         {
@@ -323,6 +349,8 @@ namespace EntryApplication
             PrintVisitForm printForm = new PrintVisitForm(firstName, middleInitial, lastName, limitsAllowed, family, today.ToString(dateCode));
             printForm.ShowDialog();
         }
+
+
 
         // When the button to view more information about a patron is clicked
         private void morePatronInfoButtonClick(object sender, EventArgs e)
