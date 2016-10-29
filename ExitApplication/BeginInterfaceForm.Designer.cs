@@ -28,14 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.patronFirstNameTextBox = new System.Windows.Forms.TextBox();
+            this.patronFirstNameTextBox = new StringTextBox();
             this.patronNameLabel = new System.Windows.Forms.Label();
             this.visitDateLabel = new System.Windows.Forms.Label();
-            this.visitDateTextBox = new System.Windows.Forms.TextBox();
+            this.visitDateTextBox = new StringTextBox();
             this.patronVisitLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.patronMiddleInitialTextBox = new System.Windows.Forms.TextBox();
+            this.firstnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.middleInitialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPoundsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronMiddleInitialTextBox = new StringTextBox();
+            this.lastNameTextBox = new StringTextBox();
+            this.totalPoundsTextBox = new StringTextBox();
+            this.poundsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,7 +83,7 @@
             this.visitDateTextBox.Location = new System.Drawing.Point(55, 318);
             this.visitDateTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.visitDateTextBox.Name = "visitDateTextBox";
-            this.visitDateTextBox.Size = new System.Drawing.Size(343, 38);
+            this.visitDateTextBox.Size = new System.Drawing.Size(307, 38);
             this.visitDateTextBox.TabIndex = 3;
             // 
             // patronVisitLabel
@@ -103,10 +110,35 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(72, 452);
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.firstnameColumn,
+            this.middleInitialColumn,
+            this.lastNameColumn,
+            this.totalPoundsColumn});
+            this.dataGridView1.Location = new System.Drawing.Point(55, 452);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(733, 264);
             this.dataGridView1.TabIndex = 6;
+            // 
+            // firstnameColumn
+            // 
+            this.firstnameColumn.HeaderText = "First Name";
+            this.firstnameColumn.Name = "firstnameColumn";
+            // 
+            // middleInitialColumn
+            // 
+            this.middleInitialColumn.HeaderText = "Middle Initial";
+            this.middleInitialColumn.Name = "middleInitialColumn";
+            // 
+            // lastNameColumn
+            // 
+            this.lastNameColumn.HeaderText = "Last Name";
+            this.lastNameColumn.Name = "lastNameColumn";
+            // 
+            // totalPoundsColumn
+            // 
+            this.totalPoundsColumn.HeaderText = "Total Lbs.";
+            this.totalPoundsColumn.Name = "totalPoundsColumn";
             // 
             // patronMiddleInitialTextBox
             // 
@@ -117,11 +149,43 @@
             this.patronMiddleInitialTextBox.Size = new System.Drawing.Size(35, 38);
             this.patronMiddleInitialTextBox.TabIndex = 7;
             // 
+            // lastNameTextBox
+            // 
+            this.lastNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastNameTextBox.Location = new System.Drawing.Point(234, 178);
+            this.lastNameTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.lastNameTextBox.Name = "lastNameTextBox";
+            this.lastNameTextBox.Size = new System.Drawing.Size(128, 38);
+            this.lastNameTextBox.TabIndex = 8;
+            // 
+            // totalPoundsTextBox
+            // 
+            this.totalPoundsTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPoundsTextBox.Location = new System.Drawing.Point(624, 318);
+            this.totalPoundsTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.totalPoundsTextBox.Name = "totalPoundsTextBox";
+            this.totalPoundsTextBox.Size = new System.Drawing.Size(307, 38);
+            this.totalPoundsTextBox.TabIndex = 9;
+            // 
+            // poundsLabel
+            // 
+            this.poundsLabel.AutoSize = true;
+            this.poundsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.poundsLabel.Location = new System.Drawing.Point(713, 282);
+            this.poundsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.poundsLabel.Name = "poundsLabel";
+            this.poundsLabel.Size = new System.Drawing.Size(119, 32);
+            this.poundsLabel.TabIndex = 10;
+            this.poundsLabel.Text = "Pounds ";
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1442, 851);
+            this.Controls.Add(this.poundsLabel);
+            this.Controls.Add(this.totalPoundsTextBox);
+            this.Controls.Add(this.lastNameTextBox);
             this.Controls.Add(this.patronMiddleInitialTextBox);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.submitButton);
@@ -144,14 +208,21 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox patronFirstNameTextBox;
+        private StringTextBox patronFirstNameTextBox;
         private System.Windows.Forms.Label patronNameLabel;
         private System.Windows.Forms.Label visitDateLabel;
-        private System.Windows.Forms.TextBox visitDateTextBox;
+        private StringTextBox visitDateTextBox;
         private System.Windows.Forms.Label patronVisitLabel;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox patronMiddleInitialTextBox;
+        private StringTextBox patronMiddleInitialTextBox;
+        private StringTextBox lastNameTextBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn firstnameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn middleInitialColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalPoundsColumn;
+        private StringTextBox totalPoundsTextBox;
+        private System.Windows.Forms.Label poundsLabel;
     }
 }
 
