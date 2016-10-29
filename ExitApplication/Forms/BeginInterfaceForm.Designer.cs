@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.patronFirstNameTextBox = new ExitApplication.StringTextBox();
+            this.patronFirstNameTextBox = new ExitApplication.Common.StringTextBox();
             this.patronNameLabel = new System.Windows.Forms.Label();
             this.visitDateLabel = new System.Windows.Forms.Label();
-            this.visitDateTextBox = new ExitApplication.StringTextBox();
+            this.visitDateTextBox = new ExitApplication.Common.StringTextBox();
             this.patronVisitLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -39,9 +39,9 @@
             this.middleInitialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPoundsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronMiddleInitialTextBox = new ExitApplication.StringTextBox();
-            this.lastNameTextBox = new ExitApplication.StringTextBox();
-            this.totalPoundsTextBox = new ExitApplication.StringTextBox();
+            this.patronMiddleInitialTextBox = new ExitApplication.Common.StringTextBox();
+            this.lastNameTextBox = new ExitApplication.Common.StringTextBox();
+            this.totalPoundsTextBox = new ExitApplication.Common.StringTextBox();
             this.poundsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -208,20 +208,20 @@
 
         #endregion
 
-        private StringTextBox patronFirstNameTextBox;
+        private Common.StringTextBox patronFirstNameTextBox;
         private System.Windows.Forms.Label patronNameLabel;
         private System.Windows.Forms.Label visitDateLabel;
-        private StringTextBox visitDateTextBox;
+        private Common.StringTextBox visitDateTextBox;
         private System.Windows.Forms.Label patronVisitLabel;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private StringTextBox patronMiddleInitialTextBox;
-        private StringTextBox lastNameTextBox;
+        private Common.StringTextBox patronMiddleInitialTextBox;
+        private Common.StringTextBox lastNameTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn firstnameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn middleInitialColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalPoundsColumn;
-        private StringTextBox totalPoundsTextBox;
+        private Common.StringTextBox totalPoundsTextBox;
         private System.Windows.Forms.Label poundsLabel;
     }
 }

@@ -1,7 +1,4 @@
-﻿//
-// Bountiful Harvest Alpha Version 1.0 - Jakob Olechiw, 10/12/2016
-//
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +9,7 @@ using System.Windows.Forms;
 // StringTextBox - A special type of WindowsForms TextBox that only accepts latin characters
 //
 
-namespace EntryApplication
+namespace Common
 {
     public class StringTextBox : TextBox
     {
@@ -34,7 +31,7 @@ namespace EntryApplication
             // Special exceptions (backspace) are ok
             else if (key == Keys.Back)
                 return;
-            
+
             // Otherwise, nothing will happen
             else
                 e.SuppressKeyPress = true;

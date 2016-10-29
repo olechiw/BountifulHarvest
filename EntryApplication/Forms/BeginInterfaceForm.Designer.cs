@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.searchBox = new StringTextBox();
+            this.searchBox = new Common.StringTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.addPatronButton = new System.Windows.Forms.Button();
             this.editPatronButton = new System.Windows.Forms.Button();
@@ -235,7 +235,7 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private StringTextBox searchBox;
+        private Common.StringTextBox searchBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button addPatronButton;
         private System.Windows.Forms.Button editPatronButton;

@@ -96,9 +96,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Elements\StringTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <EmbeddedResource Include="Forms\BeginInterfaceForm.resx">
       <DependentUpon>BeginInterfaceForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,6 +152,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{28dce2fc-f753-4bc3-a9df-c3285d054abc}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
