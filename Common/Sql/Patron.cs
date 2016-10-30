@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Sql
+namespace Common
 {
     [Table(Name = "Patrons")]
     public class Patron

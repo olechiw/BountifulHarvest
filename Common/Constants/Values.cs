@@ -13,6 +13,13 @@ namespace Common
     // Somewhere to put all of the SqlConstants neatly
     public static class Constants
     {
+        // Available tables in the database
+        public static class Tables
+        {
+            public static string Patrons = "Patrons";
+            public static string Visits = "Visits";
+        }
+
 
         #region Constant Names of All Sql Columns
 

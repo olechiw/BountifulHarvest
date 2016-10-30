@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Common.Sql
 {
     [Table(Name ="Visits")]
-    class Visit
+    public class Visit
     {
         [Column]
         public string PatronName;
