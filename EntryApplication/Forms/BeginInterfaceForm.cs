@@ -37,7 +37,7 @@ namespace EntryApplication
             comments;
     }
 
-    public partial class BeginInterfaceForm : Form
+    public partial class BeginInterfaceForm : Common.DialogForm
     {
         #region Constants for Querying SQL Columns
         // Hardcoded strings for all of the column names in SQL
@@ -53,12 +53,6 @@ namespace EntryApplication
         private const string patronComments = "Comments";
         private const string patronInitialVisitDate = "InitialVisitDate";
         #endregion
-
-
-
-        // Constants for window size, may need to be tweaked
-        const int windowWidth = 1920;
-        const int windowHeight = 1080;
 
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
@@ -94,13 +88,6 @@ namespace EntryApplication
             // Connect to the local SQL Database
             sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;User Id=sa; Password=potato");
             sqlConnection.Open();
-
-            this.WindowState = FormWindowState.Maximized;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.MaximumSize = new Size(windowWidth, windowHeight);
-            this.MinimumSize = new Size(windowWidth, windowHeight);
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
 
             LoadAllPatrons();
         }
