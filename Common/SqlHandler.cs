@@ -12,6 +12,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Linq.Mapping;
+using System.Data.Linq;
 using System.Windows.Forms;
 using System.Data.Sql;
 using System.Data.SqlClient;
@@ -29,6 +31,9 @@ namespace Common
         // The connection to the table
         private SqlConnection connection;
 
+        // The database
+        private DataContext database;
+
         // The connection terms
         private string serverIp, table, username, password;
 
@@ -40,6 +45,9 @@ namespace Common
             username = user;
             password = pass;
             table = dataTable;
+
+            string connectString = "server=" + serverIp + ";table=" + table + ";User Id=" + username + ";Password=" + password;
+            database = new DataContext(connectString);
         }
 
 
@@ -53,25 +61,42 @@ namespace Common
         }
 
 
-        private string c(string x) => "'" + x + "',";
-        private string cf(string x) => "'" + x + "'";
-        // Add an item into the table
-        public void AddRow(params string[] strings)
+
+        public void AddRow(params SqlPair[] data)
         {
-            string data = "";
+            string values = "";
 
             // Load all of the data from the parameters
-            for (int i = 0; i < strings.Length; ++i)
+            for (int i = 0; i < data.Length; ++i)
             {
-                if (i != strings.Length - 1)
-                    data += c(strings[i]);
-                else
-                    data += cf(strings[i]);
+                values += "'" + data[i].Value + "'";
+
+                if (i != data.Length - 1)
+                    values += ",";
             }
 
             // Add a new row
-            SqlCommand addCommand = new SqlCommand("INSERT INTO " + table + " VALUES (" + data + ")", connection);
+            SqlCommand addCommand = new SqlCommand("INSERT INTO " + table + " VALUES (" + values + ");", connection);
             addCommand.ExecuteNonQuery();
+        }
+
+
+
+        // Delete an item from the table, given the following values
+        public void DeleteRow(params SqlPair[] data)
+        {
+            string queryLocation = "";
+
+            for (int i = 0; i < data.Length; ++i)
+            {
+                queryLocation += data[i].Column + " = '" + data[i].Value + "'";
+
+                if (i != data.Length - 1)
+                    queryLocation += " AND ";
+            }
+
+            // Remove the row
+            SqlCommand removeCommand = new SqlCommand("DELETE FROM " + table + " WHERE " + queryLocation + ";", connection);
         }
     }
 }

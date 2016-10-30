@@ -39,20 +39,23 @@ namespace EntryApplication
 
     public partial class BeginInterfaceForm : Common.DialogForm
     {
+        /*
+         * Now obsolete: keeping just in case
         #region Constants for Querying SQL Columns
         // Hardcoded strings for all of the column names in SQL
-        private const string patronFirstName = "FirstName";
-        private const string patronLastName = "LastName";
-        private const string patronMiddleInitial = "MiddleInitial";
-        private const string patronGender = "Gender";
-        private const string patronFamily = "Family";
-        private const string patronDateOfLastVisit = "LastVisit";
-        private const string patronDateOfBirth = "DateOfBirth";
-        private const string patronAddress = "Address";
-        private const string patronPhoneNumber = "PhoneNumber";
-        private const string patronComments = "Comments";
-        private const string patronInitialVisitDate = "InitialVisitDate";
+        private const string Common.Constants.FirstName = "FirstName";
+        private const string Common.Constants.LastName = "LastName";
+        private const string Common.Constants.MiddleInitial = "MiddleInitial";
+        private const string Common.Constants.Gender = "Gender";
+        private const string Common.Constants.Family = "Family";
+        private const string Common.Constants.DateOfLastVisit = "LastVisit";
+        private const string Common.Constants.DateOfBirth = "DateOfBirth";
+        private const string Common.Constants.Address = "Address";
+        private const string Common.Constants.PhoneNumber = "PhoneNumber";
+        private const string Common.Constants.Comments = "Comments";
+        private const string Common.Constants.InitialVisitDate = "InitialVisitDate";
         #endregion
+        */
 
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
@@ -106,9 +109,9 @@ namespace EntryApplication
         private SqlDataReader QuerySqlRow(string firstName, string lastName, string family)
         {
             string queryCommandString = "SELECT * FROM PATRONS WHERE "
-                + patronFirstName + "='" + firstName +"' AND "
-                + patronLastName + "='" + lastName +"' AND "
-                + patronFamily + "='" + family + "'";
+                + Common.Constants.FirstName + "='" + firstName +"' AND "
+                + Common.Constants.LastName + "='" + lastName +"' AND "
+                + Common.Constants.Family + "='" + family + "'";
 
             SqlCommand command = new SqlCommand(queryCommandString, sqlConnection);
             return command.ExecuteReader();
@@ -129,13 +132,13 @@ namespace EntryApplication
             patrons = patronsCommand.ExecuteReader();
             while (patrons.Read())
             {
-                AddDataRow(patrons[patronFirstName].ToString(),
-                    patrons[patronMiddleInitial].ToString(),
-                    patrons[patronLastName].ToString(),
-                    patrons[patronGender].ToString(),
-                    patrons[patronDateOfLastVisit].ToString(),
-                    patrons[patronDateOfBirth].ToString(),
-                    patrons[patronFamily]);
+                AddDataRow(patrons[Common.Constants.FirstName].ToString(),
+                    patrons[Common.Constants.MiddleInitial].ToString(),
+                    patrons[Common.Constants.LastName].ToString(),
+                    patrons[Common.Constants.Gender].ToString(),
+                    patrons[Common.Constants.DateOfLastVisit].ToString(),
+                    patrons[Common.Constants.DateOfBirth].ToString(),
+                    patrons[Common.Constants.Family]);
             }
             patrons.Close();
         }
@@ -194,13 +197,13 @@ namespace EntryApplication
             outputDataView.Rows.Clear();
             while (results.Read())
             {
-                AddDataRow(results[patronFirstName].ToString(),
-                    results[patronMiddleInitial].ToString(),
-                    results[patronLastName].ToString(),
-                    results[patronGender].ToString(),
-                    results[patronDateOfLastVisit].ToString(),
-                    results[patronDateOfBirth].ToString(),
-                    results[patronFamily].ToString());
+                AddDataRow(results[Common.Constants.FirstName].ToString(),
+                    results[Common.Constants.MiddleInitial].ToString(),
+                    results[Common.Constants.LastName].ToString(),
+                    results[Common.Constants.Gender].ToString(),
+                    results[Common.Constants.DateOfLastVisit].ToString(),
+                    results[Common.Constants.DateOfBirth].ToString(),
+                    results[Common.Constants.Family].ToString());
             }
             results.Close();
         }
@@ -253,14 +256,14 @@ namespace EntryApplication
 
             // Obtain all of the data about the patron before editing.
             string middleInitial, gender, lastVisit, dateOfBirth, address, phoneNumber, comments, initialVisitDate;
-            middleInitial = search[patronMiddleInitial].ToString();
-            gender = search[patronGender].ToString();
-            lastVisit = search[patronDateOfLastVisit].ToString();
-            dateOfBirth = search[patronDateOfBirth].ToString();
-            address = search[patronAddress].ToString();
-            phoneNumber = search[patronPhoneNumber].ToString();
-            comments = search[patronComments].ToString();
-            initialVisitDate = search[patronInitialVisitDate].ToString();
+            middleInitial = search[Common.Constants.MiddleInitial].ToString();
+            gender = search[Common.Constants.Gender].ToString();
+            lastVisit = search[Common.Constants.DateOfLastVisit].ToString();
+            dateOfBirth = search[Common.Constants.DateOfBirth].ToString();
+            address = search[Common.Constants.Address].ToString();
+            phoneNumber = search[Common.Constants.PhoneNumber].ToString();
+            comments = search[Common.Constants.Comments].ToString();
+            initialVisitDate = search[Common.Constants.DateOfInitialVisit].ToString();
             search.Close();
             
 
@@ -272,23 +275,23 @@ namespace EntryApplication
             {
                 // Apply the changes! Gathering all the new values
                 Patron p = form.GetData();
-                string data = patronFirstName + "='" + p.firstName + "'" + ','
-                    + patronMiddleInitial + "='" + p.middleInitial + "'" + ','
-                    + patronLastName + "='" + p.lastName + "'" + ','
-                    + patronGender + "='" + p.gender + "'" + ','
-                    + patronDateOfLastVisit + "='" + lastVisit + "'" + ','
-                    + patronDateOfBirth + "='" + p.dateOfBirth + "'" + ','
-                    + patronFamily + "='" + p.family + "'" + ','
-                    + patronPhoneNumber + "='" + p.phoneNumber + "'" + ','
-                    + patronAddress + "='" + p.address + "'" + ','
-                    + patronComments + "='" + p.comments + "'" + ','
-                    + patronInitialVisitDate + "='" + initialVisitDate + "'";
+                string data = Common.Constants.FirstName + "='" + p.firstName + "'" + ','
+                    + Common.Constants.MiddleInitial + "='" + p.middleInitial + "'" + ','
+                    + Common.Constants.LastName + "='" + p.lastName + "'" + ','
+                    + Common.Constants.Gender + "='" + p.gender + "'" + ','
+                    + Common.Constants.DateOfLastVisit + "='" + lastVisit + "'" + ','
+                    + Common.Constants.DateOfBirth + "='" + p.dateOfBirth + "'" + ','
+                    + Common.Constants.Family + "='" + p.family + "'" + ','
+                    + Common.Constants.PhoneNumber + "='" + p.phoneNumber + "'" + ','
+                    + Common.Constants.Address + "='" + p.address + "'" + ','
+                    + Common.Constants.Comments + "='" + p.comments + "'" + ','
+                    + Common.Constants.DateOfInitialVisit + "='" + initialVisitDate + "'";
 
                 // Remove old values and replace with new ones
                 string command = "UPDATE Patrons SET " + data + " WHERE "
-                + patronFirstName + "='" + row.Cells[0].Value.ToString() + "' AND "
-                + patronLastName + "='" + row.Cells[2].Value.ToString() + "' AND "
-                + patronFamily + "='" + row.Cells[6].Value.ToString() + "'";
+                + Common.Constants.FirstName + "='" + row.Cells[0].Value.ToString() + "' AND "
+                + Common.Constants.LastName + "='" + row.Cells[2].Value.ToString() + "' AND "
+                + Common.Constants.Family + "='" + row.Cells[6].Value.ToString() + "'";
 
                 SqlCommand updateCommand = new SqlCommand(command, sqlConnection);
                 updateCommand.ExecuteNonQuery();
@@ -351,12 +354,12 @@ namespace EntryApplication
             SqlDataReader query = QuerySqlRow(firstName, lastName, family);
             query.Read();
 
-            string dateOfBirth = query[patronDateOfBirth].ToString(); ;
-            string address = query[patronAddress].ToString();
-            string phoneNumber = query[patronPhoneNumber].ToString();
-            string lastVisit = query[patronDateOfLastVisit].ToString();
-            string firstVisit = query[patronInitialVisitDate].ToString();
-            string comments = query[patronComments].ToString();
+            string dateOfBirth = query[Common.Constants.DateOfBirth].ToString(); ;
+            string address = query[Common.Constants.Address].ToString();
+            string phoneNumber = query[Common.Constants.PhoneNumber].ToString();
+            string lastVisit = query[Common.Constants.DateOfLastVisit].ToString();
+            string firstVisit = query[Common.Constants.DateOfInitialVisit].ToString();
+            string comments = query[Common.Constants.Comments].ToString();
 
             query.Close();
 

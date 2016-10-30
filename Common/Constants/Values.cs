@@ -11,22 +11,23 @@ using System.Threading.Tasks;
 namespace Common
 {
     // Somewhere to put all of the SqlConstants neatly
-    class Constants
+    public static class Constants
     {
+
         #region Constant Names of All Sql Columns
 
         // Patrons table
-        public const string FirstName = "FirstName";
-        public const string LastName = "LastName";
-        public const string MiddleInitial = "MiddleInitial";
-        public const string Gender = "Gender";
-        public const string Family = "Family";
-        public const string DateOfLastVisit = "LastVisit";
-        public const string DateOfBirth = "DateOfBirth";
-        public const string Address = "Address";
-        public const string PhoneNumber = "PhoneNumber";
-        public const string Comments = "Comments";
-        public const string InitialVisitDate = "InitialVisitDate";
+        public static string FirstName = "FirstName";
+        public static string LastName = "LastName";
+        public static string MiddleInitial = "MiddleInitial";
+        public static string Gender = "Gender";
+        public static string Family = "Family";
+        public static string DateOfLastVisit = "DateOfLastVisit";
+        public static string DateOfBirth = "DateOfBirth";
+        public static string Address = "Address";
+        public static string PhoneNumber = "PhoneNumber";
+        public static string Comments = "Comments";
+        public static string DateOfInitialVisit = "DateOfInitialVisit";
 
         #endregion
 
