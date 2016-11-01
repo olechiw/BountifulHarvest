@@ -31,6 +31,8 @@ namespace Common
         [Column]
         public string Address;
         [Column]
+        public string Comments;
+        [Column]
         public string DateOfInitialVisit;
     }
 }

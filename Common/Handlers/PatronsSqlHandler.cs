@@ -43,30 +43,127 @@ namespace Common
         public Patron GetDataRow(string firstName, string middleInitial, string lastName, string dateOfBirth)
         {
             Patron result =
-                (    
+                (
                from p in database.Patrons
 
-                where p.FirstName == firstName
-                where p.LastName == lastName
-                where p.MiddleInitial == middleInitial
-                where p.DateOfBirth == dateOfBirth
+               where p.FirstName == firstName
+               where p.LastName == lastName
+               where p.MiddleInitial == middleInitial
+               where p.DateOfBirth == dateOfBirth
 
-                 select p).First<Patron>(); // The can (should) only be one!!
+               select p).First<Patron>(); // The can (should) only be one!!
 
             return result;
         }
 
 
-        public void AddRow(params SqlPair[] data)
-        {
 
+        public IQueryable<Patron> GetNewestData(string lastDate)
+        {
+            return from p in database.Patrons
+                   where IsBeforeDate(p.DateOfLastVisit, lastDate)
+                   select p;
+        }
+
+
+
+        private static bool IsBeforeDate(string date, string lastDate)
+        {
+            string[] previousDate = lastDate.Split('/');
+
+            int prevMonth = Convert.ToInt32(previousDate[0]);
+            int prevDay = Convert.ToInt32(previousDate[1]);
+            int prevYear = Convert.ToInt32(previousDate[2]);
+
+            string[] newDate = date.Split('/');
+
+            int newMonth = Convert.ToInt32(newDate[0]);
+            int newDay = Convert.ToInt32(newDate[1]);
+            int newYear = Convert.ToInt32(newDate[2]);
+
+            if (newYear < prevYear)
+                return false;
+            else if (newMonth < prevMonth)
+                return false;
+            else if (newDay < prevDay)
+                return false;
+            else
+                return true;
+        }
+
+
+
+        public IQueryable<Patron> GetTopData(int rows)
+        {
+            return database.Patrons.Take(rows);
+        }
+
+
+        public void AddRow(
+            string firstName,
+            string middleInitial,
+            string lastName,
+            string gender,
+            string family,
+            string lastVisit,
+            string birth,
+            string address,
+            string phoneNumber,
+            string comments,
+            string initialVisit)
+        {
+            Patron row = new Patron
+            {
+                FirstName = firstName,
+                MiddleInitial = middleInitial,
+                LastName = lastName,
+                Gender = gender,
+                Family = family,
+                DateOfLastVisit = lastVisit,
+                DateOfBirth = birth,
+                Address = address,
+                PhoneNumber = phoneNumber,
+                Comments = comments,
+                DateOfInitialVisit = initialVisit
+            };
+
+            database.Patrons.InsertOnSubmit(row);
+            database.SubmitChanges();
         }
 
 
 
         // Delete an item from the table, given the following values
-        public void DeleteRow(params SqlPair[] data)
+        public void DeleteRow(string firstName, string middleInitial, string lastName, string birth, string family)
         {
-
+            Patron patron =
+                (from p in database.Patrons
+                 where p.FirstName == firstName
+                 where p.MiddleInitial == middleInitial
+                 where p.LastName == lastName
+                 where p.DateOfBirth == birth
+                 where p.Family == family
+                 select p).First<Patron>(); // There can (should) only be one
         }
+            
+        // Update a row where a certain number of values are known, to new values
+        public void UpdateRow(string prevFirstName,
+            string prevMiddleInitiall,
+            string prevLastName,
+            string prevBirth,
+            string prevFamily,
+            Patron newPatron)
+        {
+            Patron patron = (from p in database.Patrons
+                             where p.FirstName == prevFirstName
+                             where p.MiddleInitial==prevMiddleInitiall
+                             where p.LastName==prevLastName
+                             where p.DateOfBirth==prevBirth
+                             where p.Family==prevFamily
+                             select p).First<Patron>();
+
+            
+            // Copy the entire variable set
+        }
+    }
 }
