@@ -40,18 +40,15 @@ namespace Common
         }
 
 
-        public Patron GetDataRow(string firstName, string middleInitial, string lastName, string dateOfBirth)
+        public Patron GetDataRow(int id)
         {
             Patron result =
                 (
                from p in database.Patrons
 
-               where p.FirstName == firstName
-               where p.LastName == lastName
-               where p.MiddleInitial == middleInitial
-               where p.DateOfBirth == dateOfBirth
+               where p.PatronID == id
 
-               select p).First<Patron>(); // The can (should) only be one!!
+               select p).First<Patron>(); // The can only be one!!
 
             return result;
         }
@@ -134,16 +131,15 @@ namespace Common
 
 
         // Delete an item from the table, given the following values
-        public void DeleteRow(string firstName, string middleInitial, string lastName, string birth, string family)
+        public void DeleteRow(int id)
         {
             Patron patron =
                 (from p in database.Patrons
-                 where p.FirstName == firstName
-                 where p.MiddleInitial == middleInitial
-                 where p.LastName == lastName
-                 where p.DateOfBirth == birth
-                 where p.Family == family
-                 select p).First<Patron>(); // There can (should) only be one
+                 where p.PatronID == id
+                 select p).First<Patron>(); // There can only be one
+
+            database.Patrons.DeleteOnSubmit(patron);
+            database.SubmitChanges();
         }
             
         // Update a row where a certain number of values are known, to new values

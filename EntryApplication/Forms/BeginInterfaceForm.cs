@@ -68,6 +68,9 @@ namespace EntryApplication
         // The connection to the local sql database
         private SqlConnection sqlConnection;
 
+        // The database handler, responsible for all sql operations
+        Common.SqlHandler sqlHandler;
+
 
 
         // Constructor
@@ -91,6 +94,9 @@ namespace EntryApplication
             // Connect to the local SQL Database
             sqlConnection = new SqlConnection("Server=localhost\\SQLEXPRESS;Database=Patrons;User Id=sa; Password=potato");
             sqlConnection.Open();
+
+            // Connect to the SQL database
+            sqlHandler = new Common.SqlHandler("localhost\\SQLEXPRESSS", "sa", "potato");
 
             LoadAllPatrons();
         }

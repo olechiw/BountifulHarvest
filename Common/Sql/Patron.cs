@@ -34,5 +34,7 @@ namespace Common
         public string Comments;
         [Column]
         public string DateOfInitialVisit;
+        [Column(IsPrimaryKey = true)]
+        public int PatronID;
     }
 }
