@@ -21,9 +21,9 @@ namespace Common
         [Column]
         public string Gender;
         [Column]
-        public string DateOfLastVisit;
+        public DateTime DateOfLastVisit;
         [Column]
-        public string DateOfBirth;
+        public DateTime DateOfBirth;
         [Column]
         public string Family;
         [Column]
@@ -33,8 +33,25 @@ namespace Common
         [Column]
         public string Comments;
         [Column]
-        public string DateOfInitialVisit;
+        public DateTime DateOfInitialVisit;
         [Column(IsPrimaryKey = true)]
         public int PatronID;
+
+
+        // Copy the class
+        public static void Copy(Patron n, Patron o)
+        {
+            n.FirstName = o.FirstName;
+            n.MiddleInitial = o.MiddleInitial;
+            n.LastName = o.LastName;
+            n.Gender = o.Gender;
+            n.DateOfLastVisit = o.DateOfLastVisit;
+            n.DateOfBirth = o.DateOfBirth;
+            n.Family = o.Family;
+            n.PhoneNumber = o.PhoneNumber;
+            n.Address = o.Address;
+            n.Comments = o.Comments;
+            n.DateOfInitialVisit = o.DateOfInitialVisit;
+        }
     }
 }

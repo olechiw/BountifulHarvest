@@ -41,10 +41,11 @@
             this.patronLastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronGenderColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronLastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronDateOfBirth = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronFamilyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateLabel = new System.Windows.Forms.Label();
             this.morePatronInfoButton = new System.Windows.Forms.Button();
+            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,8 +131,9 @@
             this.patronLastNameColumn,
             this.patronGenderColumn,
             this.patronLastVisit,
-            this.patronAge,
-            this.patronFamilyColumn});
+            this.patronDateOfBirth,
+            this.patronFamilyColumn,
+            this.patronIDColumn});
             this.outputDataView.Location = new System.Drawing.Point(31, 131);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
@@ -170,17 +172,17 @@
             // 
             // patronLastVisit
             // 
-            this.patronLastVisit.HeaderText = "Last Visit Date";
+            this.patronLastVisit.HeaderText = "DateOfLastVisit";
             this.patronLastVisit.Name = "patronLastVisit";
             this.patronLastVisit.ReadOnly = true;
             this.patronLastVisit.Width = 150;
             // 
-            // patronAge
+            // patronDateOfBirth
             // 
-            this.patronAge.HeaderText = "DoB";
-            this.patronAge.Name = "patronAge";
-            this.patronAge.ReadOnly = true;
-            this.patronAge.Width = 150;
+            this.patronDateOfBirth.HeaderText = "DateOfBirth";
+            this.patronDateOfBirth.Name = "patronDateOfBirth";
+            this.patronDateOfBirth.ReadOnly = true;
+            this.patronDateOfBirth.Width = 150;
             // 
             // patronFamilyColumn
             // 
@@ -207,6 +209,12 @@
             this.morePatronInfoButton.Text = "More Info";
             this.morePatronInfoButton.UseVisualStyleBackColor = true;
             this.morePatronInfoButton.Click += new System.EventHandler(this.morePatronInfoButtonClick);
+            // 
+            // patronIDColumn
+            // 
+            this.patronIDColumn.HeaderText = "Patron ID";
+            this.patronIDColumn.Name = "patronIDColumn";
+            this.patronIDColumn.ReadOnly = true;
             // 
             // BeginInterfaceForm
             // 
@@ -249,8 +257,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronLastNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronGenderColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronLastVisit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patronAge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronDateOfBirth;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
     }
 }
 

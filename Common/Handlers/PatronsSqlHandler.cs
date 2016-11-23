@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Collections;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Linq.SqlClient;
 using System.Data.Linq.Mapping;
 using System.Data.Linq;
 using System.Windows.Forms;
 using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+
+using PatronList = System.Linq.IQueryable<Common.Patron>;
 
 //
 // SqlHandler - A class responsible for all communication with the SqlServer
@@ -40,7 +38,9 @@ namespace Common
         }
 
 
-        public Patron GetDataRow(int id)
+
+        // Get the entire row based on a specific patron id. This is a REFERENCE OBJECT
+        public Patron GetRow(int id)
         {
             Patron result =
                 (
@@ -55,11 +55,32 @@ namespace Common
 
 
 
-        public IQueryable<Patron> GetNewestData(string lastDate)
+        // Get a row based on a query of similar values
+        public PatronList GetRowsSimilar(string query)
+        {
+            string q = "%" + query + "%";
+
+
+            return from p in database.Patrons
+                   where SqlMethods.Like(p.FirstName, q)
+                   where SqlMethods.Like(p.LastName, q)
+                   where SqlMethods.Like(p.Family, q)
+                   select p;
+        }
+
+
+        public PatronList GetNewestRows(string lastDate)
         {
             return from p in database.Patrons
                    where IsBeforeDate(p.DateOfLastVisit, lastDate)
                    select p;
+        }
+
+
+
+        public PatronList GetTopRows(int rowCount)
+        {
+            return database.Patrons.Take(rowCount);
         }
 
 
@@ -88,12 +109,6 @@ namespace Common
                 return true;
         }
 
-
-
-        public IQueryable<Patron> GetTopData(int rows)
-        {
-            return database.Patrons.Take(rows);
-        }
 
 
         public void AddRow(
@@ -141,25 +156,9 @@ namespace Common
             database.Patrons.DeleteOnSubmit(patron);
             database.SubmitChanges();
         }
-            
-        // Update a row where a certain number of values are known, to new values
-        public void UpdateRow(string prevFirstName,
-            string prevMiddleInitiall,
-            string prevLastName,
-            string prevBirth,
-            string prevFamily,
-            Patron newPatron)
-        {
-            Patron patron = (from p in database.Patrons
-                             where p.FirstName == prevFirstName
-                             where p.MiddleInitial==prevMiddleInitiall
-                             where p.LastName==prevLastName
-                             where p.DateOfBirth==prevBirth
-                             where p.Family==prevFamily
-                             select p).First<Patron>();
 
-            
-            // Copy the entire variable set
-        }
+
+        // Send the changes to the sql server
+        public void Update() => database.SubmitChanges();
     }
 }
