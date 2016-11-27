@@ -22,8 +22,8 @@ namespace EntryApplication
 {
     public partial class NewPatronForm : System.Windows.Forms.Form
     {
-        private Common.Patron newPatron = new Common.Patron();
-        public Common.Patron GetResults() => newPatron;
+        private Patron newPatron = new Patron();
+        public Patron GetResults() => newPatron;
 
         // A boolean used to see if the user actually saved the data
         private bool saved = false;
@@ -40,7 +40,7 @@ namespace EntryApplication
         }
 
         // An alternate constructor for editing patrons
-        public NewPatronForm(Common.Patron p)
+        public NewPatronForm(Patron p)
         {
             // Standard init
             InitializeComponent();
@@ -66,7 +66,7 @@ namespace EntryApplication
             for (int i = 0; i < 10; ++i)
                 relativesDataView.Rows.Add();
 
-            Common.Patron.Copy(newPatron, p);
+            Patron.Copy(newPatron, p);
         }
 
         // When the '+' button is clicked to add a row, add a row.

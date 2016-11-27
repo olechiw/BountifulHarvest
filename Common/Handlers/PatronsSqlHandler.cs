@@ -15,6 +15,8 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 
+using Common;
+
 using PatronList = System.Linq.IQueryable<Common.Patron>;
 
 //
@@ -31,9 +33,8 @@ namespace Common
 
 
 
-        public SqlHandler(string ip, string user, string pass)
+        public SqlHandler(string connectString)
         {
-            string connectString = "server=" + ip + ";table= Patrons;User Id=" + user + ";Password=" + pass;
             database = new BountifulHarvestContext(connectString);
         }
 
@@ -72,7 +73,7 @@ namespace Common
         public PatronList GetNewestRows(string lastDate)
         {
             return from p in database.Patrons
-                   where IsBeforeDate(p.DateOfLastVisit, lastDate)
+                   where IsBeforeDate(p.DateOfLastVisit.Date.ToString(), lastDate)
                    select p;
         }
 
@@ -117,12 +118,12 @@ namespace Common
             string lastName,
             string gender,
             string family,
-            string lastVisit,
-            string birth,
+            DateTime lastVisit,
+            DateTime birth,
             string address,
             string phoneNumber,
             string comments,
-            string initialVisit)
+            DateTime initialVisit)
         {
             Patron row = new Patron
             {
@@ -140,6 +141,13 @@ namespace Common
             };
 
             database.Patrons.InsertOnSubmit(row);
+            database.SubmitChanges();
+        }
+
+
+        public void AddRow(Patron p)
+        {
+            database.Patrons.InsertOnSubmit(p);
             database.SubmitChanges();
         }
 

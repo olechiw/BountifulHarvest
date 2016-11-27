@@ -76,7 +76,7 @@ namespace EntryApplication
 
 
             // Connect to the SQL database
-            sqlHandler = new Common.SqlHandler("localhost\\SQLEXPRESSS", "sa", "potato");
+            sqlHandler = new Common.SqlHandler("Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id=sa; Password=potato");
 
             LoadAllPatrons();
         }
@@ -100,7 +100,7 @@ namespace EntryApplication
             PatronList patrons = sqlHandler.GetTopRows(100);
 
             // Read all of the patrons into the data
-            foreach (Common.Patron p in patrons)
+            foreach (Patron p in patrons)
             {
                 AddDataRow(p);
             }
@@ -109,7 +109,7 @@ namespace EntryApplication
 
 
         // Shorthand for adding a set of values to the outputDataView
-        private void AddDataRow(Common.Patron p)
+        private void AddDataRow(Patron p)
         {
             this.outputDataView.Rows.Add(
                 p.FirstName,
@@ -166,7 +166,7 @@ namespace EntryApplication
             PatronList results = sqlHandler.GetRowsSimilar(query);
 
 
-            foreach (Common.Patron p in results)
+            foreach (Patron p in results)
                 AddDataRow(p);
         }
 
@@ -178,26 +178,9 @@ namespace EntryApplication
             NewPatronForm form = new NewPatronForm();
             form.ShowDialog();
 
-            if (form.Saved())
-            {
-                Patron p = form.GetData();
-                string data = "'" + p.firstName + "','"
-                    + p.middleInitial + "','"
-                    + p.lastName + "','"
-                    + p.gender + "','"
-                    + "','"
-                    + p.dateOfBirth + "','"
-                    + p.family + "','"
-                    + p.phoneNumber + "','"
-                    + p.address + "','"
-                    + p.comments + "','"
-                    + date + "'";
+            Patron p = form.GetResults();
 
-
-                // Add in the values
-                SqlCommand addCommand = new SqlCommand("INSERT INTO Patrons VALUES (" + data + ")", sqlConnection);
-                addCommand.ExecuteNonQuery();
-            }
+            sqlHandler.AddRow(p);
         }
 
 
@@ -210,7 +193,7 @@ namespace EntryApplication
                 .ToString()
                 );
 
-            Common.Patron p = sqlHandler.GetRow(patronId);
+            Patron p = sqlHandler.GetRow(patronId);
 
             // Get new data passing the old data on
             NewPatronForm form = new NewPatronForm(p);
@@ -218,8 +201,8 @@ namespace EntryApplication
 
             if (form.Saved())
             {
-                Common.Patron updatedP = form.GetResults();
-                Common.Patron.Copy(p, updatedP);
+                Patron updatedP = form.GetResults();
+                Patron.Copy(p, updatedP);
             }
 
             LoadAllPatrons();
@@ -271,7 +254,7 @@ namespace EntryApplication
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
             int id = Convert.ToInt32(outputDataView.SelectedRows[0].Cells[(int)OutputDataColumns.PatronID]);
-            Common.Patron p = sqlHandler.GetRow(id);
+            Patron p = sqlHandler.GetRow(id);
 
             MoreInfoForm form = new MoreInfoForm(p.FirstName + ' ' + p.MiddleInitial + ' ' + p.LastName, p.DateOfBirth.ToString(), p.Address, p.PhoneNumber, p.DateOfLastVisit.ToString(), p.DateOfInitialVisit.ToString(), p.Family, p.Comments);
             form.ShowDialog();

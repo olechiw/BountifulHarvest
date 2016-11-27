@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 
+using Common;
+
 namespace Common
 {
     [DatabaseAttribute(Name ="BountifulHarvest")]

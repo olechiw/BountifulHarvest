@@ -6,7 +6,7 @@ using System.Data.Linq.Mapping;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Sql
+namespace Common
 {
     [Table(Name ="Visits")]
     public class Visit
