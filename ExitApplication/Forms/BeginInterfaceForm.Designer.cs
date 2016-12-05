@@ -28,21 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.patronFirstNameTextBox = new ExitApplication.Common.StringTextBox();
+            this.patronFirstNameTextBox = new Common.StringTextBox();
             this.patronNameLabel = new System.Windows.Forms.Label();
             this.visitDateLabel = new System.Windows.Forms.Label();
-            this.visitDateTextBox = new ExitApplication.Common.StringTextBox();
+            this.visitDateTextBox = new Common.StringTextBox();
             this.patronVisitLabel = new System.Windows.Forms.Label();
-            this.submitButton = new System.Windows.Forms.Button();
+            this.undoButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.firstnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.middleInitialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPoundsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronMiddleInitialTextBox = new ExitApplication.Common.StringTextBox();
-            this.lastNameTextBox = new ExitApplication.Common.StringTextBox();
-            this.totalPoundsTextBox = new ExitApplication.Common.StringTextBox();
+            this.patronMiddleInitialTextBox = new Common.StringTextBox();
+            this.lastNameTextBox = new Common.StringTextBox();
+            this.totalPoundsTextBox = new Common.StringTextBox();
             this.poundsLabel = new System.Windows.Forms.Label();
+            this.submitButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +60,7 @@
             // 
             this.patronNameLabel.AutoSize = true;
             this.patronNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.patronNameLabel.Location = new System.Drawing.Point(133, 125);
+            this.patronNameLabel.Location = new System.Drawing.Point(126, 125);
             this.patronNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.patronNameLabel.Name = "patronNameLabel";
             this.patronNameLabel.Size = new System.Drawing.Size(181, 32);
@@ -70,7 +71,7 @@
             // 
             this.visitDateLabel.AutoSize = true;
             this.visitDateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.visitDateLabel.Location = new System.Drawing.Point(543, 125);
+            this.visitDateLabel.Location = new System.Drawing.Point(553, 125);
             this.visitDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.visitDateLabel.Name = "visitDateLabel";
             this.visitDateLabel.Size = new System.Drawing.Size(137, 32);
@@ -97,15 +98,15 @@
             this.patronVisitLabel.TabIndex = 4;
             this.patronVisitLabel.Text = "Log a Patron Visit";
             // 
-            // submitButton
+            // undoButton
             // 
-            this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(1169, 644);
-            this.submitButton.Name = "submitButton";
-            this.submitButton.Size = new System.Drawing.Size(193, 72);
-            this.submitButton.TabIndex = 5;
-            this.submitButton.Text = "Submit";
-            this.submitButton.UseVisualStyleBackColor = true;
+            this.undoButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.undoButton.Location = new System.Drawing.Point(1150, 661);
+            this.undoButton.Name = "undoButton";
+            this.undoButton.Size = new System.Drawing.Size(193, 72);
+            this.undoButton.TabIndex = 5;
+            this.undoButton.Text = "Undo";
+            this.undoButton.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
@@ -171,24 +172,35 @@
             // 
             this.poundsLabel.AutoSize = true;
             this.poundsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.poundsLabel.Location = new System.Drawing.Point(1028, 125);
+            this.poundsLabel.Location = new System.Drawing.Point(1017, 125);
             this.poundsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.poundsLabel.Name = "poundsLabel";
             this.poundsLabel.Size = new System.Drawing.Size(140, 32);
             this.poundsLabel.TabIndex = 10;
             this.poundsLabel.Text = "Total Lbs.";
             // 
+            // submitButton
+            // 
+            this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.submitButton.Location = new System.Drawing.Point(1150, 369);
+            this.submitButton.Name = "submitButton";
+            this.submitButton.Size = new System.Drawing.Size(193, 72);
+            this.submitButton.TabIndex = 11;
+            this.submitButton.Text = "Submit";
+            this.submitButton.UseVisualStyleBackColor = true;
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1442, 851);
+            this.Controls.Add(this.submitButton);
             this.Controls.Add(this.poundsLabel);
             this.Controls.Add(this.totalPoundsTextBox);
             this.Controls.Add(this.lastNameTextBox);
             this.Controls.Add(this.patronMiddleInitialTextBox);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.submitButton);
+            this.Controls.Add(this.undoButton);
             this.Controls.Add(this.patronVisitLabel);
             this.Controls.Add(this.visitDateTextBox);
             this.Controls.Add(this.visitDateLabel);
@@ -213,7 +225,7 @@
         private System.Windows.Forms.Label visitDateLabel;
         private Common.StringTextBox visitDateTextBox;
         private System.Windows.Forms.Label patronVisitLabel;
-        private System.Windows.Forms.Button submitButton;
+        private System.Windows.Forms.Button undoButton;
         private System.Windows.Forms.DataGridView dataGridView1;
         private Common.StringTextBox patronMiddleInitialTextBox;
         private Common.StringTextBox lastNameTextBox;
@@ -223,6 +235,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn totalPoundsColumn;
         private Common.StringTextBox totalPoundsTextBox;
         private System.Windows.Forms.Label poundsLabel;
+        private System.Windows.Forms.Button submitButton;
     }
 }
 

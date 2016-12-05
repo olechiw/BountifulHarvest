@@ -16,8 +16,10 @@ namespace Common
         [Column]
         public string TotalPounds;
         [Column]
-        public string DateOfVisit;
+        public DateTime DateOfVisit;
         [Column]
         public string SizeOfFamily;
+        [Column(IsPrimaryKey =true)]
+        public int VisitID;
     }
 }

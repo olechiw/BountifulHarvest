@@ -51,7 +51,7 @@ namespace EntryApplication
         private SqlConnection sqlConnection;
 
         // The database handler, responsible for all sql operations
-        Common.SqlHandler sqlHandler;
+        Common.PatronsSqlHandler sqlHandler;
 
 
 
@@ -76,7 +76,7 @@ namespace EntryApplication
 
 
             // Connect to the SQL database
-            sqlHandler = new Common.SqlHandler("Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id=sa; Password=potato");
+            sqlHandler = new Common.PatronsSqlHandler("Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id=sa; Password=potato");
 
             LoadAllPatrons();
         }

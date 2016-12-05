@@ -26,14 +26,14 @@ using PatronList = System.Linq.IQueryable<Common.Patron>;
 
 namespace Common
 {
-    public class SqlHandler
+    public class PatronsSqlHandler
     {
         // The database
         private BountifulHarvestContext database;
 
 
 
-        public SqlHandler(string connectString)
+        public PatronsSqlHandler(string connectString)
         {
             database = new BountifulHarvestContext(connectString);
         }
@@ -43,15 +43,13 @@ namespace Common
         // Get the entire row based on a specific patron id. This is a REFERENCE OBJECT
         public Patron GetRow(int id)
         {
-            Patron result =
+            return
                 (
                from p in database.Patrons
 
                where p.PatronID == id
 
                select p).First<Patron>(); // The can only be one!!
-
-            return result;
         }
 
 
@@ -73,7 +71,7 @@ namespace Common
         public PatronList GetNewestRows(string lastDate)
         {
             return from p in database.Patrons
-                   where IsBeforeDate(p.DateOfLastVisit.Date.ToString(), lastDate)
+                   where Constants.IsBeforeDate(p.DateOfLastVisit.Date.ToString(), lastDate)
                    select p;
         }
 
@@ -82,32 +80,6 @@ namespace Common
         public PatronList GetTopRows(int rowCount)
         {
             return database.Patrons.Take(rowCount);
-        }
-
-
-
-        private static bool IsBeforeDate(string date, string lastDate)
-        {
-            string[] previousDate = lastDate.Split('/');
-
-            int prevMonth = Convert.ToInt32(previousDate[0]);
-            int prevDay = Convert.ToInt32(previousDate[1]);
-            int prevYear = Convert.ToInt32(previousDate[2]);
-
-            string[] newDate = date.Split('/');
-
-            int newMonth = Convert.ToInt32(newDate[0]);
-            int newDay = Convert.ToInt32(newDate[1]);
-            int newYear = Convert.ToInt32(newDate[2]);
-
-            if (newYear < prevYear)
-                return false;
-            else if (newMonth < prevMonth)
-                return false;
-            else if (newDay < prevDay)
-                return false;
-            else
-                return true;
         }
 
 
