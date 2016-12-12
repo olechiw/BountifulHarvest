@@ -87,26 +87,11 @@ namespace EntryApplication
                     newPatron.Family += row.Cells[0].Value.ToString();
 
 
-            int month;
-            string m = monthTextBox.Text.ToString();
-            if (m != "")
-                month = Convert.ToInt32(m);
-            else
-                month = 0;
+            int month = Constants.SafeConvertInt(monthTextBox.Text.ToString());
 
-            string d = dayTextBox.Text.ToString();
-            int day;
-            if (d != "")
-                day = Convert.ToInt32(dayTextBox.Text.ToString());
-            else
-                day = 0;
+            int day = Constants.SafeConvertInt(dayTextBox.Text.ToString());
 
-            string y = yearTextBox.Text.ToString();
-            int year;
-            if (y != "")
-                year = Convert.ToInt32(yearTextBox.Text.ToString());
-            else
-                year = 0;
+            int year = Constants.SafeConvertInt(yearTextBox.Text.ToString());
 
             newPatron.DateOfBirth = new DateTime(year, month, day);
 
@@ -116,6 +101,8 @@ namespace EntryApplication
 
             newPatron.DateOfInitialVisit = DateTime.Today;
             newPatron.DateOfLastVisit = DateTime.Today;
+
+            newPatron.Gender = genderTextBox.Text.ToString();
 
             saved = true;
 

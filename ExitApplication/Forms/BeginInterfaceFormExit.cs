@@ -80,20 +80,20 @@ namespace ExitApplication
                 PatronFirstName = patronFirstNameTextBox.Text.ToString(),
                 PatronMiddleInitial = patronMiddleInitialTextBox.Text.ToString(),
                 PatronLastName = patronLastNameTextBox.Text.ToString(),
-                TotalPounds = Convert.ToInt32(totalPoundsTextBox.Text.ToString()),
-                SizeOfFamily = Convert.ToInt32(sizeOfFamilyTextBox.Text.ToString()),
-                DateOfVisit = Convert.ToDateTime(visitDateTextBox.Text.ToString())
+                TotalPounds = Constants.SafeConvertInt(totalPoundsTextBox.Text.ToString()),
+                SizeOfFamily = Constants.SafeConvertInt((sizeOfFamilyTextBox.Text.ToString())),
+                DateOfVisit = Constants.SafeConvertDate(visitDateTextBox.Text.ToString())
             };
 
             AddDataRow(v);
             sqlHandler.AddRow(v);
-        }
+            }
 
         private void undoButtonClick(object sender, EventArgs e)
         {
             for (int i = 0; i < outputDataView.Rows.Count; ++i)
             {
-                if (Convert.ToInt32(outputDataView.Rows[(int)Common.Constants.VisitIndexes.VisitID].ToString())==lastPatronID)
+                if (Constants.SafeConvertInt(outputDataView.Rows[(int)Common.Constants.VisitIndexes.VisitID].ToString())==lastPatronID)
                 {
                     outputDataView.Rows.RemoveAt(i);
                 }

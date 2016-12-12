@@ -74,5 +74,33 @@ namespace Common
             else
                 return true;
         }
+
+        public static int SafeConvertInt(string s)
+        {
+            int i = 0;
+            try
+            {
+                i = Convert.ToInt32(s);
+            }
+            catch (Exception)
+            {
+
+            }
+            return i;
+        }
+
+        public static DateTime SafeConvertDate(string s)
+        {
+            DateTime d;
+            try
+            {
+                d = Convert.ToDateTime(s);
+            }
+            catch (Exception)
+            {
+
+            }
+            return d;
+        }
     }
 }
