@@ -20,24 +20,6 @@ namespace Common
             public static string Visits = "Visits";
         }
 
-
-        #region Constant Names of All Sql Columns
-
-        // Patrons table
-        public static string FirstName = "FirstName";
-        public static string LastName = "LastName";
-        public static string MiddleInitial = "MiddleInitial";
-        public static string Gender = "Gender";
-        public static string Family = "Family";
-        public static string DateOfLastVisit = "DateOfLastVisit";
-        public static string DateOfBirth = "DateOfBirth";
-        public static string Address = "Address";
-        public static string PhoneNumber = "PhoneNumber";
-        public static string Comments = "Comments";
-        public static string DateOfInitialVisit = "DateOfInitialVisit";
-
-        #endregion
-
         #region Constant Indexes of All SqlColumns, as Enums
 
         // Patrons table
@@ -54,6 +36,17 @@ namespace Common
             PhoneNumber,
             Comments,
             InitialVisitDate
+        }
+
+        // Visits table
+        public enum VisitIndexes
+        {
+            FirstName,
+            MiddleInitial,
+            LastName,
+            TotalPounds,
+            DateOfVisit,
+            VisitID
         }
 
         #endregion

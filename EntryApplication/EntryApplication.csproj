@@ -70,11 +70,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\BeginInterfaceForm.cs">
+    <Compile Include="Forms\BeginInterfaceFormEnter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BeginInterfaceForm.Designer.cs">
-      <DependentUpon>BeginInterfaceForm.cs</DependentUpon>
+    <Compile Include="Forms\BeginInterfaceFormEnter.Designer.cs">
+      <DependentUpon>BeginInterfaceFormEnter.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MorePatronInfoForm.cs">
       <SubType>Form</SubType>
@@ -96,8 +96,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\BeginInterfaceForm.resx">
-      <DependentUpon>BeginInterfaceForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BeginInterfaceFormEnter.resx">
+      <DependentUpon>BeginInterfaceFormEnter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MorePatronInfoForm.resx">
       <DependentUpon>MorePatronInfoForm.cs</DependentUpon>

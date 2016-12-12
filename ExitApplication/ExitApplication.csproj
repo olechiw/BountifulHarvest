@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\BeginInterfaceForm.cs">
+    <Compile Include="Forms\BeginInterfaceFormExit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BeginInterfaceForm.Designer.cs">
-      <DependentUpon>BeginInterfaceForm.cs</DependentUpon>
+    <Compile Include="Forms\BeginInterfaceFormExit.Designer.cs">
+      <DependentUpon>BeginInterfaceFormExit.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\BeginInterfaceForm.resx">
-      <DependentUpon>BeginInterfaceForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BeginInterfaceFormExit.resx">
+      <DependentUpon>BeginInterfaceFormExit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

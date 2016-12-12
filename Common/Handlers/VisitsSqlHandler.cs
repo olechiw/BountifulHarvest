@@ -23,9 +23,9 @@ using VisitList = System.Linq.IQueryable<Common.Visit>;
 // SqlHandler - A class responsible for all communication with the SqlServer
 //
 
-namespace Common.Handlers
+namespace Common
 {
-    class VisitsSqlHandler
+    public class VisitsSqlHandler
     {
         // The actual database
         private BountifulHarvestContext database;
@@ -62,14 +62,18 @@ namespace Common.Handlers
 
 
         public void AddRow(
-            string patronName,
-            string totalPounds,
+            string patronFirstName,
+            string patronMiddleInitial,
+            string patronLastName,
+            int totalPounds,
             DateTime dateOfVisit,
-            string sizeOfFamily)
+            int sizeOfFamily)
         {
             Visit visit = new Visit
             {
-                PatronName = patronName,
+                PatronFirstName = patronFirstName,
+                PatronMiddleInitial = patronMiddleInitial,
+                PatronLastName = patronLastName,
                 TotalPounds = totalPounds,
                 DateOfVisit = dateOfVisit,
                 SizeOfFamily = sizeOfFamily

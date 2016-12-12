@@ -41,14 +41,13 @@ namespace EntryApplication
 
     public partial class BeginInterfaceForm : Common.DialogForm
     {
+        private const string connectionString = "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=potato";
+
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
 
         // The date
         private string date;
-
-        // The connection to the local sql database
-        private SqlConnection sqlConnection;
 
         // The database handler, responsible for all sql operations
         Common.PatronsSqlHandler sqlHandler;
@@ -76,7 +75,7 @@ namespace EntryApplication
 
 
             // Connect to the SQL database
-            sqlHandler = new Common.PatronsSqlHandler("Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id=sa; Password=potato");
+            sqlHandler = new Common.PatronsSqlHandler(connectionString);
 
             LoadAllPatrons();
         }

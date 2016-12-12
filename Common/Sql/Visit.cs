@@ -12,13 +12,17 @@ namespace Common
     public class Visit
     {
         [Column]
-        public string PatronName;
+        public string PatronFirstName;
         [Column]
-        public string TotalPounds;
+        public string PatronMiddleInitial;
+        [Column]
+        public string PatronLastName;
+        [Column]
+        public int TotalPounds;
         [Column]
         public DateTime DateOfVisit;
         [Column]
-        public string SizeOfFamily;
+        public int SizeOfFamily;
         [Column(IsPrimaryKey =true)]
         public int VisitID;
     }
