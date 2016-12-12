@@ -24,8 +24,8 @@ namespace Common
         {
             Keys key = e.KeyCode;
 
-            // Latin characters are ok
-            if ((key >= Keys.A) && (key <= Keys.Z))
+            // Account for letters and numbers
+            if (char.IsLetterOrDigit((char)key))
                 return;
 
             // Special exceptions (backspace) are ok

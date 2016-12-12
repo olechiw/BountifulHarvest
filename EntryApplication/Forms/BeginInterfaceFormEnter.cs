@@ -115,8 +115,8 @@ namespace EntryApplication
                 p.MiddleInitial,
                 p.LastName,
                 p.Gender,
-                p.DateOfLastVisit,
-                p.DateOfBirth,
+                p.DateOfLastVisit.Date.ToString("d"),
+                p.DateOfBirth.Date.ToString("d"),
                 p.Family,
                 p.PatronID);
         }
@@ -180,6 +180,7 @@ namespace EntryApplication
             Patron p = form.GetResults();
 
             sqlHandler.AddRow(p);
+            LoadAllPatrons();
         }
 
 
@@ -189,7 +190,7 @@ namespace EntryApplication
         {
             int patronId = Convert.ToInt32(
                 outputDataView.SelectedRows[0].Cells[(int)OutputDataColumns.PatronID]
-                .ToString()
+                .Value.ToString()
                 );
 
             Patron p = sqlHandler.GetRow(patronId);
@@ -202,6 +203,8 @@ namespace EntryApplication
             {
                 Patron updatedP = form.GetResults();
                 Patron.Copy(p, updatedP);
+
+                sqlHandler.Update();
             }
 
             LoadAllPatrons();

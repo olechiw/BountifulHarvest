@@ -119,8 +119,18 @@ namespace Common
 
         public void AddRow(Patron p)
         {
+            p.PatronID = database.Patrons.OrderByDescending(s => s.PatronID).First().PatronID + 1;
             database.Patrons.InsertOnSubmit(p);
-            database.SubmitChanges();
+
+            
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (SqlTypeException e)
+            {
+                MessageBox.Show("Invalid Date Entered.");
+            }
         }
 
 
