@@ -57,14 +57,15 @@ namespace Common
         // Get a row based on a query of similar values
         public PatronList GetRowsSimilar(string query)
         {
+            var predicate = PredicateBuilder.False<Patron>();
+
             string q = "%" + query + "%";
 
+            predicate = predicate.Or(p => SqlMethods.Like(p.FirstName, q));
+            predicate = predicate.Or(p => SqlMethods.Like(p.LastName, q));
+            predicate = predicate.Or(p => SqlMethods.Like(p.Family, q));
 
-            return from p in database.Patrons
-                   where SqlMethods.Like(p.FirstName, q)
-                   where SqlMethods.Like(p.LastName, q)
-                   where SqlMethods.Like(p.Family, q)
-                   select p;
+            return database.Patrons.Where(predicate);
         }
 
 

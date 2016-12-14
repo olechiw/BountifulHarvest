@@ -87,11 +87,11 @@ namespace EntryApplication
                     newPatron.Family += row.Cells[0].Value.ToString();
 
 
-            int month = Constants.SafeConvertInt(monthTextBox.Text.ToString());
+            int month = Common.Constants.SafeConvertInt(monthTextBox.Text.ToString());
 
-            int day = Constants.SafeConvertInt(dayTextBox.Text.ToString());
+            int day = Common.Constants.SafeConvertInt(dayTextBox.Text.ToString());
 
-            int year = Constants.SafeConvertInt(yearTextBox.Text.ToString());
+            int year = Common.Constants.SafeConvertInt(yearTextBox.Text.ToString());
 
             newPatron.DateOfBirth = new DateTime(year, month, day);
 

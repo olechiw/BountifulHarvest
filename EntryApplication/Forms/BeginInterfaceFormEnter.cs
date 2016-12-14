@@ -130,6 +130,10 @@ namespace EntryApplication
             {
                 UpdateResults(searchBox.Text);
             }
+            else
+            {
+                LoadAllPatrons();
+            }
         }
 
 
