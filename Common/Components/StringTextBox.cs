@@ -24,11 +24,14 @@ namespace Common
         {
             Keys key = e.KeyCode;
 
+            char k = (char)key;
             // Account for letters and numbers
-            if (char.IsLetterOrDigit((char)key))
+            if (Keys.A <= key && key <= Keys.Z)
+                return;
+            else if (Keys.D0 <= key && key <= Keys.D9)
                 return;
 
-            // Special exceptions (backspace) are ok
+            // Special exceptions (backspace + space) are ok
             else if (key == Keys.Back)
                 return;
 

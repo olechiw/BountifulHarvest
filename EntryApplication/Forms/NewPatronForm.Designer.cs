@@ -172,6 +172,7 @@
             this.relativesDataView.RowTemplate.Height = 24;
             this.relativesDataView.Size = new System.Drawing.Size(538, 295);
             this.relativesDataView.TabIndex = 14;
+            this.relativesDataView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.relativesDataViewEditing);
             this.relativesDataView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.familyTextBoxKeyDown);
             // 
             // personName

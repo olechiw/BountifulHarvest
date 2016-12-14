@@ -64,13 +64,18 @@ namespace EntryApplication
 
             // Fill a buffer of empty spaces for user to add names
             for (int i = 0; i < 10; ++i)
-                relativesDataView.Rows.Add();
+                addRowButtonClick(null, null);
 
             Patron.Copy(newPatron, p);
         }
 
         // When the '+' button is clicked to add a row, add a row.
-        private void addRowButtonClick(object sender, EventArgs e) => relativesDataView.Rows.Add();
+        private void addRowButtonClick(object sender, EventArgs e)
+        {
+            //int count = relativesDataView.Rows.Count;
+            relativesDataView.Rows.Add();
+            //relativesDataView.Rows[count].Cells[0].
+        }
 
         // Record all of the data, and close the window
         private void submitButtonClick(object sender, EventArgs e)
@@ -117,16 +122,25 @@ namespace EntryApplication
             Keys key = e.KeyCode;
 
             // Account for letters and numbers
-            if (char.IsLetterOrDigit((char)key))
+            if (Keys.A <= key && key <= Keys.Z)
+                return;
+            else if (Keys.D0 <= key && key <= Keys.D9)
                 return;
 
-            // Special exceptions (backspace) are ok
+            // Special exceptions (backspace + space) are ok
             else if (key == Keys.Back)
+                return;
+            else if (key == Keys.Space)
                 return;
 
             // Otherwise, nothing will happen
             else
                 e.SuppressKeyPress = true;
+        }
+
+        private void relativesDataViewEditing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyDown += familyTextBoxKeyDown;
         }
     }
 }
