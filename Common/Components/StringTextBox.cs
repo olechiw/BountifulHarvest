@@ -20,7 +20,7 @@ namespace Common
         }
 
         // Whenever a key is pressed, make sure it is valid
-        private void textBoxKeyDown(object sender, KeyEventArgs e)
+        public void textBoxKeyDown(object sender, KeyEventArgs e)
         {
             Keys key = e.KeyCode;
 

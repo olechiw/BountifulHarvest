@@ -128,7 +128,7 @@ namespace Common
             {
                 database.SubmitChanges();
             }
-            catch (SqlTypeException e)
+            catch (SqlTypeException)
             {
                 MessageBox.Show("Invalid Date Entered.");
             }

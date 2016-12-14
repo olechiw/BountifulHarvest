@@ -181,6 +181,9 @@ namespace EntryApplication
             NewPatronForm form = new NewPatronForm();
             form.ShowDialog();
 
+            if (!form.Saved())
+                return;
+
             Patron p = form.GetResults();
 
             sqlHandler.AddRow(p);
@@ -203,13 +206,13 @@ namespace EntryApplication
             NewPatronForm form = new NewPatronForm(p);
             form.ShowDialog();
 
-            if (form.Saved())
-            {
-                Patron updatedP = form.GetResults();
-                Patron.Copy(p, updatedP);
+            if (!form.Saved())
+                return;
 
-                sqlHandler.Update();
-            }
+            Patron updatedP = form.GetResults();
+            Patron.Copy(p, updatedP);
+
+            sqlHandler.Update();
 
             LoadAllPatrons();
         }

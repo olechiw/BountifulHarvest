@@ -83,8 +83,11 @@ namespace EntryApplication
            newPatron.Family = "";
             // Get all of the family members
             foreach (DataGridViewRow row in relativesDataView.Rows)
-                if (row.Cells[0]!=null && row.Cells[0].Value!=null)
+                if (row.Cells[0] != null && row.Cells[0].Value != null)
+                {
                     newPatron.Family += row.Cells[0].Value.ToString();
+                    newPatron.Family += ',';
+                }
 
 
             int month = Common.Constants.SafeConvertInt(monthTextBox.Text.ToString());
@@ -93,11 +96,11 @@ namespace EntryApplication
 
             int year = Common.Constants.SafeConvertInt(yearTextBox.Text.ToString());
 
-            newPatron.DateOfBirth = new DateTime(year, month, day);
+            newPatron.DateOfBirth = new DateTime();
 
 
-            if (year == 0 || day == 0 || month == 0)
-                newPatron.DateOfBirth = new DateTime();
+            if (!(year == 0 || day == 0 || month == 0))
+                newPatron.DateOfBirth = new DateTime(year, month, day);
 
             newPatron.DateOfInitialVisit = DateTime.Today;
             newPatron.DateOfLastVisit = DateTime.Today;
@@ -107,6 +110,23 @@ namespace EntryApplication
             saved = true;
 
             this.Close();
+        }
+
+        private void familyTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            Keys key = e.KeyCode;
+
+            // Account for letters and numbers
+            if (char.IsLetterOrDigit((char)key))
+                return;
+
+            // Special exceptions (backspace) are ok
+            else if (key == Keys.Back)
+                return;
+
+            // Otherwise, nothing will happen
+            else
+                e.SuppressKeyPress = true;
         }
     }
 }
