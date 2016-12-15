@@ -88,7 +88,7 @@ namespace EntryApplication
            newPatron.Family = "";
             // Get all of the family members
             foreach (DataGridViewRow row in relativesDataView.Rows)
-                if (!string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString()))
+                if (!(row.Cells[0]==null || row.Cells[0].Value == null || string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString())))
                 {
                     newPatron.Family += row.Cells[0].Value.ToString();
                     newPatron.Family += ',';
