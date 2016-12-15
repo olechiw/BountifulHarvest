@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace EntryApplication
 {
-    public partial class PrintVisitForm : Form
+    public partial class PrintVisitForm : Common.DialogForm
     {
         System.Drawing.Printing.PrintDocument print = new System.Drawing.Printing.PrintDocument();
 

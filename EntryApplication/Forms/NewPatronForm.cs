@@ -20,7 +20,7 @@ using Common;
 
 namespace EntryApplication
 {
-    public partial class NewPatronForm : System.Windows.Forms.Form
+    public partial class NewPatronForm : Common.DialogForm
     {
         private Patron newPatron = new Patron();
         public Patron GetResults() => newPatron;

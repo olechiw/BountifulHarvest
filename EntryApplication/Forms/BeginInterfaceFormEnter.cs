@@ -262,7 +262,7 @@ namespace EntryApplication
         {
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
-            int id = Convert.ToInt32(outputDataView.SelectedRows[0].Cells[(int)OutputDataColumns.PatronID]);
+            int id = Constants.SafeConvertInt(outputDataView.SelectedRows[0].Cells[(int)OutputDataColumns.PatronID].Value.ToString());
             Patron p = sqlHandler.GetRow(id);
 
             MoreInfoForm form = new MoreInfoForm(p.FirstName + ' ' + p.MiddleInitial + ' ' + p.LastName, p.DateOfBirth.ToString(), p.Address, p.PhoneNumber, p.DateOfLastVisit.ToString(), p.DateOfInitialVisit.ToString(), p.Family, p.Comments);

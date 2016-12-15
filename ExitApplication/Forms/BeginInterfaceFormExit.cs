@@ -13,7 +13,7 @@ using VisitList = System.Linq.IQueryable<Common.Visit>;
 
 namespace ExitApplication
 {
-    public partial class BeginInterfaceForm : Form
+    public partial class BeginInterfaceForm : Common.DialogForm
     {
         private const string connectionString = "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id=sa; Password=potato";
 

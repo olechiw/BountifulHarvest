@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace EntryApplication
 {
-    public partial class MoreInfoForm : Form
+    public partial class MoreInfoForm : Common.DialogForm
     {
         // Simple constructor, set the values of each text field to the corresponding arguments. Then use the SqlConnection to fill in the blanks
         public MoreInfoForm(string name, string dateOfBirth, string address, string phoneNumber, string lastVisit, string firstVisit, string family, string comments)
