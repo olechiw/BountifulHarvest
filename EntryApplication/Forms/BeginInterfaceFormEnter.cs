@@ -195,10 +195,16 @@ namespace EntryApplication
         // When the button to edit an existing patron is clicked
         private void editPatronButtonClick(object sender, EventArgs e)
         {
-            int patronId = Convert.ToInt32(
+            int patronId = Constants.SafeConvertInt(
                 outputDataView.SelectedRows[0].Cells[(int)OutputDataColumns.PatronID]
                 .Value.ToString()
                 );
+
+            if (patronId==0)
+            {
+                MessageBox.Show("Something went wrong, failed to turn the ID into an integer");
+                return;
+            }
 
             Patron p = sqlHandler.GetRow(patronId);
 

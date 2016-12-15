@@ -58,15 +58,15 @@ namespace Common
         {
             string[] previousDate = lastDate.Split('/');
 
-            int prevMonth = Convert.ToInt32(previousDate[0]);
-            int prevDay = Convert.ToInt32(previousDate[1]);
-            int prevYear = Convert.ToInt32(previousDate[2]);
+            int prevMonth = SafeConvertInt(previousDate[0]);
+            int prevDay = SafeConvertInt(previousDate[1]);
+            int prevYear = SafeConvertInt(previousDate[2]);
 
             string[] newDate = date.Split('/');
 
-            int newMonth = Convert.ToInt32(newDate[0]);
-            int newDay = Convert.ToInt32(newDate[1]);
-            int newYear = Convert.ToInt32(newDate[2]);
+            int newMonth = SafeConvertInt(newDate[0]);
+            int newDay = SafeConvertInt(newDate[1]);
+            int newYear = SafeConvertInt(newDate[2]);
 
             if (newYear < prevYear)
                 return false;
