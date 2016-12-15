@@ -109,6 +109,7 @@ namespace Common
 
     //
     // http://www.albahari.com/nutshell/predicatebuilder.aspx
+    // I'm dumb, so this is a more effecient version than what I would have done.
     //
     public static class PredicateBuilder
     {

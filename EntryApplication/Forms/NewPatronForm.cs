@@ -74,9 +74,7 @@ namespace EntryApplication
         // When the '+' button is clicked to add a row, add a row.
         private void addRowButtonClick(object sender, EventArgs e)
         {
-            //int count = relativesDataView.Rows.Count;
             relativesDataView.Rows.Add();
-            //relativesDataView.Rows[count].Cells[0].
         }
 
         // Record all of the data, and close the window

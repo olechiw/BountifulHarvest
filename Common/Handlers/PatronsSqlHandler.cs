@@ -68,7 +68,8 @@ namespace Common
             return database.Patrons.Where(predicate);
         }
 
-
+        // Get the newest rows. 
+        // TODO: Update to use DateTime. This is CURRENTLY BROKEN
         public PatronList GetNewestRows(string lastDate)
         {
             return from p in database.Patrons
@@ -77,14 +78,14 @@ namespace Common
         }
 
 
-
+        // Get the top x rows
         public PatronList GetTopRows(int rowCount)
         {
             return database.Patrons.Take(rowCount);
         }
 
 
-
+        // Add a completely new row
         public void AddRow(
             string firstName,
             string middleInitial,
@@ -113,14 +114,29 @@ namespace Common
                 DateOfInitialVisit = initialVisit
             };
 
+            Patron latestPatron = database.Patrons.OrderByDescending(s => s.PatronID).First();
+            if (latestPatron != null)
+                row.PatronID = database.Patrons.OrderByDescending(s => s.PatronID).First().PatronID + 1;
+
+            // Account for first entry
+            else
+                row.PatronID = 1;
+
             database.Patrons.InsertOnSubmit(row);
             database.SubmitChanges();
         }
 
-
+        
         public void AddRow(Patron p)
         {
-            p.PatronID = database.Patrons.OrderByDescending(s => s.PatronID).First().PatronID + 1;
+            Patron latestPatron = database.Patrons.OrderByDescending(s => s.PatronID).First();
+            if (latestPatron != null)
+                p.PatronID = database.Patrons.OrderByDescending(s => s.PatronID).First().PatronID + 1;
+
+            // Account for first entry
+            else
+                p.PatronID = 1;
+
             database.Patrons.InsertOnSubmit(p);
 
             
