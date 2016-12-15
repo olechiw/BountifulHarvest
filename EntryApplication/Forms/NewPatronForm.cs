@@ -52,6 +52,8 @@ namespace EntryApplication
             monthTextBox.Text = p.DateOfBirth.Month.ToString();
             dayTextBox.Text = p.DateOfBirth.Day.ToString();
             yearTextBox.Text = p.DateOfBirth.Year.ToString();
+
+            genderTextBox.Text = p.Gender.ToString();
             
             // Load family
             if (p.Family != "")
