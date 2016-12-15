@@ -68,12 +68,23 @@ namespace Common
             return database.Patrons.Where(predicate);
         }
 
+        #region Kept for Historical Relevance
+        /*
         // Get the newest rows. 
         // TODO: Update to use DateTime. This is CURRENTLY BROKEN
         public PatronList GetNewestRows(string lastDate)
         {
             return from p in database.Patrons
                    where Constants.IsBeforeDate(p.DateOfLastVisit.Date.ToString(), lastDate)
+                   select p;
+        }
+        */
+        #endregion
+
+        public PatronList GetNewestRows(DateTime date)
+        {
+            return from p in database.Patrons
+                   where p.DateOfLastVisit < date
                    select p;
         }
 

@@ -49,12 +49,24 @@ namespace Common
             ).First<Visit>();
         }
 
+        #region Kept for Historical Relevance
+        /*
         // Return all the latest rows from a date
         // TODO: Update to use DateTime. THIS IS CURRENTLY BROKEN
         public VisitList GetNewestRows(string lastDate)
         {
             return from v in database.Visits
                    where Constants.IsBeforeDate(v.DateOfVisit.Date.ToString(), lastDate)
+                   select v;
+        }
+        */
+        #endregion
+
+        // Return all the latest rows before a date
+        public VisitList GetNewestRows(DateTime date)
+        {
+            return from v in database.Visits
+                   where v.DateOfVisit < date
                    select v;
         }
 
@@ -106,7 +118,7 @@ namespace Common
             else
                 visit.VisitID = 1;
 
-            database.Visits.InsertOnSubmit(v);
+            database.Visits.InsertOnSubmit(visit);
             database.SubmitChanges();
         }
 
