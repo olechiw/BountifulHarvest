@@ -95,14 +95,9 @@ namespace EntryApplication
         {
             outputDataView.Rows.Clear();
 
-            // Initialize all of the patrons into the list
-            PatronList patrons = sqlHandler.GetTopRows(100);
-
             // Read all of the patrons into the data
-            foreach (Patron p in patrons)
-            {
+            foreach (Patron p in sqlHandler.GetTopRows(100))
                 AddDataRow(p);
-            }
         }
 
 

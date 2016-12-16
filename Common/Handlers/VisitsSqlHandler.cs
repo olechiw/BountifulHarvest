@@ -76,6 +76,14 @@ namespace Common
             return database.Visits.Take(rowCount);
         }
 
+        // Get the rows for this month
+        public VisitList GetMonthRows()
+        {
+            return from v in database.Visits
+                   where v.DateOfVisit.Month == DateTime.Now.Month
+                   select v;
+        }
+
         
 
         public int GetLatestID()
@@ -92,6 +100,8 @@ namespace Common
             }
             return id;
         }
+
+
 
         // A a new, unique row.
         public void AddRow(

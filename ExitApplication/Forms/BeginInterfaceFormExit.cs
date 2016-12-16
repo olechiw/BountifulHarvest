@@ -23,7 +23,7 @@ namespace ExitApplication
         private string date;
 
         // The most recent patron id submitted
-        private int lastPatronID;
+        private int lastVisitID;
 
 
         // The database handler, responsible for all sql operations
@@ -47,8 +47,20 @@ namespace ExitApplication
             // Connect to the database
             sqlHandler = new Common.VisitsSqlHandler(connectionString);
 
+            LoadAllVisits();
         }
 
+
+        // Load the initial list of visits for the day
+        public void LoadAllVisits()
+        {
+            // Get all of the visits for the month
+            outputDataView.Rows.Clear();
+
+            foreach (Visit v in sqlHandler.GetMonthRows())
+                AddDataRow(v);
+        }
+        
         // Add a row to the output
         private void AddDataRow(Visit v)
         {
@@ -57,7 +69,7 @@ namespace ExitApplication
                 v.PatronMiddleInitial,
                 v.PatronLastName,
                 v.TotalPounds,
-                v.DateOfVisit,
+                v.DateOfVisit.Date.ToString("d"),
                 v.VisitID);
         }
 
@@ -80,26 +92,27 @@ namespace ExitApplication
                 PatronFirstName = patronFirstNameTextBox.Text.ToString(),
                 PatronMiddleInitial = patronMiddleInitialTextBox.Text.ToString(),
                 PatronLastName = patronLastNameTextBox.Text.ToString(),
-                TotalPounds = Constants.SafeConvertInt(totalPoundsTextBox.Text.ToString()),
-                SizeOfFamily = Constants.SafeConvertInt((sizeOfFamilyTextBox.Text.ToString())),
-                DateOfVisit = Constants.SafeConvertDate(visitDateTextBox.Text.ToString())
+                TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
+                SizeOfFamily = Constants.SafeConvertInt((sizeOfFamilySpinner.Value.ToString())),
+                DateOfVisit = DateTime.Today
             };
 
-            AddDataRow(v);
             sqlHandler.AddRow(v);
-            }
+            AddDataRow(v);
+            lastVisitID = v.VisitID;
+        }
 
         private void undoButtonClick(object sender, EventArgs e)
         {
-            for (int i = 0; i < outputDataView.Rows.Count; ++i)
+            for (int i = 0; i < outputDataView.Rows.Count-1; ++i)
             {
-                if (Constants.SafeConvertInt(outputDataView.Rows[(int)Common.Constants.VisitIndexes.VisitID].ToString())==lastPatronID)
+                if (Constants.SafeConvertInt(outputDataView.Rows[(int)Common.Constants.VisitIndexes.VisitID].ToString())==lastVisitID)
                 {
                     outputDataView.Rows.RemoveAt(i);
                 }
             }
 
-            sqlHandler.DeleteRow(lastPatronID);
+            sqlHandler.DeleteRow(lastVisitID);
         }
     }
 }
