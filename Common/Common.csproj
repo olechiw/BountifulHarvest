@@ -49,7 +49,8 @@
     <Compile Include="Components\NumericTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Constants\Types.cs" />
+    <Compile Include="Constants\Functions.cs" />
+    <Compile Include="Constants\PredicateBuilder.cs" />
     <Compile Include="Constants\Values.cs" />
     <Compile Include="Handlers\CSVHandler.cs" />
     <Compile Include="Handlers\PatronsSqlHandler.cs" />

@@ -43,9 +43,9 @@
             this.patronLastVisit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronDateOfBirth = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronFamilyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateLabel = new System.Windows.Forms.Label();
             this.morePatronInfoButton = new System.Windows.Forms.Button();
-            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +66,6 @@
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(467, 28);
             this.searchBox.TabIndex = 2;
-            this.searchBox.TextChanged += new System.EventHandler(this.searchBoxChanged);
             this.searchBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchBoxKeyDown);
             // 
             // label2
@@ -191,6 +190,12 @@
             this.patronFamilyColumn.ReadOnly = true;
             this.patronFamilyColumn.Width = 250;
             // 
+            // patronIDColumn
+            // 
+            this.patronIDColumn.HeaderText = "Patron ID";
+            this.patronIDColumn.Name = "patronIDColumn";
+            this.patronIDColumn.ReadOnly = true;
+            // 
             // dateLabel
             // 
             this.dateLabel.AutoSize = true;
@@ -209,12 +214,6 @@
             this.morePatronInfoButton.Text = "More Info";
             this.morePatronInfoButton.UseVisualStyleBackColor = true;
             this.morePatronInfoButton.Click += new System.EventHandler(this.morePatronInfoButtonClick);
-            // 
-            // patronIDColumn
-            // 
-            this.patronIDColumn.HeaderText = "Patron ID";
-            this.patronIDColumn.Name = "patronIDColumn";
-            this.patronIDColumn.ReadOnly = true;
             // 
             // BeginInterfaceForm
             // 

@@ -23,23 +23,8 @@ using PatronList = System.Linq.IQueryable<Common.Patron>;
 
 namespace EntryApplication
 {
-    // Index of specific items in the datagridview
-    public enum OutputDataColumns
-    {
-        FirstName,
-        MiddleInitial,
-        LastName,
-        Gender,
-        DateOfLastVisit,
-        DateOfBirth,
-        Family,
-        PatronID
-    }
-
     public partial class BeginInterfaceForm : Common.DialogForm
     {
-        private const string connectionString = "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=potato";
-
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
 
@@ -56,6 +41,31 @@ namespace EntryApplication
         {
             InitializeComponent();
 
+            InitializeDataView();
+
+            InitializeSQL();
+
+            // Show the date on the datemessage
+            DateTime today = DateTime.Today;
+            date = today.ToString(dateCode);
+            dateLabel.Text = "Today's Date is: " + date;
+        }
+
+
+        // Setup the sql connection
+        private void InitializeSQL()
+        {
+            // Connect to the SQL database
+            sqlHandler = new Common.PatronsSqlHandler(Constants.debugConnectionString);
+
+            LoadAllPatrons();
+        }
+
+
+        // Initialize the outputdataview
+        private void InitializeDataView()
+        {
+
             // Manual initialization
             outputDataView.Columns[4].SortMode = DataGridViewColumnSortMode.NotSortable;
             outputDataView.Columns[5].SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -63,18 +73,6 @@ namespace EntryApplication
 
             // Setup the dataview
             outputDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-            // Show the date on the datemessage
-            DateTime today = DateTime.Today;
-            date = today.ToString(dateCode);
-            dateLabel.Text = "Today's Date is: " + date;
-
-
-
-            // Connect to the SQL database
-            sqlHandler = new Common.PatronsSqlHandler(connectionString);
-
-            LoadAllPatrons();
         }
 
 
@@ -107,28 +105,29 @@ namespace EntryApplication
                 p.MiddleInitial,
                 p.LastName,
                 p.Gender,
-                p.DateOfLastVisit.Date.ToString("d"),
-                p.DateOfBirth.Date.ToString("d"),
+                Constants.ConvertDateTime(p.DateOfLastVisit),
+                Constants.ConvertDateTime(p.DateOfBirth),
                 p.Family,
                 p.PatronID);
         }
 
-
-
-        // Whenever a letter is added to or removed from the search box
-        private void searchBoxChanged(object sender, EventArgs e)
+        // Add a list of rows
+        private void AddDataRows(PatronList ps)
         {
-            if (searchBox.Text.Length>2)
-            {
-                UpdateResults(searchBox.Text);
-            }
-            else
-            {
-                LoadAllPatrons();
-            }
+            foreach (var p in ps)
+                AddDataRow(p);
         }
 
 
+        // Select all of the text in the box
+        private void SelectAll()
+        {
+            if (!string.IsNullOrEmpty(searchBox.Text))
+            {
+                searchBox.SelectionStart = 0;
+                searchBox.SelectionLength = searchBox.Text.Length;
+            }
+        }
 
         // Whenever a key is pressed in the search box
         private void searchBoxKeyDown(object sender, KeyEventArgs e)
@@ -137,32 +136,31 @@ namespace EntryApplication
             if (e.KeyCode == Keys.Space)
             {
                 e.SuppressKeyPress = true;
-                LoadAllPatrons();
 
-                if (!String.IsNullOrEmpty(searchBox.Text))
-                {
-                    searchBox.SelectionStart = 0;
-                    searchBox.SelectionLength = searchBox.Text.Length;
-                }
+                SelectAll();
             }
 
             // Backspace also updates the searchbox
-            else if ((e.KeyCode == Keys.Back) && (searchBox.Text.Length >= 2))
-                searchBoxChanged(null, null);
+            else
+                UpdateResults();
         }
 
 
 
         // Update the data table with the results given the search box text
-        private void UpdateResults(string query)
+        private void UpdateResults()
         {
-            outputDataView.Rows.Clear();
+            string query = searchBox.Text;
 
-            PatronList results = sqlHandler.GetRowsSimilar(query);
+            if (query == "")
+                LoadAllPatrons();
 
+            else
+            {
+                outputDataView.Rows.Clear();
 
-            foreach (Patron p in results)
-                AddDataRow(p);
+                AddDataRows(sqlHandler.GetRowsSimilar(query));
+            }
         }
 
 
@@ -176,9 +174,9 @@ namespace EntryApplication
             if (!form.Saved())
                 return;
 
-            Patron p = form.GetResults();
+            sqlHandler.AddRow(form.GetResults());
 
-            sqlHandler.AddRow(p);
+
             LoadAllPatrons();
         }
 
@@ -188,7 +186,7 @@ namespace EntryApplication
         private void editPatronButtonClick(object sender, EventArgs e)
         {
             int patronId = Constants.SafeConvertInt(
-                outputDataView.SelectedRows[0].Cells[(int)OutputDataColumns.PatronID]
+                outputDataView.SelectedRows[0].Cells[(int)Constants.OutputDataColumnsPatrons.PatronID]
                 .Value.ToString()
                 );
 
@@ -222,9 +220,9 @@ namespace EntryApplication
         {
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
-            string firstName = row.Cells[(int)OutputDataColumns.FirstName].Value.ToString();
-            string lastName = row.Cells[(int)OutputDataColumns.LastName].Value.ToString();
-            string middleInitial = row.Cells[(int)OutputDataColumns.MiddleInitial].Value.ToString();
+            string firstName = row.Cells[(int)Constants.OutputDataColumnsPatrons.FirstName].Value.ToString();
+            string lastName = row.Cells[(int)Constants.OutputDataColumnsPatrons.LastName].Value.ToString();
+            string middleInitial = row.Cells[(int)Constants.OutputDataColumnsPatrons.MiddleInitial].Value.ToString();
 
             int limitsAllowed, family;
             // Calculate the amount of limits Allowed
@@ -236,7 +234,7 @@ namespace EntryApplication
             else
             {
                 // Get the number of family members
-                family = row.Cells[(int)OutputDataColumns.Family].Value.ToString().Split(',').Length;
+                family = row.Cells[(int)Constants.OutputDataColumnsPatrons.Family].Value.ToString().Split(',').Length;
 
                 if (family < 4)
                     limitsAllowed = 1;
@@ -253,17 +251,24 @@ namespace EntryApplication
             printForm.ShowDialog();
         }
 
-
-
         // When the button to view more information about a patron is clicked
         private void morePatronInfoButtonClick(object sender, EventArgs e)
         {
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
-            int id = Constants.SafeConvertInt(outputDataView.SelectedRows[0].Cells[(int)OutputDataColumns.PatronID].Value.ToString());
+            int id = Constants.GetSelectedInt(outputDataView, (int)Constants.OutputDataColumnsPatrons.PatronID);
             Patron p = sqlHandler.GetRow(id);
 
-            MoreInfoForm form = new MoreInfoForm(p.FirstName + ' ' + p.MiddleInitial + ' ' + p.LastName, p.DateOfBirth.ToString(), p.Address, p.PhoneNumber, p.DateOfLastVisit.ToString(), p.DateOfInitialVisit.ToString(), p.Family, p.Comments);
+            MoreInfoForm form = new MoreInfoForm(
+                Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName),
+                Constants.ConvertDateTime(p.DateOfBirth),
+                p.Address,
+                p.PhoneNumber,
+                p.DateOfLastVisit.ToString(),
+                p.DateOfInitialVisit.ToString(),
+                p.Family,
+                p.Comments);
+
             form.ShowDialog();
         }
     }
