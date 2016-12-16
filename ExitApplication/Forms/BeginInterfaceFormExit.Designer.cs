@@ -41,9 +41,9 @@
             this.poundsLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.dateLabel = new System.Windows.Forms.Label();
-            this.patronLastNameTextBox = new Common.StringTextBox();
-            this.patronMiddleInitialTextBox = new Common.StringTextBox();
-            this.patronFirstNameTextBox = new Common.StringTextBox();
+            this.patronLastNameTextBox = new Common.LatinTextBox();
+            this.patronMiddleInitialTextBox = new Common.LatinTextBox();
+            this.patronFirstNameTextBox = new Common.LatinTextBox();
             this.familySizeLabel = new System.Windows.Forms.Label();
             this.totalPoundsSpinner = new System.Windows.Forms.NumericUpDown();
             this.sizeOfFamilySpinner = new System.Windows.Forms.NumericUpDown();
@@ -249,13 +249,13 @@
 
         #endregion
 
-        private Common.StringTextBox patronFirstNameTextBox;
+        private Common.LatinTextBox patronFirstNameTextBox;
         private System.Windows.Forms.Label patronNameLabel;
         private System.Windows.Forms.Label patronVisitLabel;
         private System.Windows.Forms.Button undoButton;
         private System.Windows.Forms.DataGridView outputDataView;
-        private Common.StringTextBox patronMiddleInitialTextBox;
-        private Common.StringTextBox patronLastNameTextBox;
+        private Common.LatinTextBox patronMiddleInitialTextBox;
+        private Common.LatinTextBox patronLastNameTextBox;
         private System.Windows.Forms.Label poundsLabel;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Label dateLabel;

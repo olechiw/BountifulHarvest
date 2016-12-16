@@ -33,14 +33,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.monthTextBox = new Common.StringTextBox();
-            this.dayTextBox = new Common.StringTextBox();
-            this.yearTextBox = new Common.StringTextBox();
-            this.firstNameTextBox = new Common.StringTextBox();
-            this.lastNameTextBox = new Common.StringTextBox();
+            this.monthTextBox = new Common.LatinTextBox();
+            this.dayTextBox = new Common.LatinTextBox();
+            this.yearTextBox = new Common.LatinTextBox();
+            this.firstNameTextBox = new Common.LatinTextBox();
+            this.lastNameTextBox = new Common.LatinTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.middleInitialTextBox = new Common.StringTextBox();
+            this.middleInitialTextBox = new Common.LatinTextBox();
             this.relativesDataView = new System.Windows.Forms.DataGridView();
             this.personName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addRowButton = new System.Windows.Forms.Button();
@@ -49,7 +49,7 @@
             this.commentsRichTextBox = new System.Windows.Forms.RichTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.genderLabel = new System.Windows.Forms.Label();
-            this.genderTextBox = new Common.StringTextBox();
+            this.genderTextBox = new Common.LatinTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -288,14 +288,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private Common.StringTextBox monthTextBox;
-        private Common.StringTextBox dayTextBox;
-        private Common.StringTextBox yearTextBox;
-        private Common.StringTextBox firstNameTextBox;
-        private Common.StringTextBox lastNameTextBox;
+        private Common.LatinTextBox monthTextBox;
+        private Common.LatinTextBox dayTextBox;
+        private Common.LatinTextBox yearTextBox;
+        private Common.LatinTextBox firstNameTextBox;
+        private Common.LatinTextBox lastNameTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private Common.StringTextBox middleInitialTextBox;
+        private Common.LatinTextBox middleInitialTextBox;
         private System.Windows.Forms.DataGridView relativesDataView;
         private System.Windows.Forms.Button addRowButton;
         private System.Windows.Forms.Label relationsLabel;
@@ -304,6 +304,6 @@
         private System.Windows.Forms.RichTextBox commentsRichTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label genderLabel;
-        private Common.StringTextBox genderTextBox;
+        private Common.LatinTextBox genderTextBox;
     }
 }

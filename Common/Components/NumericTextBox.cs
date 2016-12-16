@@ -5,16 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//
-// StringTextBox - A special type of WindowsForms TextBox that only accepts latin characters
-//
-
-namespace Common
+namespace Common.Components
 {
-    public class LatinTextBox : TextBox
+    class NumericTextBox : TextBox
     {
         // Constructor
-        public LatinTextBox()
+        public NumericTextBox()
         {
             this.KeyDown += textBoxKeyDown;
         }
@@ -24,10 +20,8 @@ namespace Common
         {
             Keys key = e.KeyCode;
 
-            // Account for letters and numbers
-            if (Keys.A <= key && key <= Keys.Z)
-                return;
-            else if (Keys.D0 <= key && key <= Keys.D9)
+            // Account for numbers only
+            if (Keys.D0 <= key && key <= Keys.D9)
                 return;
 
             // Special exceptions (backspace) are ok
