@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Common.Components
+namespace Common
 {
-    class NumericTextBox : TextBox
+    public class NumericTextBox : TextBox
     {
         // Constructor
         public NumericTextBox()

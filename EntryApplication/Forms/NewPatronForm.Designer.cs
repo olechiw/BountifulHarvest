@@ -33,9 +33,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.monthTextBox = new Common.LatinTextBox();
-            this.dayTextBox = new Common.LatinTextBox();
-            this.yearTextBox = new Common.LatinTextBox();
+            this.monthTextBox = new Common.NumericTextBox();
+            this.dayTextBox = new Common.NumericTextBox();
+            this.yearTextBox = new Common.NumericTextBox();
             this.firstNameTextBox = new Common.LatinTextBox();
             this.lastNameTextBox = new Common.LatinTextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -288,9 +288,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private Common.LatinTextBox monthTextBox;
-        private Common.LatinTextBox dayTextBox;
-        private Common.LatinTextBox yearTextBox;
+        private Common.NumericTextBox monthTextBox;
+        private Common.NumericTextBox dayTextBox;
+        private Common.NumericTextBox yearTextBox;
         private Common.LatinTextBox firstNameTextBox;
         private Common.LatinTextBox lastNameTextBox;
         private System.Windows.Forms.Label label6;

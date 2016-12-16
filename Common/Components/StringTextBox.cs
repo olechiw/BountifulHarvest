@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 //
-// StringTextBox - A special type of WindowsForms TextBox that only accepts latin characters
+// LatinTextBox- A special type of WindowsForms TextBox that only accepts latin characters
 //
 
 namespace Common
