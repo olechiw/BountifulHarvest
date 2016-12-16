@@ -96,6 +96,24 @@ namespace Common
         }
 
 
+        public int GetLatestID()
+        {
+            int id;
+
+            PatronList latestPatron = database.Patrons.OrderByDescending(s => s.PatronID);
+            try
+            {
+                id = latestPatron.First().PatronID;
+            }
+            catch (Exception)
+            {
+                id = 1;
+            }
+            return id;
+        }
+
+
+
         // Add a completely new row
         public void AddRow(
             string firstName,
@@ -122,34 +140,21 @@ namespace Common
                 Address = address,
                 PhoneNumber = phoneNumber,
                 Comments = comments,
-                DateOfInitialVisit = initialVisit
+                DateOfInitialVisit = initialVisit,
+                PatronID = GetLatestID()
             };
-
-            Patron latestPatron = database.Patrons.OrderByDescending(s => s.PatronID).First();
-            if (latestPatron != null)
-                row.PatronID = database.Patrons.OrderByDescending(s => s.PatronID).First().PatronID + 1;
-
-            // Account for first entry
-            else
-                row.PatronID = 1;
 
             database.Patrons.InsertOnSubmit(row);
             database.SubmitChanges();
         }
-
         
+
+
         public void AddRow(Patron p)
         {
-            Patron latestPatron = database.Patrons.OrderByDescending(s => s.PatronID).First();
-            if (latestPatron != null)
-                p.PatronID = database.Patrons.OrderByDescending(s => s.PatronID).First().PatronID + 1;
-
-            // Account for first entry
-            else
-                p.PatronID = 1;
+            p.PatronID = GetLatestID();
 
             database.Patrons.InsertOnSubmit(p);
-
             
             try
             {

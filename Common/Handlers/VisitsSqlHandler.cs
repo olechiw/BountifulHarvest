@@ -76,6 +76,23 @@ namespace Common
             return database.Visits.Take(rowCount);
         }
 
+        
+
+        public int GetLatestID()
+        {
+            int id;
+            VisitList latestVisit = database.Visits.OrderByDescending(v => v.VisitID);
+            try
+            {
+                id = latestVisit.First().VisitID;
+            }
+            catch (Exception)
+            {
+                id = 1;
+            }
+            return id;
+        }
+
         // A a new, unique row.
         public void AddRow(
             string patronFirstName,
@@ -92,16 +109,9 @@ namespace Common
                 PatronLastName = patronLastName,
                 TotalPounds = totalPounds,
                 DateOfVisit = dateOfVisit,
-                SizeOfFamily = sizeOfFamily
+                SizeOfFamily = sizeOfFamily,
+                VisitID = GetLatestID()
             };
-
-            Visit latestVisit = database.Visits.OrderByDescending(s => s.VisitID).First();
-            if (latestVisit != null)
-                visit.VisitID = latestVisit.VisitID + 1;
-
-            // Account for first entry
-            else
-                visit.VisitID = 1;
 
             database.Visits.InsertOnSubmit(visit);
             database.SubmitChanges();
@@ -110,13 +120,7 @@ namespace Common
         // Add a preloaded row
         public void AddRow(Visit visit)
         {
-            Visit latestVisit = database.Visits.OrderByDescending(s => s.VisitID).First();
-            if (latestVisit != null)
-                visit.VisitID = latestVisit.VisitID + 1;
-
-            // Account for first entry
-            else
-                visit.VisitID = 1;
+            visit.VisitID = GetLatestID();
 
             database.Visits.InsertOnSubmit(visit);
             database.SubmitChanges();
