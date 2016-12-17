@@ -31,9 +31,6 @@ namespace EntryApplication
             InitializeComponent();
 
             InitializeComponentManual();
-            // Fill a buffer of 10 empty spaces for user to add names into the family chart
-            for (int i = 0; i < 10; ++i)
-                relativesDataView.Rows.Add();
         }
 
         private void InitializeComponentManual()
@@ -44,6 +41,10 @@ namespace EntryApplication
             phoneNumberTextBox.Exceptions = exceptionsDash;
             addressTextBox1.Exceptions = exceptionsComma;
             addressTextBox2.Exceptions = exceptionsComma;
+
+            // Fill a buffer of 10 empty spaces for user to add names into the family chart
+            for (int i = 0; i < 10; ++i)
+                relativesDataView.Rows.Add();
         }
 
         // An alternate constructor for editing patrons
@@ -68,7 +69,7 @@ namespace EntryApplication
                 addressTextBox2.Text = address[1];
             
             // Load family
-            if (p.Family != "")
+            if (!string.IsNullOrEmpty(p.Family))
             {
                 string[] familyMembers = p.Family.Split(',');
 
@@ -76,9 +77,7 @@ namespace EntryApplication
                     relativesDataView.Rows.Add(member);
             }
 
-            // Fill a buffer of empty spaces for user to add names
-            for (int i = 0; i < 10; ++i)
-                addRowButtonClick(null, null);
+            InitializeComponentManual();
 
             Patron.Copy(newPatron, p);
         }
@@ -105,6 +104,9 @@ namespace EntryApplication
                     newPatron.Family += row.Cells[0].Value.ToString();
                     newPatron.Family += ',';
                 }
+
+            // Cut off the last character, a floating comma
+            newPatron.Family.Remove(newPatron.Family.Length);
 
 
             int month = Common.Constants.SafeConvertInt(monthTextBox.Text.ToString());
