@@ -6,6 +6,7 @@ using System.Data.Linq.Mapping;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Common
 {
@@ -41,6 +42,16 @@ namespace Common
         // Copy the class
         public static void Copy(Patron n, Patron o)
         {
+            Type typeN = n.GetType();
+            PropertyInfo[] N = typeN.GetProperties();
+
+            Type typeO = o.GetType();
+            PropertyInfo[] O = typeO.GetProperties();
+
+            for (int i = 0; i < N.Length; ++i)
+                N[i] = O[i];
+
+            /*
             n.FirstName = o.FirstName;
             n.MiddleInitial = o.MiddleInitial;
             n.LastName = o.LastName;
@@ -52,6 +63,7 @@ namespace Common
             n.Address = o.Address;
             n.Comments = o.Comments;
             n.DateOfInitialVisit = o.DateOfInitialVisit;
+            */
         }
     }
 }
