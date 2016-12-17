@@ -17,9 +17,6 @@ namespace ExitApplication
     {
         private const string dateCode = "d";
 
-        // The date
-        private string date;
-
         // The most recent patron id submitted
         private int lastVisitID;
 

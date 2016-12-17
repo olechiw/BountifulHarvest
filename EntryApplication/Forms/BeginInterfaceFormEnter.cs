@@ -28,9 +28,6 @@ namespace EntryApplication
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
 
-        // The date
-        private string date;
-
         // The database handler, responsible for all sql operations
         Common.PatronsSqlHandler sqlHandler;
 
@@ -207,40 +204,16 @@ namespace EntryApplication
         // When the button to print a report is clicked
         private void printVisitButtonClick(object sender, EventArgs e)
         {
-            DataGridViewRow row = outputDataView.SelectedRows[0];
+            int selectedPatronID = Constants.GetSelectedInt(outputDataView, (int)Constants.OutputDataColumnsPatrons.PatronID);
 
-            string firstName = row.Cells[(int)Constants.OutputDataColumnsPatrons.FirstName].Value.ToString();
-            string lastName = row.Cells[(int)Constants.OutputDataColumnsPatrons.LastName].Value.ToString();
-            string middleInitial = row.Cells[(int)Constants.OutputDataColumnsPatrons.MiddleInitial].Value.ToString();
-
-            int limitsAllowed, family;
-            // Calculate the amount of limits Allowed
-            if (row.Cells[6].Value.ToString()!="")
-            {
-                family = 1;
-                limitsAllowed = 1;
-            }
-            else
-            {
-                // Get the number of family members
-                family = row.Cells[(int)Constants.OutputDataColumnsPatrons.Family].Value.ToString().Split(',').Length;
-
-                if (family < 4)
-                    limitsAllowed = 1;
-
-                else if (family < 6)
-                    limitsAllowed = 2;
-                else
-                    limitsAllowed = 3;
-            }
-            DateTime today = DateTime.Today;
+            Patron selectedPatron = sqlHandler.GetRow(selectedPatronID);
 
             // Show the form
-            PrintVisitForm printForm = new PrintVisitForm(firstName, middleInitial, lastName, limitsAllowed, family);
+            PrintVisitForm printForm = new PrintVisitForm(selectedPatron);
             printForm.ShowDialog();
         }
 
-        // When the button to view more information about a patron is clicked
+        // When the button to view more information about a patron is clicked. This is ugly but I'm currently too lazy to fix it
         private void morePatronInfoButtonClick(object sender, EventArgs e)
         {
             DataGridViewRow row = outputDataView.SelectedRows[0];
