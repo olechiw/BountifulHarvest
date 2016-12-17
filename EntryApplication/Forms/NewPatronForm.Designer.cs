@@ -50,6 +50,11 @@
             this.label8 = new System.Windows.Forms.Label();
             this.genderLabel = new System.Windows.Forms.Label();
             this.genderTextBox = new Common.LatinTextBox();
+            this.phoneNumberTextBox = new Common.NumericTextBox();
+            this.phoneNumberLabel = new System.Windows.Forms.Label();
+            this.addressLabel = new System.Windows.Forms.Label();
+            this.addressTextBox1 = new Common.LatinTextBox();
+            this.addressTextBox2 = new Common.LatinTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -105,41 +110,41 @@
             this.monthTextBox.Location = new System.Drawing.Point(117, 188);
             this.monthTextBox.Name = "monthTextBox";
             this.monthTextBox.Size = new System.Drawing.Size(27, 22);
-            this.monthTextBox.TabIndex = 5;
+            this.monthTextBox.TabIndex = 7;
             // 
             // dayTextBox
             // 
             this.dayTextBox.Location = new System.Drawing.Point(169, 187);
             this.dayTextBox.Name = "dayTextBox";
             this.dayTextBox.Size = new System.Drawing.Size(25, 22);
-            this.dayTextBox.TabIndex = 6;
+            this.dayTextBox.TabIndex = 8;
             // 
             // yearTextBox
             // 
             this.yearTextBox.Location = new System.Drawing.Point(221, 187);
             this.yearTextBox.Name = "yearTextBox";
             this.yearTextBox.Size = new System.Drawing.Size(41, 22);
-            this.yearTextBox.TabIndex = 7;
+            this.yearTextBox.TabIndex = 9;
             // 
             // firstNameTextBox
             // 
-            this.firstNameTextBox.Location = new System.Drawing.Point(246, 90);
+            this.firstNameTextBox.Location = new System.Drawing.Point(137, 90);
             this.firstNameTextBox.Name = "firstNameTextBox";
-            this.firstNameTextBox.Size = new System.Drawing.Size(144, 22);
-            this.firstNameTextBox.TabIndex = 8;
+            this.firstNameTextBox.Size = new System.Drawing.Size(146, 22);
+            this.firstNameTextBox.TabIndex = 0;
             // 
             // lastNameTextBox
             // 
             this.lastNameTextBox.Location = new System.Drawing.Point(573, 90);
             this.lastNameTextBox.Name = "lastNameTextBox";
-            this.lastNameTextBox.Size = new System.Drawing.Size(129, 22);
-            this.lastNameTextBox.TabIndex = 9;
+            this.lastNameTextBox.Size = new System.Drawing.Size(145, 22);
+            this.lastNameTextBox.TabIndex = 2;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(240, 55);
+            this.label6.Location = new System.Drawing.Point(131, 55);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(152, 32);
             this.label6.TabIndex = 10;
@@ -157,10 +162,10 @@
             // 
             // middleInitialTextBox
             // 
-            this.middleInitialTextBox.Location = new System.Drawing.Point(434, 90);
+            this.middleInitialTextBox.Location = new System.Drawing.Point(425, 90);
             this.middleInitialTextBox.Name = "middleInitialTextBox";
-            this.middleInitialTextBox.Size = new System.Drawing.Size(53, 22);
-            this.middleInitialTextBox.TabIndex = 12;
+            this.middleInitialTextBox.Size = new System.Drawing.Size(24, 22);
+            this.middleInitialTextBox.TabIndex = 1;
             // 
             // relativesDataView
             // 
@@ -195,7 +200,7 @@
             // 
             this.relationsLabel.AutoSize = true;
             this.relationsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.relationsLabel.Location = new System.Drawing.Point(529, 167);
+            this.relationsLabel.Location = new System.Drawing.Point(539, 171);
             this.relationsLabel.Name = "relationsLabel";
             this.relationsLabel.Size = new System.Drawing.Size(135, 32);
             this.relationsLabel.TabIndex = 16;
@@ -217,26 +222,26 @@
             this.commentsRichTextBox.Location = new System.Drawing.Point(48, 313);
             this.commentsRichTextBox.Name = "commentsRichTextBox";
             this.commentsRichTextBox.Size = new System.Drawing.Size(266, 138);
-            this.commentsRichTextBox.TabIndex = 19;
+            this.commentsRichTextBox.TabIndex = 10;
             this.commentsRichTextBox.Text = "";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(420, 70);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F);
+            this.label8.Location = new System.Drawing.Point(358, 55);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(85, 17);
+            this.label8.Size = new System.Drawing.Size(175, 32);
             this.label8.TabIndex = 13;
             this.label8.Text = "Middle Initial";
             // 
             // genderLabel
             // 
             this.genderLabel.AutoSize = true;
-            this.genderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.genderLabel.Location = new System.Drawing.Point(801, 68);
+            this.genderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F);
+            this.genderLabel.Location = new System.Drawing.Point(772, 55);
             this.genderLabel.Name = "genderLabel";
-            this.genderLabel.Size = new System.Drawing.Size(56, 17);
+            this.genderLabel.Size = new System.Drawing.Size(110, 32);
             this.genderLabel.TabIndex = 20;
             this.genderLabel.Text = "Gender";
             // 
@@ -245,13 +250,59 @@
             this.genderTextBox.Location = new System.Drawing.Point(778, 90);
             this.genderTextBox.Name = "genderTextBox";
             this.genderTextBox.Size = new System.Drawing.Size(98, 22);
-            this.genderTextBox.TabIndex = 21;
+            this.genderTextBox.TabIndex = 3;
+            // 
+            // phoneNumberTextBox
+            // 
+            this.phoneNumberTextBox.Location = new System.Drawing.Point(1058, 114);
+            this.phoneNumberTextBox.Name = "phoneNumberTextBox";
+            this.phoneNumberTextBox.Size = new System.Drawing.Size(268, 22);
+            this.phoneNumberTextBox.TabIndex = 4;
+            // 
+            // phoneNumberLabel
+            // 
+            this.phoneNumberLabel.AutoSize = true;
+            this.phoneNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F);
+            this.phoneNumberLabel.Location = new System.Drawing.Point(1092, 55);
+            this.phoneNumberLabel.Name = "phoneNumberLabel";
+            this.phoneNumberLabel.Size = new System.Drawing.Size(205, 32);
+            this.phoneNumberLabel.TabIndex = 22;
+            this.phoneNumberLabel.Text = "Phone Number";
+            // 
+            // addressLabel
+            // 
+            this.addressLabel.AutoSize = true;
+            this.addressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F);
+            this.addressLabel.Location = new System.Drawing.Point(1130, 206);
+            this.addressLabel.Name = "addressLabel";
+            this.addressLabel.Size = new System.Drawing.Size(119, 32);
+            this.addressLabel.TabIndex = 23;
+            this.addressLabel.Text = "Address";
+            // 
+            // addressTextBox1
+            // 
+            this.addressTextBox1.Location = new System.Drawing.Point(1058, 262);
+            this.addressTextBox1.Name = "addressTextBox1";
+            this.addressTextBox1.Size = new System.Drawing.Size(268, 22);
+            this.addressTextBox1.TabIndex = 5;
+            // 
+            // addressTextBox2
+            // 
+            this.addressTextBox2.Location = new System.Drawing.Point(1058, 302);
+            this.addressTextBox2.Name = "addressTextBox2";
+            this.addressTextBox2.Size = new System.Drawing.Size(268, 22);
+            this.addressTextBox2.TabIndex = 6;
             // 
             // NewPatronForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1062, 593);
+            this.ClientSize = new System.Drawing.Size(1338, 593);
+            this.Controls.Add(this.addressTextBox2);
+            this.Controls.Add(this.addressTextBox1);
+            this.Controls.Add(this.addressLabel);
+            this.Controls.Add(this.phoneNumberLabel);
+            this.Controls.Add(this.phoneNumberTextBox);
             this.Controls.Add(this.genderTextBox);
             this.Controls.Add(this.genderLabel);
             this.Controls.Add(this.commentsRichTextBox);
@@ -305,5 +356,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label genderLabel;
         private Common.LatinTextBox genderTextBox;
+        private Common.NumericTextBox phoneNumberTextBox;
+        private System.Windows.Forms.Label phoneNumberLabel;
+        private System.Windows.Forms.Label addressLabel;
+        private Common.LatinTextBox addressTextBox1;
+        private Common.LatinTextBox addressTextBox2;
     }
 }

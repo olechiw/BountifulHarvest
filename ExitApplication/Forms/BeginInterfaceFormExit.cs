@@ -28,6 +28,8 @@ namespace ExitApplication
         {
             InitializeComponent();
 
+            Constants.InitializeDataView(outputDataView);
+
             SetupSQL();
 
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);

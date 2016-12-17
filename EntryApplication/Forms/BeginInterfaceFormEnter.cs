@@ -38,13 +38,12 @@ namespace EntryApplication
         {
             InitializeComponent();
 
-            InitializeDataView();
+            Constants.InitializeDataView(outputDataView);
 
             InitializeSQL();
 
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
         }
-
 
         // Setup the sql connection
         private void InitializeSQL()
@@ -54,13 +53,6 @@ namespace EntryApplication
 
             LoadAllPatrons();
         }
-
-
-        // Initialize the outputdataview
-        private void InitializeDataView()
-        {
-        }
-
 
 
         // A second constructor, currently unused

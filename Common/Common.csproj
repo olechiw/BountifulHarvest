@@ -56,7 +56,7 @@
     <Compile Include="Handlers\PatronsSqlHandler.cs" />
     <Compile Include="Handlers\VisitsSqlHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Components\StringTextBox.cs">
+    <Compile Include="Components\LatinTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Sql\DatabaseContext.cs" />

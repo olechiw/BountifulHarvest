@@ -170,7 +170,7 @@
             this.patronLastNameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.patronLastNameTextBox.Name = "patronLastNameTextBox";
             this.patronLastNameTextBox.Size = new System.Drawing.Size(128, 38);
-            this.patronLastNameTextBox.TabIndex = 8;
+            this.patronLastNameTextBox.TabIndex = 2;
             // 
             // patronMiddleInitialTextBox
             // 
@@ -179,7 +179,7 @@
             this.patronMiddleInitialTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.patronMiddleInitialTextBox.Name = "patronMiddleInitialTextBox";
             this.patronMiddleInitialTextBox.Size = new System.Drawing.Size(35, 38);
-            this.patronMiddleInitialTextBox.TabIndex = 7;
+            this.patronMiddleInitialTextBox.TabIndex = 1;
             // 
             // patronFirstNameTextBox
             // 
@@ -206,14 +206,14 @@
             this.totalPoundsSpinner.Location = new System.Drawing.Point(595, 188);
             this.totalPoundsSpinner.Name = "totalPoundsSpinner";
             this.totalPoundsSpinner.Size = new System.Drawing.Size(134, 28);
-            this.totalPoundsSpinner.TabIndex = 15;
+            this.totalPoundsSpinner.TabIndex = 3;
             // 
-            // familySizeSpinner
+            // sizeOfFamilySpinner
             // 
             this.sizeOfFamilySpinner.Location = new System.Drawing.Point(978, 188);
-            this.sizeOfFamilySpinner.Name = "familySizeSpinner";
+            this.sizeOfFamilySpinner.Name = "sizeOfFamilySpinner";
             this.sizeOfFamilySpinner.Size = new System.Drawing.Size(156, 28);
-            this.sizeOfFamilySpinner.TabIndex = 16;
+            this.sizeOfFamilySpinner.TabIndex = 4;
             // 
             // BeginInterfaceForm
             // 

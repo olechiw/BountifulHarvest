@@ -13,7 +13,15 @@ namespace Common
 {
     public class LatinTextBox : TextBox
     {
+        public Keys[] Exceptions = { };
+
         // Constructor
+        public LatinTextBox(Keys[] specialExceptions)
+        {
+            this.KeyDown += textBoxKeyDown;
+            Exceptions = specialExceptions;
+        }
+
         public LatinTextBox()
         {
             this.KeyDown += textBoxKeyDown;
@@ -30,13 +38,15 @@ namespace Common
             else if (Keys.D0 <= key && key <= Keys.D9)
                 return;
 
-            // Special exceptions (backspace) are ok
+            // Special exceptions (backspace hardcoded) are ok
             else if (key == Keys.Back)
                 return;
 
-            // Otherwise, nothing will happen
-            else
-                e.SuppressKeyPress = true;
+            foreach (Keys k in Exceptions)
+                if (key == k)
+                    return;
+
+            e.SuppressKeyPress = true;
         }
     }
 }

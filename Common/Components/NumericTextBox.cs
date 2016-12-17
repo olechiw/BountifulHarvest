@@ -9,7 +9,15 @@ namespace Common
 {
     public class NumericTextBox : TextBox
     {
+        public Keys[] Exceptions = { };
+
         // Constructor
+        public NumericTextBox(Keys[] specialExceptions)
+        {
+            this.KeyDown += textBoxKeyDown;
+            Exceptions = specialExceptions;
+        }
+
         public NumericTextBox()
         {
             this.KeyDown += textBoxKeyDown;
@@ -28,9 +36,12 @@ namespace Common
             else if (key == Keys.Back)
                 return;
 
-            // Otherwise, nothing will happen
-            else
-                e.SuppressKeyPress = true;
+
+            foreach (Keys k in Exceptions)
+                if (key == k)
+                    return;
+
+            e.SuppressKeyPress = true;
         }
     }
 }

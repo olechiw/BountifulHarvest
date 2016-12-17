@@ -30,10 +30,20 @@ namespace EntryApplication
         {
             InitializeComponent();
 
-
-            // Fill a buffer of 10 empty spaces for user to add names
+            InitializeComponentManual();
+            // Fill a buffer of 10 empty spaces for user to add names into the family chart
             for (int i = 0; i < 10; ++i)
                 relativesDataView.Rows.Add();
+        }
+
+        private void InitializeComponentManual()
+        {
+            System.Windows.Forms.Keys[] exceptionsDash = { System.Windows.Forms.Keys.OemMinus };
+            System.Windows.Forms.Keys[] exceptionsComma = { System.Windows.Forms.Keys.Oemcomma };
+
+            phoneNumberTextBox.Exceptions = exceptionsDash;
+            addressTextBox1.Exceptions = exceptionsComma;
+            addressTextBox2.Exceptions = exceptionsComma;
         }
 
         // An alternate constructor for editing patrons
@@ -51,6 +61,11 @@ namespace EntryApplication
             yearTextBox.Text = p.DateOfBirth.Year.ToString();
 
             genderTextBox.Text = p.Gender.ToString();
+
+            string[] address = p.Address.Split('\n');
+            addressTextBox1.Text = address[0];
+            if (address.Length > 1)
+                addressTextBox2.Text = address[1];
             
             // Load family
             if (p.Family != "")
@@ -108,6 +123,10 @@ namespace EntryApplication
             newPatron.DateOfLastVisit = DateTime.Today;
 
             newPatron.Gender = genderTextBox.Text.ToString();
+
+            newPatron.Address = addressTextBox1.Text + "\n" + addressTextBox2.Text;
+
+            newPatron.PhoneNumber = phoneNumberTextBox.Text;
 
             saved = true;
 

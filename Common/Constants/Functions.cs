@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 //
 // Constants - A class containing the constant value of all important things
@@ -86,17 +87,15 @@ namespace Common
         public static int GetSelectedInt(System.Windows.Forms.DataGridView view, int index) =>
             Constants.SafeConvertInt(view.SelectedRows[0].Cells[index].Value.ToString());
 
-        // Initialize a datagridview's needed properties, because I'm too lazy to subclass
-        public static void InitializeDataView(System.Windows.Forms.DataGridView view)
+
+
+        // Initialize a datagridview
+        public static void InitializeDataView(DataGridView view)
         {
+            foreach (DataGridViewColumn c in view.Columns)
+                c.SortMode = DataGridViewColumnSortMode.NotSortable;
 
-            // Manual initialization
-            view.Columns[4].SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            view.Columns[5].SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            view.Columns[6].SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-
-            // Setup the dataview
-            view.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            view.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
     }
 }
