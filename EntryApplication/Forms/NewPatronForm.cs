@@ -106,7 +106,7 @@ namespace EntryApplication
                 }
 
             // Cut off the last character, a floating comma
-            newPatron.Family.Remove(newPatron.Family.Length);
+            newPatron.Family.Remove(newPatron.Family.Length-1);
 
 
             int month = Common.Constants.SafeConvertInt(monthTextBox.Text.ToString());
