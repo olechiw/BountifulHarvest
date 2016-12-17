@@ -45,10 +45,7 @@ namespace EntryApplication
 
             InitializeSQL();
 
-            // Show the date on the datemessage
-            DateTime today = DateTime.Today;
-            date = today.ToString(dateCode);
-            dateLabel.Text = "Today's Date is: " + date;
+            dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
         }
 
 
@@ -65,14 +62,6 @@ namespace EntryApplication
         // Initialize the outputdataview
         private void InitializeDataView()
         {
-
-            // Manual initialization
-            outputDataView.Columns[4].SortMode = DataGridViewColumnSortMode.NotSortable;
-            outputDataView.Columns[5].SortMode = DataGridViewColumnSortMode.NotSortable;
-            outputDataView.Columns[6].SortMode = DataGridViewColumnSortMode.NotSortable;
-
-            // Setup the dataview
-            outputDataView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
 
@@ -247,7 +236,7 @@ namespace EntryApplication
             DateTime today = DateTime.Today;
 
             // Show the form
-            PrintVisitForm printForm = new PrintVisitForm(firstName, middleInitial, lastName, limitsAllowed, family, today.ToString(dateCode));
+            PrintVisitForm printForm = new PrintVisitForm(firstName, middleInitial, lastName, limitsAllowed, family);
             printForm.ShowDialog();
         }
 

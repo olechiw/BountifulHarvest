@@ -15,8 +15,6 @@ namespace ExitApplication
 {
     public partial class BeginInterfaceForm : Common.DialogForm
     {
-        private const string connectionString = "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id=sa; Password=potato";
-
         private const string dateCode = "d";
 
         // The date
@@ -33,23 +31,21 @@ namespace ExitApplication
         {
             InitializeComponent();
 
-            this.WindowState = FormWindowState.Maximized;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            SetupSQL();
 
+            dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
 
-            // Show the date on the datemessage
-            DateTime today = DateTime.Today;
-            date = today.ToString(dateCode);
-            dateLabel.Text = "Today's Date is: " + date;
+        }
+
+        // Initialize the database in the gridview
+        private void SetupSQL()
+        {
 
             // Connect to the database
-            sqlHandler = new Common.VisitsSqlHandler(connectionString);
+            sqlHandler = new Common.VisitsSqlHandler(Constants.debugConnectionString);
 
             LoadAllVisits();
         }
-
 
         // Load the initial list of visits for the day
         public void LoadAllVisits()
@@ -69,7 +65,7 @@ namespace ExitApplication
                 v.PatronMiddleInitial,
                 v.PatronLastName,
                 v.TotalPounds,
-                v.DateOfVisit.Date.ToString("d"),
+                Constants.ConvertDateTime(v.DateOfVisit),
                 v.VisitID);
         }
 
@@ -104,15 +100,16 @@ namespace ExitApplication
 
         private void undoButtonClick(object sender, EventArgs e)
         {
-            for (int i = 0; i < outputDataView.Rows.Count-1; ++i)
+            foreach (DataGridViewRow r in outputDataView.Rows)
             {
-                if (Constants.SafeConvertInt(outputDataView.Rows[(int)Common.Constants.VisitIndexes.VisitID].ToString())==lastVisitID)
-                {
-                    outputDataView.Rows.RemoveAt(i);
-                }
-            }
+                if (Constants.SafeConvertInt(
+                    r.Cells[(int)Constants.VisitIndexes.VisitID]
+                    .Value.ToString()
+                    ) == lastVisitID)
+                    outputDataView.Rows.Remove(r);
 
-            sqlHandler.DeleteRow(lastVisitID);
+                sqlHandler.DeleteRow(lastVisitID);
+            }
         }
     }
 }

@@ -30,14 +30,16 @@ namespace EntryApplication
         private const string formImage = "Z:\\form2.png";
 
         // Constructor
-        public PrintVisitForm(string patronFirstName, string patronMiddleInitial, string patronLastName, int patronLimitsAllowed, int patronNumberInFamily, string date)
+        public PrintVisitForm(string patronFirstName, string patronMiddleInitial, string patronLastName, int patronLimitsAllowed, int patronNumberInFamily)
         {
             firstName = patronFirstName;
             lastName = patronLastName;
             middleInitial = patronMiddleInitial;
             limitsAllowed = patronLimitsAllowed.ToString();
             numberInFamily = patronNumberInFamily.ToString();
-            this.date = date;
+
+
+            this.date = Common.Constants.ConvertDateTime(DateTime.Today);
 
             InitializeComponent();
             print.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(screenPrintPrintPage);
@@ -81,9 +83,7 @@ namespace EntryApplication
                 pD.Document = print;
 
                 if (pD.ShowDialog() == DialogResult.OK)
-                {
                     print.Print();
-                }
             }
 
             this.Close();

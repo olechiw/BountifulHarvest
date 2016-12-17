@@ -85,5 +85,18 @@ namespace Common
         // Get the designated column of the selected row of a data view as an integer
         public static int GetSelectedInt(System.Windows.Forms.DataGridView view, int index) =>
             Constants.SafeConvertInt(view.SelectedRows[0].Cells[index].Value.ToString());
+
+        // Initialize a datagridview's needed properties, because I'm too lazy to subclass
+        public static void InitializeDataView(System.Windows.Forms.DataGridView view)
+        {
+
+            // Manual initialization
+            view.Columns[4].SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            view.Columns[5].SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            view.Columns[6].SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+
+            // Setup the dataview
+            view.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+        }
     }
 }
