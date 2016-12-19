@@ -23,6 +23,8 @@ namespace Common
         public DateTime DateOfVisit;
         [Column]
         public int SizeOfFamily;
+        [Column]
+        public int PatronID;
         [Column(IsPrimaryKey =true)]
         public int VisitID;
     }

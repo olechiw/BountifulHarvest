@@ -15,8 +15,6 @@ namespace ExitApplication
 {
     public partial class BeginInterfaceForm : Common.DialogForm
     {
-        private const string dateCode = "d";
-
         // The most recent patron id submitted
         private int lastVisitID;
 

@@ -47,6 +47,8 @@
             this.familySizeLabel = new System.Windows.Forms.Label();
             this.totalPoundsSpinner = new System.Windows.Forms.NumericUpDown();
             this.sizeOfFamilySpinner = new System.Windows.Forms.NumericUpDown();
+            this.patronIDTextBox = new Common.NumericTextBox();
+            this.patronIDLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeOfFamilySpinner)).BeginInit();
@@ -194,7 +196,7 @@
             // 
             this.familySizeLabel.AutoSize = true;
             this.familySizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.familySizeLabel.Location = new System.Drawing.Point(972, 125);
+            this.familySizeLabel.Location = new System.Drawing.Point(829, 125);
             this.familySizeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.familySizeLabel.Name = "familySizeLabel";
             this.familySizeLabel.Size = new System.Drawing.Size(162, 32);
@@ -210,16 +212,36 @@
             // 
             // sizeOfFamilySpinner
             // 
-            this.sizeOfFamilySpinner.Location = new System.Drawing.Point(978, 188);
+            this.sizeOfFamilySpinner.Location = new System.Drawing.Point(835, 187);
             this.sizeOfFamilySpinner.Name = "sizeOfFamilySpinner";
             this.sizeOfFamilySpinner.Size = new System.Drawing.Size(156, 28);
             this.sizeOfFamilySpinner.TabIndex = 4;
+            // 
+            // patronIDTextBox
+            // 
+            this.patronIDTextBox.Location = new System.Drawing.Point(1116, 188);
+            this.patronIDTextBox.Name = "patronIDTextBox";
+            this.patronIDTextBox.Size = new System.Drawing.Size(127, 28);
+            this.patronIDTextBox.TabIndex = 5;
+            // 
+            // patronIDLabel
+            // 
+            this.patronIDLabel.AutoSize = true;
+            this.patronIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patronIDLabel.Location = new System.Drawing.Point(1110, 125);
+            this.patronIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.patronIDLabel.Name = "patronIDLabel";
+            this.patronIDLabel.Size = new System.Drawing.Size(133, 32);
+            this.patronIDLabel.TabIndex = 16;
+            this.patronIDLabel.Text = "Patron ID";
             // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1442, 851);
+            this.Controls.Add(this.patronIDLabel);
+            this.Controls.Add(this.patronIDTextBox);
             this.Controls.Add(this.sizeOfFamilySpinner);
             this.Controls.Add(this.totalPoundsSpinner);
             this.Controls.Add(this.familySizeLabel);
@@ -268,6 +290,8 @@
         private System.Windows.Forms.Label familySizeLabel;
         private System.Windows.Forms.NumericUpDown totalPoundsSpinner;
         private System.Windows.Forms.NumericUpDown sizeOfFamilySpinner;
+        private Common.NumericTextBox patronIDTextBox;
+        private System.Windows.Forms.Label patronIDLabel;
     }
 }
 

@@ -92,7 +92,7 @@ namespace Common
             VisitList latestVisit = database.Visits.OrderByDescending(v => v.VisitID);
             try
             {
-                id = latestVisit.First().VisitID;
+                id = latestVisit.First().VisitID + 1;
             }
             catch (Exception)
             {
@@ -110,7 +110,8 @@ namespace Common
             string patronLastName,
             int totalPounds,
             DateTime dateOfVisit,
-            int sizeOfFamily)
+            int sizeOfFamily,
+            int patronID)
         {
             Visit visit = new Visit
             {
@@ -120,6 +121,7 @@ namespace Common
                 TotalPounds = totalPounds,
                 DateOfVisit = dateOfVisit,
                 SizeOfFamily = sizeOfFamily,
+                PatronID = patronID,
                 VisitID = GetLatestID()
             };
 
