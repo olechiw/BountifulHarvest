@@ -84,11 +84,18 @@ namespace ExitApplication
                 TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
                 SizeOfFamily = Constants.SafeConvertInt(sizeOfFamilySpinner.Value.ToString()),
                 DateOfVisit = DateTime.Today,
-                PatronID = Constants.SafeConvertInt(patronIDTextBox.Value.ToString())
+                PatronID = Constants.SafeConvertInt(patronIDTextBox.Text)
             };
 
             sqlHandler.AddRow(v);
             AddDataRow(v);
+
+            patronFirstNameTextBox.Clear();
+            patronLastNameTextBox.Clear();
+            patronMiddleInitialTextBox.Clear();
+            patronIDTextBox.Clear();
+            totalPoundsSpinner.Text = "";
+            sizeOfFamilySpinner.Text = "";
         }
 
         private void deleteButtonClick(object sender, EventArgs e)
@@ -98,20 +105,6 @@ namespace ExitApplication
             sqlHandler.DeleteRow(id);
 
             LoadAllVisits();
-        }
-
-        private void inputFormFocus(object sender, EventArgs e)
-        {
-            if (sender is LatinTextBox)
-            {
-                LatinTextBox s = (LatinTextBox)sender;
-                s.SelectAll();
-            }
-            else if (sender is NumericUpDown)
-            {
-                // LOL, hipster 1-line code
-                ((NumericUpDown)sender).Select(0,((NumericUpDown)sender).Text.Length);
-            }
         }
     }
 }

@@ -48,11 +48,10 @@
             this.totalPoundsSpinner = new System.Windows.Forms.NumericUpDown();
             this.sizeOfFamilySpinner = new System.Windows.Forms.NumericUpDown();
             this.patronIDLabel = new System.Windows.Forms.Label();
-            this.patronIDTextBox = new System.Windows.Forms.NumericUpDown();
+            this.patronIDTextBox = new Common.NumericTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeOfFamilySpinner)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.patronIDTextBox)).BeginInit();
             this.SuspendLayout();
             // 
             // patronNameLabel
@@ -188,7 +187,6 @@
             this.patronMiddleInitialTextBox.Name = "patronMiddleInitialTextBox";
             this.patronMiddleInitialTextBox.Size = new System.Drawing.Size(35, 38);
             this.patronMiddleInitialTextBox.TabIndex = 1;
-            this.patronMiddleInitialTextBox.TextChanged += new System.EventHandler(this.inputFormFocus);
             // 
             // patronFirstNameTextBox
             // 
@@ -198,7 +196,6 @@
             this.patronFirstNameTextBox.Name = "patronFirstNameTextBox";
             this.patronFirstNameTextBox.Size = new System.Drawing.Size(128, 38);
             this.patronFirstNameTextBox.TabIndex = 0;
-            this.patronFirstNameTextBox.TextChanged += new System.EventHandler(this.inputFormFocus);
             // 
             // familySizeLabel
             // 
@@ -217,7 +214,6 @@
             this.totalPoundsSpinner.Name = "totalPoundsSpinner";
             this.totalPoundsSpinner.Size = new System.Drawing.Size(134, 28);
             this.totalPoundsSpinner.TabIndex = 3;
-            this.totalPoundsSpinner.ValueChanged += new System.EventHandler(this.inputFormFocus);
             // 
             // sizeOfFamilySpinner
             // 
@@ -225,7 +221,6 @@
             this.sizeOfFamilySpinner.Name = "sizeOfFamilySpinner";
             this.sizeOfFamilySpinner.Size = new System.Drawing.Size(156, 28);
             this.sizeOfFamilySpinner.TabIndex = 4;
-            this.sizeOfFamilySpinner.ValueChanged += new System.EventHandler(this.inputFormFocus);
             // 
             // patronIDLabel
             // 
@@ -238,13 +233,12 @@
             this.patronIDLabel.TabIndex = 16;
             this.patronIDLabel.Text = "Patron ID";
             // 
-            // patronIDTextBox
+            // patronIDSpinner
             // 
-            this.patronIDTextBox.Location = new System.Drawing.Point(1116, 187);
-            this.patronIDTextBox.Name = "patronIDTextBox";
-            this.patronIDTextBox.Size = new System.Drawing.Size(140, 28);
+            this.patronIDTextBox.Location = new System.Drawing.Point(1116, 192);
+            this.patronIDTextBox.Name = "patronIDSpinner";
+            this.patronIDTextBox.Size = new System.Drawing.Size(127, 28);
             this.patronIDTextBox.TabIndex = 17;
-            this.patronIDTextBox.ValueChanged += new System.EventHandler(this.inputFormFocus);
             // 
             // BeginInterfaceForm
             // 
@@ -275,7 +269,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeOfFamilySpinner)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.patronIDTextBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -303,7 +296,7 @@
         private System.Windows.Forms.NumericUpDown totalPoundsSpinner;
         private System.Windows.Forms.NumericUpDown sizeOfFamilySpinner;
         private System.Windows.Forms.Label patronIDLabel;
-        private System.Windows.Forms.NumericUpDown patronIDTextBox;
+        private Common.NumericTextBox patronIDTextBox;
     }
 }
 
