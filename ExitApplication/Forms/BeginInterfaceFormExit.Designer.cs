@@ -30,7 +30,7 @@
         {
             this.patronNameLabel = new System.Windows.Forms.Label();
             this.patronVisitLabel = new System.Windows.Forms.Label();
-            this.undoButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.outputDataView = new System.Windows.Forms.DataGridView();
             this.firstnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.middleInitialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,11 +47,12 @@
             this.familySizeLabel = new System.Windows.Forms.Label();
             this.totalPoundsSpinner = new System.Windows.Forms.NumericUpDown();
             this.sizeOfFamilySpinner = new System.Windows.Forms.NumericUpDown();
-            this.patronIDTextBox = new Common.NumericTextBox();
             this.patronIDLabel = new System.Windows.Forms.Label();
+            this.patronIDTextBox = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeOfFamilySpinner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.patronIDTextBox)).BeginInit();
             this.SuspendLayout();
             // 
             // patronNameLabel
@@ -76,19 +77,21 @@
             this.patronVisitLabel.TabIndex = 4;
             this.patronVisitLabel.Text = "Log a Patron Visit";
             // 
-            // undoButton
+            // deleteButton
             // 
-            this.undoButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.undoButton.Location = new System.Drawing.Point(1150, 661);
-            this.undoButton.Name = "undoButton";
-            this.undoButton.Size = new System.Drawing.Size(193, 72);
-            this.undoButton.TabIndex = 5;
-            this.undoButton.Text = "Undo";
-            this.undoButton.UseVisualStyleBackColor = true;
-            this.undoButton.Click += new System.EventHandler(this.undoButtonClick);
+            this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteButton.Location = new System.Drawing.Point(1150, 661);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(193, 72);
+            this.deleteButton.TabIndex = 5;
+            this.deleteButton.Text = "Delete";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButtonClick);
             // 
             // outputDataView
             // 
+            this.outputDataView.AllowUserToAddRows = false;
+            this.outputDataView.AllowUserToDeleteRows = false;
             this.outputDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.outputDataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.firstnameColumn,
@@ -97,8 +100,11 @@
             this.totalPoundsColumn,
             this.dateOfVisitColumn,
             this.visitIDColumn});
+            this.outputDataView.GridColor = System.Drawing.SystemColors.MenuHighlight;
             this.outputDataView.Location = new System.Drawing.Point(65, 271);
+            this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
+            this.outputDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.outputDataView.Size = new System.Drawing.Size(1031, 462);
             this.outputDataView.TabIndex = 6;
             // 
@@ -182,6 +188,7 @@
             this.patronMiddleInitialTextBox.Name = "patronMiddleInitialTextBox";
             this.patronMiddleInitialTextBox.Size = new System.Drawing.Size(35, 38);
             this.patronMiddleInitialTextBox.TabIndex = 1;
+            this.patronMiddleInitialTextBox.TextChanged += new System.EventHandler(this.inputFormFocus);
             // 
             // patronFirstNameTextBox
             // 
@@ -191,6 +198,7 @@
             this.patronFirstNameTextBox.Name = "patronFirstNameTextBox";
             this.patronFirstNameTextBox.Size = new System.Drawing.Size(128, 38);
             this.patronFirstNameTextBox.TabIndex = 0;
+            this.patronFirstNameTextBox.TextChanged += new System.EventHandler(this.inputFormFocus);
             // 
             // familySizeLabel
             // 
@@ -209,6 +217,7 @@
             this.totalPoundsSpinner.Name = "totalPoundsSpinner";
             this.totalPoundsSpinner.Size = new System.Drawing.Size(134, 28);
             this.totalPoundsSpinner.TabIndex = 3;
+            this.totalPoundsSpinner.ValueChanged += new System.EventHandler(this.inputFormFocus);
             // 
             // sizeOfFamilySpinner
             // 
@@ -216,13 +225,7 @@
             this.sizeOfFamilySpinner.Name = "sizeOfFamilySpinner";
             this.sizeOfFamilySpinner.Size = new System.Drawing.Size(156, 28);
             this.sizeOfFamilySpinner.TabIndex = 4;
-            // 
-            // patronIDTextBox
-            // 
-            this.patronIDTextBox.Location = new System.Drawing.Point(1116, 188);
-            this.patronIDTextBox.Name = "patronIDTextBox";
-            this.patronIDTextBox.Size = new System.Drawing.Size(127, 28);
-            this.patronIDTextBox.TabIndex = 5;
+            this.sizeOfFamilySpinner.ValueChanged += new System.EventHandler(this.inputFormFocus);
             // 
             // patronIDLabel
             // 
@@ -235,13 +238,21 @@
             this.patronIDLabel.TabIndex = 16;
             this.patronIDLabel.Text = "Patron ID";
             // 
+            // patronIDTextBox
+            // 
+            this.patronIDTextBox.Location = new System.Drawing.Point(1116, 187);
+            this.patronIDTextBox.Name = "patronIDTextBox";
+            this.patronIDTextBox.Size = new System.Drawing.Size(140, 28);
+            this.patronIDTextBox.TabIndex = 17;
+            this.patronIDTextBox.ValueChanged += new System.EventHandler(this.inputFormFocus);
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1442, 851);
-            this.Controls.Add(this.patronIDLabel);
             this.Controls.Add(this.patronIDTextBox);
+            this.Controls.Add(this.patronIDLabel);
             this.Controls.Add(this.sizeOfFamilySpinner);
             this.Controls.Add(this.totalPoundsSpinner);
             this.Controls.Add(this.familySizeLabel);
@@ -251,7 +262,7 @@
             this.Controls.Add(this.patronLastNameTextBox);
             this.Controls.Add(this.patronMiddleInitialTextBox);
             this.Controls.Add(this.outputDataView);
-            this.Controls.Add(this.undoButton);
+            this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.patronVisitLabel);
             this.Controls.Add(this.patronNameLabel);
             this.Controls.Add(this.patronFirstNameTextBox);
@@ -264,6 +275,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeOfFamilySpinner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.patronIDTextBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,7 +286,7 @@
         private Common.LatinTextBox patronFirstNameTextBox;
         private System.Windows.Forms.Label patronNameLabel;
         private System.Windows.Forms.Label patronVisitLabel;
-        private System.Windows.Forms.Button undoButton;
+        private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.DataGridView outputDataView;
         private Common.LatinTextBox patronMiddleInitialTextBox;
         private Common.LatinTextBox patronLastNameTextBox;
@@ -290,8 +302,8 @@
         private System.Windows.Forms.Label familySizeLabel;
         private System.Windows.Forms.NumericUpDown totalPoundsSpinner;
         private System.Windows.Forms.NumericUpDown sizeOfFamilySpinner;
-        private Common.NumericTextBox patronIDTextBox;
         private System.Windows.Forms.Label patronIDLabel;
+        private System.Windows.Forms.NumericUpDown patronIDTextBox;
     }
 }
 

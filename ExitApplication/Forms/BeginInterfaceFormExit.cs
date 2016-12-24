@@ -15,10 +15,6 @@ namespace ExitApplication
 {
     public partial class BeginInterfaceForm : Common.DialogForm
     {
-        // The most recent patron id submitted
-        private int lastVisitID;
-
-
         // The database handler, responsible for all sql operations
         private Common.VisitsSqlHandler sqlHandler;
 
@@ -86,26 +82,35 @@ namespace ExitApplication
                 PatronMiddleInitial = patronMiddleInitialTextBox.Text.ToString(),
                 PatronLastName = patronLastNameTextBox.Text.ToString(),
                 TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
-                SizeOfFamily = Constants.SafeConvertInt((sizeOfFamilySpinner.Value.ToString())),
-                DateOfVisit = DateTime.Today
+                SizeOfFamily = Constants.SafeConvertInt(sizeOfFamilySpinner.Value.ToString()),
+                DateOfVisit = DateTime.Today,
+                PatronID = Constants.SafeConvertInt(patronIDTextBox.Value.ToString())
             };
 
             sqlHandler.AddRow(v);
             AddDataRow(v);
-            lastVisitID = v.VisitID;
         }
 
-        private void undoButtonClick(object sender, EventArgs e)
+        private void deleteButtonClick(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow r in outputDataView.Rows)
-            {
-                if (Constants.SafeConvertInt(
-                    r.Cells[(int)Constants.VisitIndexes.VisitID]
-                    .Value.ToString()
-                    ) == lastVisitID)
-                    outputDataView.Rows.Remove(r);
+            int id = Constants.GetSelectedInt(outputDataView, (int)Constants.VisitIndexes.VisitID);
 
-                sqlHandler.DeleteRow(lastVisitID);
+            sqlHandler.DeleteRow(id);
+
+            LoadAllVisits();
+        }
+
+        private void inputFormFocus(object sender, EventArgs e)
+        {
+            if (sender is LatinTextBox)
+            {
+                LatinTextBox s = (LatinTextBox)sender;
+                s.SelectAll();
+            }
+            else if (sender is NumericUpDown)
+            {
+                // LOL, hipster 1-line code
+                ((NumericUpDown)sender).Select(0,((NumericUpDown)sender).Text.Length);
             }
         }
     }
