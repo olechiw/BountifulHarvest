@@ -33,9 +33,10 @@ namespace ExitApplication
         // Initialize the database in the gridview
         private void SetupSQL()
         {
+            string connString = (Constants.ISRELEASE) ? Constants.releaseExitConnectionString : Constants.debugConnectionString;
 
             // Connect to the database
-            sqlHandler = new Common.VisitsSqlHandler(Constants.debugConnectionString);
+            sqlHandler = new Common.VisitsSqlHandler(connString);
 
             LoadAllVisits();
         }

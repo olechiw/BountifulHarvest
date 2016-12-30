@@ -80,7 +80,7 @@
             // 
             // addPatronButton
             // 
-            this.addPatronButton.Location = new System.Drawing.Point(1720, 140);
+            this.addPatronButton.Location = new System.Drawing.Point(1400, 131);
             this.addPatronButton.Name = "addPatronButton";
             this.addPatronButton.Size = new System.Drawing.Size(150, 46);
             this.addPatronButton.TabIndex = 5;
@@ -90,7 +90,7 @@
             // 
             // editPatronButton
             // 
-            this.editPatronButton.Location = new System.Drawing.Point(1720, 297);
+            this.editPatronButton.Location = new System.Drawing.Point(1400, 314);
             this.editPatronButton.Name = "editPatronButton";
             this.editPatronButton.Size = new System.Drawing.Size(150, 46);
             this.editPatronButton.TabIndex = 6;
@@ -100,7 +100,7 @@
             // 
             // visitPrintButton
             // 
-            this.visitPrintButton.Location = new System.Drawing.Point(1720, 555);
+            this.visitPrintButton.Location = new System.Drawing.Point(1400, 579);
             this.visitPrintButton.Name = "visitPrintButton";
             this.visitPrintButton.Size = new System.Drawing.Size(150, 46);
             this.visitPrintButton.TabIndex = 7;
@@ -138,7 +138,7 @@
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.ReadOnly = true;
             this.outputDataView.RowTemplate.Height = 24;
-            this.outputDataView.Size = new System.Drawing.Size(1640, 708);
+            this.outputDataView.Size = new System.Drawing.Size(1314, 708);
             this.outputDataView.TabIndex = 3;
             // 
             // patronFirstNameColumn
@@ -207,7 +207,7 @@
             // 
             // morePatronInfoButton
             // 
-            this.morePatronInfoButton.Location = new System.Drawing.Point(1720, 429);
+            this.morePatronInfoButton.Location = new System.Drawing.Point(1400, 443);
             this.morePatronInfoButton.Name = "morePatronInfoButton";
             this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
             this.morePatronInfoButton.TabIndex = 10;
@@ -219,7 +219,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1914, 851);
+            this.ClientSize = new System.Drawing.Size(1900, 851);
             this.Controls.Add(this.morePatronInfoButton);
             this.Controls.Add(this.dateLabel);
             this.Controls.Add(this.label3);

@@ -48,8 +48,10 @@ namespace EntryApplication
         // Setup the sql connection
         private void InitializeSQL()
         {
+            string connString = (Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString;
+
             // Connect to the SQL database
-            sqlHandler = new Common.PatronsSqlHandler(Constants.debugConnectionString);
+            sqlHandler = new Common.PatronsSqlHandler(connString);
 
             LoadAllPatrons();
         }

@@ -79,7 +79,7 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteButton.Location = new System.Drawing.Point(1150, 661);
+            this.deleteButton.Location = new System.Drawing.Point(835, 652);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(193, 72);
             this.deleteButton.TabIndex = 5;
@@ -104,7 +104,7 @@
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.outputDataView.Size = new System.Drawing.Size(1031, 462);
+            this.outputDataView.Size = new System.Drawing.Size(703, 462);
             this.outputDataView.TabIndex = 6;
             // 
             // firstnameColumn
@@ -151,7 +151,7 @@
             // submitButton
             // 
             this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(1150, 369);
+            this.submitButton.Location = new System.Drawing.Point(835, 369);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(193, 72);
             this.submitButton.TabIndex = 11;
@@ -163,7 +163,7 @@
             // 
             this.dateLabel.AutoSize = true;
             this.dateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateLabel.Location = new System.Drawing.Point(1248, 51);
+            this.dateLabel.Location = new System.Drawing.Point(984, 39);
             this.dateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(90, 32);
@@ -226,17 +226,17 @@
             // 
             this.patronIDLabel.AutoSize = true;
             this.patronIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.patronIDLabel.Location = new System.Drawing.Point(1110, 125);
+            this.patronIDLabel.Location = new System.Drawing.Point(1067, 125);
             this.patronIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.patronIDLabel.Name = "patronIDLabel";
             this.patronIDLabel.Size = new System.Drawing.Size(133, 32);
             this.patronIDLabel.TabIndex = 16;
             this.patronIDLabel.Text = "Patron ID";
             // 
-            // patronIDSpinner
+            // patronIDTextBox
             // 
-            this.patronIDTextBox.Location = new System.Drawing.Point(1116, 192);
-            this.patronIDTextBox.Name = "patronIDSpinner";
+            this.patronIDTextBox.Location = new System.Drawing.Point(1073, 188);
+            this.patronIDTextBox.Name = "patronIDTextBox";
             this.patronIDTextBox.Size = new System.Drawing.Size(127, 28);
             this.patronIDTextBox.TabIndex = 17;
             // 

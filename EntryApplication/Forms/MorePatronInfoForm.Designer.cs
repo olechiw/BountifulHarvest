@@ -83,7 +83,7 @@
             // 
             this.lastVisitLabel.AutoSize = true;
             this.lastVisitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.lastVisitLabel.Location = new System.Drawing.Point(793, 47);
+            this.lastVisitLabel.Location = new System.Drawing.Point(580, 47);
             this.lastVisitLabel.Name = "lastVisitLabel";
             this.lastVisitLabel.Size = new System.Drawing.Size(133, 31);
             this.lastVisitLabel.TabIndex = 4;
@@ -93,7 +93,7 @@
             // 
             this.firstVisitLabel.AutoSize = true;
             this.firstVisitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.firstVisitLabel.Location = new System.Drawing.Point(801, 226);
+            this.firstVisitLabel.Location = new System.Drawing.Point(580, 228);
             this.firstVisitLabel.Name = "firstVisitLabel";
             this.firstVisitLabel.Size = new System.Drawing.Size(135, 31);
             this.firstVisitLabel.TabIndex = 5;
@@ -102,7 +102,7 @@
             // closeButton
             // 
             this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.closeButton.Location = new System.Drawing.Point(1195, 558);
+            this.closeButton.Location = new System.Drawing.Point(655, 572);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(185, 81);
             this.closeButton.TabIndex = 6;
@@ -114,7 +114,7 @@
             // 
             this.familyLabel.AutoSize = true;
             this.familyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.familyLabel.Location = new System.Drawing.Point(801, 349);
+            this.familyLabel.Location = new System.Drawing.Point(580, 325);
             this.familyLabel.Name = "familyLabel";
             this.familyLabel.Size = new System.Drawing.Size(102, 31);
             this.familyLabel.TabIndex = 7;
@@ -124,7 +124,7 @@
             // 
             this.commentsLabel.AutoSize = true;
             this.commentsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.commentsLabel.Location = new System.Drawing.Point(793, 487);
+            this.commentsLabel.Location = new System.Drawing.Point(580, 467);
             this.commentsLabel.Name = "commentsLabel";
             this.commentsLabel.Size = new System.Drawing.Size(153, 31);
             this.commentsLabel.TabIndex = 8;

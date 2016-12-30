@@ -36,6 +36,7 @@
             this.middleInitialLabel = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.limitsAllowedLabel = new System.Windows.Forms.Label();
+            this.printPreviewButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // firstNameLabel
@@ -71,9 +72,9 @@
             // printButton
             // 
             this.printButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printButton.Location = new System.Drawing.Point(877, 460);
+            this.printButton.Location = new System.Drawing.Point(791, 460);
             this.printButton.Name = "printButton";
-            this.printButton.Size = new System.Drawing.Size(128, 66);
+            this.printButton.Size = new System.Drawing.Size(229, 66);
             this.printButton.TabIndex = 3;
             this.printButton.Text = "Print";
             this.printButton.UseVisualStyleBackColor = true;
@@ -102,9 +103,9 @@
             // cancelButton
             // 
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelButton.Location = new System.Drawing.Point(78, 460);
+            this.cancelButton.Location = new System.Drawing.Point(37, 460);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(128, 66);
+            this.cancelButton.Size = new System.Drawing.Size(229, 66);
             this.cancelButton.TabIndex = 7;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -120,11 +121,23 @@
             this.limitsAllowedLabel.TabIndex = 8;
             this.limitsAllowedLabel.Text = "Limits Allowed:";
             // 
+            // printPreviewButton
+            // 
+            this.printPreviewButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printPreviewButton.Location = new System.Drawing.Point(424, 460);
+            this.printPreviewButton.Name = "printPreviewButton";
+            this.printPreviewButton.Size = new System.Drawing.Size(229, 66);
+            this.printPreviewButton.TabIndex = 9;
+            this.printPreviewButton.Text = "Preview";
+            this.printPreviewButton.UseVisualStyleBackColor = true;
+            this.printPreviewButton.Click += new System.EventHandler(this.previewButtonClick);
+            // 
             // PrintVisitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1062, 593);
+            this.Controls.Add(this.printPreviewButton);
             this.Controls.Add(this.limitsAllowedLabel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.middleInitialLabel);
@@ -151,5 +164,6 @@
         private System.Windows.Forms.Label middleInitialLabel;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Label limitsAllowedLabel;
+        private System.Windows.Forms.Button printPreviewButton;
     }
 }

@@ -35,8 +35,8 @@ namespace EntryApplication
 
         private void InitializeComponentManual()
         {
-            System.Windows.Forms.Keys[] exceptionsDash = { System.Windows.Forms.Keys.OemMinus };
-            System.Windows.Forms.Keys[] exceptionsComma = { System.Windows.Forms.Keys.Oemcomma };
+            System.Windows.Forms.Keys[] exceptionsDash = { System.Windows.Forms.Keys.OemMinus, System.Windows.Forms.Keys.Space };
+            System.Windows.Forms.Keys[] exceptionsComma = { System.Windows.Forms.Keys.Oemcomma, System.Windows.Forms.Keys.Space };
 
             phoneNumberTextBox.Exceptions = exceptionsDash;
             addressTextBox1.Exceptions = exceptionsComma;
@@ -106,7 +106,8 @@ namespace EntryApplication
                 }
 
             // Cut off the last character, a floating comma
-            newPatron.Family.Remove(newPatron.Family.Length-1);
+            //if (newPatron.Family.Length!=0)
+            //newPatron.Family.Remove(newPatron.Family.Length-1);
 
 
             int month = Common.Constants.SafeConvertInt(monthTextBox.Text.ToString());

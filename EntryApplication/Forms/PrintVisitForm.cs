@@ -25,12 +25,10 @@ namespace EntryApplication
 
         // Coordinates for where to draw each label. I'm a hack
         private readonly Point namePoint = new Point(75, 780);
-        private readonly Point limitsPoint = new Point(123, 882);
-        private readonly Point familyPoint = new Point(123, 920);
-        private readonly Point datePoint = new Point(540, 970);
-
-        // Name of the form's image file
-        private const string formImage = "Z:\\form2.png";
+        private readonly Point limitsPoint = new Point(135, 890);
+        private readonly Point familyPoint = new Point(130, 930);
+        private readonly Point datePoint = new Point(5, 970);
+        private readonly Point idPoint = new Point(5, 1020);
 
         // Constructor
         public PrintVisitForm(Patron p)
@@ -85,22 +83,26 @@ namespace EntryApplication
             // Create the full name of the person
             string name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
 
+            // The patrin id
+            string id = "Patron #" + patron.PatronID.ToString();
+
+            Graphics g = e.Graphics;
             //
             // This is removed because forms will be pre-printed:
             //
 
             // Load the form image
-            //Bitmap loadedImage = new Bitmap(formImage);
+            //Bitmap loadedImage = new Bitmap(Constants.printFormImage);
 
             // Draw the image and the text which fills it out
-            // g.DrawImage(loadedImage, new Point(0, 0));
+            //g.DrawImage(loadedImage, new Point(0, 0));
 
-            Graphics g = e.Graphics;
 
             DrawGenericText(g, name, namePoint.X, namePoint.Y);
             DrawGenericText(g, limitsAllowed.ToString(), limitsPoint.X, limitsPoint.Y);
             DrawGenericText(g, numberInFamily.ToString(), familyPoint.X, familyPoint.Y);
             DrawGenericText(g, Constants.ConvertDateTime(DateTime.Today), datePoint.X, datePoint.Y);
+            DrawGenericText(g, id, idPoint.X, idPoint.Y);
         }
 
         // Given arguments of coordinates, graphics, and text, draws a simple string
@@ -116,10 +118,37 @@ namespace EntryApplication
                 pD.Document = print;
 
                 if (pD.ShowDialog() == DialogResult.OK)
+                {
+                    //string name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
                     print.Print();
+
+                    // Manual drawing
+                    //DebugPrintPreviewForm f = new DebugPrintPreviewForm();
+
+                    // Load the form image
+                    //Bitmap loadedImage = new Bitmap(Constants.printFormImage);
+
+                    //Graphics g = Graphics.FromImage(loadedImage);
+                    //DrawGenericText(g, name, namePoint.X, namePoint.Y);
+                    //DrawGenericText(g, limitsAllowed.ToString(), limitsPoint.X, limitsPoint.Y);
+                    //DrawGenericText(g, numberInFamily.ToString(), familyPoint.X, familyPoint.Y);
+                    //DrawGenericText(g, Constants.ConvertDateTime(DateTime.Today), datePoint.X, datePoint.Y);
+
+                    //f.Draw(loadedImage);
+                    //f.ShowDialog();
+                }
             }
 
             this.Close();
+        }
+
+        private void previewButtonClick(object sender, EventArgs e)
+        {
+            using (PrintPreviewDialog pD = new PrintPreviewDialog())
+            {
+                pD.Document = print;
+                pD.ShowDialog();
+            }
         }
 
         // In case the user wants to cancel printing, close the window
