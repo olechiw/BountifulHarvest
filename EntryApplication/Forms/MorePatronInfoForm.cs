@@ -17,19 +17,19 @@ namespace EntryApplication
     public partial class MoreInfoForm : Common.DialogForm
     {
         // Simple constructor, set the values of each text field to the corresponding arguments. Then use the SqlConnection to fill in the blanks
-        public MoreInfoForm(string name, string dateOfBirth, string address, string phoneNumber, string lastVisit, string firstVisit, string family, string comments)
+        public MoreInfoForm(Common.Patron p)
         {
             InitializeComponent();
 
             // Load all of the labels
-            nameLabel.Text += name;
-            dateOfBirthLabel.Text += dateOfBirth;
-            addressLabel.Text += address;
-            phoneNumberLabel.Text += address;
-            lastVisitLabel.Text += lastVisit;
-            firstVisitLabel.Text += firstVisit;
-            familyLabel.Text += family;
-            commentsLabel.Text += comments;
+            nameLabel.Text += Common.Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName);
+            dateOfBirthLabel.Text += p.DateOfBirth;
+            addressLabel.Text += p.Address;
+            phoneNumberLabel.Text += p.PhoneNumber;
+            lastVisitLabel.Text += p.DateOfLastVisit;
+            firstVisitLabel.Text += p.DateOfInitialVisit;
+            familyLabel.Text += p.Family;
+            commentsLabel.Text += p.Comments;
 
             this.WindowState = FormWindowState.Maximized;
         }

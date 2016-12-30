@@ -69,6 +69,9 @@ namespace Common
             return d;
         }
 
+        public static string ConjuncDate(string mm, string dd, string yy) =>
+            (mm + '/' + dd + '/' + yy);
+
         // Combine a first, last, and middle name
         public static string ConjuncName(string f, string m, string l)
         {
@@ -96,6 +99,24 @@ namespace Common
                 c.SortMode = DataGridViewColumnSortMode.NotSortable;
 
             view.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+        // Check whether a patron's last visit date is valid
+        public static bool CanVisit(DateTime date)
+        {
+            DateTime t = DateTime.Today;
+
+            if (date.Year != t.Year)
+                return true;
+
+            else if (date.Month != t.Month)
+                return true;
+
+
+            // TODO: CHECK PROPER DAY
+            // else if (date.Day )
+            else
+                return false;
         }
     }
 }

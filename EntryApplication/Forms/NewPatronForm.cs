@@ -19,7 +19,7 @@ namespace EntryApplication
 {
     public partial class NewPatronForm : Common.DialogForm
     {
-        private Patron newPatron = new Patron();
+        public Patron newPatron { get; }
         public Patron GetResults() => newPatron;
 
         // A boolean used to see if the user actually saved the data
@@ -37,16 +37,21 @@ namespace EntryApplication
         {
             System.Windows.Forms.Keys[] exceptionsDash = { System.Windows.Forms.Keys.OemMinus, System.Windows.Forms.Keys.Space };
             System.Windows.Forms.Keys[] exceptionsComma = { System.Windows.Forms.Keys.Oemcomma, System.Windows.Forms.Keys.Space };
+            System.Windows.Forms.Keys[] exceptionsSpace = { System.Windows.Forms.Keys.Space };
 
             phoneNumberTextBox.Exceptions = exceptionsDash;
             addressTextBox1.Exceptions = exceptionsComma;
             addressTextBox2.Exceptions = exceptionsComma;
+
+            patronGender.Items.Add("Male");
+            patronGender.Items.Add("Female");
 
             // Fill a buffer of 10 empty spaces for user to add names into the family chart
             for (int i = 0; i < 10; ++i)
                 relativesDataView.Rows.Add();
         }
 
+        delegate string v(string otherValue);
         // An alternate constructor for editing patrons
         public NewPatronForm(Patron p)
         {
@@ -68,24 +73,64 @@ namespace EntryApplication
             if (address.Length > 1)
                 addressTextBox2.Text = address[1];
             
+
             // Load family
             if (!string.IsNullOrEmpty(p.Family))
             {
                 string[] familyMembers = p.Family.Split(',');
+                string[] familyGenders = p.FamilyGenders.Split(',');
+                string ds = p.FamilyDateOfBirths;
 
-                foreach (string member in familyMembers)
-                    relativesDataView.Rows.Add(member);
+                v m = s => s.Split('/')[0];
+                v d = s => s.Split('/')[1];
+                v y = s => s.Split('/')[2];
+
+                // TODO: CHECK FOR NULL VALUES HERE
+                for (int i = 0; i < familyMembers.Length; ++i)
+                    relativesDataView.Rows.Add(familyMembers[i], familyGenders[i], m(ds), d(ds), y(ds));
             }
 
             InitializeComponentManual();
 
-            Patron.Copy(newPatron, p);
+            newPatron = p;
         }
 
         // When the '+' button is clicked to add a row, add a row.
         private void addRowButtonClick(object sender, EventArgs e)
         {
             relativesDataView.Rows.Add();
+        }
+
+        private void ProcessFamily()
+        {
+            newPatron.Family = "";
+            // Get all of the family members
+            foreach (DataGridViewRow row in relativesDataView.Rows)
+            {
+                if (!(row.Cells[0] == null || row.Cells[0].Value == null || string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString())))
+                {
+                    newPatron.Family += row.Cells[0].Value.ToString();
+                    newPatron.Family += ',';
+
+                    newPatron.FamilyGenders += row.Cells[1].Value.ToString();
+                    newPatron.FamilyGenders += ',';
+
+                    newPatron.FamilyDateOfBirths += Constants.ConjuncDate(
+                        row.Cells[2].Value.ToString(),
+                        row.Cells[3].Value.ToString(),
+                        row.Cells[4].Value.ToString());
+                }
+            }
+
+            // Cut off the last character, a floating comma. But lets not have it be -1
+            if (newPatron.Family.Length != 0)
+                newPatron.Family = newPatron.Family.Substring(0, newPatron.Family.Length - 1);
+
+            if (newPatron.FamilyGenders.Length != 0)
+                newPatron.FamilyGenders = newPatron.FamilyGenders.Substring(0, newPatron.FamilyGenders.Length - 1);
+
+            if (newPatron.FamilyDateOfBirths.Length != 0)
+                newPatron.FamilyGenders = newPatron.FamilyGenders.Substring(0, newPatron.FamilyGenders.Length - 1);
         }
 
         // Record all of the data, and close the window
@@ -95,19 +140,6 @@ namespace EntryApplication
             newPatron.FirstName = firstNameTextBox.Text.ToString();
             newPatron.LastName = lastNameTextBox.Text.ToString();
             newPatron.MiddleInitial = middleInitialTextBox.Text.ToString();
-
-           newPatron.Family = "";
-            // Get all of the family members
-            foreach (DataGridViewRow row in relativesDataView.Rows)
-                if (!(row.Cells[0]==null || row.Cells[0].Value == null || string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString())))
-                {
-                    newPatron.Family += row.Cells[0].Value.ToString();
-                    newPatron.Family += ',';
-                }
-
-            // Cut off the last character, a floating comma
-            //if (newPatron.Family.Length!=0)
-            //newPatron.Family.Remove(newPatron.Family.Length-1);
 
 
             int month = Common.Constants.SafeConvertInt(monthTextBox.Text.ToString());

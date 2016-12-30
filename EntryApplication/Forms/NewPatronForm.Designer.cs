@@ -42,7 +42,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.middleInitialTextBox = new Common.LatinTextBox();
             this.relativesDataView = new System.Windows.Forms.DataGridView();
-            this.personName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addRowButton = new System.Windows.Forms.Button();
             this.relationsLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
@@ -55,6 +54,11 @@
             this.addressLabel = new System.Windows.Forms.Label();
             this.addressTextBox1 = new Common.LatinTextBox();
             this.addressTextBox2 = new Common.LatinTextBox();
+            this.personName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronGender = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.patronMonth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -171,7 +175,11 @@
             // 
             this.relativesDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.relativesDataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.personName});
+            this.personName,
+            this.patronGender,
+            this.patronMonth,
+            this.patronDay,
+            this.patronYear});
             this.relativesDataView.Location = new System.Drawing.Point(493, 206);
             this.relativesDataView.Name = "relativesDataView";
             this.relativesDataView.RowTemplate.Height = 24;
@@ -179,12 +187,6 @@
             this.relativesDataView.TabIndex = 14;
             this.relativesDataView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.relativesDataViewEditing);
             this.relativesDataView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.familyTextBoxKeyDown);
-            // 
-            // personName
-            // 
-            this.personName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.personName.HeaderText = "Person First and Last Name";
-            this.personName.Name = "personName";
             // 
             // addRowButton
             // 
@@ -293,6 +295,39 @@
             this.addressTextBox2.Size = new System.Drawing.Size(268, 22);
             this.addressTextBox2.TabIndex = 6;
             // 
+            // personName
+            // 
+            this.personName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.personName.HeaderText = "Name";
+            this.personName.MinimumWidth = 95;
+            this.personName.Name = "personName";
+            // 
+            // patronGender
+            // 
+            this.patronGender.HeaderText = "Gender";
+            this.patronGender.Name = "patronGender";
+            // 
+            // patronMonth
+            // 
+            this.patronMonth.HeaderText = "MM";
+            this.patronMonth.MinimumWidth = 30;
+            this.patronMonth.Name = "patronMonth";
+            this.patronMonth.Width = 30;
+            // 
+            // patronDay
+            // 
+            this.patronDay.HeaderText = "DD";
+            this.patronDay.MinimumWidth = 30;
+            this.patronDay.Name = "patronDay";
+            this.patronDay.Width = 30;
+            // 
+            // patronYear
+            // 
+            this.patronYear.HeaderText = "YY";
+            this.patronYear.MinimumWidth = 60;
+            this.patronYear.Name = "patronYear";
+            this.patronYear.Width = 60;
+            // 
             // NewPatronForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -351,7 +386,6 @@
         private System.Windows.Forms.Button addRowButton;
         private System.Windows.Forms.Label relationsLabel;
         private System.Windows.Forms.Button submitButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn personName;
         private System.Windows.Forms.RichTextBox commentsRichTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label genderLabel;
@@ -361,5 +395,10 @@
         private System.Windows.Forms.Label addressLabel;
         private Common.LatinTextBox addressTextBox1;
         private Common.LatinTextBox addressTextBox2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn personName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn patronGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronMonth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronYear;
     }
 }

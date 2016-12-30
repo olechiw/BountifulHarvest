@@ -28,6 +28,10 @@ namespace Common
         [Column]
         public string Family;
         [Column]
+        public string FamilyGenders;
+        [Column]
+        public string FamilyDateOfBirths;
+        [Column]
         public string PhoneNumber;
         [Column]
         public string Address;

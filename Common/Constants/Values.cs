@@ -65,6 +65,7 @@ namespace Common
             Gender,
             DateOfLastVisit,
             DateOfBirth,
+            Age,
             Family,
             PatronID
         }

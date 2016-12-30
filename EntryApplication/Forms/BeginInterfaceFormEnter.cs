@@ -87,6 +87,7 @@ namespace EntryApplication
                 p.Gender,
                 Constants.ConvertDateTime(p.DateOfLastVisit),
                 Constants.ConvertDateTime(p.DateOfBirth),
+                DateTime.Today.Year - p.DateOfBirth.Year,
                 p.Family,
                 p.PatronID);
         }
@@ -215,15 +216,7 @@ namespace EntryApplication
             int id = Constants.GetSelectedInt(outputDataView, (int)Constants.OutputDataColumnsPatrons.PatronID);
             Patron p = sqlHandler.GetRow(id);
 
-            MoreInfoForm form = new MoreInfoForm(
-                Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName),
-                Constants.ConvertDateTime(p.DateOfBirth),
-                p.Address,
-                p.PhoneNumber,
-                p.DateOfLastVisit.ToString(),
-                p.DateOfInitialVisit.ToString(),
-                p.Family,
-                p.Comments);
+            MoreInfoForm form = new MoreInfoForm(p);
 
             form.ShowDialog();
         }
