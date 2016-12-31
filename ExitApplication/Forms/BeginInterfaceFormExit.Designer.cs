@@ -43,6 +43,7 @@
             this.totalPoundsSpinner = new System.Windows.Forms.NumericUpDown();
             this.patronIDLabel = new System.Windows.Forms.Label();
             this.patronIDTextBox = new Common.NumericTextBox();
+            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +62,7 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteButton.Location = new System.Drawing.Point(835, 652);
+            this.deleteButton.Location = new System.Drawing.Point(809, 661);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(193, 72);
             this.deleteButton.TabIndex = 5;
@@ -80,13 +81,14 @@
             this.lastNameColumn,
             this.totalPoundsColumn,
             this.dateOfVisitColumn,
-            this.visitIDColumn});
+            this.visitIDColumn,
+            this.patronIDColumn});
             this.outputDataView.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.outputDataView.Location = new System.Drawing.Point(65, 271);
+            this.outputDataView.Location = new System.Drawing.Point(27, 271);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.outputDataView.Size = new System.Drawing.Size(703, 462);
+            this.outputDataView.Size = new System.Drawing.Size(754, 462);
             this.outputDataView.TabIndex = 6;
             // 
             // firstnameColumn
@@ -123,7 +125,7 @@
             // 
             this.poundsLabel.AutoSize = true;
             this.poundsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.poundsLabel.Location = new System.Drawing.Point(332, 125);
+            this.poundsLabel.Location = new System.Drawing.Point(252, 125);
             this.poundsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.poundsLabel.Name = "poundsLabel";
             this.poundsLabel.Size = new System.Drawing.Size(140, 32);
@@ -133,7 +135,7 @@
             // submitButton
             // 
             this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(835, 369);
+            this.submitButton.Location = new System.Drawing.Point(800, 271);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(193, 72);
             this.submitButton.TabIndex = 11;
@@ -145,7 +147,7 @@
             // 
             this.dateLabel.AutoSize = true;
             this.dateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateLabel.Location = new System.Drawing.Point(984, 39);
+            this.dateLabel.Location = new System.Drawing.Point(467, 125);
             this.dateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(90, 32);
@@ -154,7 +156,7 @@
             // 
             // totalPoundsSpinner
             // 
-            this.totalPoundsSpinner.Location = new System.Drawing.Point(338, 189);
+            this.totalPoundsSpinner.Location = new System.Drawing.Point(258, 188);
             this.totalPoundsSpinner.Name = "totalPoundsSpinner";
             this.totalPoundsSpinner.Size = new System.Drawing.Size(134, 28);
             this.totalPoundsSpinner.TabIndex = 3;
@@ -177,6 +179,11 @@
             this.patronIDTextBox.Size = new System.Drawing.Size(127, 28);
             this.patronIDTextBox.TabIndex = 17;
             this.patronIDTextBox.TextChanged += new System.EventHandler(this.patronIDChanged);
+            // 
+            // patronIDColumn
+            // 
+            this.patronIDColumn.HeaderText = "PatronID";
+            this.patronIDColumn.Name = "patronIDColumn";
             // 
             // BeginInterfaceForm
             // 
@@ -221,6 +228,7 @@
         private System.Windows.Forms.NumericUpDown totalPoundsSpinner;
         private System.Windows.Forms.Label patronIDLabel;
         private Common.NumericTextBox patronIDTextBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
     }
 }
 

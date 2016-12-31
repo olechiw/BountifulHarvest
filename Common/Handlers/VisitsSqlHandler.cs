@@ -37,14 +37,25 @@ namespace Common
         }
 
         // Get all the data about a specific row
-        public Visit GetRow(int id) =>
-                (
-                from v in database.Visits
+        public Visit GetRow(int id)
+        {
+            try
+            {
+                return
+            (
+            from v in database.Visits
 
-                where v.VisitID == id
+            where v.VisitID == id
 
-                select v
-                ).First<Visit>();
+            select v
+            ).First<Visit>();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to find Visit with ID " + id);
+                return null;
+            }
+        }
 
         // Get all of a patron's vists
         public VisitList GetPatronsRows(int id) =>

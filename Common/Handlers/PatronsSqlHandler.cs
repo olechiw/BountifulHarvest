@@ -43,13 +43,21 @@ namespace Common
         // Get the entire row based on a specific patron id. This is a REFERENCE OBJECT
         public Patron GetRow(int id)
         {
-            return
-                (
-               from p in database.Patrons
+            try
+            {
+                return
+                    (
+                   from p in database.Patrons
 
-               where p.PatronID == id
+                   where p.PatronID == id
 
-               select p).First<Patron>(); // The can only be one!!
+                   select p).First<Patron>(); // The can only be one!!
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to find Patron with ID " + id);
+                return null;
+            }
         }
 
 

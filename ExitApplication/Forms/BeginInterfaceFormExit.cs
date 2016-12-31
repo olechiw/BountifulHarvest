@@ -18,6 +18,9 @@ namespace ExitApplication
         // The database handler, responsible for all sql operations
         private Common.VisitsSqlHandler sqlHandler;
 
+        // The second one, for accessing another table
+        private Common.PatronsSqlHandler patronsHandler;
+
         public BeginInterfaceForm()
         {
             InitializeComponent();
@@ -37,6 +40,8 @@ namespace ExitApplication
 
             // Connect to the database
             sqlHandler = new Common.VisitsSqlHandler(connString);
+            patronsHandler = new Common.PatronsSqlHandler(connString);
+
 
             LoadAllVisits();
         }
@@ -54,10 +59,19 @@ namespace ExitApplication
         // Add a row to the output
         private void AddDataRow(Visit v)
         {
-            outputDataView.Rows.Add(
-                v.TotalPounds,
-                Constants.ConvertDateTime(v.DateOfVisit),
-                v.VisitID);
+            Patron p = patronsHandler.GetRow(v.PatronID);
+
+            if (p != null)
+            {
+                outputDataView.Rows.Add(
+                    p.FirstName,
+                    p.MiddleInitial,
+                    p.LastName,
+                    v.TotalPounds,
+                    Constants.ConvertDateTime(v.DateOfVisit),
+                    v.VisitID,
+                    p.PatronID);
+            }
         }
 
         // Load the top 100 visits. May go unused, here for consistency
@@ -84,9 +98,7 @@ namespace ExitApplication
             sqlHandler.AddRow(v);
             AddDataRow(v);
 
-
-            patronIDTextBox.Clear();
-            totalPoundsSpinner.Text = "";
+            totalPoundsSpinner.Value = 0;
         }
 
         private void deleteButtonClick(object sender, EventArgs e)
