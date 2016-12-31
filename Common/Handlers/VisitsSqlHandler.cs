@@ -37,17 +37,22 @@ namespace Common
         }
 
         // Get all the data about a specific row
-        public Visit GetRow(int id)
-        {
-            return
-            (
+        public Visit GetRow(int id) =>
+                (
                 from v in database.Visits
 
                 where v.VisitID == id
 
                 select v
-            ).First<Visit>();
-        }
+                ).First<Visit>();
+
+        // Get all of a patron's vists
+        public VisitList GetPatronsRows(int id) =>
+                from v in database.Visits
+
+                where v.PatronID == id
+
+                select v;
 
         #region Kept for Historical Relevance
         /*
@@ -63,26 +68,20 @@ namespace Common
         #endregion
 
         // Return all the latest rows before a date
-        public VisitList GetNewestRows(DateTime date)
-        {
-            return from v in database.Visits
+        public VisitList GetNewestRows(DateTime date) =>
+            from v in database.Visits
                    where v.DateOfVisit < date
                    select v;
-        }
 
         // Get the top x rows
-        public VisitList GetTopRows(int rowCount)
-        {
-            return database.Visits.Take(rowCount);
-        }
+        public VisitList GetTopRows(int rowCount) => 
+            database.Visits.Take(rowCount);
 
         // Get the rows for this month
-        public VisitList GetMonthRows()
-        {
-            return from v in database.Visits
+        public VisitList GetMonthRows() =>
+            from v in database.Visits
                    where v.DateOfVisit.Month == DateTime.Now.Month
                    select v;
-        }
 
         
 

@@ -79,5 +79,45 @@ namespace Common
             n.DateOfInitialVisit = o.DateOfInitialVisit;
             */
         }
+
+        // Update all of the calculated columns
+        public void Calculate()
+        {
+
+            // Genders
+            int males = 0, females = 0;
+            foreach (var s in FamilyGenders.Split(','))
+            {
+                if (s == "Male")
+                    males++;
+                else if (s == "Female")
+                    females++;
+            }
+            Males = males;
+            Females = females;
+
+
+            // Age groups
+            int y = 0, m = 0, o = 0;
+
+            foreach (var s in FamilyDateOfBirths.Split(','))
+            {
+                var d = s.Split('/');
+                if (s.Length==3)
+                {
+                    int age = DateTime.Today.Year - Constants.SafeConvertInt(s[2].ToString());
+                    if (age <= 17)
+                        y++;
+                    else if (age <= 59)
+                        m++;
+                    else
+                        o++;
+                }
+            }
+
+            Old = o;
+            Medium = m;
+            Young = y;
+        }
     }
 }

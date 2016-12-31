@@ -55,9 +55,6 @@ namespace ExitApplication
         private void AddDataRow(Visit v)
         {
             outputDataView.Rows.Add(
-                v.PatronFirstName,
-                v.PatronMiddleInitial,
-                v.PatronLastName,
                 v.TotalPounds,
                 Constants.ConvertDateTime(v.DateOfVisit),
                 v.VisitID);
@@ -79,11 +76,7 @@ namespace ExitApplication
         {
             Visit v = new Visit
             {
-                PatronFirstName = patronFirstNameTextBox.Text.ToString(),
-                PatronMiddleInitial = patronMiddleInitialTextBox.Text.ToString(),
-                PatronLastName = patronLastNameTextBox.Text.ToString(),
                 TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
-                SizeOfFamily = Constants.SafeConvertInt(sizeOfFamilySpinner.Value.ToString()),
                 DateOfVisit = DateTime.Today,
                 PatronID = Constants.SafeConvertInt(patronIDTextBox.Text)
             };
@@ -91,12 +84,9 @@ namespace ExitApplication
             sqlHandler.AddRow(v);
             AddDataRow(v);
 
-            patronFirstNameTextBox.Clear();
-            patronLastNameTextBox.Clear();
-            patronMiddleInitialTextBox.Clear();
+
             patronIDTextBox.Clear();
             totalPoundsSpinner.Text = "";
-            sizeOfFamilySpinner.Text = "";
         }
 
         private void deleteButtonClick(object sender, EventArgs e)
@@ -106,6 +96,15 @@ namespace ExitApplication
             sqlHandler.DeleteRow(id);
 
             LoadAllVisits();
+        }
+
+        private void patronIDChanged(object sender, EventArgs e)
+        {
+            outputDataView.Rows.Clear();
+
+            int id = Constants.SafeConvertInt(patronIDTextBox.Text.ToString());
+            foreach (var v in sqlHandler.GetPatronsRows(id))
+                AddDataRow(v);
         }
     }
 }

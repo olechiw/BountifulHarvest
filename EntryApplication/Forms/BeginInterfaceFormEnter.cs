@@ -155,7 +155,11 @@ namespace EntryApplication
             if (!form.Saved())
                 return;
 
-            sqlHandler.AddRow(form.GetResults());
+            Patron p = form.GetResults();
+
+            p.Calculate();
+
+            sqlHandler.AddRow(p);
 
 
             LoadAllPatrons();
@@ -188,6 +192,8 @@ namespace EntryApplication
 
             Patron updatedP = form.GetResults();
             Patron.Copy(p, updatedP);
+
+            p.Calculate();
 
             sqlHandler.Update();
 
