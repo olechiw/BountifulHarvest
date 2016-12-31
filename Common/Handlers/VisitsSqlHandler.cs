@@ -101,34 +101,6 @@ namespace Common
             return id;
         }
 
-
-
-        // A a new, unique row.
-        public void AddRow(
-            string patronFirstName,
-            string patronMiddleInitial,
-            string patronLastName,
-            int totalPounds,
-            DateTime dateOfVisit,
-            int sizeOfFamily,
-            int patronID)
-        {
-            Visit visit = new Visit
-            {
-                PatronFirstName = patronFirstName,
-                PatronMiddleInitial = patronMiddleInitial,
-                PatronLastName = patronLastName,
-                TotalPounds = totalPounds,
-                DateOfVisit = dateOfVisit,
-                SizeOfFamily = sizeOfFamily,
-                PatronID = patronID,
-                VisitID = GetLatestID()
-            };
-
-            database.Visits.InsertOnSubmit(visit);
-            database.SubmitChanges();
-        }
-
         // Add a preloaded row
         public void AddRow(Visit visit)
         {

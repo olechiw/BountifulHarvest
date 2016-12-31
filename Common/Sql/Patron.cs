@@ -41,6 +41,16 @@ namespace Common
         public DateTime DateOfInitialVisit;
         [Column(IsPrimaryKey = true)]
         public int PatronID;
+        [Column]
+        public int Males;
+        [Column]
+        public int Females;
+        [Column]
+        public int Young;
+        [Column]
+        public int Medium;
+        [Column]
+        public int Old;
 
 
         // Copy the class

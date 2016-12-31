@@ -111,42 +111,6 @@ namespace Common
             }
             return id;
         }
-
-
-
-        // Add a completely new row
-        public void AddRow(
-            string firstName,
-            string middleInitial,
-            string lastName,
-            string gender,
-            string family,
-            DateTime lastVisit,
-            DateTime birth,
-            string address,
-            string phoneNumber,
-            string comments,
-            DateTime initialVisit)
-        {
-            Patron row = new Patron
-            {
-                FirstName = firstName,
-                MiddleInitial = middleInitial,
-                LastName = lastName,
-                Gender = gender,
-                Family = family,
-                DateOfLastVisit = lastVisit,
-                DateOfBirth = birth,
-                Address = address,
-                PhoneNumber = phoneNumber,
-                Comments = comments,
-                DateOfInitialVisit = initialVisit,
-                PatronID = GetLatestID()
-            };
-
-            database.Patrons.InsertOnSubmit(row);
-            database.SubmitChanges();
-        }
         
 
 

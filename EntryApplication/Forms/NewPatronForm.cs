@@ -75,19 +75,35 @@ namespace EntryApplication
             
 
             // Load family
-            if (!string.IsNullOrEmpty(p.Family))
+            if (!string.IsNullOrEmpty(p.Family) &&
+                !string.IsNullOrEmpty(p.FamilyGenders) &&
+                !string.IsNullOrEmpty(p.FamilyDateOfBirths))
             {
                 string[] familyMembers = p.Family.Split(',');
                 string[] familyGenders = p.FamilyGenders.Split(',');
-                string ds = p.FamilyDateOfBirths;
+                string[] dates = p.FamilyDateOfBirths.Split(',');
 
-                v m = s => s.Split('/')[0];
-                v d = s => s.Split('/')[1];
-                v y = s => s.Split('/')[2];
-
-                // TODO: CHECK FOR NULL VALUES HERE
                 for (int i = 0; i < familyMembers.Length; ++i)
-                    relativesDataView.Rows.Add(familyMembers[i], familyGenders[i], m(ds), d(ds), y(ds));
+                {
+                    string name = "", gender = "", d = "", m = "", y = "";
+
+                    if (string.IsNullOrEmpty(familyMembers[i]))
+                        continue;
+
+                    name = familyMembers[i];
+                    if (familyGenders.Length < i)
+                        gender = familyGenders[i];
+                    if (dates.Length < i)
+                        if (dates[i].Split('/').Length==3)
+                        {
+                            string[] ds = dates[i].Split('/');
+                            d = ds[0];
+                            m = ds[1];
+                            y = ds[2];
+                        }
+
+                    relativesDataView.Rows.Add(name, gender, d, m, y);
+                }
             }
 
             InitializeComponentManual();
