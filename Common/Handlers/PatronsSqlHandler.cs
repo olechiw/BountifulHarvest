@@ -45,18 +45,21 @@ namespace Common
         {
             try
             {
-                return
-                    (
-                   from p in database.Patrons
+            var results =
+                (
+               from p in database.Patrons
 
-                   where p.PatronID == id
+               where p.PatronID == id
 
-                   select p).First<Patron>(); // The can only be one!!
+               select p); 
+
+               return results.First<Patron>(); // There can only be one!!
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 MessageBox.Show("Failed to find Patron with ID " + id);
-                return null;
+                MessageBox.Show(e.ToString());
+                return new Common.Patron();
             }
         }
 

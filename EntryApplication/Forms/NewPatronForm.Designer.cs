@@ -42,23 +42,23 @@
             this.label7 = new System.Windows.Forms.Label();
             this.middleInitialTextBox = new Common.LatinTextBox();
             this.relativesDataView = new System.Windows.Forms.DataGridView();
+            this.patronFamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronFamilyGender = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.patronFamilyMonth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronFamilyDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronFamilyYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addRowButton = new System.Windows.Forms.Button();
             this.relationsLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.commentsRichTextBox = new System.Windows.Forms.RichTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.genderLabel = new System.Windows.Forms.Label();
-            this.genderTextBox = new Common.LatinTextBox();
             this.phoneNumberTextBox = new Common.NumericTextBox();
             this.phoneNumberLabel = new System.Windows.Forms.Label();
             this.addressLabel = new System.Windows.Forms.Label();
             this.addressTextBox1 = new Common.LatinTextBox();
             this.addressTextBox2 = new Common.LatinTextBox();
-            this.personName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronGender = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.patronMonth = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.genderComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -175,11 +175,11 @@
             // 
             this.relativesDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.relativesDataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.personName,
-            this.patronGender,
-            this.patronMonth,
-            this.patronDay,
-            this.patronYear});
+            this.patronFamilyName,
+            this.patronFamilyGender,
+            this.patronFamilyMonth,
+            this.patronFamilyDay,
+            this.patronFamilyYear});
             this.relativesDataView.Location = new System.Drawing.Point(493, 206);
             this.relativesDataView.Name = "relativesDataView";
             this.relativesDataView.RowTemplate.Height = 24;
@@ -187,6 +187,39 @@
             this.relativesDataView.TabIndex = 14;
             this.relativesDataView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.relativesDataViewEditing);
             this.relativesDataView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.familyTextBoxKeyDown);
+            // 
+            // patronFamilyName
+            // 
+            this.patronFamilyName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.patronFamilyName.HeaderText = "Name";
+            this.patronFamilyName.MinimumWidth = 95;
+            this.patronFamilyName.Name = "patronFamilyName";
+            // 
+            // patronFamilyGender
+            // 
+            this.patronFamilyGender.HeaderText = "Gender";
+            this.patronFamilyGender.Name = "patronFamilyGender";
+            // 
+            // patronFamilyMonth
+            // 
+            this.patronFamilyMonth.HeaderText = "MM";
+            this.patronFamilyMonth.MinimumWidth = 30;
+            this.patronFamilyMonth.Name = "patronFamilyMonth";
+            this.patronFamilyMonth.Width = 30;
+            // 
+            // patronFamilyDay
+            // 
+            this.patronFamilyDay.HeaderText = "DD";
+            this.patronFamilyDay.MinimumWidth = 30;
+            this.patronFamilyDay.Name = "patronFamilyDay";
+            this.patronFamilyDay.Width = 30;
+            // 
+            // patronFamilyYear
+            // 
+            this.patronFamilyYear.HeaderText = "YY";
+            this.patronFamilyYear.MinimumWidth = 60;
+            this.patronFamilyYear.Name = "patronFamilyYear";
+            this.patronFamilyYear.Width = 60;
             // 
             // addRowButton
             // 
@@ -247,13 +280,6 @@
             this.genderLabel.TabIndex = 20;
             this.genderLabel.Text = "Gender";
             // 
-            // genderTextBox
-            // 
-            this.genderTextBox.Location = new System.Drawing.Point(778, 90);
-            this.genderTextBox.Name = "genderTextBox";
-            this.genderTextBox.Size = new System.Drawing.Size(98, 22);
-            this.genderTextBox.TabIndex = 3;
-            // 
             // phoneNumberTextBox
             // 
             this.phoneNumberTextBox.Location = new System.Drawing.Point(1058, 114);
@@ -295,50 +321,26 @@
             this.addressTextBox2.Size = new System.Drawing.Size(268, 22);
             this.addressTextBox2.TabIndex = 6;
             // 
-            // personName
+            // genderComboBox
             // 
-            this.personName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.personName.HeaderText = "Name";
-            this.personName.MinimumWidth = 95;
-            this.personName.Name = "personName";
-            // 
-            // patronGender
-            // 
-            this.patronGender.HeaderText = "Gender";
-            this.patronGender.Name = "patronGender";
-            // 
-            // patronMonth
-            // 
-            this.patronMonth.HeaderText = "MM";
-            this.patronMonth.MinimumWidth = 30;
-            this.patronMonth.Name = "patronMonth";
-            this.patronMonth.Width = 30;
-            // 
-            // patronDay
-            // 
-            this.patronDay.HeaderText = "DD";
-            this.patronDay.MinimumWidth = 30;
-            this.patronDay.Name = "patronDay";
-            this.patronDay.Width = 30;
-            // 
-            // patronYear
-            // 
-            this.patronYear.HeaderText = "YY";
-            this.patronYear.MinimumWidth = 60;
-            this.patronYear.Name = "patronYear";
-            this.patronYear.Width = 60;
+            this.genderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.genderComboBox.FormattingEnabled = true;
+            this.genderComboBox.Location = new System.Drawing.Point(778, 86);
+            this.genderComboBox.Name = "genderComboBox";
+            this.genderComboBox.Size = new System.Drawing.Size(121, 24);
+            this.genderComboBox.TabIndex = 24;
             // 
             // NewPatronForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1338, 593);
+            this.Controls.Add(this.genderComboBox);
             this.Controls.Add(this.addressTextBox2);
             this.Controls.Add(this.addressTextBox1);
             this.Controls.Add(this.addressLabel);
             this.Controls.Add(this.phoneNumberLabel);
             this.Controls.Add(this.phoneNumberTextBox);
-            this.Controls.Add(this.genderTextBox);
             this.Controls.Add(this.genderLabel);
             this.Controls.Add(this.commentsRichTextBox);
             this.Controls.Add(this.submitButton);
@@ -389,16 +391,16 @@
         private System.Windows.Forms.RichTextBox commentsRichTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label genderLabel;
-        private Common.LatinTextBox genderTextBox;
         private Common.NumericTextBox phoneNumberTextBox;
         private System.Windows.Forms.Label phoneNumberLabel;
         private System.Windows.Forms.Label addressLabel;
         private Common.LatinTextBox addressTextBox1;
         private Common.LatinTextBox addressTextBox2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn personName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn patronGender;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patronMonth;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patronDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patronYear;
+        private System.Windows.Forms.ComboBox genderComboBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn patronFamilyGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyMonth;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyDay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyYear;
     }
 }

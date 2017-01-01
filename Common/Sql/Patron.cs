@@ -96,6 +96,11 @@ namespace Common
             Males = males;
             Females = females;
 
+            if (Gender == "Male")
+                Males++;
+            else if (Gender == "Female")
+                Females++;
+
 
             // Age groups
             int y = 0, m = 0, o = 0;

@@ -61,7 +61,7 @@ namespace ExitApplication
         {
             Patron p = patronsHandler.GetRow(v.PatronID);
 
-            if (p != null)
+            try
             {
                 outputDataView.Rows.Add(
                     p.FirstName,
@@ -71,6 +71,10 @@ namespace ExitApplication
                     Constants.ConvertDateTime(v.DateOfVisit),
                     v.VisitID,
                     p.PatronID);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Failed to add row");
             }
         }
 
@@ -115,8 +119,14 @@ namespace ExitApplication
             outputDataView.Rows.Clear();
 
             int id = Constants.SafeConvertInt(patronIDTextBox.Text.ToString());
-            foreach (var v in sqlHandler.GetPatronsRows(id))
-                AddDataRow(v);
+
+            VisitList rows = sqlHandler.GetPatronsRows(id);
+
+            for (int i = 0; i < rows.Count(); ++i)
+            {
+                AddDataRow(rows.AsEnumerable().ElementAt(i));
+            }
+
         }
     }
 }

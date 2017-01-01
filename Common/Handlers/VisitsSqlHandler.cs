@@ -53,17 +53,19 @@ namespace Common
             catch (Exception)
             {
                 MessageBox.Show("Failed to find Visit with ID " + id);
-                return null;
+                return new Common.Visit();
             }
         }
 
         // Get all of a patron's vists
-        public VisitList GetPatronsRows(int id) =>
-                from v in database.Visits
+        public VisitList GetPatronsRows(int id)
+        {
+            return from v in database.Visits
 
-                where v.PatronID == id
+                   where v.PatronID == id
 
-                select v;
+                   select v;
+        }
 
         #region Kept for Historical Relevance
         /*

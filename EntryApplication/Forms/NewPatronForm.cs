@@ -43,8 +43,11 @@ namespace EntryApplication
             addressTextBox1.Exceptions = exceptionsComma;
             addressTextBox2.Exceptions = exceptionsComma;
 
-            patronGender.Items.Add("Male");
-            patronGender.Items.Add("Female");
+            patronFamilyGender.Items.Add("Male");
+            patronFamilyGender.Items.Add("Female");
+
+            genderComboBox.Items.Add("Male");
+            genderComboBox.Items.Add("Female");
 
             // Fill a buffer of 10 empty spaces for user to add names into the family chart
             for (int i = 0; i < 10; ++i)
@@ -58,6 +61,8 @@ namespace EntryApplication
             // Standard init
             InitializeComponent();
 
+            InitializeComponentManual();
+
             firstNameTextBox.Text = p.FirstName;
             lastNameTextBox.Text = p.LastName;
             middleInitialTextBox.Text = p.MiddleInitial;
@@ -66,14 +71,23 @@ namespace EntryApplication
             dayTextBox.Text = p.DateOfBirth.Day.ToString();
             yearTextBox.Text = p.DateOfBirth.Year.ToString();
 
-            genderTextBox.Text = p.Gender.ToString();
+            if (p.Gender == "Male")
+                genderComboBox.SelectedItem = genderComboBox.Items[0];
+            else if (p.Gender == "Female")
+                genderComboBox.SelectedItem = genderComboBox.Items[1];
 
             string[] address = p.Address.Split('\n');
             addressTextBox1.Text = address[0];
             if (address.Length > 1)
                 addressTextBox2.Text = address[1];
-            
 
+            InitializeFamily(p);
+
+            newPatron = p;
+        }
+
+        private void InitializeFamily(Patron p)
+        {
             // Load family
             if (!string.IsNullOrEmpty(p.Family) &&
                 !string.IsNullOrEmpty(p.FamilyGenders) &&
@@ -91,24 +105,16 @@ namespace EntryApplication
                         continue;
 
                     name = familyMembers[i];
-                    if (familyGenders.Length < i)
-                        gender = familyGenders[i];
-                    if (dates.Length < i)
-                        if (dates[i].Split('/').Length==3)
-                        {
-                            string[] ds = dates[i].Split('/');
-                            d = ds[0];
-                            m = ds[1];
-                            y = ds[2];
-                        }
+                    gender = familyGenders[i];
+
+                    string[] ds = dates[i].Split('/');
+                    d = ds[0];
+                    m = ds[1];
+                    y = ds[2];
 
                     relativesDataView.Rows.Add(name, gender, d, m, y);
                 }
             }
-
-            InitializeComponentManual();
-
-            newPatron = p;
         }
 
         // When the '+' button is clicked to add a row, add a row.
@@ -173,15 +179,57 @@ namespace EntryApplication
             newPatron.DateOfInitialVisit = DateTime.Today;
             newPatron.DateOfLastVisit = DateTime.Today;
 
-            newPatron.Gender = genderTextBox.Text.ToString();
+            newPatron.Gender = genderComboBox.Text.ToString();
 
             newPatron.Address = addressTextBox1.Text + "\n" + addressTextBox2.Text;
 
             newPatron.PhoneNumber = phoneNumberTextBox.Text;
 
+            SaveFamily();
+
             saved = true;
 
             this.Close();
+        }
+
+        private void SaveFamily()
+        {
+            string family = "", familyGenders = "", familyDates = "";
+
+            foreach (DataGridViewRow row in relativesDataView.Rows)
+            {
+                if (!(row.Cells[0] == null) && !(row.Cells[0].Value == null) && !String.IsNullOrEmpty(row.Cells[0].Value.ToString()))
+                {
+                    family += row.Cells[0].Value.ToString() + ',';
+                    familyGenders += ((string.IsNullOrEmpty(row.Cells[1].Value.ToString())) ?
+                        " "
+                        :
+                        row.Cells[1].Value.ToString())
+
+                        + ',';
+
+                    string m = row.Cells[2].Value.ToString();
+                    string d = row.Cells[3].Value.ToString();
+                    string y = row.Cells[4].Value.ToString();
+                    if (!(string.IsNullOrEmpty(m) || string.IsNullOrEmpty(d) || string.IsNullOrEmpty(y)))
+                        familyDates += m + '/' + d + '/' + y + ',';
+                    else
+                        familyDates += " ,";
+                }
+            }
+
+            // remove the last value, a comma
+            if (!String.IsNullOrEmpty(family))
+                family = family.Substring(0, family.Length - 1);
+            if (!String.IsNullOrEmpty(familyGenders))
+                familyGenders = familyGenders.Substring(0, familyGenders.Length - 1);
+            if (!String.IsNullOrEmpty(familyDates))
+                familyDates = familyDates.Substring(0, familyDates.Length - 1);
+
+            newPatron.Family = family;
+            newPatron.FamilyGenders = familyGenders;
+            newPatron.FamilyDateOfBirths = familyDates;
+
         }
 
         private void familyTextBoxKeyDown(object sender, KeyEventArgs e)
