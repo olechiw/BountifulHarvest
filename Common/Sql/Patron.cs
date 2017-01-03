@@ -39,6 +39,8 @@ namespace Common
         public string Comments;
         [Column]
         public DateTime DateOfInitialVisit;
+        [Column]
+        public bool VisitsEveryWeek;
         [Column(IsPrimaryKey = true)]
         public int PatronID;
         [Column]

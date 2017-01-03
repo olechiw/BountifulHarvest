@@ -36,8 +36,6 @@
             this.visitPrintButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.outputDataView = new System.Windows.Forms.DataGridView();
-            this.dateLabel = new System.Windows.Forms.Label();
-            this.morePatronInfoButton = new System.Windows.Forms.Button();
             this.patronFirstNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.middleIColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronLastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +45,9 @@
             this.patronAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronFamilyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateLabel = new System.Windows.Forms.Label();
+            this.morePatronInfoButton = new System.Windows.Forms.Button();
+            this.clearButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,25 +144,6 @@
             this.outputDataView.Size = new System.Drawing.Size(1314, 708);
             this.outputDataView.TabIndex = 3;
             // 
-            // dateLabel
-            // 
-            this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(968, 47);
-            this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(92, 17);
-            this.dateLabel.TabIndex = 9;
-            this.dateLabel.Text = "Today\'s Date";
-            // 
-            // morePatronInfoButton
-            // 
-            this.morePatronInfoButton.Location = new System.Drawing.Point(1400, 443);
-            this.morePatronInfoButton.Name = "morePatronInfoButton";
-            this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
-            this.morePatronInfoButton.TabIndex = 10;
-            this.morePatronInfoButton.Text = "More Info";
-            this.morePatronInfoButton.UseVisualStyleBackColor = true;
-            this.morePatronInfoButton.Click += new System.EventHandler(this.morePatronInfoButtonClick);
-            // 
             // patronFirstNameColumn
             // 
             this.patronFirstNameColumn.HeaderText = "First Name";
@@ -223,11 +205,41 @@
             this.patronIDColumn.Name = "patronIDColumn";
             this.patronIDColumn.ReadOnly = true;
             // 
+            // dateLabel
+            // 
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.Location = new System.Drawing.Point(968, 47);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(92, 17);
+            this.dateLabel.TabIndex = 9;
+            this.dateLabel.Text = "Today\'s Date";
+            // 
+            // morePatronInfoButton
+            // 
+            this.morePatronInfoButton.Location = new System.Drawing.Point(1400, 443);
+            this.morePatronInfoButton.Name = "morePatronInfoButton";
+            this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
+            this.morePatronInfoButton.TabIndex = 10;
+            this.morePatronInfoButton.Text = "More Info";
+            this.morePatronInfoButton.UseVisualStyleBackColor = true;
+            this.morePatronInfoButton.Click += new System.EventHandler(this.morePatronInfoButtonClick);
+            // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(728, 65);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(86, 28);
+            this.clearButton.TabIndex = 11;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButtonClick);
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1900, 851);
+            this.Controls.Add(this.clearButton);
             this.Controls.Add(this.morePatronInfoButton);
             this.Controls.Add(this.dateLabel);
             this.Controls.Add(this.label3);
@@ -268,6 +280,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronAge;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
+        private System.Windows.Forms.Button clearButton;
     }
 }
 

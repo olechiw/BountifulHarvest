@@ -175,7 +175,7 @@ namespace EntryApplication
                 .Value.ToString()
                 );
 
-            if (patronId==0)
+            if (patronId == 0)
             {
                 MessageBox.Show("Something went wrong, failed to turn the ID into an integer");
                 return;
@@ -225,6 +225,13 @@ namespace EntryApplication
             MoreInfoForm form = new MoreInfoForm(p);
 
             form.ShowDialog();
+        }
+
+        private void clearButtonClick(object sender, EventArgs e)
+        {
+            searchBox.Text = "";
+            LoadAllPatrons();
+            searchBox.Focus();
         }
     }
 }

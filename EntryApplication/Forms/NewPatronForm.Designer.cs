@@ -59,6 +59,7 @@
             this.addressTextBox1 = new Common.LatinTextBox();
             this.addressTextBox2 = new Common.LatinTextBox();
             this.genderComboBox = new System.Windows.Forms.ComboBox();
+            this.everyWeekCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -330,11 +331,22 @@
             this.genderComboBox.Size = new System.Drawing.Size(121, 24);
             this.genderComboBox.TabIndex = 24;
             // 
+            // everyWeekCheckBox
+            // 
+            this.everyWeekCheckBox.AutoSize = true;
+            this.everyWeekCheckBox.Location = new System.Drawing.Point(778, 135);
+            this.everyWeekCheckBox.Name = "everyWeekCheckBox";
+            this.everyWeekCheckBox.Size = new System.Drawing.Size(143, 21);
+            this.everyWeekCheckBox.TabIndex = 25;
+            this.everyWeekCheckBox.Text = "Visits Every Week";
+            this.everyWeekCheckBox.UseVisualStyleBackColor = true;
+            // 
             // NewPatronForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1338, 593);
+            this.Controls.Add(this.everyWeekCheckBox);
             this.Controls.Add(this.genderComboBox);
             this.Controls.Add(this.addressTextBox2);
             this.Controls.Add(this.addressTextBox1);
@@ -402,5 +414,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyMonth;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyYear;
+        private System.Windows.Forms.CheckBox everyWeekCheckBox;
     }
 }

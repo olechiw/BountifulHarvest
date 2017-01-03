@@ -112,6 +112,21 @@ namespace EntryApplication
         // When the print button is clicked
         private void printButtonClick(object sender, EventArgs e)
         {
+            if (patron.DateOfLastVisit.Month == DateTime.Today.Month)
+            {
+                string message =
+                    "This person has already visited in " +
+                    DateTime.Today.Month.ToString() +
+                    " already. This person " +
+                    ((patron.VisitsEveryWeek) ? "CAN " : "CANNOT ") +
+                    "visit every week. Is this ok?";
+                var result = MessageBox.Show(message);
+
+
+                if (result != DialogResult.OK)
+                    return;
+            }
+
             // Initialize a print dialog and print the document
             using (PrintDialog pD = new PrintDialog())
             {
@@ -121,6 +136,8 @@ namespace EntryApplication
                 {
                     //string name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
                     print.Print();
+
+                    patron.DateOfLastVisit = DateTime.Today;
 
                     // Manual drawing
                     //DebugPrintPreviewForm f = new DebugPrintPreviewForm();

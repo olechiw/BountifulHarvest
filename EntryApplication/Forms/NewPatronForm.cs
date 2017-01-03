@@ -48,10 +48,6 @@ namespace EntryApplication
 
             genderComboBox.Items.Add("Male");
             genderComboBox.Items.Add("Female");
-
-            // Fill a buffer of 10 empty spaces for user to add names into the family chart
-            for (int i = 0; i < 10; ++i)
-                relativesDataView.Rows.Add();
         }
 
         delegate string v(string otherValue);
@@ -80,6 +76,8 @@ namespace EntryApplication
             addressTextBox1.Text = address[0];
             if (address.Length > 1)
                 addressTextBox2.Text = address[1];
+
+            everyWeekCheckBox.Checked = (p.VisitsEveryWeek);
 
             InitializeFamily(p);
 
@@ -115,6 +113,10 @@ namespace EntryApplication
                     relativesDataView.Rows.Add(name, gender, d, m, y);
                 }
             }
+
+            // Fill a buffer of 10 empty spaces for user to add names into the family chart
+            for (int i = 0; i < 10 - relativesDataView.Rows.Count; ++i)
+                relativesDataView.Rows.Add();
         }
 
         // When the '+' button is clicked to add a row, add a row.
@@ -185,6 +187,8 @@ namespace EntryApplication
 
             newPatron.PhoneNumber = phoneNumberTextBox.Text;
 
+            newPatron.VisitsEveryWeek = (everyWeekCheckBox.Checked);
+
             SaveFamily();
 
             saved = true;
@@ -198,19 +202,25 @@ namespace EntryApplication
 
             foreach (DataGridViewRow row in relativesDataView.Rows)
             {
-                if (!(row.Cells[0] == null) && !(row.Cells[0].Value == null) && !String.IsNullOrEmpty(row.Cells[0].Value.ToString()))
+                if (
+                    !(row==null) &&
+                    !(row.Cells==null) &&
+                    !(row.Cells[0] == null) &&
+                    !(row.Cells[0].Value == null) &&
+                    !String.IsNullOrEmpty(row.Cells[0].Value.ToString()))
                 {
                     family += row.Cells[0].Value.ToString() + ',';
-                    familyGenders += ((string.IsNullOrEmpty(row.Cells[1].Value.ToString())) ?
+
+                    familyGenders += (row.Cells[1].Value == null) ?
                         " "
                         :
-                        row.Cells[1].Value.ToString())
+                        row.Cells[1].Value.ToString()
 
                         + ',';
 
-                    string m = row.Cells[2].Value.ToString();
-                    string d = row.Cells[3].Value.ToString();
-                    string y = row.Cells[4].Value.ToString();
+                    string m = (row.Cells[2].Value == null) ? " " : row.Cells[2].Value.ToString();
+                    string d = (row.Cells[3].Value == null) ? " " : row.Cells[3].Value.ToString();
+                    string y = (row.Cells[4].Value == null) ? " " : row.Cells[4].Value.ToString();
                     if (!(string.IsNullOrEmpty(m) || string.IsNullOrEmpty(d) || string.IsNullOrEmpty(y)))
                         familyDates += m + '/' + d + '/' + y + ',';
                     else
