@@ -92,12 +92,18 @@ namespace ExitApplication
 
         private void submitButtonClick(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(patronIDTextBox.Text))
+                return;
+
             Visit v = new Visit
             {
                 TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
                 DateOfVisit = DateTime.Today,
                 PatronID = Constants.SafeConvertInt(patronIDTextBox.Text)
             };
+
+            if (v.PatronID == 0)
+                return;
 
             sqlHandler.AddRow(v);
             AddDataRow(v);
@@ -111,7 +117,10 @@ namespace ExitApplication
 
             sqlHandler.DeleteRow(id);
 
-            LoadAllVisits();
+            if (string.IsNullOrEmpty(patronIDTextBox.Text))
+                LoadAllVisits();
+            else
+                patronIDChanged(null, null);
         }
 
         private void patronIDChanged(object sender, EventArgs e)

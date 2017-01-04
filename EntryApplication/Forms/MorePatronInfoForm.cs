@@ -23,11 +23,11 @@ namespace EntryApplication
 
             // Load all of the labels
             nameLabel.Text += Common.Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName);
-            dateOfBirthLabel.Text += p.DateOfBirth;
+            dateOfBirthLabel.Text += p.DateOfBirth.ToString("d");
             addressLabel.Text += p.Address;
             phoneNumberLabel.Text += p.PhoneNumber;
-            lastVisitLabel.Text += p.DateOfLastVisit;
-            firstVisitLabel.Text += p.DateOfInitialVisit;
+            lastVisitLabel.Text += p.DateOfLastVisit.ToString("d");
+            firstVisitLabel.Text += p.DateOfInitialVisit.ToString("d");
             familyLabel.Text += p.Family;
             commentsLabel.Text += p.Comments;
 

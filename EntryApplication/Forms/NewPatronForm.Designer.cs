@@ -42,11 +42,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.middleInitialTextBox = new Common.LatinTextBox();
             this.relativesDataView = new System.Windows.Forms.DataGridView();
-            this.patronFamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronFamilyGender = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.patronFamilyMonth = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronFamilyDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronFamilyYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addRowButton = new System.Windows.Forms.Button();
             this.relationsLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
@@ -60,6 +55,11 @@
             this.addressTextBox2 = new Common.LatinTextBox();
             this.genderComboBox = new System.Windows.Forms.ComboBox();
             this.everyWeekCheckBox = new System.Windows.Forms.CheckBox();
+            this.patronFamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronFamilyGender = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.patronFamilyMonth = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronFamilyDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronFamilyYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -189,39 +189,6 @@
             this.relativesDataView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.relativesDataViewEditing);
             this.relativesDataView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.familyTextBoxKeyDown);
             // 
-            // patronFamilyName
-            // 
-            this.patronFamilyName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.patronFamilyName.HeaderText = "Name";
-            this.patronFamilyName.MinimumWidth = 95;
-            this.patronFamilyName.Name = "patronFamilyName";
-            // 
-            // patronFamilyGender
-            // 
-            this.patronFamilyGender.HeaderText = "Gender";
-            this.patronFamilyGender.Name = "patronFamilyGender";
-            // 
-            // patronFamilyMonth
-            // 
-            this.patronFamilyMonth.HeaderText = "MM";
-            this.patronFamilyMonth.MinimumWidth = 30;
-            this.patronFamilyMonth.Name = "patronFamilyMonth";
-            this.patronFamilyMonth.Width = 30;
-            // 
-            // patronFamilyDay
-            // 
-            this.patronFamilyDay.HeaderText = "DD";
-            this.patronFamilyDay.MinimumWidth = 30;
-            this.patronFamilyDay.Name = "patronFamilyDay";
-            this.patronFamilyDay.Width = 30;
-            // 
-            // patronFamilyYear
-            // 
-            this.patronFamilyYear.HeaderText = "YY";
-            this.patronFamilyYear.MinimumWidth = 60;
-            this.patronFamilyYear.Name = "patronFamilyYear";
-            this.patronFamilyYear.Width = 60;
-            // 
             // addRowButton
             // 
             this.addRowButton.Location = new System.Drawing.Point(459, 469);
@@ -341,6 +308,39 @@
             this.everyWeekCheckBox.Text = "Visits Every Week";
             this.everyWeekCheckBox.UseVisualStyleBackColor = true;
             // 
+            // patronFamilyName
+            // 
+            this.patronFamilyName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.patronFamilyName.HeaderText = "Name";
+            this.patronFamilyName.MinimumWidth = 95;
+            this.patronFamilyName.Name = "patronFamilyName";
+            // 
+            // patronFamilyGender
+            // 
+            this.patronFamilyGender.HeaderText = "Gender";
+            this.patronFamilyGender.Name = "patronFamilyGender";
+            // 
+            // patronFamilyMonth
+            // 
+            this.patronFamilyMonth.HeaderText = "MM";
+            this.patronFamilyMonth.MinimumWidth = 30;
+            this.patronFamilyMonth.Name = "patronFamilyMonth";
+            this.patronFamilyMonth.Width = 30;
+            // 
+            // patronFamilyDay
+            // 
+            this.patronFamilyDay.HeaderText = "DD";
+            this.patronFamilyDay.MinimumWidth = 30;
+            this.patronFamilyDay.Name = "patronFamilyDay";
+            this.patronFamilyDay.Width = 30;
+            // 
+            // patronFamilyYear
+            // 
+            this.patronFamilyYear.HeaderText = "YYYY";
+            this.patronFamilyYear.MinimumWidth = 60;
+            this.patronFamilyYear.Name = "patronFamilyYear";
+            this.patronFamilyYear.Width = 60;
+            // 
             // NewPatronForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -409,11 +409,11 @@
         private Common.LatinTextBox addressTextBox1;
         private Common.LatinTextBox addressTextBox2;
         private System.Windows.Forms.ComboBox genderComboBox;
+        private System.Windows.Forms.CheckBox everyWeekCheckBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyName;
         private System.Windows.Forms.DataGridViewComboBoxColumn patronFamilyGender;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyMonth;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyYear;
-        private System.Windows.Forms.CheckBox everyWeekCheckBox;
     }
 }

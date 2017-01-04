@@ -19,7 +19,7 @@ namespace EntryApplication
 {
     public partial class NewPatronForm : Common.DialogForm
     {
-        public Patron newPatron { get; }
+        public readonly Patron newPatron = new Patron();
         public Patron GetResults() => newPatron;
 
         // A boolean used to see if the user actually saved the data
@@ -250,6 +250,8 @@ namespace EntryApplication
             if (Keys.A <= key && key <= Keys.Z)
                 return;
             else if (Keys.D0 <= key && key <= Keys.D9)
+                return;
+            else if (Keys.NumPad0 <= key && key <= Keys.NumPad9)
                 return;
 
             // Special exceptions (backspace + space) are ok

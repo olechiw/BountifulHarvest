@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Common;
+using VisitList = System.Linq.IQueryable<Common.Visit>;
 
 //
 // PrintVisitForm - A form which takes a patron's data and displays it to confirm. It then organizes and prints it.
@@ -37,11 +38,13 @@ namespace EntryApplication
 
             InitializeComponent();
 
+            CalculateValues();
+
             FillLabels();
 
-            CalculateValues();
-         
             print.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(screenPrintPrintPage);
+
+            print.EndPrint += previewEndPrint;
         }
 
         // Fill all of the forms
@@ -57,24 +60,16 @@ namespace EntryApplication
         // Figure out the size of the family and allowed limits
         private void CalculateValues()
         {
-            if (string.IsNullOrEmpty(patron.Family))
-            {
-                numberInFamily = 1;
+            int c = patron.Family.Split(',').Length;
+
+            if (c < 4)
                 limitsAllowed = 1;
-            }
+            else if (c < 6)
+                limitsAllowed = 2;
             else
-            {
-                int c = patron.Family.Split(',').Length;
+                limitsAllowed = 3;
 
-                if (c < 4)
-                    limitsAllowed = 1;
-                else if (c < 6)
-                    limitsAllowed = 2;
-                else
-                    limitsAllowed = 3;
-
-                numberInFamily = c;
-            }
+            numberInFamily = (c == 1) ? c : c + 1;
         }
 
         // When the screenPrint document is about to be printed, draw what we want
@@ -92,11 +87,12 @@ namespace EntryApplication
             //
 
             // Load the form image
-            //Bitmap loadedImage = new Bitmap(Constants.printFormImage);
+            Bitmap loadedImage = new Bitmap((Constants.ISRELEASE) ? Constants.releaseFormImage : Constants.printFormImage);
 
             // Draw the image and the text which fills it out
-            //g.DrawImage(loadedImage, new Point(0, 0));
+            g.DrawImage(loadedImage, new Point(0, 0));
 
+            CalculateValues();
 
             DrawGenericText(g, name, namePoint.X, namePoint.Y);
             DrawGenericText(g, limitsAllowed.ToString(), limitsPoint.X, limitsPoint.Y);
@@ -112,19 +108,38 @@ namespace EntryApplication
         // When the print button is clicked
         private void printButtonClick(object sender, EventArgs e)
         {
-            if (patron.DateOfLastVisit.Month == DateTime.Today.Month)
+            if ((patron.DateOfLastVisit.Month == DateTime.Today.Month) && (patron.DateOfLastVisit != DateTime.Today))
             {
+                string previousVisits = "";
+
+                VisitsSqlHandler visits = new VisitsSqlHandler((Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString);
+
+                VisitList all  = visits.GetPatronsRows(patron.PatronID);
+
+                // Latest two visits
+                VisitList top = all.OrderByDescending(v => v.PatronID).Take(2);
+
+                foreach (Visit v in top)
+                    previousVisits += v.DateOfVisit.ToString("d") + ',';
+                
+                if (previousVisits!="")
+                    previousVisits = previousVisits.Substring(0, previousVisits.Length-1);
+
                 string message =
                     "This person has already visited in " +
-                    DateTime.Today.Month.ToString() +
-                    " already. This person " +
+                    DateTime.Today.ToString("MMMM") +
+                    " already. On " + previousVisits + "." +
+                    " This person " +
                     ((patron.VisitsEveryWeek) ? "CAN " : "CANNOT ") +
                     "visit every week. Is this ok?";
-                var result = MessageBox.Show(message);
+                var result = MessageBox.Show(message, "Visited Already", MessageBoxButtons.OKCancel);
 
 
                 if (result != DialogResult.OK)
+                {
+                    this.Close();
                     return;
+                }
             }
 
             // Initialize a print dialog and print the document
@@ -137,7 +152,7 @@ namespace EntryApplication
                     //string name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
                     print.Print();
 
-                    patron.DateOfLastVisit = DateTime.Today;
+                    //patron.DateOfLastVisit = DateTime.Today;
 
                     // Manual drawing
                     //DebugPrintPreviewForm f = new DebugPrintPreviewForm();
@@ -164,7 +179,15 @@ namespace EntryApplication
             using (PrintPreviewDialog pD = new PrintPreviewDialog())
             {
                 pD.Document = print;
-                pD.ShowDialog();
+                DialogResult result = pD.ShowDialog();
+            }
+        }
+
+        private void previewEndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            if (e.PrintAction == System.Drawing.Printing.PrintAction.PrintToPrinter)
+            {
+                patron.DateOfLastVisit = DateTime.Today;
             }
         }
 

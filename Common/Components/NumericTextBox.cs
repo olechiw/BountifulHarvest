@@ -31,6 +31,8 @@ namespace Common
             // Account for numbers only
             if (Keys.D0 <= key && key <= Keys.D9)
                 return;
+            else if (Keys.NumPad0 <= key && key <= Keys.NumPad9)
+                return;
 
             // Special exceptions (backspace) are ok
             else if (key == Keys.Back)

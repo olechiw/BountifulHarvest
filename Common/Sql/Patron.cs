@@ -109,10 +109,11 @@ namespace Common
 
             foreach (var s in FamilyDateOfBirths.Split(','))
             {
+
                 var d = s.Split('/');
-                if (s.Length==3)
+                if (d.Length==3)
                 {
-                    int age = DateTime.Today.Year - Constants.SafeConvertInt(s[2].ToString());
+                    int age = DateTime.Today.Year - Constants.SafeConvertInt(d[2].ToString());
                     if (age <= 17)
                         y++;
                     else if (age <= 59)
@@ -121,6 +122,15 @@ namespace Common
                         o++;
                 }
             }
+
+            int Age = DateTime.Today.Year - DateOfBirth.Year;
+
+            if (Age <= 17)
+                y++;
+            else if (Age <= 59)
+                m++;
+            else
+                o++;
 
             Old = o;
             Medium = m;

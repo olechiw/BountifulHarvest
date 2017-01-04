@@ -114,7 +114,7 @@ namespace Common
             PatronList latestPatron = database.Patrons.OrderByDescending(s => s.PatronID);
             try
             {
-                id = latestPatron.First().PatronID;
+                id = latestPatron.First().PatronID + 1;
             }
             catch (Exception)
             {
@@ -122,22 +122,26 @@ namespace Common
             }
             return id;
         }
-        
 
 
+
+        bool failedLast = false;
         public void AddRow(Patron p)
         {
             p.PatronID = GetLatestID();
 
-            database.Patrons.InsertOnSubmit(p);
+            if (!failedLast)
+                database.Patrons.InsertOnSubmit(p);
             
             try
             {
                 database.SubmitChanges();
+                failedLast = false;
             }
             catch (SqlTypeException)
             {
-                MessageBox.Show("Invalid Date Entered.");
+                MessageBox.Show("Invalid Date of Birth entered.");
+                failedLast = true;
             }
         }
 
