@@ -45,6 +45,24 @@ namespace EntryApplication
             print.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(screenPrintPrintPage);
 
             print.EndPrint += previewEndPrint;
+
+            Graphics g = this.CreateGraphics();
+
+            Bitmap loadedImage = new Bitmap((Constants.ISRELEASE) ? Constants.releaseFormImage : Constants.printFormImage);
+
+            g.DrawImage(loadedImage, new Point(0, 0));
+
+            CalculateValues();
+
+            string name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
+
+            string id = "Patron #" + patron.PatronID.ToString();
+
+            DrawGenericText(g, name, namePoint.X, namePoint.Y);
+            DrawGenericText(g, limitsAllowed.ToString(), limitsPoint.X, limitsPoint.Y);
+            DrawGenericText(g, numberInFamily.ToString(), familyPoint.X, familyPoint.Y);
+            DrawGenericText(g, Constants.ConvertDateTime(DateTime.Today), datePoint.X, datePoint.Y);
+            DrawGenericText(g, id, idPoint.X, idPoint.Y);
         }
 
         // Fill all of the forms
@@ -101,13 +119,17 @@ namespace EntryApplication
             DrawGenericText(g, id, idPoint.X, idPoint.Y);
         }
 
+
+
         // Given arguments of coordinates, graphics, and text, draws a simple string
         private void DrawGenericText(Graphics g, string text, int x, int y) =>
             g.DrawString(text, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), new SolidBrush(Color.Black), x, y);
 
+
         // When the print button is clicked
         private void printButtonClick(object sender, EventArgs e)
         {
+
             if ((patron.DateOfLastVisit.Month == DateTime.Today.Month) && (patron.DateOfLastVisit != DateTime.Today))
             {
                 string previousVisits = "";
@@ -125,10 +147,21 @@ namespace EntryApplication
                 if (previousVisits!="")
                     previousVisits = previousVisits.Substring(0, previousVisits.Length-1);
 
+                string times = "";
+                switch (top.Count())
+                {
+                    case (1):
+                        times = "Once";
+                        break;
+                    case (2):
+                        times = "Twice";
+                        break;
+                }
+
                 string message =
                     "This person has already visited in " +
                     DateTime.Today.ToString("MMMM") +
-                    " already. On " + previousVisits + "." +
+                    " already. " +  times + " on " + previousVisits + "." +
                     " This person " +
                     ((patron.VisitsEveryWeek) ? "CAN " : "CANNOT ") +
                     "visit every week. Is this ok?";

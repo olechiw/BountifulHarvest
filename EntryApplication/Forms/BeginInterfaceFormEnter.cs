@@ -161,6 +161,12 @@ namespace EntryApplication
 
             sqlHandler.AddRow(p);
 
+            if (form.Print())
+            {
+                // Show the form
+                PrintVisitForm printForm = new PrintVisitForm(p);
+                printForm.ShowDialog();
+            }
 
             LoadAllPatrons();
         }

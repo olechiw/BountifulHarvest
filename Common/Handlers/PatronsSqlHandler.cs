@@ -63,6 +63,14 @@ namespace Common
             }
         }
 
+        // Get all the rows with a specific id (get the iqueryable)
+        public PatronList GetRows(int id) =>
+            from p in database.Patrons
+
+            where p.PatronID == id
+
+            select p;
+
 
 
         // Get a row based on a query of similar values

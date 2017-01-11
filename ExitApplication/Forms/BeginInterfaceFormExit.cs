@@ -94,6 +94,8 @@ namespace ExitApplication
         {
             if (string.IsNullOrEmpty(patronIDTextBox.Text))
                 return;
+            else if (patronsHandler.GetRows(Constants.SafeConvertInt(patronIDTextBox.Text)).Count()==0)
+                return;
 
             Visit v = new Visit
             {

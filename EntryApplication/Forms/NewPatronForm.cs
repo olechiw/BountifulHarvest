@@ -26,6 +26,8 @@ namespace EntryApplication
         private bool saved = false;
         public bool Saved() => saved;
 
+        public bool Print() => printVisitCheckBox.Checked;
+
         public NewPatronForm()
         {
             InitializeComponent();
@@ -72,12 +74,17 @@ namespace EntryApplication
             else if (p.Gender == "Female")
                 genderComboBox.SelectedItem = genderComboBox.Items[1];
 
-            string[] address = p.Address.Split('\n');
-            addressTextBox1.Text = address[0];
-            if (address.Length > 1)
-                addressTextBox2.Text = address[1];
+            if (!string.IsNullOrEmpty(p.Address))
+            {
+                string[] address = p.Address.Split('\n');
+                addressTextBox1.Text = address[0];
+                if (address.Length > 1)
+                    addressTextBox2.Text = address[1];
+            }
 
             everyWeekCheckBox.Checked = (p.VisitsEveryWeek);
+
+            phoneNumberTextBox.Text = p.PhoneNumber;
 
             InitializeFamily(p);
 
@@ -176,7 +183,15 @@ namespace EntryApplication
 
 
             if (!(year == 0 || day == 0 || month == 0))
-                newPatron.DateOfBirth = new DateTime(year, month, day);
+                try
+                {
+                    newPatron.DateOfBirth = new DateTime(year, month, day);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Invalid Date of Birth Entered.");
+                    return;
+                }
 
             newPatron.DateOfInitialVisit = DateTime.Today;
             newPatron.DateOfLastVisit = DateTime.Today;

@@ -15,7 +15,7 @@ namespace Common
     // Somewhere to put all of the SqlConstants neatly
     public static partial class Constants
     {
-        public const bool ISRELEASE = true;
+        public const bool ISRELEASE = false;
 
         // The sql connection debugging string
         public const string debugConnectionString = "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=potato";
