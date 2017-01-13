@@ -40,39 +40,9 @@ namespace EntryApplication
 
             CalculateValues();
 
-            FillLabels();
-
             print.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(screenPrintPrintPage);
 
             print.EndPrint += previewEndPrint;
-
-            Graphics g = this.CreateGraphics();
-
-            Bitmap loadedImage = new Bitmap((Constants.ISRELEASE) ? Constants.releaseFormImage : Constants.printFormImage);
-
-            g.DrawImage(loadedImage, new Point(0, 0));
-
-            CalculateValues();
-
-            string name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
-
-            string id = "Patron #" + patron.PatronID.ToString();
-
-            DrawGenericText(g, name, namePoint.X, namePoint.Y);
-            DrawGenericText(g, limitsAllowed.ToString(), limitsPoint.X, limitsPoint.Y);
-            DrawGenericText(g, numberInFamily.ToString(), familyPoint.X, familyPoint.Y);
-            DrawGenericText(g, Constants.ConvertDateTime(DateTime.Today), datePoint.X, datePoint.Y);
-            DrawGenericText(g, id, idPoint.X, idPoint.Y);
-        }
-
-        // Fill all of the forms
-        private void FillLabels()
-        {
-            this.firstNameLabel.Text += patron.FirstName;
-            this.middleInitialLabel.Text += patron.MiddleInitial;
-            this.lastNameLabel.Text += patron.LastName;
-            this.datelabel.Text += Common.Constants.ConvertDateTime(DateTime.Today);
-            this.limitsAllowedLabel.Text += limitsAllowed;
         }
 
         // Figure out the size of the family and allowed limits
@@ -231,6 +201,23 @@ namespace EntryApplication
         private void PrintVisitForm_Load(object sender, EventArgs e)
         {
 
+            Graphics g = this.CreateGraphics();
+
+            Bitmap loadedImage = new Bitmap((Constants.ISRELEASE) ? Constants.releaseFormImage : Constants.printFormImage);
+
+            g.DrawImage(loadedImage, new Point(0, 0));
+
+            CalculateValues();
+
+            string name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
+
+            string id = "Patron #" + patron.PatronID.ToString();
+
+            DrawGenericText(g, name, namePoint.X, namePoint.Y);
+            DrawGenericText(g, limitsAllowed.ToString(), limitsPoint.X, limitsPoint.Y);
+            DrawGenericText(g, numberInFamily.ToString(), familyPoint.X, familyPoint.Y);
+            DrawGenericText(g, Constants.ConvertDateTime(DateTime.Today), datePoint.X, datePoint.Y);
+            DrawGenericText(g, id, idPoint.X, idPoint.Y);
         }
     }
 }
