@@ -24,7 +24,7 @@ namespace Common
         [Column]
         public DateTime DateOfLastVisit;
         [Column]
-        public DateTime DateOfBirth;
+        public string DateOfBirth;
         [Column]
         public string Family;
         [Column]
@@ -123,7 +123,7 @@ namespace Common
                 }
             }
 
-            int Age = DateTime.Today.Year - DateOfBirth.Year;
+            int Age = DateTime.Today.Year - Constants.ConvertString2Date(DateOfBirth).Year;
 
             if (Age <= 17)
                 y++;

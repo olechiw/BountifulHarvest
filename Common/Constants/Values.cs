@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using System.Globalization;
 
 
 //
@@ -13,9 +14,13 @@ using System.Linq.Expressions;
 namespace Common
 {
     // Somewhere to put all of the SqlConstants neatly
-    public static partial class Constants
+    public partial class Constants
     {
         public const bool ISRELEASE = false;
+
+        public const string DateFormat = "MM-dd-yyyy 00:00";
+
+        public static readonly CultureInfo DateCulture = CultureInfo.InvariantCulture;
 
         // The sql connection debugging string
         public const string debugConnectionString = "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=potato";

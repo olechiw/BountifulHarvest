@@ -90,8 +90,8 @@ namespace EntryApplication
                 p.LastName,
                 p.Gender,
                 Constants.ConvertDateTime(p.DateOfLastVisit),
-                Constants.ConvertDateTime(p.DateOfBirth),
-                DateTime.Today.Year - p.DateOfBirth.Year,
+                p.DateOfBirth,
+                DateTime.Today.Year - Constants.ConvertString2Date(p.DateOfBirth).Year,
                 p.Family,
                 p.PatronID);
         }
@@ -165,7 +165,7 @@ namespace EntryApplication
 
             sqlHandler.AddRow(p);
 
-            if (p.DateOfBirth.Date != new DateTime().Date)
+            if ((Constants.ConvertString2Date(p.DateOfBirth).Date != new DateTime().Date) && form.Print())
                 Print(p);
 
             LoadAllPatrons();

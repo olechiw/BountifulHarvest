@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Common
 {
-    public static partial class Constants
+    public partial class Constants
     {
         #region Kept for Historical Relevance
         /*
@@ -40,6 +40,19 @@ namespace Common
         }
         */
         #endregion
+
+
+        public static DateTime ConvertString2Date(string s)
+        {
+            if (!string.IsNullOrEmpty(s))
+            {
+                return DateTime.ParseExact(s, "MM-dd-yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+            }
+
+            else
+
+                return new DateTime();
+        }
 
         public static int SafeConvertInt(string s)
         {
