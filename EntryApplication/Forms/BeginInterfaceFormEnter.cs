@@ -16,6 +16,7 @@ using System.Data.SqlTypes;
 using Common;
 
 using PatronList = System.Linq.IQueryable<Common.Patron>;
+using VisitList = System.Linq.IQueryable<Common.Visit>;
 
 //
 // BeginInterfaceForm - This form's main entry point for the "entry" application. This will be responsible for directly accessing patron data at the entry desk
@@ -43,6 +44,9 @@ namespace EntryApplication
             InitializeSQL();
 
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
+
+            print.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(screenPrintPrintPage);
+            print.EndPrint += previewEndPrint;
         }
 
         // Setup the sql connection
@@ -161,12 +165,8 @@ namespace EntryApplication
 
             sqlHandler.AddRow(p);
 
-            if (form.Print())
-            {
-                // Show the form
-                PrintVisitForm printForm = new PrintVisitForm(p);
-                printForm.ShowDialog();
-            }
+            if (p.DateOfBirth.Date != new DateTime().Date)
+                Print(p);
 
             LoadAllPatrons();
         }
@@ -216,8 +216,134 @@ namespace EntryApplication
             Patron selectedPatron = sqlHandler.GetRow(selectedPatronID);
 
             // Show the form
-            PrintVisitForm printForm = new PrintVisitForm(selectedPatron);
-            printForm.ShowDialog();
+            Print(selectedPatron);
+        }
+
+        private void previewEndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            if (e.PrintAction == System.Drawing.Printing.PrintAction.PrintToPrinter)
+            {
+                patron.DateOfLastVisit = DateTime.Today;
+            }
+        }
+
+        /*
+         * PRINTING THINGS
+         */
+        int limitsAllowed;
+        int numberInFamily;
+        Patron patron;
+
+        // Coordinates for where to draw each label. I'm a hack
+        private readonly Point namePoint = new Point(75, 780);
+        private readonly Point limitsPoint = new Point(135, 890);
+        private readonly Point familyPoint = new Point(130, 930);
+        private readonly Point datePoint = new Point(5, 970);
+        private readonly Point idPoint = new Point(5, 1020);
+
+
+        // When the screenPrint document is about to be printed, draw what we want
+        private void screenPrintPrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            // Create the full name of the person
+            string name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
+
+            // The patrin id
+            string id = "Patron #" + patron.PatronID.ToString();
+
+            Graphics g = e.Graphics;
+            //
+            // This is removed because forms will be pre-printed:
+            //
+
+            // Load the form image
+            Bitmap loadedImage = new Bitmap((Constants.ISRELEASE) ? Constants.releaseFormImage : Constants.printFormImage);
+
+            // Draw the image and the text which fills it out
+            g.DrawImage(loadedImage, new Point(0, 0));
+
+            CalculateValues();
+
+            DrawGenericText(g, name, namePoint.X, namePoint.Y);
+            DrawGenericText(g, limitsAllowed.ToString(), limitsPoint.X, limitsPoint.Y);
+            DrawGenericText(g, numberInFamily.ToString(), familyPoint.X, familyPoint.Y);
+            DrawGenericText(g, Constants.ConvertDateTime(DateTime.Today), datePoint.X, datePoint.Y);
+            DrawGenericText(g, id, idPoint.X, idPoint.Y);
+        }
+        private System.Drawing.Printing.PrintDocument print = new System.Drawing.Printing.PrintDocument();
+
+        public void Print(Patron p)
+        {
+            patron = p;
+            CalculateValues();
+            if ((patron.DateOfLastVisit.Month == DateTime.Today.Month) && (patron.DateOfLastVisit != DateTime.Today))
+            {
+                string previousVisits = "";
+
+                VisitsSqlHandler visits = new VisitsSqlHandler((Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString);
+
+                VisitList all = visits.GetPatronsRows(patron.PatronID);
+
+                // Latest two visits
+                VisitList top = all.OrderByDescending(v => v.PatronID).Take(2);
+
+                foreach (Visit v in top)
+                    previousVisits += v.DateOfVisit.ToString("d") + ',';
+
+                if (previousVisits != "")
+                    previousVisits = previousVisits.Substring(0, previousVisits.Length - 1);
+
+                string times = "";
+                switch (top.Count())
+                {
+                    case (1):
+                        times = "Once";
+                        break;
+                    case (2):
+                        times = "Twice";
+                        break;
+                }
+
+                string message =
+                    "This person has already visited in " +
+                    DateTime.Today.ToString("MMMM") +
+                    " already. " + times + " on " + previousVisits + "." +
+                    " This person " +
+                    ((patron.VisitsEveryWeek) ? "CAN " : "CANNOT ") +
+                    "visit every week. Is this ok?";
+                var result = MessageBox.Show(message, "Visited Already", MessageBoxButtons.OKCancel);
+
+
+                if (result != DialogResult.OK)
+                {
+                    return;
+                }
+            }
+
+            using (PrintPreviewDialog pD = new PrintPreviewDialog())
+            {
+                pD.Document = print;
+                DialogResult result = pD.ShowDialog();
+            }
+            return;
+        }
+
+        // Given arguments of coordinates, graphics, and text, draws a simple string
+        private void DrawGenericText(Graphics g, string text, int x, int y) =>
+            g.DrawString(text, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), new SolidBrush(Color.Black), x, y);
+        // Figure out the size of the family and allowed limits
+        private void CalculateValues()
+        {
+            int c = patron.Family.Split(',').Length;
+
+            if (c < 4)
+                limitsAllowed = 1;
+            else if (c < 6)
+                limitsAllowed = 2;
+            else
+                limitsAllowed = 3;
+
+            numberInFamily = (c == 1) ? c : c + 1;
         }
 
         // When the button to view more information about a patron is clicked. This is ugly but I'm currently too lazy to fix it

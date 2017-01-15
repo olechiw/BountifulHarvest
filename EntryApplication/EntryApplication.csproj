@@ -88,12 +88,6 @@
     <Compile Include="Forms\NewPatronForm.Designer.cs">
       <DependentUpon>NewPatronForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PrintVisitForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\PrintVisitForm.Designer.cs">
-      <DependentUpon>PrintVisitForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\BeginInterfaceFormEnter.resx">
@@ -104,9 +98,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewPatronForm.resx">
       <DependentUpon>NewPatronForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PrintVisitForm.resx">
-      <DependentUpon>PrintVisitForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
