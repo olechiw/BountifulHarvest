@@ -16,7 +16,7 @@ using Common;
 
 using VisitList = System.Linq.IQueryable<Common.Visit>;
 
-namespace Common.Handlers
+namespace Common
 {
     public class PrintHandler
     {

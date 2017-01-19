@@ -17,6 +17,7 @@ using Common;
 
 using PatronList = System.Linq.IQueryable<Common.Patron>;
 using VisitList = System.Linq.IQueryable<Common.Visit>;
+using System.Data.Linq.SqlClient;
 
 //
 // BeginInterfaceForm - This form's main entry point for the "entry" application. This will be responsible for directly accessing patron data at the entry desk
@@ -30,8 +31,10 @@ namespace EntryApplication
         private const string dateCode = "d";
 
         // The database handler, responsible for all sql operations
-        Common.PatronsSqlHandler sqlHandler;
+        // Common.PatronsSqlHandler sqlHandler;
 
+        // The database context
+        BountifulHarvestContext database;
 
 
         // Constructor
@@ -52,18 +55,12 @@ namespace EntryApplication
             string connString = (Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString;
 
             // Connect to the SQL database
-            sqlHandler = new Common.PatronsSqlHandler(connString);
+            // sqlHandler = new Common.PatronsSqlHandler(connString);
+
+            database = new BountifulHarvestContext(connString);
 
             LoadAllPatrons();
         }
-
-
-        // A second constructor, currently unused
-        private void BeginInterfaceForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
 
 
         // Load all patrons
@@ -72,7 +69,7 @@ namespace EntryApplication
             outputDataView.Rows.Clear();
 
             // Read all of the patrons into the data
-            foreach (Patron p in sqlHandler.GetTopRows(100))
+            foreach (Patron p in database.Patrons.Take(200))
                 AddDataRow(p);
         }
 
@@ -87,7 +84,7 @@ namespace EntryApplication
                 p.LastName,
                 p.Gender,
                 Constants.ConvertDateTime(p.DateOfLastVisit),
-                p.DateOfBirth,
+                p.DateOfBirth.ToString(Constants.DateFormat),
                 DateTime.Today.Year - p.DateOfBirth.Year,
                 p.Family,
                 p.PatronID);
@@ -141,7 +138,15 @@ namespace EntryApplication
             {
                 outputDataView.Rows.Clear();
 
-                AddDataRows(sqlHandler.GetRowsSimilar(query));
+                var predicate = PredicateBuilder.False<Patron>();
+
+                string q = "%" + query + "%";
+
+                predicate = predicate.Or(p => SqlMethods.Like(p.FirstName, q));
+                predicate = predicate.Or(p => SqlMethods.Like(p.LastName, q));
+                predicate = predicate.Or(p => SqlMethods.Like(p.Family, q));
+
+                AddDataRows(database.Patrons.Where(predicate));
             }
         }
 
@@ -160,7 +165,8 @@ namespace EntryApplication
 
             p.Calculate();
 
-            sqlHandler.AddRow(p);
+            database.Patrons.InsertOnSubmit(p);
+            database.SubmitChanges();
 
             if ((p.DateOfBirth.Date != new DateTime().Date) && form.Print())
                 Print(p);
@@ -184,7 +190,7 @@ namespace EntryApplication
                 return;
             }
 
-            Patron p = sqlHandler.GetRow(patronId);
+            Patron p = ((database.Patrons.Where(patron => patron.PatronID == patronId)).First());
 
             // Get new data passing the old data on
             NewPatronForm form = new NewPatronForm(p);
@@ -198,7 +204,7 @@ namespace EntryApplication
 
             p.Calculate();
 
-            sqlHandler.Update();
+            database.SubmitChanges();
 
             LoadAllPatrons();
         }
@@ -210,7 +216,7 @@ namespace EntryApplication
         {
             int selectedPatronID = Constants.GetSelectedInt(outputDataView, (int)Constants.OutputDataColumnsPatrons.PatronID);
 
-            Patron selectedPatron = sqlHandler.GetRow(selectedPatronID);
+            Patron selectedPatron = ((database.Patrons.Where(p => p.PatronID == selectedPatronID)).First());
 
             // Show the form
             Print(selectedPatron);
@@ -222,7 +228,7 @@ namespace EntryApplication
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
             int id = Constants.GetSelectedInt(outputDataView, (int)Constants.OutputDataColumnsPatrons.PatronID);
-            Patron p = sqlHandler.GetRow(id);
+            Patron p = ((database.Patrons.Where(patron => patron.PatronID == id).First()));
 
             MoreInfoForm form = new MoreInfoForm(p);
 
@@ -239,7 +245,7 @@ namespace EntryApplication
 
         private void Print(Patron p)
         {
-            PrintHandler printer = new PrintHnadler();
+            PrintHandler printer = new PrintHandler();
             printer.Print(p);
         }
     }

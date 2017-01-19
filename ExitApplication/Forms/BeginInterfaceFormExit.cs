@@ -10,16 +10,19 @@ using System.Windows.Forms;
 
 using Common;
 using VisitList = System.Linq.IQueryable<Common.Visit>;
+using PatronList = System.Linq.IQueryable<Common.Patron>;
 
 namespace ExitApplication
 {
     public partial class BeginInterfaceForm : Common.DialogForm
     {
         // The database handler, responsible for all sql operations
-        private Common.VisitsSqlHandler sqlHandler;
+        // private Common.VisitsSqlHandler sqlHandler;
 
         // The second one, for accessing another table
-        private Common.PatronsSqlHandler patronsHandler;
+        // private Common.PatronsSqlHandler patronsHandler;
+
+        private BountifulHarvestContext database;
 
         public BeginInterfaceForm()
         {
@@ -39,8 +42,8 @@ namespace ExitApplication
             string connString = (Constants.ISRELEASE) ? Constants.releaseExitConnectionString : Constants.debugConnectionString;
 
             // Connect to the database
-            sqlHandler = new Common.VisitsSqlHandler(connString);
-            patronsHandler = new Common.PatronsSqlHandler(connString);
+            // sqlHandler = new Common.VisitsSqlHandler(connString);
+            // patronsHandler = new Common.PatronsSqlHandler(connString);
 
 
             LoadAllVisits();
@@ -52,14 +55,18 @@ namespace ExitApplication
             // Get all of the visits for the month
             outputDataView.Rows.Clear();
 
-            foreach (Visit v in sqlHandler.GetMonthRows())
+            VisitList monthVisits = ((from v in database.Visits
+                                      where v.DateOfVisit.Month == DateTime.Today.Month
+                                      select v));
+
+            foreach (Visit v in monthVisits)
                 AddDataRow(v);
         }
         
         // Add a row to the output
         private void AddDataRow(Visit v)
         {
-            Patron p = patronsHandler.GetRow(v.PatronID);
+            Patron p = (database.Patrons.Where(patron => patron.PatronID == v.VisitID).First());
 
             try
             {
@@ -78,12 +85,6 @@ namespace ExitApplication
             }
         }
 
-        // Load the top 100 visits. May go unused, here for consistency
-        private void LoadTopRows()
-        {
-            VisitList rows = sqlHandler.GetTopRows(100);
-        }
-
         // Extra constructor. Currently unused
         private void BeginInterface_Load(object sender, EventArgs e)
         {
@@ -94,7 +95,9 @@ namespace ExitApplication
         {
             if (string.IsNullOrEmpty(patronIDTextBox.Text))
                 return;
-            else if (patronsHandler.GetRows(Constants.SafeConvertInt(patronIDTextBox.Text)).Count()==0)
+
+            PatronList rows = (database.Patrons.Where(p => p.PatronID == Constants.SafeConvertInt(patronIDTextBox.Text)));
+            if (rows.Count()==0)
                 return;
 
             Visit v = new Visit
@@ -107,7 +110,8 @@ namespace ExitApplication
             if (v.PatronID == 0)
                 return;
 
-            sqlHandler.AddRow(v);
+            database.Visits.InsertOnSubmit(v);
+            database.SubmitChanges();
             AddDataRow(v);
 
             totalPoundsSpinner.Value = 0;
@@ -117,7 +121,10 @@ namespace ExitApplication
         {
             int id = Constants.GetSelectedInt(outputDataView, (int)Constants.VisitIndexes.VisitID);
 
-            sqlHandler.DeleteRow(id);
+            Visit v = database.Visits.Where(visit => visit.VisitID == id).First();
+
+            database.Visits.DeleteOnSubmit(v);
+            database.SubmitChanges();
 
             if (string.IsNullOrEmpty(patronIDTextBox.Text))
                 LoadAllVisits();
@@ -131,7 +138,7 @@ namespace ExitApplication
 
             int id = Constants.SafeConvertInt(patronIDTextBox.Text.ToString());
 
-            VisitList rows = sqlHandler.GetPatronsRows(id);
+            VisitList rows = database.Visits.Where(v => v.VisitID == id);
 
             for (int i = 0; i < rows.Count(); ++i)
             {
