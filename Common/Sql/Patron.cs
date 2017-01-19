@@ -23,8 +23,8 @@ namespace Common
         public string Gender;
         [Column]
         public DateTime DateOfLastVisit;
-        [Column]
-        public string DateOfBirth;
+        [Column(Name = "DateOfBirth")]
+        public string _DateOfBirth;
         [Column]
         public string Family;
         [Column]
@@ -54,6 +54,18 @@ namespace Common
         [Column]
         public int Old;
 
+
+        public DateTime DateOfBirth
+        {
+            get
+            {
+                return Constants.ConvertString2Date(_DateOfBirth);
+            }
+            set
+            {
+                _DateOfBirth = value.ToString(Constants.DateFormat);
+            }
+        }
 
         // Copy the class
         public static void Copy(Patron n, Patron o)
@@ -123,7 +135,7 @@ namespace Common
                 }
             }
 
-            int Age = DateTime.Today.Year - Constants.ConvertString2Date(DateOfBirth).Year;
+            int Age = DateTime.Today.Year - DateOfBirth.Year;
 
             if (Age <= 17)
                 y++;

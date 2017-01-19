@@ -65,9 +65,9 @@ namespace EntryApplication
             lastNameTextBox.Text = p.LastName;
             middleInitialTextBox.Text = p.MiddleInitial;
 
-            monthTextBox.Text = Constants.ConvertString2Date(p.DateOfBirth).Month.ToString();
-            dayTextBox.Text = Constants.ConvertString2Date(p.DateOfBirth).Day.ToString();
-            yearTextBox.Text = Constants.ConvertString2Date(p.DateOfBirth).Year.ToString();
+            monthTextBox.Text = p.DateOfBirth.Month.ToString();
+            dayTextBox.Text = p.DateOfBirth.Day.ToString();
+            yearTextBox.Text = p.DateOfBirth.Year.ToString();
 
             if (p.Gender == "Male")
                 genderComboBox.SelectedItem = genderComboBox.Items[0];
@@ -179,13 +179,13 @@ namespace EntryApplication
 
             int year = Common.Constants.SafeConvertInt(yearTextBox.Text.ToString());
 
-            newPatron.DateOfBirth = "";
+            newPatron.DateOfBirth = new DateTime();
 
 
             if (!(year == 0 || day == 0 || month == 0))
                 try
                 {
-                    newPatron.DateOfBirth = new DateTime(year, month, day).ToString(Constants.DateFormat);
+                    newPatron.DateOfBirth = new DateTime(year, month, day);
                 }
                 catch (Exception)
                 {

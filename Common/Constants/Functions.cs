@@ -41,12 +41,12 @@ namespace Common
         */
         #endregion
 
-
         public static DateTime ConvertString2Date(string s)
         {
             if (!string.IsNullOrEmpty(s))
             {
-                return DateTime.ParseExact(s, "MM-dd-yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                s += " 00:00";
+                return DateTime.ParseExact(s, "MM/dd/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
             }
 
             else

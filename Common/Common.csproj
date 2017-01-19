@@ -53,6 +53,7 @@
     <Compile Include="Constants\PredicateBuilder.cs" />
     <Compile Include="Constants\Values.cs" />
     <Compile Include="Handlers\PatronsSqlHandler.cs" />
+    <Compile Include="Handlers\PrintHandler.cs" />
     <Compile Include="Handlers\VisitsSqlHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Components\LatinTextBox.cs">

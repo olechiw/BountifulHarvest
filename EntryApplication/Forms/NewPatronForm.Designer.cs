@@ -56,8 +56,8 @@
             this.phoneNumberTextBox = new Common.NumericTextBox();
             this.phoneNumberLabel = new System.Windows.Forms.Label();
             this.addressLabel = new System.Windows.Forms.Label();
-            this.addressTextBox1 = new Common.LatinTextBox();
-            this.addressTextBox2 = new Common.LatinTextBox();
+            this.addressTextBox1 = new Common.NumericTextBox();
+            this.addressTextBox2 = new Common.NumericTextBox();
             this.genderComboBox = new System.Windows.Forms.ComboBox();
             this.everyWeekCheckBox = new System.Windows.Forms.CheckBox();
             this.printVisitCheckBox = new System.Windows.Forms.CheckBox();
@@ -419,8 +419,8 @@
         private Common.NumericTextBox phoneNumberTextBox;
         private System.Windows.Forms.Label phoneNumberLabel;
         private System.Windows.Forms.Label addressLabel;
-        private Common.LatinTextBox addressTextBox1;
-        private Common.LatinTextBox addressTextBox2;
+        private Common.NumericTextBox addressTextBox1;
+        private Common.NumericTextBox addressTextBox2;
         private System.Windows.Forms.ComboBox genderComboBox;
         private System.Windows.Forms.CheckBox everyWeekCheckBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyName;

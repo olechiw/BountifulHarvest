@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Globalization;
+using System.Drawing;
 
 
 //
@@ -16,9 +17,16 @@ namespace Common
     // Somewhere to put all of the SqlConstants neatly
     public partial class Constants
     {
+        // Coordinates for where to draw each label. I'm a hack
+        public static readonly Point namePoint = new Point(75, 780);
+        public static readonly Point limitsPoint = new Point(135, 890);
+        public static readonly Point familyPoint = new Point(130, 930);
+        public static readonly Point datePoint = new Point(5, 970);
+        public static readonly Point idPoint = new Point(5, 1020);
+
         public const bool ISRELEASE = false;
 
-        public const string DateFormat = "MM-dd-yyyy 00:00";
+        public const string DateFormat = "MM/dd/yyyy";
 
         public static readonly CultureInfo DateCulture = CultureInfo.InvariantCulture;
 
