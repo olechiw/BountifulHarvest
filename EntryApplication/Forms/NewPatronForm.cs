@@ -86,6 +86,8 @@ namespace EntryApplication
 
             phoneNumberTextBox.Text = p.PhoneNumber;
 
+            commentsRichTextBox.Text = p.Comments;
+
             InitializeFamily(p);
 
             newPatron = p;
@@ -203,6 +205,8 @@ namespace EntryApplication
             newPatron.PhoneNumber = phoneNumberTextBox.Text;
 
             newPatron.VisitsEveryWeek = (everyWeekCheckBox.Checked);
+
+            newPatron.Comments = commentsRichTextBox.Text.ToString();
 
             SaveFamily();
 

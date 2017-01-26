@@ -36,7 +36,7 @@ namespace Common
             else
                 limitsAllowed = 3;
 
-            numberInFamily = (c == 1) ? c : c + 1;
+            numberInFamily = c + 1;
         }
 
         private void previewEndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
@@ -93,13 +93,21 @@ namespace Common
 
             patron = p;
             CalculateValues();
-            if ((patron.DateOfLastVisit.Month == DateTime.Today.Month) && (patron.DateOfLastVisit != DateTime.Today))
+
+            BountifulHarvestContext database = new BountifulHarvestContext((Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString);
+
+            DateTime lastVisitDate = ((
+                from v in database.Visits
+                where (v.PatronID == p.PatronID) select v
+                )).OrderByDescending(v => v.VisitID)
+                .Take(1).First().DateOfVisit;
+
+
+            if ((lastVisitDate.Month == DateTime.Today.Month) && (!patron.VisitsEveryWeek))
             {
                 string previousVisits = "";
 
-                VisitsSqlHandler visits = new VisitsSqlHandler((Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString);
-
-                VisitList all = visits.GetPatronsRows(patron.PatronID);
+                VisitList all = ((from v in database.Visits where v.PatronID == p.PatronID select v));
 
                 // Latest two visits
                 VisitList top = all.OrderByDescending(v => v.PatronID).Take(2);

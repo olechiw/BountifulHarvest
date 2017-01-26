@@ -68,7 +68,8 @@ namespace Common
             LastName,
             TotalPounds,
             DateOfVisit,
-            VisitID
+            VisitID,
+            PatronID
         }
 
         // Index of specific items in the datagridview for Patrons

@@ -37,13 +37,14 @@
             this.totalPoundsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateOfVisitColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.visitIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.poundsLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.dateLabel = new System.Windows.Forms.Label();
             this.totalPoundsSpinner = new System.Windows.Forms.NumericUpDown();
             this.patronIDLabel = new System.Windows.Forms.Label();
             this.patronIDTextBox = new Common.NumericTextBox();
-            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
             this.SuspendLayout();
@@ -90,6 +91,8 @@
             this.outputDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.outputDataView.Size = new System.Drawing.Size(754, 462);
             this.outputDataView.TabIndex = 6;
+            this.outputDataView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.outputDataView_CellEndEdit);
+            this.outputDataView.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.outputDataView_CellEndEdit);
             // 
             // firstnameColumn
             // 
@@ -120,6 +123,11 @@
             // 
             this.visitIDColumn.HeaderText = "Visit ID";
             this.visitIDColumn.Name = "visitIDColumn";
+            // 
+            // patronIDColumn
+            // 
+            this.patronIDColumn.HeaderText = "PatronID";
+            this.patronIDColumn.Name = "patronIDColumn";
             // 
             // poundsLabel
             // 
@@ -180,16 +188,22 @@
             this.patronIDTextBox.TabIndex = 17;
             this.patronIDTextBox.TextChanged += new System.EventHandler(this.patronIDChanged);
             // 
-            // patronIDColumn
+            // label1
             // 
-            this.patronIDColumn.HeaderText = "PatronID";
-            this.patronIDColumn.Name = "patronIDColumn";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 746);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1226, 24);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Edit the cell value and hit ENTER to change existing number of total pounds. If a" +
+    "ny non-number characters are entered the value will not be saved";
             // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1442, 851);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.patronIDTextBox);
             this.Controls.Add(this.patronIDLabel);
             this.Controls.Add(this.totalPoundsSpinner);
@@ -229,6 +243,7 @@
         private System.Windows.Forms.Label patronIDLabel;
         private Common.NumericTextBox patronIDTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
+        private System.Windows.Forms.Label label1;
     }
 }
 

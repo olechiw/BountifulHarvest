@@ -48,6 +48,7 @@
             this.dateLabel = new System.Windows.Forms.Label();
             this.morePatronInfoButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
+            this.deletePatronButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -234,11 +235,22 @@
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.clearButtonClick);
             // 
+            // deletePatronButton
+            // 
+            this.deletePatronButton.Location = new System.Drawing.Point(1400, 793);
+            this.deletePatronButton.Name = "deletePatronButton";
+            this.deletePatronButton.Size = new System.Drawing.Size(150, 46);
+            this.deletePatronButton.TabIndex = 12;
+            this.deletePatronButton.Text = "Delete Patron Entry";
+            this.deletePatronButton.UseVisualStyleBackColor = true;
+            this.deletePatronButton.Click += new System.EventHandler(this.deletePatronButtonClick);
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1900, 851);
+            this.Controls.Add(this.deletePatronButton);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.morePatronInfoButton);
             this.Controls.Add(this.dateLabel);
@@ -280,6 +292,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
         private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.Button deletePatronButton;
     }
 }
 

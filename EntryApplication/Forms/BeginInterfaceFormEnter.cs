@@ -165,13 +165,20 @@ namespace EntryApplication
 
             p.Calculate();
 
+            var lastPatronQuery = database.Patrons.OrderByDescending(patron => patron.PatronID).Take(1);
+
+            if (lastPatronQuery.Count() == 1)
+                p.PatronID = lastPatronQuery.First().PatronID + 1;
+            else
+                p.PatronID = 1;
+
             database.Patrons.InsertOnSubmit(p);
             database.SubmitChanges();
 
             if ((p.DateOfBirth.Date != new DateTime().Date) && form.Print())
                 Print(p);
 
-            LoadAllPatrons();
+            UpdateResults();
         }
 
 
@@ -247,6 +254,22 @@ namespace EntryApplication
         {
             PrintHandler printer = new PrintHandler();
             printer.Print(p);
+        }
+
+        private void deletePatronButtonClick(object sender, EventArgs e)
+        {
+            var selectedRow = outputDataView.SelectedRows[0];
+            int id = Constants.SafeConvertInt(
+                selectedRow.Cells[(int)Constants.OutputDataColumnsPatrons.PatronID]
+                .Value.ToString());
+
+            Patron deletePatron = ((from p in database.Patrons where p.PatronID == id select p)).First();
+
+
+            database.Patrons.DeleteOnSubmit(deletePatron);
+            database.SubmitChanges();
+
+            outputDataView.Rows.Remove(selectedRow);
         }
     }
 }

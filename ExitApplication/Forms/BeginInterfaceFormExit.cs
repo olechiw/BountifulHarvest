@@ -44,7 +44,7 @@ namespace ExitApplication
             // Connect to the database
             // sqlHandler = new Common.VisitsSqlHandler(connString);
             // patronsHandler = new Common.PatronsSqlHandler(connString);
-
+            database = new BountifulHarvestContext(connString);
 
             LoadAllVisits();
         }
@@ -54,6 +54,8 @@ namespace ExitApplication
         {
             // Get all of the visits for the month
             outputDataView.Rows.Clear();
+
+
 
             VisitList monthVisits = ((from v in database.Visits
                                       where v.DateOfVisit.Month == DateTime.Today.Month
@@ -66,7 +68,13 @@ namespace ExitApplication
         // Add a row to the output
         private void AddDataRow(Visit v)
         {
-            Patron p = (database.Patrons.Where(patron => patron.PatronID == v.VisitID).First());
+            var query = (database.Patrons.Where(patron => patron.PatronID == v.VisitID));
+
+            Patron p;
+            if (query.Count() == 1)
+                p = query.First();
+            else
+                return;
 
             try
             {
@@ -124,6 +132,9 @@ namespace ExitApplication
             Visit v = database.Visits.Where(visit => visit.VisitID == id).First();
 
             database.Visits.DeleteOnSubmit(v);
+
+
+
             database.SubmitChanges();
 
             if (string.IsNullOrEmpty(patronIDTextBox.Text))
@@ -145,6 +156,25 @@ namespace ExitApplication
                 AddDataRow(rows.AsEnumerable().ElementAt(i));
             }
 
+        }
+
+
+        private void outputDataView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int poundsColumn = (int)Constants.VisitIndexes.TotalPounds;
+            int visitIDColumn = (int)Constants.VisitIndexes.VisitID;
+            if (e.ColumnIndex == poundsColumn)
+            {
+                var row = outputDataView.Rows[e.RowIndex];
+
+                int visitID = Constants.SafeConvertInt(row.Cells[visitIDColumn].Value.ToString());
+                Visit visit = ((from v in database.Visits where v.VisitID == visitID select v)).First();
+
+                int pounds = Constants.SafeConvertInt(row.Cells[poundsColumn].Value.ToString());
+                if (pounds != 0)
+                    visit.TotalPounds = pounds;
+                database.SubmitChanges();
+            }
         }
     }
 }
