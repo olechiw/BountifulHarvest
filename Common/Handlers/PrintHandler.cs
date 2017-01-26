@@ -39,14 +39,6 @@ namespace Common
             numberInFamily = c + 1;
         }
 
-        private void previewEndPrint(object sender, System.Drawing.Printing.PrintEventArgs e)
-        {
-            if (e.PrintAction == System.Drawing.Printing.PrintAction.PrintToPrinter)
-            {
-                patron.DateOfLastVisit = DateTime.Today;
-            }
-        }
-
         /*
          * PRINTING THINGS
          */
@@ -89,7 +81,6 @@ namespace Common
         {
 
             print.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(screenPrintPrintPage);
-            print.EndPrint += previewEndPrint;
 
             patron = p;
             CalculateValues();

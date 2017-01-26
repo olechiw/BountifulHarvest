@@ -21,8 +21,6 @@ namespace Common
         public string LastName;
         [Column]
         public string Gender;
-        [Column]
-        public DateTime DateOfLastVisit;
         [Column(Name = "DateOfBirth")]
         public string _DateOfBirth;
         [Column]

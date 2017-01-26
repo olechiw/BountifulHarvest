@@ -83,7 +83,6 @@ namespace EntryApplication
                 p.MiddleInitial,
                 p.LastName,
                 p.Gender,
-                Constants.ConvertDateTime(p.DateOfLastVisit),
                 p.DateOfBirth.ToString(Constants.DateFormat),
                 DateTime.Today.Year - p.DateOfBirth.Year,
                 p.Family,
@@ -187,7 +186,7 @@ namespace EntryApplication
         private void editPatronButtonClick(object sender, EventArgs e)
         {
             int patronId = Constants.SafeConvertInt(
-                outputDataView.SelectedRows[0].Cells[(int)Constants.OutputDataColumnsPatrons.PatronID]
+                outputDataView.SelectedRows[0].Cells[(int)Constants.PatronIndexes.PatronID]
                 .Value.ToString()
                 );
 
@@ -221,7 +220,7 @@ namespace EntryApplication
         // When the button to print a report is clicked
         private void printVisitButtonClick(object sender, EventArgs e)
         {
-            int selectedPatronID = Constants.GetSelectedInt(outputDataView, (int)Constants.OutputDataColumnsPatrons.PatronID);
+            int selectedPatronID = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
 
             Patron selectedPatron = ((database.Patrons.Where(p => p.PatronID == selectedPatronID)).First());
 
@@ -234,7 +233,7 @@ namespace EntryApplication
         {
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
-            int id = Constants.GetSelectedInt(outputDataView, (int)Constants.OutputDataColumnsPatrons.PatronID);
+            int id = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
             Patron p = ((database.Patrons.Where(patron => patron.PatronID == id).First()));
 
             MoreInfoForm form = new MoreInfoForm(p);
@@ -260,7 +259,7 @@ namespace EntryApplication
         {
             var selectedRow = outputDataView.SelectedRows[0];
             int id = Constants.SafeConvertInt(
-                selectedRow.Cells[(int)Constants.OutputDataColumnsPatrons.PatronID]
+                selectedRow.Cells[(int)Constants.PatronIndexes.PatronID]
                 .Value.ToString());
 
             Patron deletePatron = ((from p in database.Patrons where p.PatronID == id select p)).First();

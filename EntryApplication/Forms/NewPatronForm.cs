@@ -196,7 +196,6 @@ namespace EntryApplication
                 }
 
             newPatron.DateOfInitialVisit = DateTime.Today;
-            newPatron.DateOfLastVisit = DateTime.Today;
 
             newPatron.Gender = genderComboBox.Text.ToString();
 

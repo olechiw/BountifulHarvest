@@ -44,22 +44,6 @@ namespace Common
         // The release image location
         public const string releaseFormImage = "form.png";
 
-        // Patrons table indexes (SQL)
-        public enum PatronIndexes
-        {
-            FirstName,
-            MiddleInitial,
-            LastName,
-            Gender,
-            Family,
-            DateOfLastVisit,
-            DateOfBirth,
-            Address,
-            PhoneNumber,
-            Comments,
-            InitialVisitDate
-        }
-
         // Visits table indexes (SQL)
         public enum VisitIndexes
         {
@@ -73,13 +57,12 @@ namespace Common
         }
 
         // Index of specific items in the datagridview for Patrons
-        public enum OutputDataColumnsPatrons
+        public enum PatronIndexes
         {
             FirstName,
             MiddleInitial,
             LastName,
             Gender,
-            DateOfLastVisit,
             DateOfBirth,
             Age,
             Family,

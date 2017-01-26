@@ -26,7 +26,6 @@ namespace EntryApplication
             dateOfBirthLabel.Text += p.DateOfBirth;
             addressLabel.Text += p.Address;
             phoneNumberLabel.Text += p.PhoneNumber;
-            lastVisitLabel.Text += p.DateOfLastVisit.ToString("d");
             firstVisitLabel.Text += p.DateOfInitialVisit.ToString("d");
             familyLabel.Text += p.Family;
             commentsLabel.Text += p.Comments;
