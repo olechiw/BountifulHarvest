@@ -49,6 +49,7 @@
             this.morePatronInfoButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.deletePatronButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -245,11 +246,21 @@
             this.deletePatronButton.UseVisualStyleBackColor = true;
             this.deletePatronButton.Click += new System.EventHandler(this.deletePatronButtonClick);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1301, 842);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(360, 17);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "There is no confirmation box, and THIS IS PERMANENT";
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1900, 851);
+            this.ClientSize = new System.Drawing.Size(1900, 913);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.deletePatronButton);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.morePatronInfoButton);
@@ -293,6 +304,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Button deletePatronButton;
+        private System.Windows.Forms.Label label4;
     }
 }
 
