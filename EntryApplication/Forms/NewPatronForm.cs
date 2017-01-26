@@ -37,9 +37,9 @@ namespace EntryApplication
 
         private void InitializeComponentManual()
         {
-            System.Windows.Forms.Keys[] exceptionsDash = { System.Windows.Forms.Keys.OemMinus, System.Windows.Forms.Keys.Space };
-            System.Windows.Forms.Keys[] exceptionsComma = { System.Windows.Forms.Keys.Oemcomma, System.Windows.Forms.Keys.Space };
-            System.Windows.Forms.Keys[] exceptionsSpace = { System.Windows.Forms.Keys.Space };
+            Keys[] exceptionsDash = { Keys.OemMinus, Keys.Space, Keys.Subtract };
+            Keys[] exceptionsComma = { Keys.Oemcomma, Keys.Space };
+            Keys[] exceptionsSpace = { Keys.Space };
 
             phoneNumberTextBox.Exceptions = exceptionsDash;
             addressTextBox1.Exceptions = exceptionsComma;
