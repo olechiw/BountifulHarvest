@@ -174,7 +174,7 @@ namespace EntryApplication
             database.Patrons.InsertOnSubmit(p);
             database.SubmitChanges();
 
-            if ((p.DateOfBirth.Date != new DateTime().Date) && form.Print())
+            if (form.Print())
                 Print(p);
 
             UpdateResults();
@@ -212,6 +212,9 @@ namespace EntryApplication
 
             database.SubmitChanges();
 
+            if (form.Print())
+                Print(p);
+
             LoadAllPatrons();
         }
 
@@ -236,7 +239,10 @@ namespace EntryApplication
             int id = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
             Patron p = ((database.Patrons.Where(patron => patron.PatronID == id).First()));
 
-            MoreInfoForm form = new MoreInfoForm(p);
+            VisitList visits = ((from v in database.Visits where v.PatronID == p.PatronID select v));
+
+
+            MoreInfoForm form = new MoreInfoForm(p, visits);
 
             form.ShowDialog();
         }

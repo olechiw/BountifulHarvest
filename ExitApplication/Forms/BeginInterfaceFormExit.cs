@@ -162,17 +162,35 @@ namespace ExitApplication
         private void outputDataView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             int poundsColumn = (int)Constants.VisitIndexes.TotalPounds;
+            int dateColumn = (int)Constants.VisitIndexes.DateOfVisit;
             int visitIDColumn = (int)Constants.VisitIndexes.VisitID;
+            Visit visit;
+
+
+            var row = outputDataView.Rows[e.RowIndex];
+
+            int visitID = Constants.SafeConvertInt(row.Cells[visitIDColumn].Value.ToString());
+
+            try
+            {
+                visit = ((from v in database.Visits where v.VisitID == visitID select v)).First();
+            }
+            catch { return; }
+
             if (e.ColumnIndex == poundsColumn)
             {
-                var row = outputDataView.Rows[e.RowIndex];
-
-                int visitID = Constants.SafeConvertInt(row.Cells[visitIDColumn].Value.ToString());
-                Visit visit = ((from v in database.Visits where v.VisitID == visitID select v)).First();
-
                 int pounds = Constants.SafeConvertInt(row.Cells[poundsColumn].Value.ToString());
                 if (pounds != 0)
                     visit.TotalPounds = pounds;
+                database.SubmitChanges();
+            }
+
+            else if (e.ColumnIndex == dateColumn)
+            {
+                DateTime date = Constants.ConvertString2Date(row.Cells[dateColumn].Value.ToString());
+                if (!(date.Year == new DateTime().Year && date.Day == new DateTime().Day))
+                    visit.DateOfVisit = date;
+
                 database.SubmitChanges();
             }
         }

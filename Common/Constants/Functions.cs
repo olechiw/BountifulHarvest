@@ -46,7 +46,15 @@ namespace Common
             if (!string.IsNullOrEmpty(s))
             {
                 s += " 00:00";
-                return DateTime.ParseExact(s, "MM/dd/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                try
+                {
+                    return DateTime.ParseExact(s, "MM/dd/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    MessageBox.Show("Invalid date in converting a string to date. Offender " + s);
+                    return new DateTime();
+                }
             }
 
             else
@@ -97,7 +105,7 @@ namespace Common
         }
 
         // Convert a datetime to the proper format of string
-        public static string ConvertDateTime(DateTime d) => d.Date.ToString("d");
+        public static string ConvertDateTime(DateTime d) => d.Date.ToString(DateFormat);
 
         // Get the designated column of the selected row of a data view as an integer
         public static int GetSelectedInt(System.Windows.Forms.DataGridView view, int index) =>

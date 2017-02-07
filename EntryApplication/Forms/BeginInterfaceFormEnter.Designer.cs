@@ -36,11 +36,6 @@
             this.visitPrintButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.outputDataView = new System.Windows.Forms.DataGridView();
-            this.dateLabel = new System.Windows.Forms.Label();
-            this.morePatronInfoButton = new System.Windows.Forms.Button();
-            this.clearButton = new System.Windows.Forms.Button();
-            this.deletePatronButton = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.patronFirstNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.middleIColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronLastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +44,11 @@
             this.patronAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronFamilyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateLabel = new System.Windows.Forms.Label();
+            this.morePatronInfoButton = new System.Windows.Forms.Button();
+            this.clearButton = new System.Windows.Forms.Button();
+            this.deletePatronButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,54 +144,6 @@
             this.outputDataView.Size = new System.Drawing.Size(1314, 708);
             this.outputDataView.TabIndex = 3;
             // 
-            // dateLabel
-            // 
-            this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(968, 47);
-            this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(92, 17);
-            this.dateLabel.TabIndex = 9;
-            this.dateLabel.Text = "Today\'s Date";
-            // 
-            // morePatronInfoButton
-            // 
-            this.morePatronInfoButton.Location = new System.Drawing.Point(1400, 443);
-            this.morePatronInfoButton.Name = "morePatronInfoButton";
-            this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
-            this.morePatronInfoButton.TabIndex = 10;
-            this.morePatronInfoButton.Text = "More Info";
-            this.morePatronInfoButton.UseVisualStyleBackColor = true;
-            this.morePatronInfoButton.Click += new System.EventHandler(this.morePatronInfoButtonClick);
-            // 
-            // clearButton
-            // 
-            this.clearButton.Location = new System.Drawing.Point(728, 65);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(86, 28);
-            this.clearButton.TabIndex = 11;
-            this.clearButton.Text = "Clear";
-            this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.clearButtonClick);
-            // 
-            // deletePatronButton
-            // 
-            this.deletePatronButton.Location = new System.Drawing.Point(1400, 793);
-            this.deletePatronButton.Name = "deletePatronButton";
-            this.deletePatronButton.Size = new System.Drawing.Size(150, 46);
-            this.deletePatronButton.TabIndex = 12;
-            this.deletePatronButton.Text = "Delete Patron Entry";
-            this.deletePatronButton.UseVisualStyleBackColor = true;
-            this.deletePatronButton.Click += new System.EventHandler(this.deletePatronButtonClick);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1301, 842);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(360, 17);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "There is no confirmation box, and THIS IS PERMANENT";
-            // 
             // patronFirstNameColumn
             // 
             this.patronFirstNameColumn.HeaderText = "First Name";
@@ -245,6 +197,54 @@
             this.patronIDColumn.HeaderText = "Patron ID";
             this.patronIDColumn.Name = "patronIDColumn";
             this.patronIDColumn.ReadOnly = true;
+            // 
+            // dateLabel
+            // 
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.Location = new System.Drawing.Point(968, 47);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(92, 17);
+            this.dateLabel.TabIndex = 9;
+            this.dateLabel.Text = "Today\'s Date";
+            // 
+            // morePatronInfoButton
+            // 
+            this.morePatronInfoButton.Location = new System.Drawing.Point(1400, 443);
+            this.morePatronInfoButton.Name = "morePatronInfoButton";
+            this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
+            this.morePatronInfoButton.TabIndex = 10;
+            this.morePatronInfoButton.Text = "More Info";
+            this.morePatronInfoButton.UseVisualStyleBackColor = true;
+            this.morePatronInfoButton.Click += new System.EventHandler(this.morePatronInfoButtonClick);
+            // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(728, 65);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(86, 28);
+            this.clearButton.TabIndex = 11;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButtonClick);
+            // 
+            // deletePatronButton
+            // 
+            this.deletePatronButton.Location = new System.Drawing.Point(1400, 793);
+            this.deletePatronButton.Name = "deletePatronButton";
+            this.deletePatronButton.Size = new System.Drawing.Size(150, 46);
+            this.deletePatronButton.TabIndex = 12;
+            this.deletePatronButton.Text = "Delete Patron Entry";
+            this.deletePatronButton.UseVisualStyleBackColor = true;
+            this.deletePatronButton.Click += new System.EventHandler(this.deletePatronButtonClick);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1301, 842);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(360, 17);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "There is no confirmation box, and THIS IS PERMANENT";
             // 
             // BeginInterfaceForm
             // 

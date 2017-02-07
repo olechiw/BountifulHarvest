@@ -37,13 +37,20 @@ namespace EntryApplication
 
         private void InitializeComponentManual()
         {
-            Keys[] exceptionsDash = { Keys.OemMinus, Keys.Space, Keys.Subtract };
-            Keys[] exceptionsComma = { Keys.Oemcomma, Keys.Space };
-            Keys[] exceptionsSpace = { Keys.Space };
+            Keys[] exceptions = {
+                Keys.OemMinus,
+                Keys.Space,
+                Keys.Subtract,
+                Keys.Oemcomma,
+                Keys.OemPeriod,
+                Keys.Decimal,
+            Keys.Divide,
+            Keys.OemBackslash};
 
-            phoneNumberTextBox.Exceptions = exceptionsDash;
-            addressTextBox1.Exceptions = exceptionsComma;
-            addressTextBox2.Exceptions = exceptionsComma;
+            phoneNumberTextBox.Exceptions = exceptions;
+            addressTextBox1.Exceptions = exceptions;
+            addressTextBox2.Exceptions = exceptions;
+            firstNameTextBox.Exceptions = exceptions;
 
             patronFamilyGender.Items.Add("Male");
             patronFamilyGender.Items.Add("Female");
