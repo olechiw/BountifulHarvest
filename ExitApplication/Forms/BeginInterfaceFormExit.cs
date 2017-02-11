@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Common;
 using VisitList = System.Linq.IQueryable<Common.Visit>;
 using PatronList = System.Linq.IQueryable<Common.Patron>;
+using System.Data.Linq.SqlClient;
 
 namespace ExitApplication
 {
@@ -61,14 +62,14 @@ namespace ExitApplication
                                       where v.DateOfVisit.Month == DateTime.Today.Month
                                       select v));
 
-            foreach (Visit v in monthVisits)
+            foreach (Visit v in monthVisits.OrderBy(visit => visit.DateOfVisit))
                 AddDataRow(v);
         }
         
         // Add a row to the output
         private void AddDataRow(Visit v)
         {
-            var query = (database.Patrons.Where(patron => patron.PatronID == v.VisitID));
+            var query = ((from patron in database.Patrons where patron.PatronID == v.PatronID select patron));
 
             Patron p;
             if (query.Count() == 1)
@@ -112,11 +113,9 @@ namespace ExitApplication
             {
                 TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
                 DateOfVisit = DateTime.Today,
-                PatronID = Constants.SafeConvertInt(patronIDTextBox.Text)
+                PatronID = Constants.SafeConvertInt(patronIDTextBox.Text),
+                VisitID = Constants.GetLatestVisitID(database)
             };
-
-            if (v.PatronID == 0)
-                return;
 
             database.Visits.InsertOnSubmit(v);
             database.SubmitChanges();
@@ -149,13 +148,15 @@ namespace ExitApplication
 
             int id = Constants.SafeConvertInt(patronIDTextBox.Text.ToString());
 
-            VisitList rows = database.Visits.Where(v => v.VisitID == id);
+            VisitList rows = database.Visits.Where(v => v.PatronID == id);
 
             for (int i = 0; i < rows.Count(); ++i)
             {
                 AddDataRow(rows.AsEnumerable().ElementAt(i));
             }
 
+            if (String.IsNullOrEmpty(patronIDTextBox.Text.ToString()))
+                LoadAllVisits();
         }
 
 
@@ -192,6 +193,31 @@ namespace ExitApplication
                     visit.DateOfVisit = date;
 
                 database.SubmitChanges();
+            }
+        }
+
+        private void patronSearchTextBoxChanged(object sender, EventArgs e)
+        {
+            if (patronSearchTextBox.Text.Length < 3)
+                return;
+
+            var predicate = PredicateBuilder.False<Patron>();
+            string q = "%" + patronSearchTextBox.Text.ToString() + "%";
+            predicate = predicate.Or(p => SqlMethods.Like(p.FirstName, q));
+            predicate = predicate.Or(p => SqlMethods.Like(p.MiddleInitial, q));
+            predicate = predicate.Or(p => SqlMethods.Like(p.LastName, q));
+
+            var query = database.Patrons.Where(predicate);
+
+
+            
+            if (query.Count() > 0)
+            {
+                searchDataView.Rows.Clear();
+                foreach (var p in query)
+                searchDataView.Rows.Add(
+                    Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName),
+                    p.PatronID);
             }
         }
     }

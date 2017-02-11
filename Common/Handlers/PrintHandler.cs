@@ -87,14 +87,20 @@ namespace Common
 
             BountifulHarvestContext database = new BountifulHarvestContext((Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString);
 
-            DateTime lastVisitDate = ((
+            var lastVisit = ((
                 from v in database.Visits
-                where (v.PatronID == p.PatronID) select v
+                where (v.PatronID == p.PatronID)
+                select v
                 )).OrderByDescending(v => v.VisitID)
-                .Take(1).First().DateOfVisit;
+                .Take(1);
+            DateTime dateOfLastVisit;
+            if (lastVisit.Count() > 0)
+                dateOfLastVisit = lastVisit.First().DateOfVisit;
+            else
+                dateOfLastVisit = new DateTime();
 
 
-            if ((lastVisitDate.Month == DateTime.Today.Month) && (!patron.VisitsEveryWeek))
+            if ((dateOfLastVisit.Month == DateTime.Today.Month) && (!patron.VisitsEveryWeek))
             {
                 string previousVisits = "";
 

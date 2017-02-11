@@ -11,18 +11,26 @@ using System.Windows.Forms;
 
 namespace Common
 {
-    public class LatinTextBox : TextBox
+    public class SafeTextBox : TextBox
     {
-        public Keys[] Exceptions = { };
+        public Keys[] Exceptions = {
+                Keys.OemMinus,
+                Keys.Space,
+                Keys.Subtract,
+                Keys.Oemcomma,
+                Keys.OemPeriod,
+                Keys.Decimal,
+            Keys.Divide,
+            Keys.OemBackslash};
 
         // Constructor
-        public LatinTextBox(Keys[] specialExceptions)
+        public SafeTextBox(Keys[] specialExceptions)
         {
             this.KeyDown += textBoxKeyDown;
             Exceptions = specialExceptions;
         }
 
-        public LatinTextBox()
+        public SafeTextBox()
         {
             this.KeyDown += textBoxKeyDown;
         }
@@ -36,6 +44,12 @@ namespace Common
             if (Keys.A <= key && key <= Keys.Z)
                 return;
             else if (Keys.D0 <= key && key <= Keys.D9)
+                return;
+
+            // Account for numbers only
+            else if (Keys.D0 <= key && key <= Keys.D9)
+                return;
+            else if (Keys.NumPad0 <= key && key <= Keys.NumPad9)
                 return;
 
             // Special exceptions (backspace hardcoded) are ok

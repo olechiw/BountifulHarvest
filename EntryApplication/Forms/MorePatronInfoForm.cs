@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Common;
 
 using VisitList = System.Linq.IQueryable<Common.Visit>;
 
@@ -34,8 +35,14 @@ namespace EntryApplication
             familyLabel.Text += p.Family;
             commentsLabel.Text += p.Comments;
 
-            foreach (var v in visits)
+
+            foreach (var v in visits.OrderBy(v => v.DateOfVisit))
                 AddDataRow(p, v);
+
+
+            if (visits.Count() > 0)
+                initialVisitDate.Text += visits.OrderBy(v => v.DateOfVisit).First().DateOfVisit.ToString(Common.Constants.DateFormat);
+
 
             this.WindowState = FormWindowState.Maximized;
         }

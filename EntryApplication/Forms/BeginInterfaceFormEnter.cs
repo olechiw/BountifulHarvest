@@ -77,7 +77,7 @@ namespace EntryApplication
 
         // Shorthand for adding a set of values to the outputDataView
         private void AddDataRow(Patron p)
-        {
+        {   
             this.outputDataView.Rows.Add(
                 p.FirstName,
                 p.MiddleInitial,
@@ -164,12 +164,16 @@ namespace EntryApplication
 
             p.Calculate();
 
+            /*
             var lastPatronQuery = database.Patrons.OrderByDescending(patron => patron.PatronID).Take(1);
 
             if (lastPatronQuery.Count() == 1)
                 p.PatronID = lastPatronQuery.First().PatronID + 1;
             else
                 p.PatronID = 1;
+                */
+
+            p.PatronID = Constants.GetLatestPatronID(database);
 
             database.Patrons.InsertOnSubmit(p);
             database.SubmitChanges();
@@ -190,7 +194,7 @@ namespace EntryApplication
                 .Value.ToString()
                 );
 
-            if (patronId == 0)
+            if (patronId == Constants.InvalidID)
             {
                 MessageBox.Show("Something went wrong, failed to turn the ID into an integer");
                 return;
@@ -215,7 +219,7 @@ namespace EntryApplication
             if (form.Print())
                 Print(p);
 
-            LoadAllPatrons();
+            UpdateResults();
         }
 
 

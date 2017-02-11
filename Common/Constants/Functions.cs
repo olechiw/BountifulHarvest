@@ -67,13 +67,12 @@ namespace Common
             int i = 0;
             try
             {
-                i = Convert.ToInt32(s);
+                return Convert.ToInt32(s);
             }
             catch (Exception)
             {
-
+                return InvalidID;
             }
-            return i;
         }
 
         public static DateTime SafeConvertDate(string s)
@@ -138,6 +137,27 @@ namespace Common
             // else if (date.Day )
             else
                 return false;
+        }
+
+
+        public static int GetLatestVisitID(BountifulHarvestContext databaseContext)
+        {
+            int id = 0;
+
+            var query = ((from v in databaseContext.Visits select v).OrderByDescending(visit => visit.VisitID));
+            id = ((query.Count()==0) ? 1 : query.First().VisitID + 1);
+
+            return id;
+        }
+
+        public static int GetLatestPatronID(BountifulHarvestContext databaseContext)
+        {
+            int id = 0;
+
+            var query = ((from p in databaseContext.Patrons select p).OrderByDescending(patron => patron.PatronID));
+            id = ((query.Count() == 0) ? 1 : query.First().PatronID + 1);
+
+            return id;
         }
     }
 }

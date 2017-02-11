@@ -37,21 +37,6 @@ namespace EntryApplication
 
         private void InitializeComponentManual()
         {
-            Keys[] exceptions = {
-                Keys.OemMinus,
-                Keys.Space,
-                Keys.Subtract,
-                Keys.Oemcomma,
-                Keys.OemPeriod,
-                Keys.Decimal,
-            Keys.Divide,
-            Keys.OemBackslash};
-
-            phoneNumberTextBox.Exceptions = exceptions;
-            addressTextBox1.Exceptions = exceptions;
-            addressTextBox2.Exceptions = exceptions;
-            firstNameTextBox.Exceptions = exceptions;
-
             patronFamilyGender.Items.Add("Male");
             patronFamilyGender.Items.Add("Female");
 

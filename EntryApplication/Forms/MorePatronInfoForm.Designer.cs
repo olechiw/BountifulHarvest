@@ -45,6 +45,7 @@
             this.dateOfVisitColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.visitIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.initialVisitDate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -153,7 +154,7 @@
             this.visitIDColumn,
             this.patronIDColumn});
             this.outputDataView.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.outputDataView.Location = new System.Drawing.Point(839, 68);
+            this.outputDataView.Location = new System.Drawing.Point(987, 62);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -195,11 +196,22 @@
             this.patronIDColumn.HeaderText = "PatronID";
             this.patronIDColumn.Name = "patronIDColumn";
             // 
+            // initialVisitDate
+            // 
+            this.initialVisitDate.AutoSize = true;
+            this.initialVisitDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.initialVisitDate.Location = new System.Drawing.Point(12, 572);
+            this.initialVisitDate.Name = "initialVisitDate";
+            this.initialVisitDate.Size = new System.Drawing.Size(217, 31);
+            this.initialVisitDate.TabIndex = 10;
+            this.initialVisitDate.Text = "Initial Visit Date: ";
+            // 
             // MoreInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1593, 691);
+            this.ClientSize = new System.Drawing.Size(1757, 691);
+            this.Controls.Add(this.initialVisitDate);
             this.Controls.Add(this.outputDataView);
             this.Controls.Add(this.commentsLabel);
             this.Controls.Add(this.familyLabel);
@@ -210,7 +222,7 @@
             this.Controls.Add(this.addressLabel);
             this.Controls.Add(this.dateOfBirthLabel);
             this.Controls.Add(this.nameLabel);
-            this.MaximumSize = new System.Drawing.Size(1611, 738);
+            this.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.MinimumSize = new System.Drawing.Size(1611, 738);
             this.Name = "MoreInfoForm";
             this.Text = "More Info";
@@ -239,5 +251,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dateOfVisitColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn visitIDColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
+        private System.Windows.Forms.Label initialVisitDate;
     }
 }

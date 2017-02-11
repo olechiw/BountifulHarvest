@@ -43,10 +43,16 @@
             this.dateLabel = new System.Windows.Forms.Label();
             this.totalPoundsSpinner = new System.Windows.Forms.NumericUpDown();
             this.patronIDLabel = new System.Windows.Forms.Label();
-            this.patronIDTextBox = new Common.NumericTextBox();
+            this.patronIDTextBox = new Common.SafeTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.searchDataView = new System.Windows.Forms.DataGridView();
+            this.patronSearchName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronSearchTextBox = new System.Windows.Forms.TextBox();
+            this.patronSearchLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchDataView)).BeginInit();
             this.SuspendLayout();
             // 
             // patronVisitLabel
@@ -198,11 +204,55 @@
             this.label1.Text = "Edit the cell value and hit ENTER to change existing number of total pounds. If a" +
     "ny non-number characters are entered the value will not be saved";
             // 
+            // searchDataView
+            // 
+            this.searchDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.searchDataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.patronSearchName,
+            this.patronID});
+            this.searchDataView.Location = new System.Drawing.Point(1058, 193);
+            this.searchDataView.Name = "searchDataView";
+            this.searchDataView.RowTemplate.Height = 24;
+            this.searchDataView.Size = new System.Drawing.Size(328, 442);
+            this.searchDataView.TabIndex = 19;
+            // 
+            // patronSearchName
+            // 
+            this.patronSearchName.HeaderText = "Name";
+            this.patronSearchName.MinimumWidth = 200;
+            this.patronSearchName.Name = "patronSearchName";
+            this.patronSearchName.Width = 200;
+            // 
+            // patronID
+            // 
+            this.patronID.HeaderText = "ID";
+            this.patronID.Name = "patronID";
+            // 
+            // patronSearchTextBox
+            // 
+            this.patronSearchTextBox.Location = new System.Drawing.Point(1058, 125);
+            this.patronSearchTextBox.Name = "patronSearchTextBox";
+            this.patronSearchTextBox.Size = new System.Drawing.Size(328, 28);
+            this.patronSearchTextBox.TabIndex = 20;
+            this.patronSearchTextBox.TextChanged += new System.EventHandler(this.patronSearchTextBoxChanged);
+            // 
+            // patronSearchLabel
+            // 
+            this.patronSearchLabel.AutoSize = true;
+            this.patronSearchLabel.Location = new System.Drawing.Point(1162, 98);
+            this.patronSearchLabel.Name = "patronSearchLabel";
+            this.patronSearchLabel.Size = new System.Drawing.Size(121, 24);
+            this.patronSearchLabel.TabIndex = 21;
+            this.patronSearchLabel.Text = "Search Label";
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1442, 851);
+            this.Controls.Add(this.patronSearchLabel);
+            this.Controls.Add(this.patronSearchTextBox);
+            this.Controls.Add(this.searchDataView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.patronIDTextBox);
             this.Controls.Add(this.patronIDLabel);
@@ -221,6 +271,7 @@
             this.Load += new System.EventHandler(this.BeginInterface_Load);
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchDataView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,9 +292,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn visitIDColumn;
         private System.Windows.Forms.NumericUpDown totalPoundsSpinner;
         private System.Windows.Forms.Label patronIDLabel;
-        private Common.NumericTextBox patronIDTextBox;
+        private Common.SafeTextBox patronIDTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView searchDataView;
+        private System.Windows.Forms.TextBox patronSearchTextBox;
+        private System.Windows.Forms.Label patronSearchLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronSearchName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronID;
     }
 }
 

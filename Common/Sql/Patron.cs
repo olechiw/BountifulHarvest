@@ -123,7 +123,12 @@ namespace Common
                 var d = s.Split('/');
                 if (d.Length==3)
                 {
-                    int age = DateTime.Today.Year - Constants.SafeConvertInt(d[2].ToString());
+                    int year = Constants.SafeConvertInt(d[2].ToString());
+                    if (year == Constants.InvalidID)
+                        continue;
+
+
+                    int age = DateTime.Today.Year - year;
                     if (age <= 17)
                         y++;
                     else if (age <= 59)

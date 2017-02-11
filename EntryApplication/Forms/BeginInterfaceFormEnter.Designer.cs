@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.searchBox = new Common.LatinTextBox();
+            this.searchBox = new Common.SafeTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.addPatronButton = new System.Windows.Forms.Button();
             this.editPatronButton = new System.Windows.Forms.Button();
@@ -83,7 +83,7 @@
             // 
             // addPatronButton
             // 
-            this.addPatronButton.Location = new System.Drawing.Point(1400, 131);
+            this.addPatronButton.Location = new System.Drawing.Point(1538, 131);
             this.addPatronButton.Name = "addPatronButton";
             this.addPatronButton.Size = new System.Drawing.Size(150, 46);
             this.addPatronButton.TabIndex = 5;
@@ -93,7 +93,7 @@
             // 
             // editPatronButton
             // 
-            this.editPatronButton.Location = new System.Drawing.Point(1400, 314);
+            this.editPatronButton.Location = new System.Drawing.Point(1538, 327);
             this.editPatronButton.Name = "editPatronButton";
             this.editPatronButton.Size = new System.Drawing.Size(150, 46);
             this.editPatronButton.TabIndex = 6;
@@ -103,7 +103,7 @@
             // 
             // visitPrintButton
             // 
-            this.visitPrintButton.Location = new System.Drawing.Point(1400, 579);
+            this.visitPrintButton.Location = new System.Drawing.Point(1538, 579);
             this.visitPrintButton.Name = "visitPrintButton";
             this.visitPrintButton.Size = new System.Drawing.Size(150, 46);
             this.visitPrintButton.TabIndex = 7;
@@ -141,7 +141,7 @@
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.ReadOnly = true;
             this.outputDataView.RowTemplate.Height = 24;
-            this.outputDataView.Size = new System.Drawing.Size(1314, 708);
+            this.outputDataView.Size = new System.Drawing.Size(1484, 708);
             this.outputDataView.TabIndex = 3;
             // 
             // patronFirstNameColumn
@@ -209,7 +209,7 @@
             // 
             // morePatronInfoButton
             // 
-            this.morePatronInfoButton.Location = new System.Drawing.Point(1400, 443);
+            this.morePatronInfoButton.Location = new System.Drawing.Point(1538, 450);
             this.morePatronInfoButton.Name = "morePatronInfoButton";
             this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
             this.morePatronInfoButton.TabIndex = 10;
@@ -229,7 +229,7 @@
             // 
             // deletePatronButton
             // 
-            this.deletePatronButton.Location = new System.Drawing.Point(1400, 793);
+            this.deletePatronButton.Location = new System.Drawing.Point(1538, 793);
             this.deletePatronButton.Name = "deletePatronButton";
             this.deletePatronButton.Size = new System.Drawing.Size(150, 46);
             this.deletePatronButton.TabIndex = 12;
@@ -240,7 +240,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1301, 842);
+            this.label4.Location = new System.Drawing.Point(1422, 842);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(360, 17);
             this.label4.TabIndex = 13;
@@ -275,7 +275,7 @@
 
         #endregion
         private System.Windows.Forms.Label label1;
-        private Common.LatinTextBox searchBox;
+        private Common.SafeTextBox searchBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button addPatronButton;
         private System.Windows.Forms.Button editPatronButton;

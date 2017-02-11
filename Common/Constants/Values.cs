@@ -24,9 +24,11 @@ namespace Common
         public static readonly Point datePoint = new Point(5, 970);
         public static readonly Point idPoint = new Point(5, 1020);
 
-        public const bool ISRELEASE = false;
+        public const bool ISRELEASE = true;
 
         public const string DateFormat = "MM/dd/yyyy";
+
+        public const int InvalidID = -1;
 
         public static readonly CultureInfo DateCulture = CultureInfo.InvariantCulture;
 
