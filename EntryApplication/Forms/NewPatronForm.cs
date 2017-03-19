@@ -88,9 +88,7 @@ namespace EntryApplication
         private void InitializeFamily(Patron p)
         {
             // Load family
-            if (!string.IsNullOrEmpty(p.Family) &&
-                !string.IsNullOrEmpty(p.FamilyGenders) &&
-                !string.IsNullOrEmpty(p.FamilyDateOfBirths))
+            if (!string.IsNullOrEmpty(p.Family))
             {
                 string[] familyMembers = p.Family.Split(',');
                 string[] familyGenders = p.FamilyGenders.Split(',');
@@ -103,8 +101,16 @@ namespace EntryApplication
                     if (string.IsNullOrEmpty(familyMembers[i]))
                         continue;
 
-                    name = familyMembers[i];
-                    gender = familyGenders[i];
+                    try
+                    {
+                        name = familyMembers[i];
+                    }
+                    catch (Exception) { }
+                    try
+                    {
+                        gender = familyGenders[i];
+                    }
+                    catch (Exception) { }
 
                     string[] ds = dates[i].Split('/');
                     d = ds[0];

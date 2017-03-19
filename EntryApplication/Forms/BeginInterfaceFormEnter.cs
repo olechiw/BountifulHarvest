@@ -280,5 +280,60 @@ namespace EntryApplication
 
             outputDataView.Rows.Remove(selectedRow);
         }
+
+        private void initialVisitButtonClick(object sender, EventArgs e)
+        {
+            string lastVisitDate = "";
+
+            var visits = ((from v in database.Visits
+                           where v.PatronID ==
+                           Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID)
+                           select v)).OrderBy(v => v.DateOfVisit);
+
+
+            DateTime previousLastDate = new DateTime();
+            if (visits.Count() > 0)
+            {
+                previousLastDate =
+                    visits.OrderBy(v => v.DateOfVisit).First()
+                    .DateOfVisit;
+                lastVisitDate = previousLastDate.ToString(Constants.DateFormat);
+            }
+
+            string date = Microsoft.VisualBasic.Interaction.InputBox("Enter/Change Initial Visit Date: MM/dd/yyyy", "Initial Visit Date", lastVisitDate);
+
+            if (date == "")
+                return;
+            
+            DateTime lastDate = Constants.ConvertString2Date(date);
+            if (lastDate.Hour == Constants.InvalidHour)
+            {
+                MessageBox.Show("Invalid value entered");
+                return;
+            }
+
+            if (previousLastDate <= lastDate)
+            {
+                var result = MessageBox.Show("Careful, this will delete all previous visits!!", "Delete Warning!", MessageBoxButtons.OKCancel);
+                if (result != DialogResult.OK)
+                    return;
+
+                var query = ((from v in database.Visits where v.DateOfVisit < lastDate select v));
+                foreach (var v in query)
+                    database.Visits.DeleteOnSubmit(v);
+            }
+
+            Visit newVisit = new Visit
+            {
+                DateOfVisit = lastDate,
+                TotalPounds = 0,
+                PatronID =
+                Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID),
+                VisitID = Constants.GetLatestVisitID(database)
+            };
+
+            database.Visits.InsertOnSubmit(newVisit);
+            database.SubmitChanges();
+        }
     }
 }

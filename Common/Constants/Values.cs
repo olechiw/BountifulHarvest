@@ -29,6 +29,7 @@ namespace Common
         public const string DateFormat = "MM/dd/yyyy";
 
         public const int InvalidID = -1;
+        public const int InvalidHour = 10;
 
         public static readonly CultureInfo DateCulture = CultureInfo.InvariantCulture;
 
@@ -39,7 +40,7 @@ namespace Common
         public const string releaseServerConnectionString = "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=harvest";
 
         // Release ip address for the client
-        public const string releaseExitConnectionString = "Server=192.168.2.4\\SQLEXPRESS;Database=BountifulHarvest;User ID = sa; Password=harvest";
+        public const string releaseExitConnectionString = "Server=192.168.1.99\\SQLEXPRESS;Database=BountifulHarvest;User ID = sa; Password=harvest";
 
         // The image of the form to print
         public const string printFormImage = "form2.png";

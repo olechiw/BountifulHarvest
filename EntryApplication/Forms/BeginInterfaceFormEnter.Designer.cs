@@ -49,6 +49,7 @@
             this.clearButton = new System.Windows.Forms.Button();
             this.deletePatronButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.initialVisitButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -246,11 +247,22 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "There is no confirmation box, and THIS IS PERMANENT";
             // 
+            // initialVisitButton
+            // 
+            this.initialVisitButton.Location = new System.Drawing.Point(1538, 689);
+            this.initialVisitButton.Name = "initialVisitButton";
+            this.initialVisitButton.Size = new System.Drawing.Size(150, 46);
+            this.initialVisitButton.TabIndex = 14;
+            this.initialVisitButton.Text = "Configure Initial Visit";
+            this.initialVisitButton.UseVisualStyleBackColor = true;
+            this.initialVisitButton.Click += new System.EventHandler(this.initialVisitButtonClick);
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1900, 913);
+            this.Controls.Add(this.initialVisitButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.deletePatronButton);
             this.Controls.Add(this.clearButton);
@@ -295,6 +307,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronAge;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
+        private System.Windows.Forms.Button initialVisitButton;
     }
 }
 

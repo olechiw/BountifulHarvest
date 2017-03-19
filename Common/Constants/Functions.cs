@@ -58,8 +58,10 @@ namespace Common
             }
 
             else
-
-                return new DateTime();
+            {
+                DateTime date = new DateTime(1900, 1, 1, InvalidHour, 1, 1);
+                return date;
+            }
         }
 
         public static int SafeConvertInt(string s)

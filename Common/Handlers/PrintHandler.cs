@@ -36,7 +36,10 @@ namespace Common
             else
                 limitsAllowed = 3;
 
-            numberInFamily = c + 1;
+            if (string.IsNullOrEmpty(patron.Family.Split(',')[0]))
+                numberInFamily = 1;
+            else
+                numberInFamily = c + 1;
         }
 
         /*

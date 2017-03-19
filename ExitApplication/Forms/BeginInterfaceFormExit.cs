@@ -189,10 +189,17 @@ namespace ExitApplication
             else if (e.ColumnIndex == dateColumn)
             {
                 DateTime date = Constants.ConvertString2Date(row.Cells[dateColumn].Value.ToString());
-                if (!(date.Year == new DateTime().Year && date.Day == new DateTime().Day))
+                if (date.Hour != Constants.InvalidHour)
                     visit.DateOfVisit = date;
 
-                database.SubmitChanges();
+                try
+                {
+                    database.SubmitChanges();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Fatal error, failed to submit changes");
+                }
             }
         }
 
