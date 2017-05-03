@@ -27,14 +27,17 @@ namespace ExitApplication
 
         public BeginInterfaceForm()
         {
+            Logger.Log("Initialiing Components");
             InitializeComponent();
 
             Constants.InitializeDataView(outputDataView);
 
+            Logger.Log("Setting up SQL");
             SetupSQL();
 
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
 
+            Logger.Log("Exit Application Running");
         }
 
         // Initialize the database in the gridview
@@ -47,6 +50,7 @@ namespace ExitApplication
             // patronsHandler = new Common.PatronsSqlHandler(connString);
             database = new BountifulHarvestContext(connString);
 
+            Logger.Log("Loading Initial Visits");
             LoadAllVisits();
         }
 
@@ -58,12 +62,22 @@ namespace ExitApplication
 
 
 
-            VisitList monthVisits = ((from v in database.Visits
-                                      where v.DateOfVisit.Month == DateTime.Today.Month
-                                      select v));
+            try
+            {
+                VisitList monthVisits = ((from v in database.Visits
+                                          where v.DateOfVisit.Month == DateTime.Today.Month
+                                          select v));
 
-            foreach (Visit v in monthVisits.OrderBy(visit => visit.DateOfVisit))
-                AddDataRow(v);
+                foreach (Visit v in monthVisits.OrderBy(visit => visit.DateOfVisit))
+                    AddDataRow(v);
+            }
+            catch (Exception e)
+            {
+                Logger.Log("Exception in loading all visits: " + e.Message);
+                Logger.Log(e.StackTrace);
+                Constants.DatabaseFailed();
+                this.Close();
+            }
         }
         
         // Add a row to the output
@@ -114,12 +128,26 @@ namespace ExitApplication
                 TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
                 DateOfVisit = DateTime.Today,
                 PatronID = Constants.SafeConvertInt(patronIDTextBox.Text),
+                Winter =        winter.Checked,
+                Easter =        easter.Checked,
+                Halloween =     halloween.Checked,
+                School =        school.Checked,
+                Thanksgiving =  thanksgiving.Checked,
+                Christmas =     christmas.Checked,
                 VisitID = Constants.GetLatestVisitID(database)
             };
 
-            database.Visits.InsertOnSubmit(v);
-            database.SubmitChanges();
-            AddDataRow(v);
+            try
+            {
+                database.Visits.InsertOnSubmit(v);
+                database.SubmitChanges();
+                AddDataRow(v);
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when submitting new visit: " + error.Message);
+                Logger.Log(error.StackTrace);
+            }
 
             totalPoundsSpinner.Value = 0;
         }
@@ -134,7 +162,15 @@ namespace ExitApplication
 
 
 
-            database.SubmitChanges();
+            try
+            {
+                database.SubmitChanges();
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when deleting item: " + error.Message);
+                Logger.Log(error.StackTrace);
+            }
 
             if (string.IsNullOrEmpty(patronIDTextBox.Text))
                 LoadAllVisits();
@@ -150,13 +186,22 @@ namespace ExitApplication
 
             VisitList rows = database.Visits.Where(v => v.PatronID == id);
 
-            for (int i = 0; i < rows.Count(); ++i)
+            try
             {
-                AddDataRow(rows.AsEnumerable().ElementAt(i));
-            }
+                Logger.Log("Loading patron visits from ID: " + id);
+                for (int i = 0; i < rows.Count(); ++i)
+                {
+                    AddDataRow(rows.AsEnumerable().ElementAt(i));
+                }
 
-            if (String.IsNullOrEmpty(patronIDTextBox.Text.ToString()))
-                LoadAllVisits();
+                if (String.IsNullOrEmpty(patronIDTextBox.Text.ToString()))
+                    LoadAllVisits();
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when loading patron visits: " + error.Message);
+                Logger.Log(error.StackTrace);
+            }
         }
 
 
@@ -208,23 +253,31 @@ namespace ExitApplication
             if (patronSearchTextBox.Text.Length < 3)
                 return;
 
-            var predicate = PredicateBuilder.False<Patron>();
-            string q = "%" + patronSearchTextBox.Text.ToString() + "%";
-            predicate = predicate.Or(p => SqlMethods.Like(p.FirstName, q));
-            predicate = predicate.Or(p => SqlMethods.Like(p.MiddleInitial, q));
-            predicate = predicate.Or(p => SqlMethods.Like(p.LastName, q));
-
-            var query = database.Patrons.Where(predicate);
-
-
-            
-            if (query.Count() > 0)
+            try
             {
-                searchDataView.Rows.Clear();
-                foreach (var p in query)
-                searchDataView.Rows.Add(
-                    Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName),
-                    p.PatronID);
+                var predicate = PredicateBuilder.False<Patron>();
+                string q = "%" + patronSearchTextBox.Text.ToString() + "%";
+                predicate = predicate.Or(p => SqlMethods.Like(p.FirstName, q));
+                predicate = predicate.Or(p => SqlMethods.Like(p.MiddleInitial, q));
+                predicate = predicate.Or(p => SqlMethods.Like(p.LastName, q));
+
+                var query = database.Patrons.Where(predicate);
+
+
+
+                if (query.Count() > 0)
+                {
+                    searchDataView.Rows.Clear();
+                    foreach (var p in query)
+                        searchDataView.Rows.Add(
+                            Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName),
+                            p.PatronID);
+                }
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception occured in patron search box: " + error.Message);
+                Logger.Log(error.StackTrace);
             }
         }
     }

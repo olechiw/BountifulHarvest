@@ -24,9 +24,11 @@ namespace Common
         public static readonly Point datePoint = new Point(5, 970);
         public static readonly Point idPoint = new Point(5, 1020);
 
-        public const bool ISRELEASE = true;
+        public const bool ISRELEASE = false;
 
         public const string DateFormat = "MM/dd/yyyy";
+        public const string TimeFormat = "HH:mm:ss";
+        public const string DateTimeFormat = "MM-dd-yyyy-HH-mm-ss";
 
         public const int InvalidID = -1;
         public const int InvalidHour = 10;

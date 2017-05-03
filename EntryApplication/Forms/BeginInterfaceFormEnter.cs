@@ -40,13 +40,17 @@ namespace EntryApplication
         // Constructor
         public BeginInterfaceForm()
         {
+            Logger.Log("Setting Up Components");
             InitializeComponent();
 
             Constants.InitializeDataView(outputDataView);
 
+            Logger.Log("Setting Up SQL");
             InitializeSQL();
 
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
+
+            Logger.Log("Entry Application Running!");
         }
 
         // Setup the sql connection
@@ -59,7 +63,15 @@ namespace EntryApplication
 
             database = new BountifulHarvestContext(connString);
 
-            LoadAllPatrons();
+            try
+            {
+                LoadAllPatrons();
+            }
+            catch (Exception e)
+            {
+                Logger.Log("Failed to load all patrons: " + e.Message);
+                Logger.Log(e.StackTrace);
+            }
         }
 
 
@@ -68,9 +80,19 @@ namespace EntryApplication
         {
             outputDataView.Rows.Clear();
 
-            // Read all of the patrons into the data
-            foreach (Patron p in database.Patrons.Take(200))
-                AddDataRow(p);
+            try
+            {
+                // Read all of the patrons into the data
+                foreach (Patron p in database.Patrons.Take(200))
+                    AddDataRow(p);
+            }
+            catch (Exception e)
+            {
+                Logger.Log("Exception when loading all patrons: " + e.Message);
+                Logger.Log(e.StackTrace);
+                Constants.DatabaseFailed();
+                this.Close();
+            }
         }
 
 
@@ -145,7 +167,15 @@ namespace EntryApplication
                 predicate = predicate.Or(p => SqlMethods.Like(p.LastName, q));
                 predicate = predicate.Or(p => SqlMethods.Like(p.Family, q));
 
-                AddDataRows(database.Patrons.Where(predicate));
+                try
+                {
+                    AddDataRows(database.Patrons.Where(predicate));
+                }
+                catch (Exception e)
+                {
+                    Logger.Log("Exception when updating search results: " + e.Message);
+                    Logger.Log(e.StackTrace);
+                }
             }
         }
 
@@ -175,8 +205,16 @@ namespace EntryApplication
 
             p.PatronID = Constants.GetLatestPatronID(database);
 
-            database.Patrons.InsertOnSubmit(p);
-            database.SubmitChanges();
+            try
+            {
+                database.Patrons.InsertOnSubmit(p);
+                database.SubmitChanges();
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when adding a new patron: " + error.Message);
+                Logger.Log(error.StackTrace);
+            }
 
             if (form.Print())
                 Print(p);
@@ -197,27 +235,38 @@ namespace EntryApplication
             if (patronId == Constants.InvalidID)
             {
                 MessageBox.Show("Something went wrong, failed to turn the ID into an integer");
+                Logger.Log("Failed when turning an ID into integer.");
                 return;
             }
 
-            Patron p = ((database.Patrons.Where(patron => patron.PatronID == patronId)).First());
+            try
+            {
+                Patron p = ((database.Patrons.Where(patron => patron.PatronID == patronId)).First());
 
-            // Get new data passing the old data on
-            NewPatronForm form = new NewPatronForm(p);
-            form.ShowDialog();
+                // Get new data passing the old data on
+                NewPatronForm form = new NewPatronForm(p);
+                form.ShowDialog();
 
-            if (!form.Saved())
-                return;
+                if (!form.Saved())
+                    return;
 
-            Patron updatedP = form.GetResults();
-            Patron.Copy(p, updatedP);
+                Patron updatedP = form.GetResults();
+                Patron.Copy(p, updatedP);
 
-            p.Calculate();
+                p.Calculate();
 
-            database.SubmitChanges();
+                database.SubmitChanges();
 
-            if (form.Print())
-                Print(p);
+
+                if (form.Print())
+                    Print(p);
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when editing a patron: " + error.Message);
+                Logger.Log(error.StackTrace);
+            }
+
 
             UpdateResults();
         }
@@ -227,12 +276,20 @@ namespace EntryApplication
         // When the button to print a report is clicked
         private void printVisitButtonClick(object sender, EventArgs e)
         {
-            int selectedPatronID = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
+            try
+            {
+                int selectedPatronID = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
 
-            Patron selectedPatron = ((database.Patrons.Where(p => p.PatronID == selectedPatronID)).First());
+                Patron selectedPatron = ((database.Patrons.Where(p => p.PatronID == selectedPatronID)).First());
 
-            // Show the form
-            Print(selectedPatron);
+                // Show the form
+                Print(selectedPatron);
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when loading a patron to print: " + error.Message);
+                Logger.Log(error.StackTrace);
+            }
         }
 
         // When the button to view more information about a patron is clicked. This is ugly but I'm currently too lazy to fix it
@@ -240,15 +297,23 @@ namespace EntryApplication
         {
             DataGridViewRow row = outputDataView.SelectedRows[0];
 
-            int id = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
-            Patron p = ((database.Patrons.Where(patron => patron.PatronID == id).First()));
+            try
+            {
+                int id = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
+                Patron p = ((database.Patrons.Where(patron => patron.PatronID == id).First()));
 
-            VisitList visits = ((from v in database.Visits where v.PatronID == p.PatronID select v));
+                VisitList visits = ((from v in database.Visits where v.PatronID == p.PatronID select v));
 
 
-            MoreInfoForm form = new MoreInfoForm(p, visits);
+                MoreInfoForm form = new MoreInfoForm(p, visits);
 
-            form.ShowDialog();
+                form.ShowDialog();
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when getting more info about patron: " + error.Message);
+                Logger.Log(error.StackTrace);
+            }
         }
 
         private void clearButtonClick(object sender, EventArgs e)
@@ -272,24 +337,42 @@ namespace EntryApplication
                 selectedRow.Cells[(int)Constants.PatronIndexes.PatronID]
                 .Value.ToString());
 
-            Patron deletePatron = ((from p in database.Patrons where p.PatronID == id select p)).First();
+            try
+            {
+                Patron deletePatron = ((from p in database.Patrons where p.PatronID == id select p)).First();
 
 
-            database.Patrons.DeleteOnSubmit(deletePatron);
-            database.SubmitChanges();
+                database.Patrons.DeleteOnSubmit(deletePatron);
+                database.SubmitChanges();
 
-            outputDataView.Rows.Remove(selectedRow);
+                outputDataView.Rows.Remove(selectedRow);
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when deleting patron: " + error.Message);
+                Logger.Log(error.StackTrace);
+            }
         }
 
         private void initialVisitButtonClick(object sender, EventArgs e)
         {
             string lastVisitDate = "";
+            System.Linq.IOrderedQueryable<Visit> visits;
+            try
+            {
+                visits = ((from v in database.Visits
+                               where v.PatronID ==
+                               Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID)
+                               select v)).OrderBy(v => v.DateOfVisit);
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when loading patron's initial visits: " + error.Message);
+                Logger.Log(error.StackTrace);
 
-            var visits = ((from v in database.Visits
-                           where v.PatronID ==
-                           Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID)
-                           select v)).OrderBy(v => v.DateOfVisit);
-
+                return;
+            }
+            
 
             DateTime previousLastDate = new DateTime();
             if (visits.Count() > 0)
@@ -323,17 +406,25 @@ namespace EntryApplication
                     database.Visits.DeleteOnSubmit(v);
             }
 
-            Visit newVisit = new Visit
+            try
             {
-                DateOfVisit = lastDate,
-                TotalPounds = 0,
-                PatronID =
-                Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID),
-                VisitID = Constants.GetLatestVisitID(database)
-            };
+                Visit newVisit = new Visit
+                {
+                    DateOfVisit = lastDate,
+                    TotalPounds = 0,
+                    PatronID =
+                    Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID),
+                    VisitID = Constants.GetLatestVisitID(database)
+                };
 
-            database.Visits.InsertOnSubmit(newVisit);
-            database.SubmitChanges();
+                database.Visits.InsertOnSubmit(newVisit);
+                database.SubmitChanges();
+            }
+            catch (Exception error)
+            {
+                Logger.Log("Exception when changing initial visit: " + error.Message);
+                Logger.Log(error.StackTrace);
+            }
         }
     }
 }

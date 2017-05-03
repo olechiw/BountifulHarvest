@@ -41,6 +41,24 @@ namespace Common
         */
         #endregion
 
+        public static void SetupLogger(string[] args)
+        {
+            Common.Logger.CurrentDateTime = DateTime.Now.ToString(Common.Constants.DateTimeFormat);
+            if (args.Contains("--Debug") ||
+                args.Contains("-d") ||
+                args.Contains("--debug") ||
+                args.Contains("-D"))
+            {
+                Common.Logger.ArgumentDebug = true;
+                Common.Logger.Log("Launched with debugger mode!");
+            }
+        }
+
+        public static void DatabaseFailed()
+        {
+            MessageBox.Show("Error: Failed to load all patrons. Your DB connection is probably broken");
+            MessageBox.Show("Check the internet connection on both devices!");
+        }
         public static DateTime ConvertString2Date(string s)
         {
             if (!string.IsNullOrEmpty(s))

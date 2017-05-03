@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,11 +13,21 @@ namespace ExitApplication
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BeginInterfaceForm());
+            Common.Constants.SetupLogger(args);
+
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new BeginInterfaceForm());
+            }
+            catch (Exception e)
+            {
+                Logger.Log("Exception in general application: " + e.Message);
+                Logger.Log(e.StackTrace);
+            }
         }
     }
 }

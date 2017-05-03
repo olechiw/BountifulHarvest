@@ -387,7 +387,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "NewPatronForm";
-            this.Text = "Add a Patron";
+            this.Text = "Winter Coat";
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

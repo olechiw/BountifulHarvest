@@ -50,6 +50,13 @@
             this.patronID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronSearchTextBox = new System.Windows.Forms.TextBox();
             this.patronSearchLabel = new System.Windows.Forms.Label();
+            this.thanksgiving = new System.Windows.Forms.CheckBox();
+            this.winter = new System.Windows.Forms.CheckBox();
+            this.easter = new System.Windows.Forms.CheckBox();
+            this.school = new System.Windows.Forms.CheckBox();
+            this.christmas = new System.Windows.Forms.CheckBox();
+            this.halloween = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchDataView)).BeginInit();
@@ -69,7 +76,7 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteButton.Location = new System.Drawing.Point(809, 661);
+            this.deleteButton.Location = new System.Drawing.Point(800, 647);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(193, 72);
             this.deleteButton.TabIndex = 5;
@@ -95,7 +102,7 @@
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.outputDataView.Size = new System.Drawing.Size(754, 462);
+            this.outputDataView.Size = new System.Drawing.Size(754, 448);
             this.outputDataView.TabIndex = 6;
             this.outputDataView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.outputDataView_CellEndEdit);
             this.outputDataView.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.outputDataView_CellEndEdit);
@@ -197,7 +204,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 746);
+            this.label1.Location = new System.Drawing.Point(23, 722);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1226, 24);
             this.label1.TabIndex = 18;
@@ -245,15 +252,97 @@
             this.patronSearchLabel.TabIndex = 21;
             this.patronSearchLabel.Text = "Search Label";
             // 
+            // thanksgiving
+            // 
+            this.thanksgiving.AutoSize = true;
+            this.thanksgiving.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.thanksgiving.Location = new System.Drawing.Point(800, 581);
+            this.thanksgiving.Name = "thanksgiving";
+            this.thanksgiving.Size = new System.Drawing.Size(151, 29);
+            this.thanksgiving.TabIndex = 28;
+            this.thanksgiving.Text = "Thanksgiving";
+            this.thanksgiving.UseVisualStyleBackColor = true;
+            // 
+            // winter
+            // 
+            this.winter.AutoSize = true;
+            this.winter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.winter.Location = new System.Drawing.Point(800, 406);
+            this.winter.Name = "winter";
+            this.winter.Size = new System.Drawing.Size(138, 29);
+            this.winter.TabIndex = 32;
+            this.winter.Text = "Winter Coat";
+            this.winter.UseVisualStyleBackColor = true;
+            // 
+            // easter
+            // 
+            this.easter.AutoSize = true;
+            this.easter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.easter.Location = new System.Drawing.Point(800, 476);
+            this.easter.Name = "easter";
+            this.easter.Size = new System.Drawing.Size(90, 29);
+            this.easter.TabIndex = 27;
+            this.easter.Text = "Easter";
+            this.easter.UseVisualStyleBackColor = true;
+            // 
+            // school
+            // 
+            this.school.AutoSize = true;
+            this.school.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.school.Location = new System.Drawing.Point(800, 511);
+            this.school.Name = "school";
+            this.school.Size = new System.Drawing.Size(176, 29);
+            this.school.TabIndex = 30;
+            this.school.Text = "School Supplies";
+            this.school.UseVisualStyleBackColor = true;
+            // 
+            // christmas
+            // 
+            this.christmas.AutoSize = true;
+            this.christmas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.christmas.Location = new System.Drawing.Point(800, 441);
+            this.christmas.Name = "christmas";
+            this.christmas.Size = new System.Drawing.Size(122, 29);
+            this.christmas.TabIndex = 29;
+            this.christmas.Text = "Christmas";
+            this.christmas.UseVisualStyleBackColor = true;
+            // 
+            // halloween
+            // 
+            this.halloween.AutoSize = true;
+            this.halloween.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.halloween.Location = new System.Drawing.Point(800, 546);
+            this.halloween.Name = "halloween";
+            this.halloween.Size = new System.Drawing.Size(130, 29);
+            this.halloween.TabIndex = 31;
+            this.halloween.Text = "Halloween ";
+            this.halloween.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 759);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(329, 24);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "The same goes for the DATE of a Visit";
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1442, 851);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.halloween);
+            this.Controls.Add(this.winter);
+            this.Controls.Add(this.christmas);
+            this.Controls.Add(this.school);
             this.Controls.Add(this.patronSearchLabel);
             this.Controls.Add(this.patronSearchTextBox);
+            this.Controls.Add(this.easter);
             this.Controls.Add(this.searchDataView);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.thanksgiving);
             this.Controls.Add(this.patronIDTextBox);
             this.Controls.Add(this.patronIDLabel);
             this.Controls.Add(this.totalPoundsSpinner);
@@ -300,6 +389,13 @@
         private System.Windows.Forms.Label patronSearchLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronSearchName;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronID;
+        private System.Windows.Forms.CheckBox thanksgiving;
+        private System.Windows.Forms.CheckBox winter;
+        private System.Windows.Forms.CheckBox easter;
+        private System.Windows.Forms.CheckBox school;
+        private System.Windows.Forms.CheckBox christmas;
+        private System.Windows.Forms.CheckBox halloween;
+        private System.Windows.Forms.Label label2;
     }
 }
 
