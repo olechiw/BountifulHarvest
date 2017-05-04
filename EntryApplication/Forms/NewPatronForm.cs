@@ -24,7 +24,7 @@ namespace EntryApplication
 
         // A boolean used to see if the user actually saved the data
         private bool saved = false;
-        public bool Saved() => saved;
+        public bool Saved() => saved;   
 
         public bool Print() => printVisitCheckBox.Checked;
 
@@ -58,19 +58,21 @@ namespace EntryApplication
             InitializeComponentManual();
 
             // Load the existing patron information into the form.
-
             firstNameTextBox.Text = p.FirstName;
             lastNameTextBox.Text = p.LastName;
             middleInitialTextBox.Text = p.MiddleInitial;
+
 
             monthTextBox.Text = p.DateOfBirth.Month.ToString();
             dayTextBox.Text = p.DateOfBirth.Day.ToString();
             yearTextBox.Text = p.DateOfBirth.Year.ToString();
 
+
             if (p.Gender == "Male")
                 genderComboBox.SelectedItem = genderComboBox.Items[0];
             else if (p.Gender == "Female")
                 genderComboBox.SelectedItem = genderComboBox.Items[1];
+
 
             if (!string.IsNullOrEmpty(p.Address))
             {

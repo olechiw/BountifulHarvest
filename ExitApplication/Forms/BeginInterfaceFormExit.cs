@@ -27,6 +27,7 @@ namespace ExitApplication
 
         public BeginInterfaceForm()
         {
+            // Setup the form
             Logger.Log("Initialiing Components");
             InitializeComponent();
 
