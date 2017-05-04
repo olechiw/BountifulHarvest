@@ -30,6 +30,7 @@ namespace EntryApplication
 
         public NewPatronForm()
         {
+            Logger.Log("Creating new patron form");
             InitializeComponent();
 
             InitializeComponentManual();
@@ -37,6 +38,7 @@ namespace EntryApplication
 
         private void InitializeComponentManual()
         {
+            // Do the manual combobox updating
             patronFamilyGender.Items.Add("Male");
             patronFamilyGender.Items.Add("Female");
 
@@ -48,10 +50,14 @@ namespace EntryApplication
         // An alternate constructor for editing patrons
         public NewPatronForm(Patron p)
         {
+            Logger.Log("Creating new patron form");
+
             // Standard init
             InitializeComponent();
 
             InitializeComponentManual();
+
+            // Load the existing patron information into the form.
 
             firstNameTextBox.Text = p.FirstName;
             lastNameTextBox.Text = p.LastName;
@@ -87,7 +93,7 @@ namespace EntryApplication
 
         private void InitializeFamily(Patron p)
         {
-            // Load family
+            // Load family into the datagridview. Messy but it works.
             if (!string.IsNullOrEmpty(p.Family))
             {
                 string[] familyMembers = p.Family.Split(',');
@@ -214,6 +220,7 @@ namespace EntryApplication
 
         private void SaveFamily()
         {
+            // Load the information from the UI about the family. Also messy.
             string family = "", familyGenders = "", familyDates = "";
 
             foreach (DataGridViewRow row in relativesDataView.Rows)
@@ -234,6 +241,7 @@ namespace EntryApplication
 
                         + ',';
 
+                    // Load the dob information. I promise it works??? :(
                     string m = (row.Cells[2].Value == null) ? " " : row.Cells[2].Value.ToString();
                     string d = (row.Cells[3].Value == null) ? " " : row.Cells[3].Value.ToString();
                     string y = (row.Cells[4].Value == null) ? " " : row.Cells[4].Value.ToString();
@@ -260,6 +268,7 @@ namespace EntryApplication
 
         private void familyTextBoxKeyDown(object sender, KeyEventArgs e)
         {
+            // Locks out input so that you cant hit random shit in the family text box.
             Keys key = e.KeyCode;
 
             // Account for letters and numbers
@@ -275,6 +284,10 @@ namespace EntryApplication
                 return;
             else if (key == Keys.Space)
                 return;
+            else if (key == Keys.OemPeriod)
+                return;
+            else if (key == Keys.Decimal)
+                return;
 
             // Otherwise, nothing will happen
             else
@@ -283,6 +296,7 @@ namespace EntryApplication
 
         private void relativesDataViewEditing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
+            // Have to do this for every control, so its inside the datagridview editing handler.
             e.Control.KeyDown += familyTextBoxKeyDown;
         }
     }

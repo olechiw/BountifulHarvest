@@ -9,6 +9,9 @@ namespace Common
 {
     public static class Logger
     {
+        /*
+         * Functions for hiding and showing the console window, I like the live logging.
+         */
         [DllImport("kernel32.dll")]
         static extern IntPtr GetConsoleWindow();
 
@@ -23,6 +26,7 @@ namespace Common
 
         public static void Log(string text)
         {
+            // Console is shown by default, if this is release and it hasnt got my special argument, then hide it.
             if (Constants.ISRELEASE && !ArgumentDebug)
                 ShowWindow(GetConsoleWindow(), SW_HIDE);
 

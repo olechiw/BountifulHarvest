@@ -31,13 +31,6 @@
             this.patronVisitLabel = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.Button();
             this.outputDataView = new System.Windows.Forms.DataGridView();
-            this.firstnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.middleInitialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPoundsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateOfVisitColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.visitIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.poundsLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.dateLabel = new System.Windows.Forms.Label();
@@ -46,8 +39,6 @@
             this.patronIDTextBox = new Common.SafeTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.searchDataView = new System.Windows.Forms.DataGridView();
-            this.patronSearchName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronSearchTextBox = new System.Windows.Forms.TextBox();
             this.patronSearchLabel = new System.Windows.Forms.Label();
             this.thanksgiving = new System.Windows.Forms.CheckBox();
@@ -57,6 +48,16 @@
             this.christmas = new System.Windows.Forms.CheckBox();
             this.halloween = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.firstnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.middleInitialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPoundsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateOfVisitColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.extrasColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.visitIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronSearchName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchDataView)).BeginInit();
@@ -88,6 +89,7 @@
             // 
             this.outputDataView.AllowUserToAddRows = false;
             this.outputDataView.AllowUserToDeleteRows = false;
+            this.outputDataView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.outputDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.outputDataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.firstnameColumn,
@@ -95,6 +97,7 @@
             this.lastNameColumn,
             this.totalPoundsColumn,
             this.dateOfVisitColumn,
+            this.extrasColumn,
             this.visitIDColumn,
             this.patronIDColumn});
             this.outputDataView.GridColor = System.Drawing.SystemColors.MenuHighlight;
@@ -106,41 +109,6 @@
             this.outputDataView.TabIndex = 6;
             this.outputDataView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.outputDataView_CellEndEdit);
             this.outputDataView.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.outputDataView_CellEndEdit);
-            // 
-            // firstnameColumn
-            // 
-            this.firstnameColumn.HeaderText = "First Name";
-            this.firstnameColumn.Name = "firstnameColumn";
-            // 
-            // middleInitialColumn
-            // 
-            this.middleInitialColumn.HeaderText = "Middle Initial";
-            this.middleInitialColumn.Name = "middleInitialColumn";
-            // 
-            // lastNameColumn
-            // 
-            this.lastNameColumn.HeaderText = "Last Name";
-            this.lastNameColumn.Name = "lastNameColumn";
-            // 
-            // totalPoundsColumn
-            // 
-            this.totalPoundsColumn.HeaderText = "Total Lbs.";
-            this.totalPoundsColumn.Name = "totalPoundsColumn";
-            // 
-            // dateOfVisitColumn
-            // 
-            this.dateOfVisitColumn.HeaderText = "Date Of Visit";
-            this.dateOfVisitColumn.Name = "dateOfVisitColumn";
-            // 
-            // visitIDColumn
-            // 
-            this.visitIDColumn.HeaderText = "Visit ID";
-            this.visitIDColumn.Name = "visitIDColumn";
-            // 
-            // patronIDColumn
-            // 
-            this.patronIDColumn.HeaderText = "PatronID";
-            this.patronIDColumn.Name = "patronIDColumn";
             // 
             // poundsLabel
             // 
@@ -220,20 +188,9 @@
             this.searchDataView.Location = new System.Drawing.Point(1058, 193);
             this.searchDataView.Name = "searchDataView";
             this.searchDataView.RowTemplate.Height = 24;
+            this.searchDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.searchDataView.Size = new System.Drawing.Size(328, 442);
             this.searchDataView.TabIndex = 19;
-            // 
-            // patronSearchName
-            // 
-            this.patronSearchName.HeaderText = "Name";
-            this.patronSearchName.MinimumWidth = 200;
-            this.patronSearchName.Name = "patronSearchName";
-            this.patronSearchName.Width = 200;
-            // 
-            // patronID
-            // 
-            this.patronID.HeaderText = "ID";
-            this.patronID.Name = "patronID";
             // 
             // patronSearchTextBox
             // 
@@ -327,6 +284,74 @@
             this.label2.TabIndex = 33;
             this.label2.Text = "The same goes for the DATE of a Visit";
             // 
+            // firstnameColumn
+            // 
+            this.firstnameColumn.HeaderText = "First Name";
+            this.firstnameColumn.Name = "firstnameColumn";
+            this.firstnameColumn.ReadOnly = true;
+            this.firstnameColumn.Width = 119;
+            // 
+            // middleInitialColumn
+            // 
+            this.middleInitialColumn.HeaderText = "Middle Initial";
+            this.middleInitialColumn.Name = "middleInitialColumn";
+            this.middleInitialColumn.ReadOnly = true;
+            this.middleInitialColumn.Width = 130;
+            // 
+            // lastNameColumn
+            // 
+            this.lastNameColumn.HeaderText = "Last Name";
+            this.lastNameColumn.Name = "lastNameColumn";
+            this.lastNameColumn.ReadOnly = true;
+            this.lastNameColumn.Width = 118;
+            // 
+            // totalPoundsColumn
+            // 
+            this.totalPoundsColumn.HeaderText = "Total Lbs.";
+            this.totalPoundsColumn.Name = "totalPoundsColumn";
+            this.totalPoundsColumn.Width = 110;
+            // 
+            // dateOfVisitColumn
+            // 
+            this.dateOfVisitColumn.HeaderText = "Date Of Visit";
+            this.dateOfVisitColumn.Name = "dateOfVisitColumn";
+            this.dateOfVisitColumn.Width = 98;
+            // 
+            // extrasColumn
+            // 
+            this.extrasColumn.HeaderText = "Extras";
+            this.extrasColumn.Name = "extrasColumn";
+            this.extrasColumn.ReadOnly = true;
+            this.extrasColumn.Width = 91;
+            // 
+            // visitIDColumn
+            // 
+            this.visitIDColumn.HeaderText = "Visit ID";
+            this.visitIDColumn.Name = "visitIDColumn";
+            this.visitIDColumn.ReadOnly = true;
+            this.visitIDColumn.Width = 73;
+            // 
+            // patronIDColumn
+            // 
+            this.patronIDColumn.HeaderText = "PatronID";
+            this.patronIDColumn.Name = "patronIDColumn";
+            this.patronIDColumn.ReadOnly = true;
+            this.patronIDColumn.Width = 110;
+            // 
+            // patronSearchName
+            // 
+            this.patronSearchName.HeaderText = "Name";
+            this.patronSearchName.MinimumWidth = 200;
+            this.patronSearchName.Name = "patronSearchName";
+            this.patronSearchName.ReadOnly = true;
+            this.patronSearchName.Width = 200;
+            // 
+            // patronID
+            // 
+            this.patronID.HeaderText = "ID";
+            this.patronID.Name = "patronID";
+            this.patronID.ReadOnly = true;
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -373,22 +398,13 @@
         private System.Windows.Forms.Label poundsLabel;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Label dateLabel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn firstnameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn middleInitialColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lastNameColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalPoundsColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateOfVisitColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn visitIDColumn;
         private System.Windows.Forms.NumericUpDown totalPoundsSpinner;
         private System.Windows.Forms.Label patronIDLabel;
         private Common.SafeTextBox patronIDTextBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView searchDataView;
         private System.Windows.Forms.TextBox patronSearchTextBox;
         private System.Windows.Forms.Label patronSearchLabel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patronSearchName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patronID;
         private System.Windows.Forms.CheckBox thanksgiving;
         private System.Windows.Forms.CheckBox winter;
         private System.Windows.Forms.CheckBox easter;
@@ -396,6 +412,16 @@
         private System.Windows.Forms.CheckBox christmas;
         private System.Windows.Forms.CheckBox halloween;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn firstnameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn middleInitialColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalPoundsColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateOfVisitColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn extrasColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn visitIDColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronSearchName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn patronID;
     }
 }
 

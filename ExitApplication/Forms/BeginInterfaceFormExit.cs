@@ -60,8 +60,6 @@ namespace ExitApplication
             // Get all of the visits for the month
             outputDataView.Rows.Clear();
 
-
-
             try
             {
                 VisitList monthVisits = ((from v in database.Visits
@@ -93,22 +91,47 @@ namespace ExitApplication
 
             try
             {
+                string extras = "";
+                string delim = ", ";
+
+                // Load the output to show which extras were selected. A wee bit hacky.
+                if (v.Christmas)
+                    extras += "Christmas" + delim;
+                if (v.Easter)
+                    extras += "Easter" + delim;
+                if (v.Winter)
+                    extras += "Winter" + delim;
+                if (v.School)
+                    extras += "School" + delim;
+                if (v.Thanksgiving)
+                    extras += "Thanksgiving" + delim;
+                if (v.Halloween)
+                    extras += "Halloween" + delim;
+
+                if (extras.Length > 0)
+                    extras = extras.Remove(extras.Length - 2);
+
                 outputDataView.Rows.Add(
                     p.FirstName,
                     p.MiddleInitial,
                     p.LastName,
                     v.TotalPounds,
                     Constants.ConvertDateTime(v.DateOfVisit),
+                    extras,
                     v.VisitID,
                     p.PatronID);
             }
-            catch (Exception)
+            catch (Exception error)
             {
+                // Let the user know. This should probably never happen but better save than sorry
                 MessageBox.Show("Failed to add row");
+
+                Logger.Log("Exception when adding row: " + error.Message);
+                Logger.Log(error.StackTrace);
             }
         }
 
-        // Extra constructor. Currently unused
+        // Extra constructor. Currently unused, probably never will be at this point.
         private void BeginInterface_Load(object sender, EventArgs e)
         {
 
@@ -123,6 +146,7 @@ namespace ExitApplication
             if (rows.Count()==0)
                 return;
 
+            // Get all the info
             Visit v = new Visit
             {
                 TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
@@ -137,6 +161,15 @@ namespace ExitApplication
                 VisitID = Constants.GetLatestVisitID(database)
             };
 
+            // Uncheck extras
+            christmas.Checked = false;
+            winter.Checked = false;
+            easter.Checked = false;
+            halloween.Checked = false;
+            school.Checked = false;
+            thanksgiving.Checked = false;
+
+            // Submit
             try
             {
                 database.Visits.InsertOnSubmit(v);
@@ -184,6 +217,7 @@ namespace ExitApplication
 
             int id = Constants.SafeConvertInt(patronIDTextBox.Text.ToString());
 
+            // Update the visits output with the new patronID
             VisitList rows = database.Visits.Where(v => v.PatronID == id);
 
             try
@@ -207,12 +241,13 @@ namespace ExitApplication
 
         private void outputDataView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            // Update the patron when the cells are done editing, to update totalpounds and dateofvisit.
             int poundsColumn = (int)Constants.VisitIndexes.TotalPounds;
             int dateColumn = (int)Constants.VisitIndexes.DateOfVisit;
             int visitIDColumn = (int)Constants.VisitIndexes.VisitID;
             Visit visit;
 
-
+           
             var row = outputDataView.Rows[e.RowIndex];
 
             int visitID = Constants.SafeConvertInt(row.Cells[visitIDColumn].Value.ToString());
@@ -250,6 +285,7 @@ namespace ExitApplication
 
         private void patronSearchTextBoxChanged(object sender, EventArgs e)
         {
+            // Search the database for a patron LIKE the search
             if (patronSearchTextBox.Text.Length < 3)
                 return;
 
