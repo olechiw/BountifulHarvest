@@ -39,12 +39,16 @@ namespace Common
         public DateTime DateOfInitialVisit;
         [Column]
         public bool VisitsEveryWeek;
+        [Column]
+        public bool Veteran;
         [Column(IsPrimaryKey = true)]
-        public int PatronID;
+        public int PatronId;
         [Column]
         public int Males;
         [Column]
         public int Females;
+        [Column]
+        public int Toddler;
         [Column]
         public int Young;
         [Column]
@@ -68,13 +72,13 @@ namespace Common
         // Copy the class
         public static void Copy(Patron n, Patron o)
         {
-            Type typeN = n.GetType();
+            var typeN = n.GetType();
             PropertyInfo[] N = typeN.GetProperties();
 
-            Type typeO = o.GetType();
+            var typeO = o.GetType();
             PropertyInfo[] O = typeO.GetProperties();
 
-            for (int i = 0; i < N.Length; ++i)
+            for (var i = 0; i < N.Length; ++i)
                 N[i] = O[i];
 
             /*
@@ -98,7 +102,7 @@ namespace Common
 
             // Genders
             int males = 0, females = 0;
-            foreach (var s in FamilyGenders.Split(','))
+            foreach (string s in FamilyGenders.Split(','))
             {
                 if (s == "Male")
                     males++;
@@ -115,12 +119,12 @@ namespace Common
 
 
             // Age groups
-            int y = 0, m = 0, o = 0;
+            int t = 0, y = 0, m = 0, o = 0;
 
-            foreach (var s in FamilyDateOfBirths.Split(','))
+            foreach (string s in FamilyDateOfBirths.Split(','))
             {
 
-                var d = s.Split('/');
+                string[] d = s.Split('/');
                 if (d.Length==3)
                 {
                     int year = Constants.SafeConvertInt(d[2].ToString());
@@ -129,7 +133,9 @@ namespace Common
 
 
                     int age = DateTime.Today.Year - year;
-                    if (age <= 17)
+                    if (age <= 5)
+                        t++;
+                    else if (age <= 17)
                         y++;
                     else if (age <= 59)
                         m++;
@@ -140,13 +146,16 @@ namespace Common
 
             int Age = DateTime.Today.Year - DateOfBirth.Year;
 
-            if (Age <= 17)
+            if (Age <= 5)
+                t++;
+            else if (Age <= 17)
                 y++;
             else if (Age <= 59)
                 m++;
             else
                 o++;
 
+            Toddler = t;
             Old = o;
             Medium = m;
             Young = y;

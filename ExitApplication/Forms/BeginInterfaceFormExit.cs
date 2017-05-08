@@ -26,7 +26,7 @@ namespace ExitApplication
         private BountifulHarvestContext database;
 
         public BeginInterfaceForm()
-        {
+        { 
             // Setup the form
             Logger.Log("Initialiing Components");
             InitializeComponent();
@@ -82,7 +82,7 @@ namespace ExitApplication
         // Add a row to the output
         private void AddDataRow(Visit v)
         {
-            var query = ((from patron in database.Patrons where patron.PatronID == v.PatronID select patron));
+            var query = ((from patron in database.Patrons where patron.PatronId == v.PatronID select patron));
 
             Patron p;
             if (query.Count() == 1)
@@ -120,7 +120,7 @@ namespace ExitApplication
                     Constants.ConvertDateTime(v.DateOfVisit),
                     extras,
                     v.VisitID,
-                    p.PatronID);
+                    p.PatronId);
             }
             catch (Exception error)
             {
@@ -143,7 +143,7 @@ namespace ExitApplication
             if (string.IsNullOrEmpty(patronIDTextBox.Text))
                 return;
 
-            PatronList rows = (database.Patrons.Where(p => p.PatronID == Constants.SafeConvertInt(patronIDTextBox.Text)));
+            PatronList rows = (database.Patrons.Where(p => p.PatronId == Constants.SafeConvertInt(patronIDTextBox.Text)));
             if (rows.Count()==0)
                 return;
 
@@ -308,7 +308,7 @@ namespace ExitApplication
                     foreach (var p in query)
                         searchDataView.Rows.Add(
                             Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName),
-                            p.PatronID);
+                            p.PatronId);
                 }
             }
             catch (Exception error)

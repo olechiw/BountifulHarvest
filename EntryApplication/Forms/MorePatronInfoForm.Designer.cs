@@ -193,7 +193,7 @@
             // 
             // patronIDColumn
             // 
-            this.patronIDColumn.HeaderText = "PatronID";
+            this.patronIDColumn.HeaderText = "PatronId";
             this.patronIDColumn.Name = "patronIDColumn";
             // 
             // initialVisitDate

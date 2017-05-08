@@ -108,7 +108,7 @@ namespace EntryApplication
                 p.DateOfBirth.ToString(Constants.DateFormat),
                 DateTime.Today.Year - p.DateOfBirth.Year,
                 p.Family,
-                p.PatronID);
+                p.PatronId);
         }
 
         // Add a list of rows
@@ -195,15 +195,15 @@ namespace EntryApplication
             p.Calculate();
 
             /*
-            var lastPatronQuery = database.Patrons.OrderByDescending(patron => patron.PatronID).Take(1);
+            var lastPatronQuery = database.Patrons.OrderByDescending(patron => patron.PatronId).Take(1);
 
             if (lastPatronQuery.Count() == 1)
-                p.PatronID = lastPatronQuery.First().PatronID + 1;
+                p.PatronId = lastPatronQuery.First().PatronId + 1;
             else
-                p.PatronID = 1;
+                p.PatronId = 1;
                 */
 
-            p.PatronID = Constants.GetLatestPatronID(database);
+            p.PatronId = Constants.GetLatestPatronID(database);
 
             try
             {
@@ -241,7 +241,7 @@ namespace EntryApplication
 
             try
             {
-                Patron p = ((database.Patrons.Where(patron => patron.PatronID == patronId)).First());
+                Patron p = ((database.Patrons.Where(patron => patron.PatronId == patronId)).First());
 
                 // Get new data passing the old data on
                 NewPatronForm form = new NewPatronForm(p);
@@ -280,7 +280,7 @@ namespace EntryApplication
             {
                 int selectedPatronID = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
 
-                Patron selectedPatron = ((database.Patrons.Where(p => p.PatronID == selectedPatronID)).First());
+                Patron selectedPatron = ((database.Patrons.Where(p => p.PatronId == selectedPatronID)).First());
 
                 // Show the form
                 Print(selectedPatron);
@@ -300,9 +300,9 @@ namespace EntryApplication
             try
             {
                 int id = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
-                Patron p = ((database.Patrons.Where(patron => patron.PatronID == id).First()));
+                Patron p = ((database.Patrons.Where(patron => patron.PatronId == id).First()));
 
-                VisitList visits = ((from v in database.Visits where v.PatronID == p.PatronID select v));
+                VisitList visits = ((from v in database.Visits where v.PatronID == p.PatronId select v));
 
 
                 MoreInfoForm form = new MoreInfoForm(p, visits);
@@ -326,8 +326,8 @@ namespace EntryApplication
 
         private void Print(Patron p)
         {
-            PrintHandler printer = new PrintHandler();
-            printer.Print(p);
+            PrintForm form = new PrintForm(p);
+            form.ShowDialog();
         }
 
         private void deletePatronButtonClick(object sender, EventArgs e)
@@ -339,7 +339,7 @@ namespace EntryApplication
 
             try
             {
-                Patron deletePatron = ((from p in database.Patrons where p.PatronID == id select p)).First();
+                Patron deletePatron = ((from p in database.Patrons where p.PatronId == id select p)).First();
 
 
                 database.Patrons.DeleteOnSubmit(deletePatron);

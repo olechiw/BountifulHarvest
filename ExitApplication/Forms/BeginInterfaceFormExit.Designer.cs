@@ -31,6 +31,14 @@
             this.patronVisitLabel = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.Button();
             this.outputDataView = new System.Windows.Forms.DataGridView();
+            this.firstnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.middleInitialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPoundsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateOfVisitColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.extrasColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.visitIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.poundsLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.dateLabel = new System.Windows.Forms.Label();
@@ -39,6 +47,8 @@
             this.patronIDTextBox = new Common.SafeTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.searchDataView = new System.Windows.Forms.DataGridView();
+            this.patronSearchName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patronID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronSearchTextBox = new System.Windows.Forms.TextBox();
             this.patronSearchLabel = new System.Windows.Forms.Label();
             this.thanksgiving = new System.Windows.Forms.CheckBox();
@@ -48,16 +58,6 @@
             this.christmas = new System.Windows.Forms.CheckBox();
             this.halloween = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.firstnameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.middleInitialColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPoundsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateOfVisitColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.extrasColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.visitIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronSearchName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patronID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchDataView)).BeginInit();
@@ -77,7 +77,7 @@
             // deleteButton
             // 
             this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteButton.Location = new System.Drawing.Point(800, 647);
+            this.deleteButton.Location = new System.Drawing.Point(800, 569);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(193, 72);
             this.deleteButton.TabIndex = 5;
@@ -101,7 +101,7 @@
             this.visitIDColumn,
             this.patronIDColumn});
             this.outputDataView.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.outputDataView.Location = new System.Drawing.Point(27, 271);
+            this.outputDataView.Location = new System.Drawing.Point(27, 193);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -110,11 +110,65 @@
             this.outputDataView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.outputDataView_CellEndEdit);
             this.outputDataView.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.outputDataView_CellEndEdit);
             // 
+            // firstnameColumn
+            // 
+            this.firstnameColumn.HeaderText = "First Name";
+            this.firstnameColumn.Name = "firstnameColumn";
+            this.firstnameColumn.ReadOnly = true;
+            this.firstnameColumn.Width = 130;
+            // 
+            // middleInitialColumn
+            // 
+            this.middleInitialColumn.HeaderText = "Middle Initial";
+            this.middleInitialColumn.Name = "middleInitialColumn";
+            this.middleInitialColumn.ReadOnly = true;
+            this.middleInitialColumn.Width = 142;
+            // 
+            // lastNameColumn
+            // 
+            this.lastNameColumn.HeaderText = "Last Name";
+            this.lastNameColumn.Name = "lastNameColumn";
+            this.lastNameColumn.ReadOnly = true;
+            this.lastNameColumn.Width = 128;
+            // 
+            // totalPoundsColumn
+            // 
+            this.totalPoundsColumn.HeaderText = "Total Lbs.";
+            this.totalPoundsColumn.Name = "totalPoundsColumn";
+            this.totalPoundsColumn.Width = 120;
+            // 
+            // dateOfVisitColumn
+            // 
+            this.dateOfVisitColumn.HeaderText = "Date Of Visit";
+            this.dateOfVisitColumn.Name = "dateOfVisitColumn";
+            this.dateOfVisitColumn.Width = 140;
+            // 
+            // extrasColumn
+            // 
+            this.extrasColumn.HeaderText = "Extras";
+            this.extrasColumn.Name = "extrasColumn";
+            this.extrasColumn.ReadOnly = true;
+            this.extrasColumn.Width = 91;
+            // 
+            // visitIDColumn
+            // 
+            this.visitIDColumn.HeaderText = "Visit ID";
+            this.visitIDColumn.Name = "visitIDColumn";
+            this.visitIDColumn.ReadOnly = true;
+            this.visitIDColumn.Width = 95;
+            // 
+            // patronIDColumn
+            // 
+            this.patronIDColumn.HeaderText = "PatronId";
+            this.patronIDColumn.Name = "patronIDColumn";
+            this.patronIDColumn.ReadOnly = true;
+            this.patronIDColumn.Width = 110;
+            // 
             // poundsLabel
             // 
             this.poundsLabel.AutoSize = true;
             this.poundsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.poundsLabel.Location = new System.Drawing.Point(252, 125);
+            this.poundsLabel.Location = new System.Drawing.Point(252, 90);
             this.poundsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.poundsLabel.Name = "poundsLabel";
             this.poundsLabel.Size = new System.Drawing.Size(140, 32);
@@ -124,7 +178,7 @@
             // submitButton
             // 
             this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(800, 271);
+            this.submitButton.Location = new System.Drawing.Point(800, 193);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(193, 72);
             this.submitButton.TabIndex = 11;
@@ -136,7 +190,7 @@
             // 
             this.dateLabel.AutoSize = true;
             this.dateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateLabel.Location = new System.Drawing.Point(467, 125);
+            this.dateLabel.Location = new System.Drawing.Point(465, 90);
             this.dateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dateLabel.Name = "dateLabel";
             this.dateLabel.Size = new System.Drawing.Size(90, 32);
@@ -145,7 +199,7 @@
             // 
             // totalPoundsSpinner
             // 
-            this.totalPoundsSpinner.Location = new System.Drawing.Point(258, 188);
+            this.totalPoundsSpinner.Location = new System.Drawing.Point(258, 126);
             this.totalPoundsSpinner.Name = "totalPoundsSpinner";
             this.totalPoundsSpinner.Size = new System.Drawing.Size(134, 28);
             this.totalPoundsSpinner.TabIndex = 3;
@@ -154,7 +208,7 @@
             // 
             this.patronIDLabel.AutoSize = true;
             this.patronIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.patronIDLabel.Location = new System.Drawing.Point(59, 125);
+            this.patronIDLabel.Location = new System.Drawing.Point(59, 90);
             this.patronIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.patronIDLabel.Name = "patronIDLabel";
             this.patronIDLabel.Size = new System.Drawing.Size(133, 32);
@@ -163,7 +217,7 @@
             // 
             // patronIDTextBox
             // 
-            this.patronIDTextBox.Location = new System.Drawing.Point(65, 188);
+            this.patronIDTextBox.Location = new System.Drawing.Point(65, 126);
             this.patronIDTextBox.Name = "patronIDTextBox";
             this.patronIDTextBox.Size = new System.Drawing.Size(127, 28);
             this.patronIDTextBox.TabIndex = 17;
@@ -172,7 +226,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 722);
+            this.label1.Location = new System.Drawing.Point(23, 644);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1226, 24);
             this.label1.TabIndex = 18;
@@ -192,9 +246,23 @@
             this.searchDataView.Size = new System.Drawing.Size(328, 442);
             this.searchDataView.TabIndex = 19;
             // 
+            // patronSearchName
+            // 
+            this.patronSearchName.HeaderText = "Name";
+            this.patronSearchName.MinimumWidth = 200;
+            this.patronSearchName.Name = "patronSearchName";
+            this.patronSearchName.ReadOnly = true;
+            this.patronSearchName.Width = 200;
+            // 
+            // patronID
+            // 
+            this.patronID.HeaderText = "ID";
+            this.patronID.Name = "patronID";
+            this.patronID.ReadOnly = true;
+            // 
             // patronSearchTextBox
             // 
-            this.patronSearchTextBox.Location = new System.Drawing.Point(1058, 125);
+            this.patronSearchTextBox.Location = new System.Drawing.Point(1058, 126);
             this.patronSearchTextBox.Name = "patronSearchTextBox";
             this.patronSearchTextBox.Size = new System.Drawing.Size(328, 28);
             this.patronSearchTextBox.TabIndex = 20;
@@ -213,7 +281,7 @@
             // 
             this.thanksgiving.AutoSize = true;
             this.thanksgiving.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.thanksgiving.Location = new System.Drawing.Point(800, 581);
+            this.thanksgiving.Location = new System.Drawing.Point(800, 460);
             this.thanksgiving.Name = "thanksgiving";
             this.thanksgiving.Size = new System.Drawing.Size(151, 29);
             this.thanksgiving.TabIndex = 28;
@@ -224,7 +292,7 @@
             // 
             this.winter.AutoSize = true;
             this.winter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.winter.Location = new System.Drawing.Point(800, 406);
+            this.winter.Location = new System.Drawing.Point(800, 294);
             this.winter.Name = "winter";
             this.winter.Size = new System.Drawing.Size(138, 29);
             this.winter.TabIndex = 32;
@@ -235,7 +303,7 @@
             // 
             this.easter.AutoSize = true;
             this.easter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.easter.Location = new System.Drawing.Point(800, 476);
+            this.easter.Location = new System.Drawing.Point(800, 355);
             this.easter.Name = "easter";
             this.easter.Size = new System.Drawing.Size(90, 29);
             this.easter.TabIndex = 27;
@@ -246,7 +314,7 @@
             // 
             this.school.AutoSize = true;
             this.school.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.school.Location = new System.Drawing.Point(800, 511);
+            this.school.Location = new System.Drawing.Point(800, 390);
             this.school.Name = "school";
             this.school.Size = new System.Drawing.Size(176, 29);
             this.school.TabIndex = 30;
@@ -257,7 +325,7 @@
             // 
             this.christmas.AutoSize = true;
             this.christmas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.christmas.Location = new System.Drawing.Point(800, 441);
+            this.christmas.Location = new System.Drawing.Point(800, 329);
             this.christmas.Name = "christmas";
             this.christmas.Size = new System.Drawing.Size(122, 29);
             this.christmas.TabIndex = 29;
@@ -268,7 +336,7 @@
             // 
             this.halloween.AutoSize = true;
             this.halloween.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.halloween.Location = new System.Drawing.Point(800, 546);
+            this.halloween.Location = new System.Drawing.Point(800, 425);
             this.halloween.Name = "halloween";
             this.halloween.Size = new System.Drawing.Size(130, 29);
             this.halloween.TabIndex = 31;
@@ -278,85 +346,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 759);
+            this.label2.Location = new System.Drawing.Point(23, 668);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(329, 24);
             this.label2.TabIndex = 33;
             this.label2.Text = "The same goes for the DATE of a Visit";
             // 
-            // firstnameColumn
-            // 
-            this.firstnameColumn.HeaderText = "First Name";
-            this.firstnameColumn.Name = "firstnameColumn";
-            this.firstnameColumn.ReadOnly = true;
-            this.firstnameColumn.Width = 119;
-            // 
-            // middleInitialColumn
-            // 
-            this.middleInitialColumn.HeaderText = "Middle Initial";
-            this.middleInitialColumn.Name = "middleInitialColumn";
-            this.middleInitialColumn.ReadOnly = true;
-            this.middleInitialColumn.Width = 130;
-            // 
-            // lastNameColumn
-            // 
-            this.lastNameColumn.HeaderText = "Last Name";
-            this.lastNameColumn.Name = "lastNameColumn";
-            this.lastNameColumn.ReadOnly = true;
-            this.lastNameColumn.Width = 118;
-            // 
-            // totalPoundsColumn
-            // 
-            this.totalPoundsColumn.HeaderText = "Total Lbs.";
-            this.totalPoundsColumn.Name = "totalPoundsColumn";
-            this.totalPoundsColumn.Width = 110;
-            // 
-            // dateOfVisitColumn
-            // 
-            this.dateOfVisitColumn.HeaderText = "Date Of Visit";
-            this.dateOfVisitColumn.Name = "dateOfVisitColumn";
-            this.dateOfVisitColumn.Width = 98;
-            // 
-            // extrasColumn
-            // 
-            this.extrasColumn.HeaderText = "Extras";
-            this.extrasColumn.Name = "extrasColumn";
-            this.extrasColumn.ReadOnly = true;
-            this.extrasColumn.Width = 91;
-            // 
-            // visitIDColumn
-            // 
-            this.visitIDColumn.HeaderText = "Visit ID";
-            this.visitIDColumn.Name = "visitIDColumn";
-            this.visitIDColumn.ReadOnly = true;
-            this.visitIDColumn.Width = 73;
-            // 
-            // patronIDColumn
-            // 
-            this.patronIDColumn.HeaderText = "PatronID";
-            this.patronIDColumn.Name = "patronIDColumn";
-            this.patronIDColumn.ReadOnly = true;
-            this.patronIDColumn.Width = 110;
-            // 
-            // patronSearchName
-            // 
-            this.patronSearchName.HeaderText = "Name";
-            this.patronSearchName.MinimumWidth = 200;
-            this.patronSearchName.Name = "patronSearchName";
-            this.patronSearchName.ReadOnly = true;
-            this.patronSearchName.Width = 200;
-            // 
-            // patronID
-            // 
-            this.patronID.HeaderText = "ID";
-            this.patronID.Name = "patronID";
-            this.patronID.ReadOnly = true;
-            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1442, 851);
+            this.ClientSize = new System.Drawing.Size(1442, 722);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.halloween);
             this.Controls.Add(this.winter);

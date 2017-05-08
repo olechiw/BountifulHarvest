@@ -84,7 +84,6 @@ namespace Common
 
         public static int SafeConvertInt(string s)
         {
-            int i = 0;
             try
             {
                 return Convert.ToInt32(s);
@@ -174,8 +173,8 @@ namespace Common
         {
             int id = 0;
 
-            var query = ((from p in databaseContext.Patrons select p).OrderByDescending(patron => patron.PatronID));
-            id = ((query.Count() == 0) ? 1 : query.First().PatronID + 1);
+            var query = ((from p in databaseContext.Patrons select p).OrderByDescending(patron => patron.PatronId));
+            id = ((query.Count() == 0) ? 1 : query.First().PatronId + 1);
 
             return id;
         }

@@ -1,28 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Collections;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.Sql;
-using System.Data.SqlClient;
-using System.Data.SqlTypes;
 
 using Common;
 
 using VisitList = System.Linq.IQueryable<Common.Visit>;
+using PatronList = System.Linq.IQueryable<Common.Patron>;
+using System.Drawing.Printing;
 
-namespace Common
+namespace EntryApplication
 {
-    public class PrintHandler
+    public partial class PrintForm : Common.DialogForm
     {
+        private Visit mVisit;
+        public PrintForm(Patron p)
+        {
+            this.patron = p;
+            mVisit = new Visit();
+            InitializeComponent();
+            refresh();
+        }
 
         // Given arguments of coordinates, graphics, and text, draws a simple string
-        private void DrawGenericText(Graphics g, string text, int x, int y) =>
+        private static void DrawGenericText(Graphics g, string text, int x, int y) =>
             g.DrawString(text, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), new SolidBrush(Color.Black), x, y);
         // Figure out the size of the family and allowed limits
         private void CalculateValues()
@@ -45,19 +51,20 @@ namespace Common
         /*
          * PRINTING THINGS
          */
-        int limitsAllowed;
-        int numberInFamily;
-        Patron patron;
+        private int limitsAllowed;
+        private int numberInFamily;
+        private Patron patron;
 
+        private delegate void DrawDel(Point p);
 
         // When the screenPrint document is about to be printed, draw what we want
-        private void screenPrintPrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void ScreenPrintPrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             // Create the full name of the person
             string name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
 
-            // The patrin id
-            string id = "Patron #" + patron.PatronID.ToString();
+            // The patron id
+            string id = "Patron #" + patron.PatronId.ToString();
 
             Graphics g = e.Graphics;
             //
@@ -77,37 +84,51 @@ namespace Common
             DrawGenericText(g, numberInFamily.ToString(), Constants.familyPoint.X, Constants.familyPoint.Y);
             DrawGenericText(g, Constants.ConvertDateTime(DateTime.Today), Constants.datePoint.X, Constants.datePoint.Y);
             DrawGenericText(g, id, Constants.idPoint.X, Constants.idPoint.Y);
+
+            DrawDel drawExtra = p => DrawGenericText(g, "X", p.X, p.Y);
+
+            if (mVisit.Easter) { drawExtra(Constants.easterPoint); }
+            if (mVisit.Halloween) { drawExtra(Constants.halloweenPoint); }
+            if (mVisit.Christmas) { drawExtra(Constants.christmasPoint); }
+            if (mVisit.Thanksgiving) { drawExtra(Constants.thanksgivingPoint); }
+            if (mVisit.Winter) { drawExtra(Constants.winterPoint); }
+            if (mVisit.School) { drawExtra(Constants.schoolPoint); }
         }
-        private System.Drawing.Printing.PrintDocument print = new System.Drawing.Printing.PrintDocument();
 
         public void Print(Patron p)
         {
+            Logger.Log(
+                "Printing patron: " + 
+                Constants.ConjuncName(
+                    p.FirstName,
+                    p.MiddleInitial,
+                    p.LastName));
 
-            print.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(screenPrintPrintPage);
+            var print = new System.Drawing.Printing.PrintDocument();
+
+            print.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(ScreenPrintPrintPage);
 
             patron = p;
             CalculateValues();
 
-            BountifulHarvestContext database = new BountifulHarvestContext((Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString);
+            var database = new BountifulHarvestContext((Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString);
 
-            var lastVisit = ((
+            VisitList lastVisit = ((
                 from v in database.Visits
-                where (v.PatronID == p.PatronID)
+                where (v.PatronID == p.PatronId)
                 select v
                 )).OrderByDescending(v => v.VisitID)
                 .Take(1);
-            DateTime dateOfLastVisit;
-            if (lastVisit.Count() > 0)
-                dateOfLastVisit = lastVisit.First().DateOfVisit;
-            else
-                dateOfLastVisit = new DateTime();
+
+            var dateOfLastVisit =
+                (lastVisit.Any()) ? lastVisit.First().DateOfVisit : new DateTime();
 
 
             if ((dateOfLastVisit.Month == DateTime.Today.Month) && (!patron.VisitsEveryWeek))
             {
-                string previousVisits = "";
+                var previousVisits = "";
 
-                VisitList all = ((from v in database.Visits where v.PatronID == p.PatronID select v));
+                VisitList all = ((from v in database.Visits where v.PatronID == p.PatronId select v));
 
                 // Latest two visits
                 VisitList top = all.OrderByDescending(v => v.PatronID).Take(2);
@@ -145,12 +166,42 @@ namespace Common
                 }
             }
 
-            using (PrintPreviewDialog pD = new PrintPreviewDialog())
+            using (PrintDialog pD = new PrintDialog())
             {
                 pD.Document = print;
-                DialogResult result = pD.ShowDialog();
+                if (pD.ShowDialog() == DialogResult.OK)
+                {
+                    print.Print();
+                    this.Close();
+                }
             }
-            return;
+        }
+
+        private void checkChanged(object sender, EventArgs e)
+        {
+            mVisit = new Visit
+            {
+                Halloween = halloween.Checked,
+                Thanksgiving = thanksgiving.Checked,
+                School = school.Checked,
+                Winter = winter.Checked,
+                Christmas = christmas.Checked,
+                Easter = easter.Checked
+            };
+            refresh();
+        }
+
+        private void refresh()
+        {
+            PrintDocument document = new PrintDocument();
+            document.PrintPage += ScreenPrintPrintPage;
+            printPreviewControl.Document = document;
+            printPreviewControl.Refresh();
+        }
+
+        private void printButtonClick(object sender, EventArgs e)
+        {
+            Print(patron);
         }
     }
 }

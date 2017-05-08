@@ -24,7 +24,16 @@ namespace Common
         public static readonly Point datePoint = new Point(5, 970);
         public static readonly Point idPoint = new Point(5, 1020);
 
-        public const bool ISRELEASE = false;
+        public static readonly Point easterPoint = new Point(690, 690);
+        public static readonly Point thanksgivingPoint = new Point(735, 725);
+        public static readonly Point winterPoint = new Point(688, 807);
+        public static readonly Point schoolPoint = new Point(785, 830);
+        public static readonly Point halloweenPoint = new Point(686, 857);
+        public static readonly Point christmasPoint = new Point(723, 764);
+
+
+
+        public const bool ISRELEASE = true;
 
         public const string DateFormat = "MM/dd/yyyy";
         public const string TimeFormat = "HH:mm:ss";

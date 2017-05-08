@@ -61,6 +61,7 @@
             this.genderComboBox = new System.Windows.Forms.ComboBox();
             this.everyWeekCheckBox = new System.Windows.Forms.CheckBox();
             this.printVisitCheckBox = new System.Windows.Forms.CheckBox();
+            this.veteranCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -187,8 +188,8 @@
             this.relativesDataView.RowTemplate.Height = 24;
             this.relativesDataView.Size = new System.Drawing.Size(538, 295);
             this.relativesDataView.TabIndex = 14;
-            this.relativesDataView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.relativesDataViewEditing);
-            this.relativesDataView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.familyTextBoxKeyDown);
+            this.relativesDataView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.RelativesDataViewEditing);
+            this.relativesDataView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FamilyTextBoxKeyDown);
             // 
             // patronFamilyName
             // 
@@ -231,7 +232,7 @@
             this.addRowButton.TabIndex = 15;
             this.addRowButton.Text = "+";
             this.addRowButton.UseVisualStyleBackColor = true;
-            this.addRowButton.Click += new System.EventHandler(this.addRowButtonClick);
+            this.addRowButton.Click += new System.EventHandler(this.AddRowButtonClick);
             // 
             // relationsLabel
             // 
@@ -252,7 +253,7 @@
             this.submitButton.TabIndex = 17;
             this.submitButton.Text = "Submit";
             this.submitButton.UseVisualStyleBackColor = true;
-            this.submitButton.Click += new System.EventHandler(this.submitButtonClick);
+            this.submitButton.Click += new System.EventHandler(this.SubmitButtonClick);
             // 
             // commentsRichTextBox
             // 
@@ -353,11 +354,23 @@
             this.printVisitCheckBox.Text = "Print Visit";
             this.printVisitCheckBox.UseVisualStyleBackColor = true;
             // 
+            // veteranCheckBox
+            // 
+            this.veteranCheckBox.AutoSize = true;
+            this.veteranCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.veteranCheckBox.Location = new System.Drawing.Point(117, 250);
+            this.veteranCheckBox.Name = "veteranCheckBox";
+            this.veteranCheckBox.Size = new System.Drawing.Size(118, 33);
+            this.veteranCheckBox.TabIndex = 27;
+            this.veteranCheckBox.Text = "Veteran";
+            this.veteranCheckBox.UseVisualStyleBackColor = true;
+            // 
             // NewPatronForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1338, 593);
+            this.Controls.Add(this.veteranCheckBox);
             this.Controls.Add(this.printVisitCheckBox);
             this.Controls.Add(this.everyWeekCheckBox);
             this.Controls.Add(this.genderComboBox);
@@ -429,5 +442,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyDay;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyYear;
         private System.Windows.Forms.CheckBox printVisitCheckBox;
+        private System.Windows.Forms.CheckBox veteranCheckBox;
     }
 }

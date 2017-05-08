@@ -1,4 +1,5 @@
 ﻿using System;
+/*
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +7,9 @@ using System.Text.RegularExpressions;
 using Word = Microsoft.Office.Interop.Word;
 using DocumentFormat.OpenXml.Packaging;
 using System.Drawing.Printing;
+*/
 using System.Windows.Forms;
-using System.Drawing;
+// using System.Drawing;
 
 using Common;
 
@@ -19,8 +21,8 @@ namespace EntryApplication
 {
     public partial class NewPatronForm : Common.DialogForm
     {
-        public readonly Patron newPatron = new Patron();
-        public Patron GetResults() => newPatron;
+        public readonly Patron NewPatron = new Patron();
+        public Patron GetResults() => NewPatron;
 
         // A boolean used to see if the user actually saved the data
         private bool saved = false;
@@ -67,6 +69,8 @@ namespace EntryApplication
             dayTextBox.Text = p.DateOfBirth.Day.ToString();
             yearTextBox.Text = p.DateOfBirth.Year.ToString();
 
+            veteranCheckBox.Checked = p.Veteran;
+
 
             if (p.Gender == "Male")
                 genderComboBox.SelectedItem = genderComboBox.Items[0];
@@ -90,7 +94,7 @@ namespace EntryApplication
 
             InitializeFamily(p);
 
-            newPatron = p;
+            NewPatron = p;
         }
 
         private void InitializeFamily(Patron p)
@@ -102,7 +106,7 @@ namespace EntryApplication
                 string[] familyGenders = p.FamilyGenders.Split(',');
                 string[] dates = p.FamilyDateOfBirths.Split(',');
 
-                for (int i = 0; i < familyMembers.Length; ++i)
+                for (var i = 0; i < familyMembers.Length; ++i)
                 {
                     string name = "", gender = "", d = "", m = "", y = "";
 
@@ -113,12 +117,18 @@ namespace EntryApplication
                     {
                         name = familyMembers[i];
                     }
-                    catch (Exception) { }
+                    catch (Exception)
+                    {
+                        name = "";
+                    }
                     try
                     {
                         gender = familyGenders[i];
                     }
-                    catch (Exception) { }
+                    catch (Exception)
+                    {
+                        gender = "";
+                    }
 
                     string[] ds = dates[i].Split('/');
                     d = ds[0];
@@ -135,26 +145,26 @@ namespace EntryApplication
         }
 
         // When the '+' button is clicked to add a row, add a row.
-        private void addRowButtonClick(object sender, EventArgs e)
+        private void AddRowButtonClick(object sender, EventArgs e)
         {
             relativesDataView.Rows.Add();
         }
 
         private void ProcessFamily()
         {
-            newPatron.Family = "";
+            NewPatron.Family = "";
             // Get all of the family members
             foreach (DataGridViewRow row in relativesDataView.Rows)
             {
-                if (!(row.Cells[0] == null || row.Cells[0].Value == null || string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString())))
+                if (row.Cells[0] ?.Value != null && !string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString()))
                 {
-                    newPatron.Family += row.Cells[0].Value.ToString();
-                    newPatron.Family += ',';
+                    NewPatron.Family += row.Cells[0].Value.ToString();
+                    NewPatron.Family += ',';
 
-                    newPatron.FamilyGenders += row.Cells[1].Value.ToString();
-                    newPatron.FamilyGenders += ',';
+                    NewPatron.FamilyGenders += row.Cells[1].Value.ToString();
+                    NewPatron.FamilyGenders += ',';
 
-                    newPatron.FamilyDateOfBirths += Constants.ConjuncDate(
+                    NewPatron.FamilyDateOfBirths += Constants.ConjuncDate(
                         row.Cells[2].Value.ToString(),
                         row.Cells[3].Value.ToString(),
                         row.Cells[4].Value.ToString());
@@ -162,23 +172,23 @@ namespace EntryApplication
             }
 
             // Cut off the last character, a floating comma. But lets not have it be -1
-            if (newPatron.Family.Length != 0)
-                newPatron.Family = newPatron.Family.Substring(0, newPatron.Family.Length - 1);
+            if (NewPatron.Family.Length != 0)
+                NewPatron.Family = NewPatron.Family.Substring(0, NewPatron.Family.Length - 1);
 
-            if (newPatron.FamilyGenders.Length != 0)
-                newPatron.FamilyGenders = newPatron.FamilyGenders.Substring(0, newPatron.FamilyGenders.Length - 1);
+            if (NewPatron.FamilyGenders.Length != 0)
+                NewPatron.FamilyGenders = NewPatron.FamilyGenders.Substring(0, NewPatron.FamilyGenders.Length - 1);
 
-            if (newPatron.FamilyDateOfBirths.Length != 0)
-                newPatron.FamilyGenders = newPatron.FamilyGenders.Substring(0, newPatron.FamilyGenders.Length - 1);
+            if (NewPatron.FamilyDateOfBirths.Length != 0)
+                NewPatron.FamilyGenders = NewPatron.FamilyGenders.Substring(0, NewPatron.FamilyGenders.Length - 1);
         }
 
         // Record all of the data, and close the window
-        private void submitButtonClick(object sender, EventArgs e)
+        private void SubmitButtonClick(object sender, EventArgs e)
         {
-            // Fill the newPatron structure
-            newPatron.FirstName = firstNameTextBox.Text.ToString();
-            newPatron.LastName = lastNameTextBox.Text.ToString();
-            newPatron.MiddleInitial = middleInitialTextBox.Text.ToString();
+            // Fill the NewPatron structure
+            NewPatron.FirstName = firstNameTextBox.Text.ToString();
+            NewPatron.LastName = lastNameTextBox.Text.ToString();
+            NewPatron.MiddleInitial = middleInitialTextBox.Text.ToString();
 
 
             int month = Common.Constants.SafeConvertInt(monthTextBox.Text.ToString());
@@ -187,13 +197,13 @@ namespace EntryApplication
 
             int year = Common.Constants.SafeConvertInt(yearTextBox.Text.ToString());
 
-            newPatron.DateOfBirth = new DateTime();
+            NewPatron.DateOfBirth = new DateTime();
 
 
             if (!(year == 0 || day == 0 || month == 0))
                 try
                 {
-                    newPatron.DateOfBirth = new DateTime(year, month, day);
+                    NewPatron.DateOfBirth = new DateTime(year, month, day);
                 }
                 catch (Exception)
                 {
@@ -201,17 +211,18 @@ namespace EntryApplication
                     return;
                 }
 
-            newPatron.DateOfInitialVisit = DateTime.Today;
+            NewPatron.DateOfInitialVisit = DateTime.Today;
 
-            newPatron.Gender = genderComboBox.Text.ToString();
+            NewPatron.Gender = genderComboBox.Text.ToString();
 
-            newPatron.Address = addressTextBox1.Text + "\n" + addressTextBox2.Text;
+            NewPatron.Address = addressTextBox1.Text + "\n" + addressTextBox2.Text;
 
-            newPatron.PhoneNumber = phoneNumberTextBox.Text;
+            NewPatron.PhoneNumber = phoneNumberTextBox.Text;
 
-            newPatron.VisitsEveryWeek = (everyWeekCheckBox.Checked);
+            NewPatron.VisitsEveryWeek = everyWeekCheckBox.Checked;
+            NewPatron.Veteran = veteranCheckBox.Checked;
 
-            newPatron.Comments = commentsRichTextBox.Text.ToString();
+            NewPatron.Comments = commentsRichTextBox.Text.ToString();
 
             SaveFamily();
 
@@ -228,11 +239,8 @@ namespace EntryApplication
             foreach (DataGridViewRow row in relativesDataView.Rows)
             {
                 if (
-                    !(row==null) &&
-                    !(row.Cells==null) &&
-                    !(row.Cells[0] == null) &&
-                    !(row.Cells[0].Value == null) &&
-                    !String.IsNullOrEmpty(row.Cells[0].Value.ToString()))
+                    (row ?.Cells ?[0] ?.Value !=null) &&
+                    !string.IsNullOrEmpty(row.Cells[0].Value.ToString()))
                 {
                     family += row.Cells[0].Value.ToString() + ',';
 
@@ -255,23 +263,23 @@ namespace EntryApplication
             }
 
             // remove the last value, a comma
-            if (!String.IsNullOrEmpty(family))
+            if (!string.IsNullOrEmpty(family))
                 family = family.Substring(0, family.Length - 1);
-            if (!String.IsNullOrEmpty(familyGenders))
+            if (!string.IsNullOrEmpty(familyGenders))
                 familyGenders = familyGenders.Substring(0, familyGenders.Length - 1);
-            if (!String.IsNullOrEmpty(familyDates))
+            if (!string.IsNullOrEmpty(familyDates))
                 familyDates = familyDates.Substring(0, familyDates.Length - 1);
 
-            newPatron.Family = family;
-            newPatron.FamilyGenders = familyGenders;
-            newPatron.FamilyDateOfBirths = familyDates;
+            NewPatron.Family = family;
+            NewPatron.FamilyGenders = familyGenders;
+            NewPatron.FamilyDateOfBirths = familyDates;
 
         }
 
-        private void familyTextBoxKeyDown(object sender, KeyEventArgs e)
+        private void FamilyTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             // Locks out input so that you cant hit random shit in the family text box.
-            Keys key = e.KeyCode;
+            var key = e.KeyCode;
 
             // Account for letters and numbers
             if (Keys.A <= key && key <= Keys.Z)
@@ -282,24 +290,23 @@ namespace EntryApplication
                 return;
 
             // Special exceptions (backspace + space) are ok
-            else if (key == Keys.Back)
-                return;
-            else if (key == Keys.Space)
-                return;
-            else if (key == Keys.OemPeriod)
-                return;
-            else if (key == Keys.Decimal)
-                return;
-
-            // Otherwise, nothing will happen
-            else
-                e.SuppressKeyPress = true;
+            switch (key)
+            {
+                case Keys.Back:
+                case Keys.Space:
+                case Keys.OemPeriod:
+                case Keys.Decimal:
+                    return;
+                default:
+                    e.SuppressKeyPress = true;
+                    break;
+            }
         }
 
-        private void relativesDataViewEditing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private void RelativesDataViewEditing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             // Have to do this for every control, so its inside the datagridview editing handler.
-            e.Control.KeyDown += familyTextBoxKeyDown;
+            e.Control.KeyDown += FamilyTextBoxKeyDown;
         }
     }
 }
