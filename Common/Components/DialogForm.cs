@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing;
+﻿using System.Windows.Forms;
 
 //
 // DialogForm - A simple 
@@ -15,18 +9,19 @@ namespace Common
     public class DialogForm : Form
     {
         // Constants for window size, may need to be tweaked
-        const int windowWidth = 1920;
-        const int windowHeight = 1280;
+        private const int windowWidth = 1920;
+
+        private const int windowHeight = 1280;
 
         public DialogForm()
         {
-            this.WindowState = FormWindowState.Maximized;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            WindowState = FormWindowState.Maximized;
+            MaximizeBox = false;
+            MinimizeBox = false;
             // This is currently broken:
             //this.MaximumSize = new Size(windowWidth, windowHeight);
             //this.MinimumSize = new Size(windowWidth, windowHeight);
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
         }
     }
 }

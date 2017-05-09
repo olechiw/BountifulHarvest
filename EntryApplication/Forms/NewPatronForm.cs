@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Forms;
+using Common;
 /*
 using System.IO;
 using System.Collections;
@@ -8,10 +10,7 @@ using Word = Microsoft.Office.Interop.Word;
 using DocumentFormat.OpenXml.Packaging;
 using System.Drawing.Printing;
 */
-using System.Windows.Forms;
 // using System.Drawing;
-
-using Common;
 
 //
 // NewPatronForm - A form responsible for the editing of existing patron data, and creating new ones. Does not actually access SQL
@@ -19,16 +18,12 @@ using Common;
 
 namespace EntryApplication
 {
-    public partial class NewPatronForm : Common.DialogForm
+    public partial class NewPatronForm : DialogForm
     {
         public readonly Patron NewPatron = new Patron();
-        public Patron GetResults() => NewPatron;
 
         // A boolean used to see if the user actually saved the data
-        private bool saved = false;
-        public bool Saved() => saved;   
-
-        public bool Print() => printVisitCheckBox.Checked;
+        private bool saved;
 
         public NewPatronForm()
         {
@@ -38,17 +33,6 @@ namespace EntryApplication
             InitializeComponentManual();
         }
 
-        private void InitializeComponentManual()
-        {
-            // Do the manual combobox updating
-            patronFamilyGender.Items.Add("Male");
-            patronFamilyGender.Items.Add("Female");
-
-            genderComboBox.Items.Add("Male");
-            genderComboBox.Items.Add("Female");
-        }
-
-        delegate string v(string otherValue);
         // An alternate constructor for editing patrons
         public NewPatronForm(Patron p)
         {
@@ -86,7 +70,7 @@ namespace EntryApplication
                     addressTextBox2.Text = address[1];
             }
 
-            everyWeekCheckBox.Checked = (p.VisitsEveryWeek);
+            everyWeekCheckBox.Checked = p.VisitsEveryWeek;
 
             phoneNumberTextBox.Text = p.PhoneNumber;
 
@@ -95,6 +79,31 @@ namespace EntryApplication
             InitializeFamily(p);
 
             NewPatron = p;
+        }
+
+        public Patron GetResults()
+        {
+            return NewPatron;
+        }
+
+        public bool Saved()
+        {
+            return saved;
+        }
+
+        public bool Print()
+        {
+            return printVisitCheckBox.Checked;
+        }
+
+        private void InitializeComponentManual()
+        {
+            // Do the manual combobox updating
+            patronFamilyGender.Items.Add("Male");
+            patronFamilyGender.Items.Add("Female");
+
+            genderComboBox.Items.Add("Male");
+            genderComboBox.Items.Add("Female");
         }
 
         private void InitializeFamily(Patron p)
@@ -140,7 +149,7 @@ namespace EntryApplication
             }
 
             // Fill a buffer of 10 empty spaces for user to add names into the family chart
-            for (int i = 0; i < 10 - relativesDataView.Rows.Count; ++i)
+            for (var i = 0; i < 10 - relativesDataView.Rows.Count; ++i)
                 relativesDataView.Rows.Add();
         }
 
@@ -155,8 +164,7 @@ namespace EntryApplication
             NewPatron.Family = "";
             // Get all of the family members
             foreach (DataGridViewRow row in relativesDataView.Rows)
-            {
-                if (row.Cells[0] ?.Value != null && !string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString()))
+                if (row.Cells[0]?.Value != null && !string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString()))
                 {
                     NewPatron.Family += row.Cells[0].Value.ToString();
                     NewPatron.Family += ',';
@@ -169,7 +177,6 @@ namespace EntryApplication
                         row.Cells[3].Value.ToString(),
                         row.Cells[4].Value.ToString());
                 }
-            }
 
             // Cut off the last character, a floating comma. But lets not have it be -1
             if (NewPatron.Family.Length != 0)
@@ -186,16 +193,16 @@ namespace EntryApplication
         private void SubmitButtonClick(object sender, EventArgs e)
         {
             // Fill the NewPatron structure
-            NewPatron.FirstName = firstNameTextBox.Text.ToString();
-            NewPatron.LastName = lastNameTextBox.Text.ToString();
-            NewPatron.MiddleInitial = middleInitialTextBox.Text.ToString();
+            NewPatron.FirstName = firstNameTextBox.Text;
+            NewPatron.LastName = lastNameTextBox.Text;
+            NewPatron.MiddleInitial = middleInitialTextBox.Text;
 
 
-            int month = Common.Constants.SafeConvertInt(monthTextBox.Text.ToString());
+            int month = Constants.SafeConvertInt(monthTextBox.Text);
 
-            int day = Common.Constants.SafeConvertInt(dayTextBox.Text.ToString());
+            int day = Constants.SafeConvertInt(dayTextBox.Text);
 
-            int year = Common.Constants.SafeConvertInt(yearTextBox.Text.ToString());
+            int year = Constants.SafeConvertInt(yearTextBox.Text);
 
             NewPatron.DateOfBirth = new DateTime();
 
@@ -213,7 +220,7 @@ namespace EntryApplication
 
             NewPatron.DateOfInitialVisit = DateTime.Today;
 
-            NewPatron.Gender = genderComboBox.Text.ToString();
+            NewPatron.Gender = genderComboBox.Text;
 
             NewPatron.Address = addressTextBox1.Text + "\n" + addressTextBox2.Text;
 
@@ -222,13 +229,13 @@ namespace EntryApplication
             NewPatron.VisitsEveryWeek = everyWeekCheckBox.Checked;
             NewPatron.Veteran = veteranCheckBox.Checked;
 
-            NewPatron.Comments = commentsRichTextBox.Text.ToString();
+            NewPatron.Comments = commentsRichTextBox.Text;
 
             SaveFamily();
 
             saved = true;
 
-            this.Close();
+            Close();
         }
 
         private void SaveFamily()
@@ -237,30 +244,26 @@ namespace EntryApplication
             string family = "", familyGenders = "", familyDates = "";
 
             foreach (DataGridViewRow row in relativesDataView.Rows)
-            {
                 if (
-                    (row ?.Cells ?[0] ?.Value !=null) &&
+                    row?.Cells?[0]?.Value != null &&
                     !string.IsNullOrEmpty(row.Cells[0].Value.ToString()))
                 {
                     family += row.Cells[0].Value.ToString() + ',';
 
-                    familyGenders += (row.Cells[1].Value == null) ?
-                        " "
-                        :
-                        row.Cells[1].Value.ToString()
-
-                        + ',';
+                    familyGenders += row.Cells[1].Value == null
+                        ? " "
+                        : row.Cells[1].Value.ToString()
+                          + ',';
 
                     // Load the dob information. I promise it works??? :(
-                    string m = (row.Cells[2].Value == null) ? " " : row.Cells[2].Value.ToString();
-                    string d = (row.Cells[3].Value == null) ? " " : row.Cells[3].Value.ToString();
-                    string y = (row.Cells[4].Value == null) ? " " : row.Cells[4].Value.ToString();
+                    string m = row.Cells[2].Value == null ? " " : row.Cells[2].Value.ToString();
+                    string d = row.Cells[3].Value == null ? " " : row.Cells[3].Value.ToString();
+                    string y = row.Cells[4].Value == null ? " " : row.Cells[4].Value.ToString();
                     if (!(string.IsNullOrEmpty(m) || string.IsNullOrEmpty(d) || string.IsNullOrEmpty(y)))
                         familyDates += m + '/' + d + '/' + y + ',';
                     else
                         familyDates += " ,";
                 }
-            }
 
             // remove the last value, a comma
             if (!string.IsNullOrEmpty(family))
@@ -273,20 +276,19 @@ namespace EntryApplication
             NewPatron.Family = family;
             NewPatron.FamilyGenders = familyGenders;
             NewPatron.FamilyDateOfBirths = familyDates;
-
         }
 
         private void FamilyTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             // Locks out input so that you cant hit random shit in the family text box.
-            var key = e.KeyCode;
+            Keys key = e.KeyCode;
 
             // Account for letters and numbers
             if (Keys.A <= key && key <= Keys.Z)
                 return;
-            else if (Keys.D0 <= key && key <= Keys.D9)
+            if (Keys.D0 <= key && key <= Keys.D9)
                 return;
-            else if (Keys.NumPad0 <= key && key <= Keys.NumPad9)
+            if (Keys.NumPad0 <= key && key <= Keys.NumPad9)
                 return;
 
             // Special exceptions (backspace + space) are ok
@@ -308,5 +310,7 @@ namespace EntryApplication
             // Have to do this for every control, so its inside the datagridview editing handler.
             e.Control.KeyDown += FamilyTextBoxKeyDown;
         }
+
+        private delegate string v(string otherValue);
     }
 }

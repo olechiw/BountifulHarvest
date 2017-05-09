@@ -1,23 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Collections;
-using System.Data;
-using System.Drawing;
+using System.Data.Linq.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 using System.Windows.Forms;
-using System.Data.Sql;
-using System.Data.SqlClient;
-using System.ServiceProcess;
-using System.Data.SqlTypes;
-
 using Common;
-
+using Microsoft.VisualBasic;
+using Constants = Common.Constants;
 using PatronList = System.Linq.IQueryable<Common.Patron>;
 using VisitList = System.Linq.IQueryable<Common.Visit>;
-using System.Data.Linq.SqlClient;
 
 //
 // BeginInterfaceForm - This form's main entry point for the "entry" application. This will be responsible for directly accessing patron data at the entry desk
@@ -25,7 +15,7 @@ using System.Data.Linq.SqlClient;
 
 namespace EntryApplication
 {
-    public partial class BeginInterfaceForm : Common.DialogForm
+    public partial class BeginInterfaceForm : DialogForm
     {
         // The type of date we want to display: mm/dd/yy
         private const string dateCode = "d";
@@ -34,7 +24,7 @@ namespace EntryApplication
         // Common.PatronsSqlHandler sqlHandler;
 
         // The database context
-        BountifulHarvestContext database;
+        private BountifulHarvestContext database;
 
 
         // Constructor
@@ -56,7 +46,9 @@ namespace EntryApplication
         // Setup the sql connection
         private void InitializeSQL()
         {
-            string connString = (Constants.ISRELEASE) ? Constants.releaseServerConnectionString : Constants.debugConnectionString;
+            string connString = Constants.ISRELEASE
+                ? Constants.releaseServerConnectionString
+                : Constants.debugConnectionString;
 
             // Connect to the SQL database
             // sqlHandler = new Common.PatronsSqlHandler(connString);
@@ -91,16 +83,15 @@ namespace EntryApplication
                 Logger.Log("Exception when loading all patrons: " + e.Message);
                 Logger.Log(e.StackTrace);
                 Constants.DatabaseFailed();
-                this.Close();
+                Close();
             }
         }
 
 
-
         // Shorthand for adding a set of values to the outputDataView
         private void AddDataRow(Patron p)
-        {   
-            this.outputDataView.Rows.Add(
+        {
+            outputDataView.Rows.Add(
                 p.FirstName,
                 p.MiddleInitial,
                 p.LastName,
@@ -114,7 +105,7 @@ namespace EntryApplication
         // Add a list of rows
         private void AddDataRows(PatronList ps)
         {
-            foreach (var p in ps)
+            foreach (Patron p in ps)
                 AddDataRow(p);
         }
 
@@ -142,9 +133,10 @@ namespace EntryApplication
 
             // Backspace also updates the searchbox
             else
+            {
                 UpdateResults();
+            }
         }
-
 
 
         // Update the data table with the results given the search box text
@@ -153,13 +145,15 @@ namespace EntryApplication
             string query = searchBox.Text;
 
             if (query == "")
+            {
                 LoadAllPatrons();
+            }
 
             else
             {
                 outputDataView.Rows.Clear();
 
-                var predicate = PredicateBuilder.False<Patron>();
+                Expression<Func<Patron, bool>> predicate = PredicateBuilder.False<Patron>();
 
                 string q = "%" + query + "%";
 
@@ -180,11 +174,10 @@ namespace EntryApplication
         }
 
 
-
         // When the button to enter a new patron is clicked
         private void addPatronButtonClick(object sender, EventArgs e)
         {
-            NewPatronForm form = new NewPatronForm();
+            var form = new NewPatronForm();
             form.ShowDialog();
 
             if (!form.Saved())
@@ -223,14 +216,13 @@ namespace EntryApplication
         }
 
 
-
         // When the button to edit an existing patron is clicked
         private void editPatronButtonClick(object sender, EventArgs e)
         {
             int patronId = Constants.SafeConvertInt(
-                outputDataView.SelectedRows[0].Cells[(int)Constants.PatronIndexes.PatronID]
-                .Value.ToString()
-                );
+                outputDataView.SelectedRows[0].Cells[(int) Constants.PatronIndexes.PatronID]
+                    .Value.ToString()
+            );
 
             if (patronId == Constants.InvalidID)
             {
@@ -241,10 +233,10 @@ namespace EntryApplication
 
             try
             {
-                Patron p = ((database.Patrons.Where(patron => patron.PatronId == patronId)).First());
+                Patron p = database.Patrons.Where(patron => patron.PatronId == patronId).First();
 
                 // Get new data passing the old data on
-                NewPatronForm form = new NewPatronForm(p);
+                var form = new NewPatronForm(p);
                 form.ShowDialog();
 
                 if (!form.Saved())
@@ -272,15 +264,14 @@ namespace EntryApplication
         }
 
 
-
         // When the button to print a report is clicked
         private void printVisitButtonClick(object sender, EventArgs e)
         {
             try
             {
-                int selectedPatronID = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
+                int selectedPatronID = Constants.GetSelectedInt(outputDataView, (int) Constants.PatronIndexes.PatronID);
 
-                Patron selectedPatron = ((database.Patrons.Where(p => p.PatronId == selectedPatronID)).First());
+                Patron selectedPatron = database.Patrons.Where(p => p.PatronId == selectedPatronID).First();
 
                 // Show the form
                 Print(selectedPatron);
@@ -299,13 +290,13 @@ namespace EntryApplication
 
             try
             {
-                int id = Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID);
-                Patron p = ((database.Patrons.Where(patron => patron.PatronId == id).First()));
+                int id = Constants.GetSelectedInt(outputDataView, (int) Constants.PatronIndexes.PatronID);
+                Patron p = database.Patrons.Where(patron => patron.PatronId == id).First();
 
-                VisitList visits = ((from v in database.Visits where v.PatronID == p.PatronId select v));
+                VisitList visits = from v in database.Visits where v.PatronID == p.PatronId select v;
 
 
-                MoreInfoForm form = new MoreInfoForm(p, visits);
+                var form = new MoreInfoForm(p, visits);
 
                 form.ShowDialog();
             }
@@ -326,20 +317,20 @@ namespace EntryApplication
 
         private void Print(Patron p)
         {
-            PrintForm form = new PrintForm(p);
+            var form = new PrintForm(p);
             form.ShowDialog();
         }
 
         private void deletePatronButtonClick(object sender, EventArgs e)
         {
-            var selectedRow = outputDataView.SelectedRows[0];
+            DataGridViewRow selectedRow = outputDataView.SelectedRows[0];
             int id = Constants.SafeConvertInt(
-                selectedRow.Cells[(int)Constants.PatronIndexes.PatronID]
-                .Value.ToString());
+                selectedRow.Cells[(int) Constants.PatronIndexes.PatronID]
+                    .Value.ToString());
 
             try
             {
-                Patron deletePatron = ((from p in database.Patrons where p.PatronId == id select p)).First();
+                Patron deletePatron = (from p in database.Patrons where p.PatronId == id select p).First();
 
 
                 database.Patrons.DeleteOnSubmit(deletePatron);
@@ -356,14 +347,14 @@ namespace EntryApplication
 
         private void initialVisitButtonClick(object sender, EventArgs e)
         {
-            string lastVisitDate = "";
-            System.Linq.IOrderedQueryable<Visit> visits;
+            var lastVisitDate = "";
+            IOrderedQueryable<Visit> visits;
             try
             {
-                visits = ((from v in database.Visits
-                               where v.PatronID ==
-                               Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID)
-                               select v)).OrderBy(v => v.DateOfVisit);
+                visits = (from v in database.Visits
+                    where v.PatronID ==
+                          Constants.GetSelectedInt(outputDataView, (int) Constants.PatronIndexes.PatronID)
+                    select v).OrderBy(v => v.DateOfVisit);
             }
             catch (Exception error)
             {
@@ -372,22 +363,23 @@ namespace EntryApplication
 
                 return;
             }
-            
 
-            DateTime previousLastDate = new DateTime();
+
+            var previousLastDate = new DateTime();
             if (visits.Count() > 0)
             {
                 previousLastDate =
                     visits.OrderBy(v => v.DateOfVisit).First()
-                    .DateOfVisit;
+                        .DateOfVisit;
                 lastVisitDate = previousLastDate.ToString(Constants.DateFormat);
             }
 
-            string date = Microsoft.VisualBasic.Interaction.InputBox("Enter/Change Initial Visit Date: MM/dd/yyyy", "Initial Visit Date", lastVisitDate);
+            string date = Interaction.InputBox("Enter/Change Initial Visit Date: MM/dd/yyyy", "Initial Visit Date",
+                lastVisitDate);
 
             if (date == "")
                 return;
-            
+
             DateTime lastDate = Constants.ConvertString2Date(date);
             if (lastDate.Hour == Constants.InvalidHour)
             {
@@ -397,23 +389,24 @@ namespace EntryApplication
 
             if (previousLastDate <= lastDate)
             {
-                var result = MessageBox.Show("Careful, this will delete all previous visits!!", "Delete Warning!", MessageBoxButtons.OKCancel);
+                DialogResult result = MessageBox.Show("Careful, this will delete all previous visits!!",
+                    "Delete Warning!", MessageBoxButtons.OKCancel);
                 if (result != DialogResult.OK)
                     return;
 
-                var query = ((from v in database.Visits where v.DateOfVisit < lastDate select v));
-                foreach (var v in query)
+                VisitList query = from v in database.Visits where v.DateOfVisit < lastDate select v;
+                foreach (Visit v in query)
                     database.Visits.DeleteOnSubmit(v);
             }
 
             try
             {
-                Visit newVisit = new Visit
+                var newVisit = new Visit
                 {
                     DateOfVisit = lastDate,
                     TotalPounds = 0,
                     PatronID =
-                    Constants.GetSelectedInt(outputDataView, (int)Constants.PatronIndexes.PatronID),
+                        Constants.GetSelectedInt(outputDataView, (int) Constants.PatronIndexes.PatronID),
                     VisitID = Constants.GetLatestVisitID(database)
                 };
 

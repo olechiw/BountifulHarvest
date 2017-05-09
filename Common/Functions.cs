@@ -3,6 +3,9 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
+using Common.Sql;
+using Common.Components;
+
 //
 // Constants - A class containing the constant value of all important things
 //
@@ -11,18 +14,22 @@ namespace Common
 {
     public partial class Constants
     {
-        public static void SetupLogger(string[] args)
+        public static void Setup(string[] args)
         {
             Logger.CurrentDateTime = DateTime.Now.ToString(DateTimeFormat);
-            if ((args.Contains("--Debug") ||
-                 args.Contains("-d") ||
-                 args.Contains("--debug") ||
-                 args.Contains("-D"))
-                && !ISRELEASE)
+            if (args.Contains("--Debug") ||
+                args.Contains("-d") ||
+                args.Contains("--debug") ||
+                args.Contains("-D"))
             {
                 Logger.ArgumentDebug = true;
                 Logger.Log("Launched with debugger mode!");
             }
+            if (args.Contains("-l") ||
+                args.Contains("-d") ||
+                args.Contains("--local") ||
+                args.Contains("--Local"))
+                ISRELEASE = false;
         }
 
         public static void DatabaseFailed()
@@ -112,30 +119,13 @@ namespace Common
             view.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        // Check whether a patron's last visit date is valid
-        public static bool CanVisit(DateTime date)
-        {
-            DateTime t = DateTime.Today;
-
-            if (date.Year != t.Year)
-                return true;
-
-            if (date.Month != t.Month)
-                return true;
-
-            // TODO: CHECK PROPER DAY
-            // else if (date.Day )
-            return false;
-        }
-
-
-        public static int GetLatestVisitID(BountifulHarvestContext databaseContext)
+        public static int GetLatestVisitId(BountifulHarvestContext databaseContext)
         {
             var id = 0;
 
             IOrderedQueryable<Visit> query =
                 (from v in databaseContext.Visits select v).OrderByDescending(visit => visit.VisitID);
-            id = query.Count() == 0 ? 1 : query.First().VisitID + 1;
+            id = query.Any() ? 1 : query.First().VisitID + 1;
 
             return id;
         }
@@ -146,7 +136,7 @@ namespace Common
 
             IOrderedQueryable<Patron> query =
                 (from p in databaseContext.Patrons select p).OrderByDescending(patron => patron.PatronId);
-            id = query.Count() == 0 ? 1 : query.First().PatronId + 1;
+            id = query.Any() ? 1 : query.First().PatronId + 1;
 
             return id;
         }

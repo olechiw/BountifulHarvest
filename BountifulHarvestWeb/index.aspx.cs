@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
+using System.Web.UI;
 
 namespace BountifulHarvestWeb
 {
-    public partial class index : System.Web.UI.Page
+    public partial class index : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataTable table = new DataTable();
-            foreach (var c in this.outputGridView.Columns)
-            {
+            var table = new DataTable();
+            foreach (object c in outputGridView.Columns)
                 table.Columns.Add(c.ToString());
-            }
-            var row = table.NewRow();
+            DataRow row = table.NewRow();
             row["First Name"] = "Jakob";
             row["M. I."] = "M.";
             row["Last Name"] = "Olechiw";

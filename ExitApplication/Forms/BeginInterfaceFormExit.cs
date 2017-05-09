@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Data.Linq.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 using System.Windows.Forms;
-
 using Common;
 using VisitList = System.Linq.IQueryable<Common.Visit>;
 using PatronList = System.Linq.IQueryable<Common.Patron>;
-using System.Data.Linq.SqlClient;
 
 namespace ExitApplication
 {
-    public partial class BeginInterfaceForm : Common.DialogForm
+    public partial class BeginInterfaceForm : DialogForm
     {
         // The database handler, responsible for all sql operations
         // private Common.VisitsSqlHandler sqlHandler;
@@ -26,7 +20,7 @@ namespace ExitApplication
         private BountifulHarvestContext database;
 
         public BeginInterfaceForm()
-        { 
+        {
             // Setup the form
             Logger.Log("Initialiing Components");
             InitializeComponent();
@@ -44,7 +38,9 @@ namespace ExitApplication
         // Initialize the database in the gridview
         private void SetupSQL()
         {
-            string connString = (Constants.ISRELEASE) ? Constants.releaseExitConnectionString : Constants.debugConnectionString;
+            string connString = Constants.ISRELEASE
+                ? Constants.releaseExitConnectionString
+                : Constants.debugConnectionString;
 
             // Connect to the database
             // sqlHandler = new Common.VisitsSqlHandler(connString);
@@ -63,9 +59,9 @@ namespace ExitApplication
 
             try
             {
-                VisitList monthVisits = ((from v in database.Visits
-                                          where v.DateOfVisit.Month == DateTime.Today.Month
-                                          select v));
+                VisitList monthVisits = from v in database.Visits
+                    where v.DateOfVisit.Month == DateTime.Today.Month
+                    select v;
 
                 foreach (Visit v in monthVisits.OrderBy(visit => visit.DateOfVisit))
                     AddDataRow(v);
@@ -75,14 +71,14 @@ namespace ExitApplication
                 Logger.Log("Exception in loading all visits: " + e.Message);
                 Logger.Log(e.StackTrace);
                 Constants.DatabaseFailed();
-                this.Close();
+                Close();
             }
         }
-        
+
         // Add a row to the output
         private void AddDataRow(Visit v)
         {
-            var query = ((from patron in database.Patrons where patron.PatronId == v.PatronID select patron));
+            PatronList query = from patron in database.Patrons where patron.PatronId == v.PatronID select patron;
 
             Patron p;
             if (query.Count() == 1)
@@ -92,8 +88,8 @@ namespace ExitApplication
 
             try
             {
-                string extras = "";
-                string delim = ", ";
+                var extras = "";
+                var delim = ", ";
 
                 // Load the output to show which extras were selected. A wee bit hacky.
                 if (v.Christmas)
@@ -133,32 +129,29 @@ namespace ExitApplication
         }
 
         // Extra constructor. Currently unused, probably never will be at this point.
-        private void BeginInterface_Load(object sender, EventArgs e)
-        {
-
-        }
+        private void BeginInterface_Load(object sender, EventArgs e) { }
 
         private void submitButtonClick(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(patronIDTextBox.Text))
                 return;
 
-            PatronList rows = (database.Patrons.Where(p => p.PatronId == Constants.SafeConvertInt(patronIDTextBox.Text)));
-            if (rows.Count()==0)
+            PatronList rows = database.Patrons.Where(p => p.PatronId == Constants.SafeConvertInt(patronIDTextBox.Text));
+            if (rows.Count() == 0)
                 return;
 
             // Get all the info
-            Visit v = new Visit
+            var v = new Visit
             {
                 TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
                 DateOfVisit = DateTime.Today,
                 PatronID = Constants.SafeConvertInt(patronIDTextBox.Text),
-                Winter =        winter.Checked,
-                Easter =        easter.Checked,
-                Halloween =     halloween.Checked,
-                School =        school.Checked,
-                Thanksgiving =  thanksgiving.Checked,
-                Christmas =     christmas.Checked,
+                Winter = winter.Checked,
+                Easter = easter.Checked,
+                Halloween = halloween.Checked,
+                School = school.Checked,
+                Thanksgiving = thanksgiving.Checked,
+                Christmas = christmas.Checked,
                 VisitID = Constants.GetLatestVisitID(database)
             };
 
@@ -188,12 +181,11 @@ namespace ExitApplication
 
         private void deleteButtonClick(object sender, EventArgs e)
         {
-            int id = Constants.GetSelectedInt(outputDataView, (int)Constants.VisitIndexes.VisitID);
+            int id = Constants.GetSelectedInt(outputDataView, (int) Constants.VisitIndexes.VisitID);
 
             Visit v = database.Visits.Where(visit => visit.VisitID == id).First();
 
             database.Visits.DeleteOnSubmit(v);
-
 
 
             try
@@ -216,7 +208,7 @@ namespace ExitApplication
         {
             outputDataView.Rows.Clear();
 
-            int id = Constants.SafeConvertInt(patronIDTextBox.Text.ToString());
+            int id = Constants.SafeConvertInt(patronIDTextBox.Text);
 
             // Update the visits output with the new patronID
             VisitList rows = database.Visits.Where(v => v.PatronID == id);
@@ -224,12 +216,10 @@ namespace ExitApplication
             try
             {
                 Logger.Log("Loading patron visits from ID: " + id);
-                for (int i = 0; i < rows.Count(); ++i)
-                {
+                for (var i = 0; i < rows.Count(); ++i)
                     AddDataRow(rows.AsEnumerable().ElementAt(i));
-                }
 
-                if (String.IsNullOrEmpty(patronIDTextBox.Text.ToString()))
+                if (string.IsNullOrEmpty(patronIDTextBox.Text))
                     LoadAllVisits();
             }
             catch (Exception error)
@@ -243,21 +233,24 @@ namespace ExitApplication
         private void outputDataView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             // Update the patron when the cells are done editing, to update totalpounds and dateofvisit.
-            int poundsColumn = (int)Constants.VisitIndexes.TotalPounds;
-            int dateColumn = (int)Constants.VisitIndexes.DateOfVisit;
-            int visitIDColumn = (int)Constants.VisitIndexes.VisitID;
+            var poundsColumn = (int) Constants.VisitIndexes.TotalPounds;
+            var dateColumn = (int) Constants.VisitIndexes.DateOfVisit;
+            var visitIDColumn = (int) Constants.VisitIndexes.VisitID;
             Visit visit;
 
-           
-            var row = outputDataView.Rows[e.RowIndex];
+
+            DataGridViewRow row = outputDataView.Rows[e.RowIndex];
 
             int visitID = Constants.SafeConvertInt(row.Cells[visitIDColumn].Value.ToString());
 
             try
             {
-                visit = ((from v in database.Visits where v.VisitID == visitID select v)).First();
+                visit = (from v in database.Visits where v.VisitID == visitID select v).First();
             }
-            catch { return; }
+            catch
+            {
+                return;
+            }
 
             if (e.ColumnIndex == poundsColumn)
             {
@@ -292,20 +285,19 @@ namespace ExitApplication
 
             try
             {
-                var predicate = PredicateBuilder.False<Patron>();
-                string q = "%" + patronSearchTextBox.Text.ToString() + "%";
+                Expression<Func<Patron, bool>> predicate = PredicateBuilder.False<Patron>();
+                string q = "%" + patronSearchTextBox.Text + "%";
                 predicate = predicate.Or(p => SqlMethods.Like(p.FirstName, q));
                 predicate = predicate.Or(p => SqlMethods.Like(p.MiddleInitial, q));
                 predicate = predicate.Or(p => SqlMethods.Like(p.LastName, q));
 
-                var query = database.Patrons.Where(predicate);
-
+                PatronList query = database.Patrons.Where(predicate);
 
 
                 if (query.Count() > 0)
                 {
                     searchDataView.Rows.Clear();
-                    foreach (var p in query)
+                    foreach (Patron p in query)
                         searchDataView.Rows.Add(
                             Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName),
                             p.PatronId);
