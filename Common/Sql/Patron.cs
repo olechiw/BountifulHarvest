@@ -67,20 +67,6 @@ namespace Common
 
             for (var i = 0; i < N.Length; ++i)
                 N[i] = O[i];
-
-            /*
-            n.FirstName = o.FirstName;
-            n.MiddleInitial = o.MiddleInitial;
-            n.LastName = o.LastName;
-            n.Gender = o.Gender;
-            n.DateOfLastVisit = o.DateOfLastVisit;
-            n.DateOfBirth = o.DateOfBirth;
-            n.Family = o.Family;
-            n.PhoneNumber = o.PhoneNumber;
-            n.Address = o.Address;
-            n.Comments = o.Comments;
-            n.DateOfInitialVisit = o.DateOfInitialVisit;
-            */
         }
 
         // Update all of the calculated columns

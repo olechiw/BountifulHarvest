@@ -17,11 +17,14 @@ namespace Common
             if ((args.Contains("--Debug") ||
                  args.Contains("-d") ||
                  args.Contains("--debug") ||
-                 args.Contains("-D"))
-                && !ISRELEASE)
+                 args.Contains("-D")))
             {
                 Logger.ArgumentDebug = true;
                 Logger.Log("Launched with debugger mode!");
+            }
+            if ((args.Contains("--local")))
+            {
+                release = false;
             }
         }
 

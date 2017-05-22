@@ -8,6 +8,10 @@ namespace Common
     {
         public Table<Patron> Patrons;
         public Table<Visit> Visits;
-        public BountifulHarvestContext(string connectionString) : base(connectionString) { }
+
+        public BountifulHarvestContext(string connectionString) : base(connectionString)
+        {
+            Logger.Log("Connecting to database: " + connectionString);
+        }
     }
 }

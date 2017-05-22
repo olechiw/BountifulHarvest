@@ -89,6 +89,8 @@ namespace EntryApplication
             if (mVisit.Thanksgiving) drawExtra(Constants.thanksgivingPoint);
             if (mVisit.Winter) drawExtra(Constants.winterPoint);
             if (mVisit.School) drawExtra(Constants.schoolPoint);
+
+            if (patron.Veteran) drawExtra(Constants.veteranPoint);
         }
 
         public void Print(Patron p)

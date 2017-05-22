@@ -36,9 +36,6 @@ namespace Common
             PatronID
         }
 
-
-        public const bool ISRELEASE = false;
-
         public const string DateFormat = "MM/dd/yyyy";
         public const string TimeFormat = "HH:mm:ss";
         public const string DateTimeFormat = "MM-dd-yyyy-HH-mm-ss";
@@ -70,6 +67,7 @@ namespace Common
         public static readonly Point limitsPoint = new Point(135, 890);
         public static readonly Point familyPoint = new Point(130, 930);
         public static readonly Point datePoint = new Point(5, 970);
+        public static readonly Point veteranPoint = new Point(85, 990);
         public static readonly Point idPoint = new Point(5, 1020);
 
         public static readonly Point easterPoint = new Point(690, 690);
@@ -80,5 +78,9 @@ namespace Common
         public static readonly Point christmasPoint = new Point(723, 764);
 
         public static readonly CultureInfo DateCulture = CultureInfo.InvariantCulture;
+
+        private static bool release = true;
+
+        public static bool ISRELEASE => release;
     }
 }
