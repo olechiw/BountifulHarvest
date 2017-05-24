@@ -55,9 +55,6 @@ namespace Common
         public const string releaseExitConnectionString =
             "Server=192.168.1.99\\SQLEXPRESS;Database=BountifulHarvest;User ID = sa; Password=harvest";
 
-        // The image of the form to print
-        public const string printFormImage = "form2.png";
-
         // The release image location
         public const string releaseFormImage = "form.png";
 
@@ -79,8 +76,6 @@ namespace Common
 
         public static readonly CultureInfo DateCulture = CultureInfo.InvariantCulture;
 
-        private static bool release = true;
-
-        public static bool ISRELEASE => release;
+        public static bool ISRELEASE { get; private set; } = true;
     }
 }

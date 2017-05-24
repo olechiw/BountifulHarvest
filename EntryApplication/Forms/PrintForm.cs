@@ -68,7 +68,16 @@ namespace EntryApplication
             //
 
             // Load the form image
-            var loadedImage = new Bitmap(Constants.ISRELEASE ? Constants.releaseFormImage : Constants.printFormImage);
+            Bitmap loadedImage = null;
+            try
+            {
+                loadedImage = new Bitmap(Constants.releaseFormImage);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Failed to load " + Constants.releaseFormImage + ", check your installation!");
+                return;
+            }
 
             // Draw the image and the text which fills it out
             g.DrawImage(loadedImage, new Point(0, 0));

@@ -14,18 +14,16 @@ namespace Common
         public static void SetupLogger(string[] args)
         {
             Logger.CurrentDateTime = DateTime.Now.ToString(DateTimeFormat);
-            if ((args.Contains("--Debug") ||
-                 args.Contains("-d") ||
-                 args.Contains("--debug") ||
-                 args.Contains("-D")))
+            if (args.Contains("--Debug") ||
+                args.Contains("-d") ||
+                args.Contains("--debug") ||
+                args.Contains("-D"))
             {
                 Logger.ArgumentDebug = true;
                 Logger.Log("Launched with debugger mode!");
             }
-            if ((args.Contains("--local")))
-            {
-                release = false;
-            }
+            if (args.Contains("--local"))
+                ISRELEASE = false;
         }
 
         public static void DatabaseFailed()
