@@ -33,6 +33,14 @@ namespace ExitApplication
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
 
             Logger.Log("Exit Application Running");
+
+            var query = ((from p in database.Patrons select p));
+            foreach (var v in query)
+            {
+                v.Calculate();
+            }
+            database.SubmitChanges();
+            Logger.Log("Query Length: " + query.Count());
         }
 
         // Initialize the database in the gridview

@@ -62,6 +62,7 @@
             this.everyWeekCheckBox = new System.Windows.Forms.CheckBox();
             this.printVisitCheckBox = new System.Windows.Forms.CheckBox();
             this.veteranCheckBox = new System.Windows.Forms.CheckBox();
+            this.seniorCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -358,18 +359,30 @@
             // 
             this.veteranCheckBox.AutoSize = true;
             this.veteranCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.veteranCheckBox.Location = new System.Drawing.Point(117, 250);
+            this.veteranCheckBox.Location = new System.Drawing.Point(117, 235);
             this.veteranCheckBox.Name = "veteranCheckBox";
             this.veteranCheckBox.Size = new System.Drawing.Size(118, 33);
             this.veteranCheckBox.TabIndex = 27;
             this.veteranCheckBox.Text = "Veteran";
             this.veteranCheckBox.UseVisualStyleBackColor = true;
             // 
+            // seniorCheckBox
+            // 
+            this.seniorCheckBox.AutoSize = true;
+            this.seniorCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.seniorCheckBox.Location = new System.Drawing.Point(117, 274);
+            this.seniorCheckBox.Name = "seniorCheckBox";
+            this.seniorCheckBox.Size = new System.Drawing.Size(210, 33);
+            this.seniorCheckBox.TabIndex = 28;
+            this.seniorCheckBox.Text = "CFSP Filled Out";
+            this.seniorCheckBox.UseVisualStyleBackColor = true;
+            // 
             // NewPatronForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1338, 593);
+            this.Controls.Add(this.seniorCheckBox);
             this.Controls.Add(this.veteranCheckBox);
             this.Controls.Add(this.printVisitCheckBox);
             this.Controls.Add(this.everyWeekCheckBox);
@@ -443,5 +456,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyYear;
         private System.Windows.Forms.CheckBox printVisitCheckBox;
         private System.Windows.Forms.CheckBox veteranCheckBox;
+        private System.Windows.Forms.CheckBox seniorCheckBox;
     }
 }

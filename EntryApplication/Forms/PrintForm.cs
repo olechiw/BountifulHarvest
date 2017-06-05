@@ -99,7 +99,9 @@ namespace EntryApplication
             if (mVisit.Winter) drawExtra(Constants.winterPoint);
             if (mVisit.School) drawExtra(Constants.schoolPoint);
 
+
             if (patron.Veteran) drawExtra(Constants.veteranPoint);
+            if (patron.Senior) DrawGenericText(g, "CFSP DONE", Constants.seniorPoint.X, Constants.seniorPoint.Y);
         }
 
         public void Print(Patron p)

@@ -66,6 +66,7 @@ namespace Common
         public static readonly Point datePoint = new Point(5, 970);
         public static readonly Point veteranPoint = new Point(85, 990);
         public static readonly Point idPoint = new Point(5, 1020);
+        public static readonly Point seniorPoint = new Point(5, 1045);
 
         public static readonly Point easterPoint = new Point(690, 690);
         public static readonly Point thanksgivingPoint = new Point(735, 725);

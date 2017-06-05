@@ -55,6 +55,7 @@ namespace EntryApplication
             yearTextBox.Text = p.DateOfBirth.Year.ToString();
 
             veteranCheckBox.Checked = p.Veteran;
+            seniorCheckBox.Checked = p.Senior;
 
 
             if (p.Gender == "Male")
@@ -62,6 +63,7 @@ namespace EntryApplication
             else if (p.Gender == "Female")
                 genderComboBox.SelectedItem = genderComboBox.Items[1];
 
+            
 
             if (!string.IsNullOrEmpty(p.Address))
             {
@@ -229,6 +231,7 @@ namespace EntryApplication
 
             NewPatron.VisitsEveryWeek = everyWeekCheckBox.Checked;
             NewPatron.Veteran = veteranCheckBox.Checked;
+            NewPatron.Senior = seniorCheckBox.Checked;
 
             NewPatron.Comments = commentsRichTextBox.Text;
 

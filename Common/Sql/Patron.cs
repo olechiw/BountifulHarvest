@@ -45,6 +45,8 @@ namespace Common
 
         [Column] public bool Veteran;
 
+        [Column] public bool Senior;
+
         [Column] public bool VisitsEveryWeek;
 
         [Column] public int Young;
