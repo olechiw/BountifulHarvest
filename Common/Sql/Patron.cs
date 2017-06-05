@@ -41,11 +41,11 @@ namespace Common
 
         [Column] public string PhoneNumber;
 
+        [Column] public bool Senior;
+
         [Column] public int Toddler;
 
         [Column] public bool Veteran;
-
-        [Column] public bool Senior;
 
         [Column] public bool VisitsEveryWeek;
 

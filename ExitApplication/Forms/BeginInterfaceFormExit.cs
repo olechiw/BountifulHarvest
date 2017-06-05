@@ -34,11 +34,9 @@ namespace ExitApplication
 
             Logger.Log("Exit Application Running");
 
-            var query = ((from p in database.Patrons select p));
-            foreach (var v in query)
-            {
+            PatronList query = from p in database.Patrons select p;
+            foreach (Patron v in query)
                 v.Calculate();
-            }
             database.SubmitChanges();
             Logger.Log("Query Length: " + query.Count());
         }

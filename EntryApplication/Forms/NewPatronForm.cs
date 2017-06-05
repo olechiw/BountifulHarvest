@@ -63,7 +63,6 @@ namespace EntryApplication
             else if (p.Gender == "Female")
                 genderComboBox.SelectedItem = genderComboBox.Items[1];
 
-            
 
             if (!string.IsNullOrEmpty(p.Address))
             {
