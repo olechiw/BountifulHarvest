@@ -57,36 +57,41 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(25, 96);
+            this.label1.Location = new System.Drawing.Point(19, 78);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 32);
+            this.label1.Size = new System.Drawing.Size(83, 26);
             this.label1.TabIndex = 1;
             this.label1.Text = "Output:";
             // 
             // searchBox
             // 
             this.searchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox.Location = new System.Drawing.Point(255, 65);
+            this.searchBox.Location = new System.Drawing.Point(191, 53);
+            this.searchBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(467, 28);
+            this.searchBox.Size = new System.Drawing.Size(351, 24);
             this.searchBox.TabIndex = 2;
+            this.searchBox.TextChanged += new System.EventHandler(this.textChangedListener);
             this.searchBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchBoxKeyDown);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(304, 9);
+            this.label2.Location = new System.Drawing.Point(228, 7);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(397, 38);
+            this.label2.Size = new System.Drawing.Size(333, 31);
             this.label2.TabIndex = 4;
             this.label2.Text = "Search Patron Database";
             // 
             // addPatronButton
             // 
-            this.addPatronButton.Location = new System.Drawing.Point(1538, 131);
+            this.addPatronButton.Location = new System.Drawing.Point(1154, 106);
+            this.addPatronButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.addPatronButton.Name = "addPatronButton";
-            this.addPatronButton.Size = new System.Drawing.Size(150, 46);
+            this.addPatronButton.Size = new System.Drawing.Size(112, 37);
             this.addPatronButton.TabIndex = 5;
             this.addPatronButton.Text = "Add Patron Entry";
             this.addPatronButton.UseVisualStyleBackColor = true;
@@ -94,9 +99,10 @@
             // 
             // editPatronButton
             // 
-            this.editPatronButton.Location = new System.Drawing.Point(1538, 327);
+            this.editPatronButton.Location = new System.Drawing.Point(1154, 266);
+            this.editPatronButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.editPatronButton.Name = "editPatronButton";
-            this.editPatronButton.Size = new System.Drawing.Size(150, 46);
+            this.editPatronButton.Size = new System.Drawing.Size(112, 37);
             this.editPatronButton.TabIndex = 6;
             this.editPatronButton.Text = "Edit Patron Entry";
             this.editPatronButton.UseVisualStyleBackColor = true;
@@ -104,9 +110,10 @@
             // 
             // visitPrintButton
             // 
-            this.visitPrintButton.Location = new System.Drawing.Point(1538, 579);
+            this.visitPrintButton.Location = new System.Drawing.Point(1154, 470);
+            this.visitPrintButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.visitPrintButton.Name = "visitPrintButton";
-            this.visitPrintButton.Size = new System.Drawing.Size(150, 46);
+            this.visitPrintButton.Size = new System.Drawing.Size(112, 37);
             this.visitPrintButton.TabIndex = 7;
             this.visitPrintButton.Text = "Print A Visit";
             this.visitPrintButton.UseVisualStyleBackColor = true;
@@ -115,9 +122,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(400, 47);
+            this.label3.Location = new System.Drawing.Point(300, 38);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(184, 17);
+            this.label3.Size = new System.Drawing.Size(135, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Enter a Name (First or Last)";
             // 
@@ -137,12 +145,13 @@
             this.patronAge,
             this.patronFamilyColumn,
             this.patronIDColumn});
-            this.outputDataView.Location = new System.Drawing.Point(31, 131);
+            this.outputDataView.Location = new System.Drawing.Point(23, 106);
+            this.outputDataView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.ReadOnly = true;
             this.outputDataView.RowTemplate.Height = 24;
-            this.outputDataView.Size = new System.Drawing.Size(1484, 708);
+            this.outputDataView.Size = new System.Drawing.Size(1113, 575);
             this.outputDataView.TabIndex = 3;
             // 
             // patronFirstNameColumn
@@ -202,17 +211,19 @@
             // dateLabel
             // 
             this.dateLabel.AutoSize = true;
-            this.dateLabel.Location = new System.Drawing.Point(968, 47);
+            this.dateLabel.Location = new System.Drawing.Point(726, 38);
+            this.dateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.dateLabel.Name = "dateLabel";
-            this.dateLabel.Size = new System.Drawing.Size(92, 17);
+            this.dateLabel.Size = new System.Drawing.Size(70, 13);
             this.dateLabel.TabIndex = 9;
             this.dateLabel.Text = "Today\'s Date";
             // 
             // morePatronInfoButton
             // 
-            this.morePatronInfoButton.Location = new System.Drawing.Point(1538, 450);
+            this.morePatronInfoButton.Location = new System.Drawing.Point(1154, 366);
+            this.morePatronInfoButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.morePatronInfoButton.Name = "morePatronInfoButton";
-            this.morePatronInfoButton.Size = new System.Drawing.Size(150, 46);
+            this.morePatronInfoButton.Size = new System.Drawing.Size(112, 37);
             this.morePatronInfoButton.TabIndex = 10;
             this.morePatronInfoButton.Text = "More Info";
             this.morePatronInfoButton.UseVisualStyleBackColor = true;
@@ -220,9 +231,10 @@
             // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(728, 65);
+            this.clearButton.Location = new System.Drawing.Point(546, 53);
+            this.clearButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(86, 28);
+            this.clearButton.Size = new System.Drawing.Size(64, 23);
             this.clearButton.TabIndex = 11;
             this.clearButton.Text = "Clear";
             this.clearButton.UseVisualStyleBackColor = true;
@@ -230,9 +242,10 @@
             // 
             // deletePatronButton
             // 
-            this.deletePatronButton.Location = new System.Drawing.Point(1538, 793);
+            this.deletePatronButton.Location = new System.Drawing.Point(1154, 644);
+            this.deletePatronButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.deletePatronButton.Name = "deletePatronButton";
-            this.deletePatronButton.Size = new System.Drawing.Size(150, 46);
+            this.deletePatronButton.Size = new System.Drawing.Size(112, 37);
             this.deletePatronButton.TabIndex = 12;
             this.deletePatronButton.Text = "Delete Patron Entry";
             this.deletePatronButton.UseVisualStyleBackColor = true;
@@ -241,17 +254,19 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1422, 842);
+            this.label4.Location = new System.Drawing.Point(1066, 684);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(360, 17);
+            this.label4.Size = new System.Drawing.Size(276, 13);
             this.label4.TabIndex = 13;
             this.label4.Text = "There is no confirmation box, and THIS IS PERMANENT";
             // 
             // initialVisitButton
             // 
-            this.initialVisitButton.Location = new System.Drawing.Point(1538, 689);
+            this.initialVisitButton.Location = new System.Drawing.Point(1154, 560);
+            this.initialVisitButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.initialVisitButton.Name = "initialVisitButton";
-            this.initialVisitButton.Size = new System.Drawing.Size(150, 46);
+            this.initialVisitButton.Size = new System.Drawing.Size(112, 37);
             this.initialVisitButton.TabIndex = 14;
             this.initialVisitButton.Text = "Configure Initial Visit";
             this.initialVisitButton.UseVisualStyleBackColor = true;
@@ -259,9 +274,9 @@
             // 
             // BeginInterfaceForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1900, 913);
+            this.ClientSize = new System.Drawing.Size(1426, 742);
             this.Controls.Add(this.initialVisitButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.deletePatronButton);
@@ -276,7 +291,8 @@
             this.Controls.Add(this.outputDataView);
             this.Controls.Add(this.searchBox);
             this.Controls.Add(this.label1);
-            this.MinimumSize = new System.Drawing.Size(1918, 898);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinimumSize = new System.Drawing.Size(1442, 737);
             this.Name = "BeginInterfaceForm";
             this.Text = "Bountiful Harvest Patron Database";
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).EndInit();

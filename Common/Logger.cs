@@ -22,11 +22,16 @@ namespace Common
         [DllImport("user32.dll")]
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
+        public static void SetConsoleEnabled(bool enabled)
+        {
+            ShowWindow(GetConsoleWindow(), enabled ? SW_SHOW : SW_HIDE);
+        }
+
         public static void Log(string text)
         {
             // Console is shown by default, if this is release and it hasnt got my special argument, then hide it.
             if (Constants.ISRELEASE && !ArgumentDebug)
-                ShowWindow(GetConsoleWindow(), SW_HIDE);
+                SetConsoleEnabled(false);
 
             var file =
                 "BHLogs\\Bountiful-Harvest-" +

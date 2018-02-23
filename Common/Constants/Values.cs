@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Windows.Forms;
 
 
 //
@@ -51,12 +53,28 @@ namespace Common
 
         public static string loadReleaseServerString()
         {
-            return File.ReadAllText("releaseAuthServer.cfg");
+            try
+            {
+                return File.ReadAllText("releaseAuthServer.cfg");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to Load Authentication");
+                return "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=harvest";
+            }
         }
 
         public static string loadReleaseExitString()
         {
-            return File.ReadAllText("releaseAuthExit.cfg");
+            try
+            {
+                return File.ReadAllText("releaseAuthExit.cfg");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to Load Authentication");
+                return "Server=192.168.1.99\\SQLEXPRESS;Database=BountifulHarvest;User ID = sa; Password=harvest";
+            }
         }
 
         // The release image location
@@ -84,6 +102,6 @@ namespace Common
 
         public static readonly CultureInfo DateCulture = CultureInfo.InvariantCulture;
 
-        public static bool ISRELEASE { get; private set; } = true;
+        public static bool ISRELEASE = true;
     }
 }

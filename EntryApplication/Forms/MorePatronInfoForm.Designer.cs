@@ -47,11 +47,11 @@
             this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.initialVisitDate = new System.Windows.Forms.Label();
             this.familyDataView = new System.Windows.Forms.DataGridView();
-            this.ageLabel = new System.Windows.Forms.Label();
             this.familyNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.familyGenderColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.familyAgeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.familyDateOfBirthColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ageLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.familyDataView)).BeginInit();
             this.SuspendLayout();
@@ -125,7 +125,7 @@
             // closeButton
             // 
             this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.closeButton.Location = new System.Drawing.Point(491, 465);
+            this.closeButton.Location = new System.Drawing.Point(407, 441);
             this.closeButton.Margin = new System.Windows.Forms.Padding(2);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(139, 66);
@@ -149,7 +149,7 @@
             // 
             this.commentsLabel.AutoSize = true;
             this.commentsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.commentsLabel.Location = new System.Drawing.Point(363, 379);
+            this.commentsLabel.Location = new System.Drawing.Point(363, 331);
             this.commentsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.commentsLabel.Name = "commentsLabel";
             this.commentsLabel.Size = new System.Drawing.Size(125, 26);
@@ -244,23 +244,12 @@
             this.familyGenderColumn,
             this.familyAgeColumn,
             this.familyDateOfBirthColumn});
-            this.familyDataView.Location = new System.Drawing.Point(679, 255);
+            this.familyDataView.Location = new System.Drawing.Point(679, 379);
             this.familyDataView.MultiSelect = false;
             this.familyDataView.Name = "familyDataView";
             this.familyDataView.ReadOnly = true;
             this.familyDataView.Size = new System.Drawing.Size(627, 203);
             this.familyDataView.TabIndex = 11;
-            // 
-            // ageLabel
-            // 
-            this.ageLabel.AutoSize = true;
-            this.ageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.ageLabel.Location = new System.Drawing.Point(363, 110);
-            this.ageLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.ageLabel.Name = "ageLabel";
-            this.ageLabel.Size = new System.Drawing.Size(57, 26);
-            this.ageLabel.TabIndex = 12;
-            this.ageLabel.Text = "Age:";
             // 
             // familyNameColumn
             // 
@@ -300,11 +289,22 @@
             this.familyDateOfBirthColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.familyDateOfBirthColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // ageLabel
+            // 
+            this.ageLabel.AutoSize = true;
+            this.ageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.ageLabel.Location = new System.Drawing.Point(363, 110);
+            this.ageLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ageLabel.Name = "ageLabel";
+            this.ageLabel.Size = new System.Drawing.Size(57, 26);
+            this.ageLabel.TabIndex = 12;
+            this.ageLabel.Text = "Age:";
+            // 
             // MoreInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1318, 568);
+            this.ClientSize = new System.Drawing.Size(1318, 625);
             this.Controls.Add(this.ageLabel);
             this.Controls.Add(this.familyDataView);
             this.Controls.Add(this.initialVisitDate);

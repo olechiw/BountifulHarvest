@@ -37,11 +37,20 @@ namespace ExitApplication
 
             Logger.Log("Exit Application Running");
 
-            var query = from p in database.Patrons select p;
-            foreach (var v in query)
-                v.Calculate();
-            database.SubmitChanges();
-            Logger.Log("Query Length: " + query.Count());
+            try
+            {
+                var query = from p in database.Patrons select p;
+                foreach (var v in query)
+                    v.Calculate();
+                database.SubmitChanges();
+                Logger.Log("Query Length: " + query.Count());
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.StackTrace);
+                Logger.Log(Constants.loadReleaseExitString());
+                Logger.Log(Constants.loadReleaseServerString());
+            }
         }
 
         // Initialize the database in the gridview
@@ -324,21 +333,12 @@ namespace ExitApplication
 
         private void patronSearchTextBoxChanged(object sender, EventArgs e)
         {
-            // Search the database for a patron LIKE the search
-            if (patronSearchTextBox.Text.Length < 3)
-                return;
-
             searchDataView.Rows.Clear();
 
             try
             {
-                var predicate = PredicateBuilder.False<Patron>();
-                var q = "%" + patronSearchTextBox.Text + "%";
-                predicate = predicate.Or(p => SqlMethods.Like(p.FirstName, q));
-                predicate = predicate.Or(p => SqlMethods.Like(p.MiddleInitial, q));
-                predicate = predicate.Or(p => SqlMethods.Like(p.LastName, q));
-
-                var query = database.Patrons.Where(predicate);
+                var queryString = patronSearchTextBox.Text;
+                var query = database.Patrons.Where(p => p.FirstName.Contains(queryString) || p.LastName.Contains(queryString));
 
                 if (query.Count() <= 0) return;
                 searchDataView.Rows.Clear();
@@ -367,6 +367,27 @@ namespace ExitApplication
             {
                 // Selected a non-created row or something else, so we just clear everything
                 patronIDTextBox.Text = "";
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Constants.ISRELEASE = false;
+            Logger.SetConsoleEnabled(true);
+            Logger.Log("Calculating Patrons");
+            var patrons = database.Patrons.Select(p => p).OrderBy(p => p.PatronId);
+            foreach (var p in patrons)
+            {
+                try
+                {
+                    Logger.Log("Calculating Patron: " + p.PatronId);
+                    p.Calculate();
+                    database.SubmitChanges();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex.StackTrace);
+                }
             }
         }
     }

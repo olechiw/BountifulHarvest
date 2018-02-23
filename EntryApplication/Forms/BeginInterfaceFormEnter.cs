@@ -122,19 +122,7 @@ namespace EntryApplication
         // Whenever a key is pressed in the search box
         private void searchBoxKeyDown(object sender, KeyEventArgs e)
         {
-            // Highlight everything if a space was entered. No spaces in last names
-            if (e.KeyCode == Keys.Space)
-            {
-                e.SuppressKeyPress = true;
 
-                SelectAll();
-            }
-
-            // Backspace also updates the searchbox
-            else
-            {
-                UpdateResults();
-            }
         }
 
 
@@ -152,17 +140,12 @@ namespace EntryApplication
             {
                 outputDataView.Rows.Clear();
 
-                var predicate = PredicateBuilder.False<Patron>();
 
                 var q = "%" + query + "%";
 
-                predicate = predicate.Or(p => SqlMethods.Like(p.FirstName, q));
-                predicate = predicate.Or(p => SqlMethods.Like(p.LastName, q));
-                predicate = predicate.Or(p => SqlMethods.Like(p.Family, q));
-
                 try
                 {
-                    AddDataRows(database.Patrons.Where(predicate));
+                    AddDataRows(database.Patrons.Where(p => p.FirstName.Contains(query) || p.LastName.Contains(query)));
                 }
                 catch (Exception e)
                 {
@@ -444,6 +427,11 @@ namespace EntryApplication
                 Logger.Log("Exception when changing initial visit: " + error.Message);
                 Logger.Log(error.StackTrace);
             }
+        }
+
+        private void textChangedListener(object sender, EventArgs e)
+        {
+            UpdateResults();
         }
     }
 }
