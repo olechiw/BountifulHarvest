@@ -78,10 +78,15 @@ namespace Common
             // Genders
             int males = 0, females = 0;
             foreach (var s in FamilyGenders.Split(','))
-                if (s == "Male")
-                    males++;
-                else if (s == "Female")
-                    females++;
+                switch (s)
+                {
+                    case "Male":
+                        males++;
+                        break;
+                    case "Female":
+                        females++;
+                        break;
+                }
             Males = males;
             Females = females;
 
@@ -94,35 +99,29 @@ namespace Common
             // Age groups
             int t = 0, y = 0, m = 0, o = 0;
 
+            // Family ages
             foreach (var s in FamilyDateOfBirths.Split(','))
             {
-                var d = s.Split('/');
-                if (d.Length == 3)
-                {
-                    var year = Constants.SafeConvertInt(d[2]);
-                    if (year == Constants.InvalidID)
-                        continue;
+                var dateTime = Constants.SafeConvertDate(s);
 
-
-                    var age = DateTime.Today.Year - year;
-                    if (age <= 5)
-                        t++;
-                    else if (age <= 18)
-                        y++;
-                    else if (age <= 59)
-                        m++;
-                    else
-                        o++;
-                }
+                var age = DateTime.Today.Year - dateTime.Year;
+                if (age <= 5)
+                    t++;
+                else if (age <= 18)
+                    y++;
+                else if (age <= 59)
+                    m++;
+                else
+                    o++;
             }
 
-            var Age = DateTime.Today.Year - DateOfBirth.Year;
+            var patronAge = DateTime.Today.Year - DateOfBirth.Year;
 
-            if (Age <= 5)
+            if (patronAge <= 5)
                 t++;
-            else if (Age <= 17)
+            else if (patronAge <= 17)
                 y++;
-            else if (Age <= 59)
+            else if (patronAge <= 59)
                 m++;
             else
                 o++;

@@ -136,11 +136,13 @@ namespace EntryApplication
             CalculateValues();
 
             var database = new BountifulHarvestContext(Constants.ISRELEASE
-                ? Constants.releaseServerConnectionString
+                ? Constants.loadReleaseServerString()
                 : Constants.debugConnectionString);
 
-            var visitsThisMonth = from v in database.Visits where v.PatronID == p.PatronId && v.DateOfVisit.Month == DateTime.Today.Month
-                                  && v.DateOfVisit.Year == DateTime.Today.Year select v;
+            var visitsThisMonth = from v in database.Visits
+                where v.PatronID == p.PatronId && v.DateOfVisit.Month == DateTime.Today.Month
+                      && v.DateOfVisit.Year == DateTime.Today.Year
+                select v;
 
             // Check if they have visited three times this month
             if (visitsThisMonth.Count() >= 3 && !patron.VisitsEveryWeek)

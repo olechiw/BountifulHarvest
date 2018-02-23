@@ -48,7 +48,7 @@ namespace ExitApplication
         private void SetupSQL()
         {
             var connString = Constants.ISRELEASE
-                ? Constants.releaseExitConnectionString
+                ? Constants.loadReleaseExitString()
                 : Constants.debugConnectionString;
 
             // Connect to the database
@@ -86,9 +86,8 @@ namespace ExitApplication
                 Constants.DatabaseFailed();
                 Close();
                 */
-                
+
             //}
-            
         }
 
         // Add a row to the output
@@ -151,9 +150,9 @@ namespace ExitApplication
 
         private void submitButtonClick(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(patronIDTextBox.Text.ToString()))
+            if (string.IsNullOrEmpty(patronIDTextBox.Text))
                 return;
-            if (string.IsNullOrEmpty(totalPoundsSpinner.Value.ToString())|| totalPoundsSpinner.Value==0)
+            if (string.IsNullOrEmpty(totalPoundsSpinner.Value.ToString()) || totalPoundsSpinner.Value == 0)
                 return;
 
             var rows = database.Patrons.Where(p => p.PatronId == Constants.SafeConvertInt(patronIDTextBox.Text));

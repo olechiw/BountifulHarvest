@@ -46,7 +46,7 @@ namespace EntryApplication
         private void InitializeSQL()
         {
             var connString = Constants.ISRELEASE
-                ? Constants.releaseServerConnectionString
+                ? Constants.loadReleaseServerString()
                 : Constants.debugConnectionString;
 
             // Connect to the SQL database

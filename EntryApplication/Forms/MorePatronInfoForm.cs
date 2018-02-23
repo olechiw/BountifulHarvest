@@ -26,16 +26,17 @@ namespace EntryApplication
             firstVisitLabel.Text += p.DateOfInitialVisit.ToString("d");
             familyLabel.Text += p.Family;
             commentsLabel.Text += p.Comments;
-
+            ageLabel.Text += DateTime.Today.Year - p.DateOfBirth.Year;
 
             foreach (var v in visits.OrderBy(v => v.DateOfVisit))
                 AddDataRow(p, v);
 
 
-            if (visits.Count() > 0)
+            if (visits.Any())
                 initialVisitDate.Text += visits.OrderBy(v => v.DateOfVisit).First().DateOfVisit
                     .ToString(Constants.DateFormat);
 
+            AddFamilyRows(p);
 
             WindowState = FormWindowState.Maximized;
         }
@@ -49,6 +50,52 @@ namespace EntryApplication
                 v.DateOfVisit.ToString(Constants.DateFormat),
                 v.VisitID,
                 v.PatronID);
+        }
+
+        private void AddFamilyRows(Patron p)
+        {
+            var family = p.Family.Split(',');
+            var familyDateOfBirths = p.FamilyDateOfBirths.Split(',');
+            var familyGenders = p.FamilyGenders.Split(',');
+
+            for (var i = 0; i < family.Length; ++i)
+            {
+                var age = "n/a";
+                var gender = "";
+                var dob = "";
+                var name = family[i];
+
+                try
+                {
+                    if (familyDateOfBirths.Length > i)
+                    {
+                        age = GetAgeOf(familyDateOfBirths[i]);
+                        dob = familyDateOfBirths[i];
+                    }
+                    if (familyGenders.Length > i)
+                        gender = familyGenders[i];
+                }
+                catch (Exception e)
+                {
+                    Logger.Log(e.StackTrace);
+                }
+                familyDataView.Rows.Add(name, gender, age, dob);
+            }
+        }
+
+        private string GetAgeOf(string date)
+        {
+            var age = "n/a";
+            try
+            {
+                var dateTime = Constants.SafeConvertDate(date);
+                age = (DateTime.Today.Year - dateTime.Year).ToString();
+            }
+            catch (Exception e)
+            {
+                Logger.Log(e.StackTrace);
+            }
+            return age;
         }
 
         // When the close button is clicked, exit the window

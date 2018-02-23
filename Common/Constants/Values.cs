@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Globalization;
+using System.IO;
 
 
 //
@@ -48,13 +49,15 @@ namespace Common
         public const string debugConnectionString =
             "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=potato";
 
-        // Release ip address for the server
-        public const string releaseServerConnectionString =
-            "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=harvest";
+        public static string loadReleaseServerString()
+        {
+            return File.ReadAllText("releaseAuthServer.cfg");
+        }
 
-        // Release ip address for the client
-        public const string releaseExitConnectionString =
-            "Server=192.168.1.99\\SQLEXPRESS;Database=BountifulHarvest;User ID = sa; Password=harvest";
+        public static string loadReleaseExitString()
+        {
+            return File.ReadAllText("releaseAuthExit.cfg");
+        }
 
         // The release image location
         public const string releaseFormImage = "form.png";

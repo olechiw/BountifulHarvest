@@ -46,7 +46,14 @@
             this.visitIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.patronIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.initialVisitDate = new System.Windows.Forms.Label();
+            this.familyDataView = new System.Windows.Forms.DataGridView();
+            this.ageLabel = new System.Windows.Forms.Label();
+            this.familyNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.familyGenderColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.familyAgeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.familyDateOfBirthColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.familyDataView)).BeginInit();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -119,7 +126,7 @@
             // 
             this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.closeButton.Location = new System.Drawing.Point(491, 465);
-            this.closeButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.closeButton.Margin = new System.Windows.Forms.Padding(2);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(139, 66);
             this.closeButton.TabIndex = 6;
@@ -163,13 +170,13 @@
             this.visitIDColumn,
             this.patronIDColumn});
             this.outputDataView.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.outputDataView.Location = new System.Drawing.Point(740, 50);
-            this.outputDataView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.outputDataView.Location = new System.Drawing.Point(679, 11);
+            this.outputDataView.Margin = new System.Windows.Forms.Padding(2);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.ReadOnly = true;
             this.outputDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.outputDataView.Size = new System.Drawing.Size(548, 311);
+            this.outputDataView.Size = new System.Drawing.Size(628, 223);
             this.outputDataView.TabIndex = 9;
             // 
             // firstnameColumn
@@ -225,11 +232,81 @@
             this.initialVisitDate.TabIndex = 10;
             this.initialVisitDate.Text = "Initial Visit Date: ";
             // 
+            // familyDataView
+            // 
+            this.familyDataView.AllowUserToAddRows = false;
+            this.familyDataView.AllowUserToDeleteRows = false;
+            this.familyDataView.AllowUserToResizeColumns = false;
+            this.familyDataView.AllowUserToResizeRows = false;
+            this.familyDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.familyDataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.familyNameColumn,
+            this.familyGenderColumn,
+            this.familyAgeColumn,
+            this.familyDateOfBirthColumn});
+            this.familyDataView.Location = new System.Drawing.Point(679, 255);
+            this.familyDataView.MultiSelect = false;
+            this.familyDataView.Name = "familyDataView";
+            this.familyDataView.ReadOnly = true;
+            this.familyDataView.Size = new System.Drawing.Size(627, 203);
+            this.familyDataView.TabIndex = 11;
+            // 
+            // ageLabel
+            // 
+            this.ageLabel.AutoSize = true;
+            this.ageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.ageLabel.Location = new System.Drawing.Point(363, 110);
+            this.ageLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ageLabel.Name = "ageLabel";
+            this.ageLabel.Size = new System.Drawing.Size(57, 26);
+            this.ageLabel.TabIndex = 12;
+            this.ageLabel.Text = "Age:";
+            // 
+            // familyNameColumn
+            // 
+            this.familyNameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.familyNameColumn.FillWeight = 150.303F;
+            this.familyNameColumn.HeaderText = "Name";
+            this.familyNameColumn.Name = "familyNameColumn";
+            this.familyNameColumn.ReadOnly = true;
+            this.familyNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.familyNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // familyGenderColumn
+            // 
+            this.familyGenderColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.familyGenderColumn.FillWeight = 49.69697F;
+            this.familyGenderColumn.HeaderText = "Gender";
+            this.familyGenderColumn.Name = "familyGenderColumn";
+            this.familyGenderColumn.ReadOnly = true;
+            this.familyGenderColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.familyGenderColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // familyAgeColumn
+            // 
+            this.familyAgeColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.familyAgeColumn.HeaderText = "Age";
+            this.familyAgeColumn.Name = "familyAgeColumn";
+            this.familyAgeColumn.ReadOnly = true;
+            this.familyAgeColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.familyAgeColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // familyDateOfBirthColumn
+            // 
+            this.familyDateOfBirthColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.familyDateOfBirthColumn.HeaderText = "DOB";
+            this.familyDateOfBirthColumn.Name = "familyDateOfBirthColumn";
+            this.familyDateOfBirthColumn.ReadOnly = true;
+            this.familyDateOfBirthColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.familyDateOfBirthColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // MoreInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1318, 568);
+            this.Controls.Add(this.ageLabel);
+            this.Controls.Add(this.familyDataView);
             this.Controls.Add(this.initialVisitDate);
             this.Controls.Add(this.outputDataView);
             this.Controls.Add(this.commentsLabel);
@@ -241,12 +318,13 @@
             this.Controls.Add(this.addressLabel);
             this.Controls.Add(this.dateOfBirthLabel);
             this.Controls.Add(this.nameLabel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(1444, 885);
             this.MinimumSize = new System.Drawing.Size(1212, 607);
             this.Name = "MoreInfoForm";
             this.Text = "More Info";
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.familyDataView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,5 +350,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn visitIDColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
         private System.Windows.Forms.Label initialVisitDate;
+        private System.Windows.Forms.DataGridView familyDataView;
+        private System.Windows.Forms.Label ageLabel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn familyNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn familyGenderColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn familyAgeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn familyDateOfBirthColumn;
     }
 }
