@@ -36,21 +36,6 @@ namespace ExitApplication
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
 
             Logger.Log("Exit Application Running");
-
-            try
-            {
-                var query = from p in database.Patrons select p;
-                foreach (var v in query)
-                    v.Calculate();
-                database.SubmitChanges();
-                Logger.Log("Query Length: " + query.Count());
-            }
-            catch (Exception e)
-            {
-                Logger.Log(e.StackTrace);
-                Logger.Log(Constants.loadReleaseExitString());
-                Logger.Log(Constants.loadReleaseServerString());
-            }
         }
 
         // Initialize the database in the gridview
@@ -367,27 +352,6 @@ namespace ExitApplication
             {
                 // Selected a non-created row or something else, so we just clear everything
                 patronIDTextBox.Text = "";
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Constants.ISRELEASE = false;
-            Logger.SetConsoleEnabled(true);
-            Logger.Log("Calculating Patrons");
-            var patrons = database.Patrons.Select(p => p).OrderBy(p => p.PatronId);
-            foreach (var p in patrons)
-            {
-                try
-                {
-                    Logger.Log("Calculating Patron: " + p.PatronId);
-                    p.Calculate();
-                    database.SubmitChanges();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(ex.StackTrace);
-                }
             }
         }
     }

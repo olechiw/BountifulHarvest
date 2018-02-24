@@ -167,8 +167,6 @@ namespace EntryApplication
 
             var p = form.GetResults();
 
-            p.Calculate();
-
             /*
             var lastPatronQuery = database.Patrons.OrderByDescending(patron => patron.PatronId).Take(1);
 
@@ -226,8 +224,6 @@ namespace EntryApplication
 
                 var updatedP = form.GetResults();
                 Patron.Copy(p, updatedP);
-
-                p.Calculate();
 
                 database.SubmitChanges();
 

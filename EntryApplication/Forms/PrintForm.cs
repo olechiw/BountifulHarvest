@@ -114,8 +114,31 @@ namespace EntryApplication
             if (patron.Senior) DrawGenericText(g, "CFSP DONE", Constants.cfspPoint.X, Constants.cfspPoint.Y);
             if (patron.VisitsEveryWeek)
                 DrawGenericText(g, "Visits Every Week", Constants.everyWeekPoint.X, Constants.everyWeekPoint.Y);
+            /*
             if (patron.Old > 0)
                 DrawGenericText(g, "Seniors in household: " + patron.Old, Constants.seniorsPoint.X,
+                    Constants.seniorsPoint.Y);
+                    */
+            // "Seniors" in the household
+            var patronAge = DateTime.Today.Year - patron.DateOfBirth.Year;
+            var seniors = (patronAge >= 60) ? 1 : 0;
+            foreach (var dob in patron.FamilyDateOfBirths.Split(','))
+            {
+                try
+                {
+                    var date = Constants.SafeConvertDate(dob);
+                    if (DateTime.Today.Year - date.Year >= 60)
+                    {
+                        seniors++;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Logger.Log(exception.StackTrace);
+                }
+            }
+            if (seniors > 0)
+                DrawGenericText(g, "Seniors in household: " + seniors, Constants.seniorsPoint.X,
                     Constants.seniorsPoint.Y);
         }
 
