@@ -59,6 +59,7 @@
             this.halloween = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchDataView)).BeginInit();
@@ -370,11 +371,23 @@
             this.label3.TabIndex = 34;
             this.label3.Text = "Patron Visits:";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(784, 19);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(207, 23);
+            this.button1.TabIndex = 35;
+            this.button1.Text = "Recalculate Visits";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1442, 722);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.halloween);
@@ -401,7 +414,6 @@
             this.MaximumSize = new System.Drawing.Size(1918, 898);
             this.Name = "BeginInterfaceForm";
             this.Text = "Bountiful Harvest Patron Database";
-            this.Load += new System.EventHandler(this.BeginInterface_Load);
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchDataView)).EndInit();
@@ -442,6 +454,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronSearchName;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronID;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }
 

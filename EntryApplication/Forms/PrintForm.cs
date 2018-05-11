@@ -121,13 +121,14 @@ namespace EntryApplication
                     */
             // "Seniors" in the household
             var patronAge = DateTime.Today.Year - patron.DateOfBirth.Year;
-            var seniors = (patronAge >= 60) ? 1 : 0;
+            var seniors = (patronAge > 59) ? 1 : 0;
             foreach (var dob in patron.FamilyDateOfBirths.Split(','))
             {
+                if (string.IsNullOrEmpty(dob)) continue;
                 try
                 {
                     var date = Constants.SafeConvertDate(dob);
-                    if (DateTime.Today.Year - date.Year >= 60)
+                    if (DateTime.Today.Year - date.Year > 59)
                     {
                         seniors++;
                     }

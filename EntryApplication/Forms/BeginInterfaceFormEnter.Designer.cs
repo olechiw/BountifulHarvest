@@ -49,7 +49,6 @@
             this.clearButton = new System.Windows.Forms.Button();
             this.deletePatronButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.initialVisitButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +67,7 @@
             // 
             this.searchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchBox.Location = new System.Drawing.Point(191, 53);
-            this.searchBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.searchBox.Margin = new System.Windows.Forms.Padding(2);
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(351, 24);
             this.searchBox.TabIndex = 2;
@@ -89,7 +88,7 @@
             // addPatronButton
             // 
             this.addPatronButton.Location = new System.Drawing.Point(1154, 106);
-            this.addPatronButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addPatronButton.Margin = new System.Windows.Forms.Padding(2);
             this.addPatronButton.Name = "addPatronButton";
             this.addPatronButton.Size = new System.Drawing.Size(112, 37);
             this.addPatronButton.TabIndex = 5;
@@ -100,7 +99,7 @@
             // editPatronButton
             // 
             this.editPatronButton.Location = new System.Drawing.Point(1154, 266);
-            this.editPatronButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.editPatronButton.Margin = new System.Windows.Forms.Padding(2);
             this.editPatronButton.Name = "editPatronButton";
             this.editPatronButton.Size = new System.Drawing.Size(112, 37);
             this.editPatronButton.TabIndex = 6;
@@ -110,8 +109,8 @@
             // 
             // visitPrintButton
             // 
-            this.visitPrintButton.Location = new System.Drawing.Point(1154, 470);
-            this.visitPrintButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.visitPrintButton.Location = new System.Drawing.Point(1154, 505);
+            this.visitPrintButton.Margin = new System.Windows.Forms.Padding(2);
             this.visitPrintButton.Name = "visitPrintButton";
             this.visitPrintButton.Size = new System.Drawing.Size(112, 37);
             this.visitPrintButton.TabIndex = 7;
@@ -146,7 +145,7 @@
             this.patronFamilyColumn,
             this.patronIDColumn});
             this.outputDataView.Location = new System.Drawing.Point(23, 106);
-            this.outputDataView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.outputDataView.Margin = new System.Windows.Forms.Padding(2);
             this.outputDataView.MultiSelect = false;
             this.outputDataView.Name = "outputDataView";
             this.outputDataView.ReadOnly = true;
@@ -220,8 +219,8 @@
             // 
             // morePatronInfoButton
             // 
-            this.morePatronInfoButton.Location = new System.Drawing.Point(1154, 366);
-            this.morePatronInfoButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.morePatronInfoButton.Location = new System.Drawing.Point(1154, 397);
+            this.morePatronInfoButton.Margin = new System.Windows.Forms.Padding(2);
             this.morePatronInfoButton.Name = "morePatronInfoButton";
             this.morePatronInfoButton.Size = new System.Drawing.Size(112, 37);
             this.morePatronInfoButton.TabIndex = 10;
@@ -232,7 +231,7 @@
             // clearButton
             // 
             this.clearButton.Location = new System.Drawing.Point(546, 53);
-            this.clearButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clearButton.Margin = new System.Windows.Forms.Padding(2);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(64, 23);
             this.clearButton.TabIndex = 11;
@@ -243,7 +242,7 @@
             // deletePatronButton
             // 
             this.deletePatronButton.Location = new System.Drawing.Point(1154, 644);
-            this.deletePatronButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deletePatronButton.Margin = new System.Windows.Forms.Padding(2);
             this.deletePatronButton.Name = "deletePatronButton";
             this.deletePatronButton.Size = new System.Drawing.Size(112, 37);
             this.deletePatronButton.TabIndex = 12;
@@ -261,23 +260,11 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "There is no confirmation box, and THIS IS PERMANENT";
             // 
-            // initialVisitButton
-            // 
-            this.initialVisitButton.Location = new System.Drawing.Point(1154, 560);
-            this.initialVisitButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.initialVisitButton.Name = "initialVisitButton";
-            this.initialVisitButton.Size = new System.Drawing.Size(112, 37);
-            this.initialVisitButton.TabIndex = 14;
-            this.initialVisitButton.Text = "Configure Initial Visit";
-            this.initialVisitButton.UseVisualStyleBackColor = true;
-            this.initialVisitButton.Click += new System.EventHandler(this.initialVisitButtonClick);
-            // 
             // BeginInterfaceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1426, 742);
-            this.Controls.Add(this.initialVisitButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.deletePatronButton);
             this.Controls.Add(this.clearButton);
@@ -291,7 +278,7 @@
             this.Controls.Add(this.outputDataView);
             this.Controls.Add(this.searchBox);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(1442, 737);
             this.Name = "BeginInterfaceForm";
             this.Text = "Bountiful Harvest Patron Database";
@@ -323,7 +310,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn patronAge;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronFamilyColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn patronIDColumn;
-        private System.Windows.Forms.Button initialVisitButton;
     }
 }
 

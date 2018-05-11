@@ -25,5 +25,9 @@ namespace Common
         [Column(IsPrimaryKey = true)] public int VisitID;
 
         [Column] public bool Winter;
+
+        [Column] public string Ages;
+
+        [Column] public string Genders;
     }
 }

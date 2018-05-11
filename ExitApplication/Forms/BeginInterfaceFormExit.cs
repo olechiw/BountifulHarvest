@@ -46,42 +46,10 @@ namespace ExitApplication
                 : Constants.debugConnectionString;
 
             // Connect to the database
-            // sqlHandler = new Common.VisitsSqlHandler(connString);
-            // patronsHandler = new Common.PatronsSqlHandler(connString);
             database = new BountifulHarvestContext(connString);
 
             Logger.Log("Loading Initial Visits");
-            LoadAllVisits();
-        }
-
-        // Load the initial list of visits for the day
-        public void LoadAllVisits()
-        {
-            // Get all of the visits for the month
             outputDataView.Rows.Clear();
-
-            /*
-            try
-            {
-                var monthVisits = from v in database.Visits
-                    where v.DateOfVisit.Month == DateTime.Today.Month
-                    select v;
-
-                foreach (var v in monthVisits.OrderBy(visit => visit.DateOfVisit))
-                    AddDataRow(v);
-            }
-            */
-            /*
-            catch (Exception e)
-            {
-                /*
-                Logger.Log("Exception in loading all visits: " + e.Message);
-                Logger.Log(e.StackTrace);
-                Constants.DatabaseFailed();
-                Close();
-                */
-
-            //}
         }
 
         // Add a row to the output
@@ -137,20 +105,16 @@ namespace ExitApplication
             }
         }
 
-        // Extra constructor. Currently unused, probably never will be at this point.
-        private void BeginInterface_Load(object sender, EventArgs e)
-        {
-        }
-
         private void submitButtonClick(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(patronIDTextBox.Text))
                 return;
             if (string.IsNullOrEmpty(totalPoundsSpinner.Value.ToString()) || totalPoundsSpinner.Value == 0)
                 return;
-
+            
+            // Check that patron exists
             var rows = database.Patrons.Where(p => p.PatronId == Constants.SafeConvertInt(patronIDTextBox.Text));
-            if (rows.Count() == 0)
+            if (!rows.Any())
                 return;
 
             // Get all the info
@@ -165,6 +129,8 @@ namespace ExitApplication
                 School = school.Checked,
                 Thanksgiving = thanksgiving.Checked,
                 Christmas = christmas.Checked,
+                Genders = genders(rows.First()),
+                Ages = ageGroups(rows.First()),
                 VisitID = Constants.GetLatestVisitID(database)
             };
 
@@ -190,6 +156,68 @@ namespace ExitApplication
             }
 
             totalPoundsSpinner.Value = 0;
+        }
+
+        private static string ageGroups(Patron p)
+        {
+            // toddler, young, medium, old
+            var ageGroups = new [] {0, 0, 0, 0};
+
+            var patronAge = DateTime.Today.Year - p.DateOfBirth.Year;
+            if (patronAge < 6)
+                ageGroups[0]++;
+            else if ((5 < patronAge) && (patronAge < 18))
+                ageGroups[1]++;
+            else if ((17 < patronAge) && (patronAge < 60))
+                ageGroups[2]++;
+            else
+                ageGroups[3]++;
+
+            var family = p.FamilyDateOfBirths;
+            if (string.IsNullOrEmpty(family)) return string.Join(",", ageGroups);
+
+
+            var familyArray = family.Split(',');
+            foreach (var date in familyArray)
+            {
+                if (string.IsNullOrEmpty(date)) continue;
+
+                var age = DateTime.Today.Year - Constants.SafeConvertDate(date).Year;
+                if (age < 6)
+                    ageGroups[0]++;
+                else if ((5 < age) && (age < 18))
+                    ageGroups[1]++;
+                else if ((17 < age) && (age < 60))
+                    ageGroups[2]++;
+                else
+                    ageGroups[3]++;
+            }
+
+            return string.Join(",", ageGroups);
+        }
+
+        private static string genders(Patron p)
+        {
+            var m = 0;
+            var f = 0;
+            if (p.Gender.Equals("Male"))
+                m++;
+            else if (p.Gender.Equals("Female"))
+                f++;
+
+            var family = p.FamilyGenders;
+            if (string.IsNullOrEmpty(family)) return f + "," + m;
+            foreach (var s in family.Split(','))
+            {
+                if (string.IsNullOrEmpty(s)) continue;
+
+                if (s.Equals("Male"))
+                    m++;
+                else if (s.Equals("Female"))
+                    f++;
+            }
+
+            return f + "," + m;
         }
 
         private void deleteButtonClick(object sender, EventArgs e)
@@ -240,7 +268,7 @@ namespace ExitApplication
                     AddDataRow(rows.AsEnumerable().ElementAt(i));
 
                 if (string.IsNullOrEmpty(patronIDTextBox.Text))
-                    LoadAllVisits();
+                    outputDataView.Rows.Clear();
             }
             catch (Exception error)
             {
@@ -353,6 +381,31 @@ namespace ExitApplication
                 // Selected a non-created row or something else, so we just clear everything
                 patronIDTextBox.Text = "";
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            MessageBox.Show("Calculating...");
+            var visits = database.Visits.Select(p => p);
+            foreach (var visit in visits)
+            {
+                try
+                {
+                    var patron = database.Patrons.Where(p => p.PatronId == visit.PatronID)
+                        .Select(p => p).First();
+                    visit.Ages = ageGroups(patron);
+                    visit.Genders = genders(patron);
+                    database.SubmitChanges();
+                }
+                catch (Exception exception)
+                {
+                    Logger.Log("Exception in updating visit stats:" + exception.Message);
+                    Logger.Log(exception.StackTrace);
+                }
+            }
+
+            MessageBox.Show("Finished calculatons");
         }
     }
 }
