@@ -60,7 +60,7 @@ namespace Common
             catch (Exception e)
             {
                 MessageBox.Show("Failed to Load Authentication");
-                return "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=harvest";
+                return "";
             }
         }
 
@@ -73,7 +73,7 @@ namespace Common
             catch (Exception e)
             {
                 MessageBox.Show("Failed to Load Authentication");
-                return "Server=192.168.1.99\\SQLEXPRESS;Database=BountifulHarvest;User ID = sa; Password=harvest";
+                return "";
             }
         }
 
