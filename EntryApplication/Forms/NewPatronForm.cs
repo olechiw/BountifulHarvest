@@ -236,7 +236,13 @@ namespace EntryApplication
 
             NewPatron.Comments = commentsRichTextBox.Text;
 
-            NewPatron.ZipCode = Convert.ToInt32(zipCodeUpDown.Value);
+            var zip = Convert.ToInt32(zipCodeUpDown.Value);
+            if (zip == 0)
+            {
+                MessageBox.Show("Please enter a Zip Code");
+                return;
+            }
+            NewPatron.ZipCode = zip;
 
             SaveFamily();
 
