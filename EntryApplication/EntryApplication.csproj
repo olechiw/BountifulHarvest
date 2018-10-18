@@ -96,6 +96,12 @@
     <Compile Include="Forms\BeginInterfaceFormEnter.Designer.cs">
       <DependentUpon>BeginInterfaceFormEnter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DuplicateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DuplicateForm.Designer.cs">
+      <DependentUpon>DuplicateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MorePatronInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\BeginInterfaceFormEnter.resx">
       <DependentUpon>BeginInterfaceFormEnter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DuplicateForm.resx">
+      <DependentUpon>DuplicateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MorePatronInfoForm.resx">
       <DependentUpon>MorePatronInfoForm.cs</DependentUpon>

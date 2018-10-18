@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Data.Linq.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 using Common;
-using Microsoft.VisualBasic;
-using Constants = Common.Constants;
+using EntryApplication.Forms;
 using PatronList = System.Linq.IQueryable<Common.Patron>;
 using VisitList = System.Linq.IQueryable<Common.Visit>;
 
@@ -112,17 +110,15 @@ namespace EntryApplication
         // Select all of the text in the box
         private void SelectAll()
         {
-            if (!string.IsNullOrEmpty(searchBox.Text))
-            {
-                searchBox.SelectionStart = 0;
-                searchBox.SelectionLength = searchBox.Text.Length;
-            }
+            if (string.IsNullOrEmpty(searchBox.Text)) return;
+
+            searchBox.SelectionStart = 0;
+            searchBox.SelectionLength = searchBox.Text.Length;
         }
 
         // Whenever a key is pressed in the search box
         private void searchBoxKeyDown(object sender, KeyEventArgs e)
         {
-
         }
 
 
@@ -167,16 +163,15 @@ namespace EntryApplication
 
             var p = form.GetResults();
 
-            /*
-            var lastPatronQuery = database.Patrons.OrderByDescending(patron => patron.PatronId).Take(1);
-
-            if (lastPatronQuery.Count() == 1)
-                p.PatronId = lastPatronQuery.First().PatronId + 1;
-            else
-                p.PatronId = 1;
-                */
-
             p.PatronId = Constants.GetLatestPatronID(database);
+
+
+            /*
+             * Validate the patron by checking the names
+             */
+            var valid = CheckPatronDuplicates(p);
+            if (!valid) return;
+
 
             try
             {
@@ -193,6 +188,27 @@ namespace EntryApplication
                 showPrintDialog(p);
 
             UpdateResults();
+        }
+
+        private bool CheckPatronDuplicates(Patron p)
+        {
+            var patronName = p.FirstName + ' ' + p.LastName;
+            var similarQuery = String.Format(Constants.DuplicatePatronsQuery(), p.Family + ',' + patronName);
+            // Family Duplicates (exact matches only), including main patron's name
+            var similars = database.ExecuteQuery<Patron>(similarQuery);
+
+            // Name Duplicates
+            var names = database.Patrons.Where(p1 => p1.FirstName.Equals(p.FirstName) &&
+                                                     p1.LastName.Equals(p.LastName));
+
+            // Get only unique values
+            var duplicatePatrons = similars.ToArray();
+
+            if (!duplicatePatrons.Any()) return true;
+            var form = new DuplicateForm(duplicatePatrons);
+            form.ShowDialog();
+
+            return !form.Cancel;
         }
 
 
@@ -213,7 +229,7 @@ namespace EntryApplication
 
             try
             {
-                var p = database.Patrons.Where(patron => patron.PatronId == patronId).First();
+                var p = database.Patrons.First(patron => patron.PatronId == patronId);
 
                 // Get new data passing the old data on
                 var form = new NewPatronForm(p);

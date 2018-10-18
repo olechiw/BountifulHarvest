@@ -51,32 +51,6 @@ namespace Common
         public const string debugConnectionString =
             "Server=localhost\\SQLEXPRESS;Database=BountifulHarvest;User Id = sa; Password=potato";
 
-        public static string loadReleaseServerString()
-        {
-            try
-            {
-                return File.ReadAllText("releaseAuthServer.cfg");
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Failed to Load Authentication");
-                return "";
-            }
-        }
-
-        public static string loadReleaseExitString()
-        {
-            try
-            {
-                return File.ReadAllText("releaseAuthExit.cfg");
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Failed to Load Authentication");
-                return "";
-            }
-        }
-
         // The release image location
         public const string releaseFormImage = "form.png";
 
@@ -103,5 +77,31 @@ namespace Common
         public static readonly CultureInfo DateCulture = CultureInfo.InvariantCulture;
 
         public static bool ISRELEASE = true;
+
+        public static string loadReleaseServerString()
+        {
+            try
+            {
+                return File.ReadAllText("releaseAuthServer.cfg");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to Load Authentication");
+                return "";
+            }
+        }
+
+        public static string loadReleaseExitString()
+        {
+            try
+            {
+                return File.ReadAllText("releaseAuthExit.cfg");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to Load Authentication");
+                return "";
+            }
+        }
     }
 }

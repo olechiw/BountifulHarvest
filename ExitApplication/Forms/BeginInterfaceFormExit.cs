@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Linq.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
 using Common;
@@ -111,7 +110,7 @@ namespace ExitApplication
                 return;
             if (string.IsNullOrEmpty(totalPoundsSpinner.Value.ToString()) || totalPoundsSpinner.Value == 0)
                 return;
-            
+
             // Check that patron exists
             var rows = database.Patrons.Where(p => p.PatronId == Constants.SafeConvertInt(patronIDTextBox.Text));
             if (!rows.Any())
@@ -161,14 +160,14 @@ namespace ExitApplication
         private static string ageGroups(Patron p)
         {
             // toddler, young, medium, old
-            var ageGroups = new [] {0, 0, 0, 0};
+            var ageGroups = new[] {0, 0, 0, 0};
 
             var patronAge = DateTime.Today.Year - p.DateOfBirth.Year;
             if (patronAge < 6)
                 ageGroups[0]++;
-            else if ((5 < patronAge) && (patronAge < 18))
+            else if (5 < patronAge && patronAge < 18)
                 ageGroups[1]++;
-            else if ((17 < patronAge) && (patronAge < 60))
+            else if (17 < patronAge && patronAge < 60)
                 ageGroups[2]++;
             else
                 ageGroups[3]++;
@@ -185,9 +184,9 @@ namespace ExitApplication
                 var age = DateTime.Today.Year - Constants.SafeConvertDate(date).Year;
                 if (age < 6)
                     ageGroups[0]++;
-                else if ((5 < age) && (age < 18))
+                else if (5 < age && age < 18)
                     ageGroups[1]++;
-                else if ((17 < age) && (age < 60))
+                else if (17 < age && age < 60)
                     ageGroups[2]++;
                 else
                     ageGroups[3]++;
@@ -351,7 +350,8 @@ namespace ExitApplication
             try
             {
                 var queryString = patronSearchTextBox.Text;
-                var query = database.Patrons.Where(p => p.FirstName.Contains(queryString) || p.LastName.Contains(queryString));
+                var query = database.Patrons.Where(p => p.FirstName.Contains(queryString) ||
+                                                        p.LastName.Contains(queryString));
 
                 if (query.Count() <= 0) return;
                 searchDataView.Rows.Clear();
@@ -385,11 +385,9 @@ namespace ExitApplication
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             MessageBox.Show("Calculating...");
             var visits = database.Visits.Select(p => p);
             foreach (var visit in visits)
-            {
                 try
                 {
                     var patron = database.Patrons.Where(p => p.PatronId == visit.PatronID)
@@ -403,7 +401,6 @@ namespace ExitApplication
                     Logger.Log("Exception in updating visit stats:" + exception.Message);
                     Logger.Log(exception.StackTrace);
                 }
-            }
 
             MessageBox.Show("Finished calculatons");
         }

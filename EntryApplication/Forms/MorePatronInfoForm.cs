@@ -26,7 +26,7 @@ namespace EntryApplication
             firstVisitLabel.Text += p.DateOfInitialVisit.ToString("d");
             familyLabel.Text += p.Family;
             commentsLabel.Text += p.Comments;
-            ageLabel.Text += (DateTime.Today.Year - p.DateOfBirth.Year);
+            ageLabel.Text += DateTime.Today.Year - p.DateOfBirth.Year;
 
             foreach (var v in visits.OrderBy(v => v.DateOfVisit))
                 AddDataRow(p, v);

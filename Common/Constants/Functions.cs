@@ -157,5 +157,87 @@ namespace Common
 
             return id;
         }
+
+        public static int LevenshteinDistance(string s, string t)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                if (string.IsNullOrEmpty(t))
+                    return 0;
+                return t.Length;
+            }
+
+            if (string.IsNullOrEmpty(t))
+                return s.Length;
+
+            var n = s.Length;
+            var m = t.Length;
+            var d = new int[n + 1, m + 1];
+
+            // initialize the top and right of the table to 0, 1, 2, ...
+            for (var i = 0; i <= n; d[i, 0] = i++) ;
+            for (var j = 1; j <= m; d[0, j] = j++) ;
+
+            for (var i = 1; i <= n; i++)
+            for (var j = 1; j <= m; j++)
+            {
+                var cost = t[j - 1] == s[i - 1] ? 0 : 1;
+                var min1 = d[i - 1, j] + 1;
+                var min2 = d[i, j - 1] + 1;
+                var min3 = d[i - 1, j - 1] + cost;
+                d[i, j] = Math.Min(Math.Min(min1, min2), min3);
+            }
+            return d[n, m];
+        }
+
+        /*
+         * A more sophisticated query with the CSV Family columns is easier handled in pure SQL.
+         * This function parses the CSV with TRANSACT-SQL XmlData, and then joins together a table
+         * of all csv search terms. Use with String.Format or ExecuteQuery, to replace {0} with 
+         * argument.
+         */
+        public static string DuplicatePatronsQuery()
+        {
+            return @"
+
+DECLARE @SearchText VARCHAR(MAX) = '{0}'
+
+;WITH SearchTable AS (
+    SELECT LTRIM(O.splitdata) AS Searchdata
+    FROM (
+        SELECT CAST('<X>'+replace(@SearchText,',','</X><X>')+'</X>' AS XML) AS XmlData
+        ) AS xT
+     CROSS APPLY
+     ( 
+         SELECT xdata.D.value('.', 'VARCHAR(MAX)') AS splitdata 
+         FROM xT.XmlData.nodes('X') as xdata(D)
+     ) O
+), SplitTable AS (
+
+    SELECT xT.PatronID,
+     LTRIM(O.splitdata) AS splitdata
+    FROM (
+        SELECT *, CAST('<X>'+replace(T.Family,',','</X><X>')+'</X>' AS XML) AS XmlData
+        FROM Patrons AS T
+        ) AS xT
+     CROSS APPLY
+     ( 
+         SELECT xdata.D.value('.', 'VARCHAR(MAX)') AS splitdata 
+         FROM xT.XmlData.nodes('X') as xdata(D)
+     ) O
+
+), DistinctOutput AS(
+	SELECT DISTINCT CT.PatronID 
+	FROM Patrons as CT
+	INNER JOIN SplitTable as SplitT
+		ON SplitT.PatronID = CT.PatronID
+	INNER JOIN SearchTable as SrchT
+		ON (SrchT.Searchdata LIKE SplitT.splitdata
+		OR SrchT.SearchData LIKE CT.FirstName + ' '  + CT.LastName)
+		AND NOT SrchT.SearchData = '')
+SELECT Patrons.*
+FROM DistinctOutput
+INNER JOIN Patrons ON Patrons.PatronID = DistinctOutput.PatronID;";
+        }
     }
 }

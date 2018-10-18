@@ -6,11 +6,14 @@ namespace Common
     [Table(Name = "Visits")]
     public class Visit
     {
+        [Column] public string Ages;
         [Column] public bool Christmas;
 
         [Column] public DateTime DateOfVisit;
 
         [Column] public bool Easter;
+
+        [Column] public string Genders;
 
         [Column] public bool Halloween;
 
@@ -25,9 +28,5 @@ namespace Common
         [Column(IsPrimaryKey = true)] public int VisitID;
 
         [Column] public bool Winter;
-
-        [Column] public string Ages;
-
-        [Column] public string Genders;
     }
 }

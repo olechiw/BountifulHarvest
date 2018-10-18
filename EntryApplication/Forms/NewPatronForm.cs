@@ -21,7 +21,7 @@ namespace EntryApplication
 {
     public partial class NewPatronForm : DialogForm
     {
-        public readonly Patron NewPatron = new Patron();
+        private readonly Patron newPatron = new Patron();
 
         // A boolean used to see if the user actually saved the data
         private bool saved;
@@ -82,12 +82,12 @@ namespace EntryApplication
 
             InitializeFamily(p);
 
-            NewPatron = p;
+            newPatron = p;
         }
 
         public Patron GetResults()
         {
-            return NewPatron;
+            return newPatron;
         }
 
         public bool Saved()
@@ -165,41 +165,41 @@ namespace EntryApplication
 
         private void ProcessFamily()
         {
-            NewPatron.Family = "";
+            newPatron.Family = "";
             // Get all of the family members
             foreach (DataGridViewRow row in relativesDataView.Rows)
                 if (row.Cells[0]?.Value != null && !string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString()))
                 {
-                    NewPatron.Family += row.Cells[0].Value.ToString();
-                    NewPatron.Family += ',';
+                    newPatron.Family += row.Cells[0].Value.ToString();
+                    newPatron.Family += ',';
 
-                    NewPatron.FamilyGenders += row.Cells[1].Value.ToString();
-                    NewPatron.FamilyGenders += ',';
+                    newPatron.FamilyGenders += row.Cells[1].Value.ToString();
+                    newPatron.FamilyGenders += ',';
 
-                    NewPatron.FamilyDateOfBirths += Constants.ConjuncDate(
+                    newPatron.FamilyDateOfBirths += Constants.ConjuncDate(
                         row.Cells[2].Value.ToString(),
                         row.Cells[3].Value.ToString(),
                         row.Cells[4].Value.ToString());
                 }
 
             // Cut off the last character, a floating comma. But lets not have it be -1
-            if (NewPatron.Family.Length != 0)
-                NewPatron.Family = NewPatron.Family.Substring(0, NewPatron.Family.Length - 1);
+            if (newPatron.Family.Length != 0)
+                newPatron.Family = newPatron.Family.Substring(0, newPatron.Family.Length - 1);
 
-            if (NewPatron.FamilyGenders.Length != 0)
-                NewPatron.FamilyGenders = NewPatron.FamilyGenders.Substring(0, NewPatron.FamilyGenders.Length - 1);
+            if (newPatron.FamilyGenders.Length != 0)
+                newPatron.FamilyGenders = newPatron.FamilyGenders.Substring(0, newPatron.FamilyGenders.Length - 1);
 
-            if (NewPatron.FamilyDateOfBirths.Length != 0)
-                NewPatron.FamilyGenders = NewPatron.FamilyGenders.Substring(0, NewPatron.FamilyGenders.Length - 1);
+            if (newPatron.FamilyDateOfBirths.Length != 0)
+                newPatron.FamilyGenders = newPatron.FamilyGenders.Substring(0, newPatron.FamilyGenders.Length - 1);
         }
 
         // Record all of the data, and close the window
         private void SubmitButtonClick(object sender, EventArgs e)
         {
-            // Fill the NewPatron structure
-            NewPatron.FirstName = firstNameTextBox.Text;
-            NewPatron.LastName = lastNameTextBox.Text;
-            NewPatron.MiddleInitial = middleInitialTextBox.Text;
+            // Fill the newPatron structure
+            newPatron.FirstName = firstNameTextBox.Text;
+            newPatron.LastName = lastNameTextBox.Text;
+            newPatron.MiddleInitial = middleInitialTextBox.Text;
 
 
             var month = Constants.SafeConvertInt(monthTextBox.Text);
@@ -208,13 +208,13 @@ namespace EntryApplication
 
             var year = Constants.SafeConvertInt(yearTextBox.Text);
 
-            NewPatron.DateOfBirth = new DateTime();
+            newPatron.DateOfBirth = new DateTime();
 
 
             if (!(year == 0 || day == 0 || month == 0))
                 try
                 {
-                    NewPatron.DateOfBirth = new DateTime(year, month, day);
+                    newPatron.DateOfBirth = new DateTime(year, month, day);
                 }
                 catch (Exception)
                 {
@@ -222,19 +222,19 @@ namespace EntryApplication
                     return;
                 }
 
-            NewPatron.DateOfInitialVisit = DateTime.Today;
+            newPatron.DateOfInitialVisit = DateTime.Today;
 
-            NewPatron.Gender = genderComboBox.Text;
+            newPatron.Gender = genderComboBox.Text;
 
-            NewPatron.Address = addressTextBox1.Text + "\n" + addressTextBox2.Text;
+            newPatron.Address = addressTextBox1.Text + "\n" + addressTextBox2.Text;
 
-            NewPatron.PhoneNumber = phoneNumberTextBox.Text;
+            newPatron.PhoneNumber = phoneNumberTextBox.Text;
 
-            NewPatron.VisitsEveryWeek = everyWeekCheckBox.Checked;
-            NewPatron.Veteran = veteranCheckBox.Checked;
-            NewPatron.Senior = seniorCheckBox.Checked;
+            newPatron.VisitsEveryWeek = everyWeekCheckBox.Checked;
+            newPatron.Veteran = veteranCheckBox.Checked;
+            newPatron.Senior = seniorCheckBox.Checked;
 
-            NewPatron.Comments = commentsRichTextBox.Text;
+            newPatron.Comments = commentsRichTextBox.Text;
 
             var zip = Convert.ToInt32(zipCodeUpDown.Value);
             if (zip == 0)
@@ -242,7 +242,7 @@ namespace EntryApplication
                 MessageBox.Show("Please enter a Zip Code");
                 return;
             }
-            NewPatron.ZipCode = zip;
+            newPatron.ZipCode = zip;
 
             SaveFamily();
 
@@ -286,9 +286,9 @@ namespace EntryApplication
             if (!string.IsNullOrEmpty(familyDates))
                 familyDates = familyDates.Substring(0, familyDates.Length - 1);
 
-            NewPatron.Family = family;
-            NewPatron.FamilyGenders = familyGenders;
-            NewPatron.FamilyDateOfBirths = familyDates;
+            newPatron.Family = family;
+            newPatron.FamilyGenders = familyGenders;
+            newPatron.FamilyDateOfBirths = familyDates;
         }
 
         private void FamilyTextBoxKeyDown(object sender, KeyEventArgs e)
