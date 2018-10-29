@@ -13,7 +13,6 @@ namespace Common
             Keys.OemMinus,
             Keys.Space,
             Keys.Subtract,
-            Keys.Oemcomma,
             Keys.OemPeriod,
             Keys.Decimal,
             Keys.Divide,

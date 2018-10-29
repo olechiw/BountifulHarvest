@@ -26,7 +26,7 @@ namespace EntryApplication
                 Logger.Log(e.StackTrace);
             }
 
-            if (!Constants.ISRELEASE)
+            if (!Constants.Isrelease)
                 Console.ReadLine();
         }
     }

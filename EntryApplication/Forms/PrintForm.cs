@@ -81,11 +81,11 @@ namespace EntryApplication
             Bitmap loadedImage = null;
             try
             {
-                loadedImage = new Bitmap(Constants.releaseFormImage);
+                loadedImage = new Bitmap(Constants.ReleaseFormImage);
             }
             catch (Exception)
             {
-                MessageBox.Show("Failed to load " + Constants.releaseFormImage + ", check your installation!");
+                MessageBox.Show("Failed to load " + Constants.ReleaseFormImage + ", check your installation!");
                 return;
             }
 
@@ -94,26 +94,26 @@ namespace EntryApplication
 
             CalculateValues();
 
-            DrawGenericText(g, name, Constants.namePoint.X, Constants.namePoint.Y);
-            DrawGenericText(g, limitsAllowed.ToString(), Constants.limitsPoint.X, Constants.limitsPoint.Y);
-            DrawGenericText(g, numberInFamily.ToString(), Constants.familyPoint.X, Constants.familyPoint.Y);
-            DrawGenericText(g, Constants.ConvertDateTime(DateTime.Today), Constants.datePoint.X, Constants.datePoint.Y);
-            DrawGenericText(g, id, Constants.idPoint.X, Constants.idPoint.Y);
+            DrawGenericText(g, name, Constants.NamePoint.X, Constants.NamePoint.Y);
+            DrawGenericText(g, limitsAllowed.ToString(), Constants.LimitsPoint.X, Constants.LimitsPoint.Y);
+            DrawGenericText(g, numberInFamily.ToString(), Constants.FamilyPoint.X, Constants.FamilyPoint.Y);
+            DrawGenericText(g, Constants.ConvertDateTime(DateTime.Today), Constants.DatePoint.X, Constants.DatePoint.Y);
+            DrawGenericText(g, id, Constants.IdPoint.X, Constants.IdPoint.Y);
 
             DrawDel drawExtra = p => DrawGenericText(g, "X", p.X, p.Y);
 
-            if (mVisit.Easter) drawExtra(Constants.easterPoint);
-            if (mVisit.Halloween) drawExtra(Constants.halloweenPoint);
-            if (mVisit.Christmas) drawExtra(Constants.christmasPoint);
-            if (mVisit.Thanksgiving) drawExtra(Constants.thanksgivingPoint);
-            if (mVisit.Winter) drawExtra(Constants.winterPoint);
-            if (mVisit.School) drawExtra(Constants.schoolPoint);
+            if (mVisit.Easter) drawExtra(Constants.EasterPoint);
+            if (mVisit.Halloween) drawExtra(Constants.HalloweenPoint);
+            if (mVisit.Christmas) drawExtra(Constants.ChristmasPoint);
+            if (mVisit.Thanksgiving) drawExtra(Constants.ThanksgivingPoint);
+            if (mVisit.Winter) drawExtra(Constants.WinterPoint);
+            if (mVisit.School) drawExtra(Constants.SchoolPoint);
 
 
-            if (patron.Veteran) drawExtra(Constants.veteranPoint);
-            if (patron.Senior) DrawGenericText(g, "CFSP DONE", Constants.cfspPoint.X, Constants.cfspPoint.Y);
+            if (patron.Veteran) drawExtra(Constants.VeteranPoint);
+            if (patron.Senior) DrawGenericText(g, "CFSP DONE", Constants.CfspPoint.X, Constants.CfspPoint.Y);
             if (patron.VisitsEveryWeek)
-                DrawGenericText(g, "Visits Every Week", Constants.everyWeekPoint.X, Constants.everyWeekPoint.Y);
+                DrawGenericText(g, "Visits Every Week", Constants.EveryWeekPoint.X, Constants.EveryWeekPoint.Y);
             /*
             if (patron.Old > 0)
                 DrawGenericText(g, "Seniors in household: " + patron.Old, Constants.seniorsPoint.X,
@@ -137,8 +137,8 @@ namespace EntryApplication
                 }
             }
             if (seniors > 0)
-                DrawGenericText(g, "Seniors in household: " + seniors, Constants.seniorsPoint.X,
-                    Constants.seniorsPoint.Y);
+                DrawGenericText(g, "Seniors in household: " + seniors, Constants.SeniorsPoint.X,
+                    Constants.SeniorsPoint.Y);
         }
 
         public void Print(Patron p)
@@ -157,9 +157,9 @@ namespace EntryApplication
             patron = p;
             CalculateValues();
 
-            var database = new BountifulHarvestContext(Constants.ISRELEASE
-                ? Constants.loadReleaseServerString()
-                : Constants.debugConnectionString);
+            var database = new BountifulHarvestContext(Constants.Isrelease
+                ? Constants.LoadReleaseServerString()
+                : Constants.DebugConnectionString);
 
             var visitsThisMonth = from v in database.Visits
                 where v.PatronID == p.PatronId && v.DateOfVisit.Month == DateTime.Today.Month

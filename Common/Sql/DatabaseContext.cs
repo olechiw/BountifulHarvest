@@ -6,7 +6,10 @@ namespace Common
     [Database(Name = "BountifulHarvest")]
     public class BountifulHarvestContext : DataContext
     {
+        // ReSharper disable once UnassignedField.Global
         public Table<Patron> Patrons;
+
+        // ReSharper disable once UnassignedField.Global
         public Table<Visit> Visits;
 
         public BountifulHarvestContext(string connectionString) : base(connectionString)

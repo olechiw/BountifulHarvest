@@ -152,6 +152,7 @@
             this.firstNameTextBox.Name = "firstNameTextBox";
             this.firstNameTextBox.Size = new System.Drawing.Size(110, 20);
             this.firstNameTextBox.TabIndex = 0;
+            this.firstNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nameKeyPress);
             // 
             // lastNameTextBox
             // 
@@ -160,6 +161,7 @@
             this.lastNameTextBox.Name = "lastNameTextBox";
             this.lastNameTextBox.Size = new System.Drawing.Size(110, 20);
             this.lastNameTextBox.TabIndex = 2;
+            this.lastNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nameKeyPress);
             // 
             // label6
             // 
@@ -190,6 +192,7 @@
             this.middleInitialTextBox.Name = "middleInitialTextBox";
             this.middleInitialTextBox.Size = new System.Drawing.Size(19, 20);
             this.middleInitialTextBox.TabIndex = 1;
+            this.middleInitialTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nameKeyPress);
             // 
             // relativesDataView
             // 
@@ -471,7 +474,7 @@
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NewPatronForm";
-            this.Text = "Winter Coat";
+            this.Text = "Add/Edit A Patron";
             ((System.ComponentModel.ISupportInitialize)(this.relativesDataView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.zipCodeUpDown)).EndInit();
             this.ResumeLayout(false);

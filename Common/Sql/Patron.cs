@@ -6,6 +6,7 @@ namespace Common
     [Table(Name = "Patrons")]
     public class Patron
     {
+        // ReSharper disable once InconsistentNaming
         [Column(Name = "DateOfBirth")] public string _DateOfBirth;
 
         [Column] public string Address;
@@ -55,13 +56,10 @@ namespace Common
         public static void Copy(Patron n, Patron o)
         {
             var typeN = n.GetType();
-            var N = typeN.GetProperties();
-
             var typeO = o.GetType();
-            var O = typeO.GetProperties();
 
-            for (var i = 0; i < N.Length; ++i)
-                N[i] = O[i];
+            for (var i = 0; i < typeN.GetProperties().Length; ++i)
+                typeN.GetProperties()[i] = typeO.GetProperties()[i];
         }
     }
 }

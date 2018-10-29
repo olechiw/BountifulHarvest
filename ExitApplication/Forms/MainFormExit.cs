@@ -40,9 +40,9 @@ namespace ExitApplication
         // Initialize the database in the gridview
         private void SetupSQL()
         {
-            var connString = Constants.ISRELEASE
-                ? Constants.loadReleaseExitString()
-                : Constants.debugConnectionString;
+            var connString = Constants.Isrelease
+                ? Constants.LoadReleaseExitString()
+                : Constants.DebugConnectionString;
 
             // Connect to the database
             database = new BountifulHarvestContext(connString);
@@ -130,7 +130,7 @@ namespace ExitApplication
                 Christmas = christmas.Checked,
                 Genders = genders(rows.First()),
                 Ages = ageGroups(rows.First()),
-                VisitID = Constants.GetLatestVisitID(database)
+                VisitID = Constants.GetLatestVisitId(database)
             };
 
             // Uncheck extras
@@ -374,7 +374,7 @@ namespace ExitApplication
                 var id = Constants.SafeConvertInt(
                     searchDataView.SelectedRows[0]
                         .Cells[1].Value.ToString());
-                patronIDTextBox.Text = id == Constants.InvalidID ? "" : id.ToString();
+                patronIDTextBox.Text = id == Constants.InvalidId ? "" : id.ToString();
             }
             catch (Exception)
             {

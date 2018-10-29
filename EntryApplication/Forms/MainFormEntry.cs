@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Common;
@@ -15,7 +16,7 @@ namespace EntryApplication
     public partial class BeginInterfaceForm : DialogForm
     {
         // The type of date we want to display: mm/dd/yy
-        private const string dateCode = "d";
+        private const string DateCode = "d";
 
         // The database handler, responsible for all sql operations
         // Common.PatronsSqlHandler sqlHandler;
@@ -33,7 +34,7 @@ namespace EntryApplication
             Constants.InitializeDataView(outputDataView);
 
             Logger.Log("Setting Up SQL");
-            InitializeSQL();
+            initializeSql();
 
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
 
@@ -41,11 +42,11 @@ namespace EntryApplication
         }
 
         // Setup the sql connection
-        private void InitializeSQL()
+        private void initializeSql()
         {
-            var connString = Constants.ISRELEASE
-                ? Constants.loadReleaseServerString()
-                : Constants.debugConnectionString;
+            var connString = Constants.Isrelease
+                ? Constants.LoadReleaseServerString()
+                : Constants.DebugConnectionString;
 
             // Connect to the SQL database
             // sqlHandler = new Common.PatronsSqlHandler(connString);
@@ -54,7 +55,7 @@ namespace EntryApplication
 
             try
             {
-                LoadAllPatrons();
+                loadAllPatrons();
             }
             catch (Exception e)
             {
@@ -65,15 +66,15 @@ namespace EntryApplication
 
 
         // Load all patrons
-        private void LoadAllPatrons()
+        private void loadAllPatrons()
         {
             outputDataView.Rows.Clear();
 
             try
             {
                 // Read all of the patrons into the data
-                foreach (var p in database.Patrons.Take(200))
-                    AddDataRow(p);
+                foreach (var p in database.Patrons.Take(50))
+                    addDataRow(p);
             }
             catch (Exception e)
             {
@@ -86,7 +87,7 @@ namespace EntryApplication
 
 
         // Shorthand for adding a set of values to the outputDataView
-        private void AddDataRow(Patron p)
+        private void addDataRow(Patron p)
         {
             outputDataView.Rows.Add(
                 p.FirstName,
@@ -100,15 +101,15 @@ namespace EntryApplication
         }
 
         // Add a list of rows
-        private void AddDataRows(PatronList ps)
+        private void addDataRows(IEnumerable<Patron> ps)
         {
             foreach (var p in ps)
-                AddDataRow(p);
+                addDataRow(p);
         }
 
 
         // Select all of the text in the box
-        private void SelectAll()
+        private void selectAll()
         {
             if (string.IsNullOrEmpty(searchBox.Text)) return;
 
@@ -123,13 +124,13 @@ namespace EntryApplication
 
 
         // Update the data table with the results given the search box text
-        private void UpdateResults()
+        private void updateResults()
         {
             var query = searchBox.Text;
 
             if (query == "")
             {
-                LoadAllPatrons();
+                loadAllPatrons();
             }
 
             else
@@ -141,7 +142,8 @@ namespace EntryApplication
 
                 try
                 {
-                    AddDataRows(database.Patrons.Where(p => p.FirstName.Contains(query) || p.LastName.Contains(query)));
+                    addDataRows(database.Patrons.Where(
+                        p => p.FirstName.Contains(query) || p.LastName.Contains(query) || p.Family.Contains(query)));
                 }
                 catch (Exception e)
                 {
@@ -163,13 +165,13 @@ namespace EntryApplication
 
             var p = form.GetResults();
 
-            p.PatronId = Constants.GetLatestPatronID(database);
+            p.PatronId = Constants.GetLatestPatronId(database);
 
 
             /*
              * Validate the patron by checking the names
              */
-            var valid = CheckPatronDuplicates(p);
+            var valid = checkPatronDuplicates(p);
             if (!valid) return;
 
 
@@ -187,13 +189,13 @@ namespace EntryApplication
             if (form.Print())
                 showPrintDialog(p);
 
-            UpdateResults();
+            updateResults();
         }
 
-        private bool CheckPatronDuplicates(Patron p)
+        private bool checkPatronDuplicates(Patron p)
         {
             var patronName = p.FirstName + ' ' + p.LastName;
-            var similarQuery = String.Format(Constants.DuplicatePatronsQuery(), p.Family + ',' + patronName);
+            var similarQuery = string.Format(Constants.DuplicatePatronsQuery(), p.Family + ',' + patronName);
             // Family Duplicates (exact matches only), including main patron's name
             var similars = database.ExecuteQuery<Patron>(similarQuery);
 
@@ -216,13 +218,13 @@ namespace EntryApplication
         private void editPatronButtonClick(object sender, EventArgs e)
         {
             var patronId = Constants.SafeConvertInt(
-                outputDataView.SelectedRows[0].Cells[(int) Constants.PatronIndexes.PatronID]
+                outputDataView.SelectedRows[0].Cells[(int) Constants.PatronIndexes.PatronId]
                     .Value.ToString()
             );
 
-            if (patronId == Constants.InvalidID)
+            if (patronId == Constants.InvalidId)
             {
-                MessageBox.Show("Something went wrong, failed to turn the ID into an integer");
+                MessageBox.Show(@"Something went wrong, failed to turn the ID into an integer");
                 Logger.Log("Failed when turning an ID into integer.");
                 return;
             }
@@ -254,7 +256,7 @@ namespace EntryApplication
             }
 
 
-            UpdateResults();
+            updateResults();
         }
 
 
@@ -265,10 +267,10 @@ namespace EntryApplication
                 Patron selectedPatron;
                 if (patron == null)
                 {
-                    var selectedPatronID =
-                        Constants.GetSelectedInt(outputDataView, (int) Constants.PatronIndexes.PatronID);
+                    var selectedPatronId =
+                        Constants.GetSelectedInt(outputDataView, (int) Constants.PatronIndexes.PatronId);
 
-                    selectedPatron = database.Patrons.First(p => p.PatronId == selectedPatronID);
+                    selectedPatron = database.Patrons.First(p => p.PatronId == selectedPatronId);
                 }
                 else
                 {
@@ -277,13 +279,15 @@ namespace EntryApplication
 
                 var pastYearVisits = database.Visits.Where(v => v.PatronID == selectedPatron.PatronId);
 
-                var extrasVisit = new Visit();
-                extrasVisit.Christmas = pastYearVisits.Any(v => v.Christmas);
-                extrasVisit.Easter = pastYearVisits.Any(v => v.Easter);
-                extrasVisit.Thanksgiving = pastYearVisits.Any(v => v.Thanksgiving);
-                extrasVisit.Halloween = pastYearVisits.Any(v => v.Halloween);
-                extrasVisit.School = pastYearVisits.Any(v => v.School);
-                extrasVisit.Winter = pastYearVisits.Any(v => v.Winter);
+                var extrasVisit = new Visit
+                {
+                    Christmas = pastYearVisits.Any(v => v.Christmas),
+                    Easter = pastYearVisits.Any(v => v.Easter),
+                    Thanksgiving = pastYearVisits.Any(v => v.Thanksgiving),
+                    Halloween = pastYearVisits.Any(v => v.Halloween),
+                    School = pastYearVisits.Any(v => v.School),
+                    Winter = pastYearVisits.Any(v => v.Winter)
+                };
 
 
                 // Show the form
@@ -318,8 +322,8 @@ namespace EntryApplication
 
             try
             {
-                var id = Constants.GetSelectedInt(outputDataView, (int) Constants.PatronIndexes.PatronID);
-                var p = database.Patrons.Where(patron => patron.PatronId == id).First();
+                var id = Constants.GetSelectedInt(outputDataView, (int) Constants.PatronIndexes.PatronId);
+                var p = database.Patrons.First(patron => patron.PatronId == id);
 
                 var visits = from v in database.Visits where v.PatronID == p.PatronId select v;
 
@@ -338,22 +342,25 @@ namespace EntryApplication
         private void clearButtonClick(object sender, EventArgs e)
         {
             searchBox.Text = "";
-            LoadAllPatrons();
+            loadAllPatrons();
             searchBox.Focus();
         }
 
         private void deletePatronButtonClick(object sender, EventArgs e)
         {
+            // Multiselect disabled, has to be the first row
             var selectedRow = outputDataView.SelectedRows[0];
+            // Get the selected patron's id
             var id = Constants.SafeConvertInt(
-                selectedRow.Cells[(int) Constants.PatronIndexes.PatronID]
+                selectedRow.Cells[(int) Constants.PatronIndexes.PatronId]
                     .Value.ToString());
 
             try
             {
+                // Get patron object
                 var deletePatron = (from p in database.Patrons where p.PatronId == id select p).First();
 
-
+                // Delete the patron
                 database.Patrons.DeleteOnSubmit(deletePatron);
                 database.SubmitChanges();
 
@@ -368,7 +375,7 @@ namespace EntryApplication
 
         private void textChangedListener(object sender, EventArgs e)
         {
-            UpdateResults();
+            updateResults();
         }
     }
 }

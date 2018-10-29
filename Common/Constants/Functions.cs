@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Common
 {
-    public partial class Constants
+    public static partial class Constants
     {
         public static void SetupLogger(string[] args)
         {
@@ -22,11 +22,10 @@ namespace Common
                 Logger.ArgumentDebug = true;
                 Logger.Log("Launched with debugger mode!");
             }
-            if (args.Contains("--local"))
-            {
-                Logger.Log("Launching in local Mode");
-                ISRELEASE = false;
-            }
+            if (!args.Contains("--local")) return;
+
+            Logger.Log("Launching in local Mode");
+            Isrelease = false;
         }
 
         public static void DatabaseFailed()
@@ -64,7 +63,7 @@ namespace Common
             catch (Exception)
             {
                 Logger.Log("Input SafeConvertInt string: '" + s + "' invalid!");
-                return InvalidID;
+                return InvalidId;
             }
         }
 
@@ -136,24 +135,24 @@ namespace Common
         }
 
 
-        public static int GetLatestVisitID(BountifulHarvestContext databaseContext)
+        public static int GetLatestVisitId(BountifulHarvestContext databaseContext)
         {
             var id = 0;
 
             var query =
                 (from v in databaseContext.Visits select v).OrderByDescending(visit => visit.VisitID);
-            id = query.Count() == 0 ? 1 : query.First().VisitID + 1;
+            id = !query.Any() ? 1 : query.First().VisitID + 1;
 
             return id;
         }
 
-        public static int GetLatestPatronID(BountifulHarvestContext databaseContext)
+        public static int GetLatestPatronId(BountifulHarvestContext databaseContext)
         {
             var id = 0;
 
             var query =
                 (from p in databaseContext.Patrons select p).OrderByDescending(patron => patron.PatronId);
-            id = query.Count() == 0 ? 1 : query.First().PatronId + 1;
+            id = !query.Any() ? 1 : query.First().PatronId + 1;
 
             return id;
         }

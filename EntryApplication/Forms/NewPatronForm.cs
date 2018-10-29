@@ -44,6 +44,10 @@ namespace EntryApplication
 
             InitializeComponentManual();
 
+            firstNameTextBox.KeyDown += FamilyTextBoxKeyDown;
+            lastNameTextBox.KeyDown += FamilyTextBoxKeyDown;
+            middleInitialTextBox.KeyDown += FamilyTextBoxKeyDown;
+
             // Load the existing patron information into the form.
             firstNameTextBox.Text = p.FirstName;
             lastNameTextBox.Text = p.LastName;
@@ -58,10 +62,18 @@ namespace EntryApplication
             seniorCheckBox.Checked = p.Senior;
 
 
-            if (p.Gender == "Male")
-                genderComboBox.SelectedItem = genderComboBox.Items[0];
-            else if (p.Gender == "Female")
-                genderComboBox.SelectedItem = genderComboBox.Items[1];
+            switch (p.Gender)
+            {
+                case "Male":
+                    genderComboBox.SelectedItem = genderComboBox.Items[0];
+                    break;
+                case "Female":
+                    genderComboBox.SelectedItem = genderComboBox.Items[1];
+                    break;
+                default:
+                    genderComboBox.SelectedItem = genderComboBox.Items[0];
+                    break;
+            }
 
 
             if (!string.IsNullOrEmpty(p.Address))
@@ -258,8 +270,7 @@ namespace EntryApplication
 
             foreach (DataGridViewRow row in relativesDataView.Rows)
                 if (
-                    row?.Cells?[0]?.Value != null &&
-                    !string.IsNullOrEmpty(row.Cells[0].Value.ToString()))
+                    !string.IsNullOrEmpty(row?.Cells?[0]?.Value?.ToString()))
                 {
                     family += row.Cells[0].Value.ToString() + ',';
 
@@ -269,9 +280,9 @@ namespace EntryApplication
                           + ',';
 
                     // Load the dob information. I promise it works??? :(
-                    var m = row.Cells[2].Value == null ? " " : row.Cells[2].Value.ToString();
-                    var d = row.Cells[3].Value == null ? " " : row.Cells[3].Value.ToString();
-                    var y = row.Cells[4].Value == null ? " " : row.Cells[4].Value.ToString();
+                    var m = row.Cells[2].Value?.ToString() ?? " ";
+                    var d = row.Cells[3].Value?.ToString() ?? " ";
+                    var y = row.Cells[4].Value?.ToString() ?? " ";
                     if (!(string.IsNullOrEmpty(m) || string.IsNullOrEmpty(d) || string.IsNullOrEmpty(y)))
                         familyDates += m + '/' + d + '/' + y + ',';
                     else
@@ -314,6 +325,7 @@ namespace EntryApplication
                     return;
                 default:
                     e.SuppressKeyPress = true;
+                    e.Handled = true;
                     break;
             }
         }
@@ -322,6 +334,34 @@ namespace EntryApplication
         {
             // Have to do this for every control, so its inside the datagridview editing handler.
             e.Control.KeyDown += FamilyTextBoxKeyDown;
+        }
+
+        private void nameKeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Locks out input so that you cant hit random shit in the family text box.
+            var key = e.KeyChar;
+
+            if (char.IsLetter(key)) return;
+            if (char.IsNumber(key)) return;
+
+            // Special exceptions (backspace + space) are ok
+            switch (key)
+            {
+                case (char) Keys.Back:
+                case (char) Keys.Left:
+                case (char) Keys.Right:
+                case (char) Keys.Up:
+                case (char) Keys.Down:
+                case (char) Keys.Space:
+                case (char) Keys.OemPeriod:
+                case (char) Keys.ControlKey:
+                case (char) Keys.Decimal:
+                case '.':
+                    return;
+                default:
+                    e.Handled = true;
+                    break;
+            }
         }
     }
 }

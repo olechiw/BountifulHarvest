@@ -17,6 +17,7 @@ namespace Common
 
         [Column] public bool Halloween;
 
+        // ReSharper disable once InconsistentNaming
         [Column] public int PatronID;
 
         [Column] public bool School;
@@ -25,6 +26,7 @@ namespace Common
 
         [Column] public int TotalPounds;
 
+        // ReSharper disable once InconsistentNaming
         [Column(IsPrimaryKey = true)] public int VisitID;
 
         [Column] public bool Winter;
