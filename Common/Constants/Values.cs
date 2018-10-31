@@ -36,8 +36,8 @@ namespace Common
             TotalPounds,
             DateOfVisit,
             Extras,
-            VisitID,
-            PatronID
+            VisitId,
+            PatronId
         }
 
         public const string DateFormat = "MM/dd/yyyy";
@@ -86,7 +86,7 @@ namespace Common
             }
             catch (Exception e)
             {
-                MessageBox.Show("Failed to Load Authentication");
+                MessageBox.Show(@"Invalid Date of Birth Entered.");
                 return "";
             }
         }
@@ -99,7 +99,7 @@ namespace Common
             }
             catch (Exception e)
             {
-                MessageBox.Show("Failed to Load Authentication");
+                MessageBox.Show(@"Invalid Date of Birth Entered.");
                 return "";
             }
         }

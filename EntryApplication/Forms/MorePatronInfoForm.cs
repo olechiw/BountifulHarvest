@@ -29,19 +29,19 @@ namespace EntryApplication
             ageLabel.Text += DateTime.Today.Year - p.DateOfBirth.Year;
 
             foreach (var v in visits.OrderBy(v => v.DateOfVisit))
-                AddDataRow(p, v);
+                addDataRow(p, v);
 
 
             if (visits.Any())
                 initialVisitDate.Text += visits.OrderBy(v => v.DateOfVisit).First().DateOfVisit
                     .ToString(Constants.DateFormat);
 
-            AddFamilyRows(p);
+            addFamilyRows(p);
 
             WindowState = FormWindowState.Maximized;
         }
 
-        private void AddDataRow(Patron p, Visit v)
+        private void addDataRow(Patron p, Visit v)
         {
             outputDataView.Rows.Add(p.FirstName,
                 p.MiddleInitial,
@@ -52,7 +52,7 @@ namespace EntryApplication
                 v.PatronID);
         }
 
-        private void AddFamilyRows(Patron p)
+        private void addFamilyRows(Patron p)
         {
             var family = p.Family.Split(',');
             var familyDateOfBirths = p.FamilyDateOfBirths.Split(',');
@@ -69,7 +69,7 @@ namespace EntryApplication
                 {
                     if (familyDateOfBirths.Length > i)
                     {
-                        age = GetAgeOf(familyDateOfBirths[i]);
+                        age = getAgeOf(familyDateOfBirths[i]);
                         dob = familyDateOfBirths[i];
                     }
                     if (familyGenders.Length > i)
@@ -83,7 +83,7 @@ namespace EntryApplication
             }
         }
 
-        private string GetAgeOf(string date)
+        private string getAgeOf(string date)
         {
             var age = "n/a";
             try

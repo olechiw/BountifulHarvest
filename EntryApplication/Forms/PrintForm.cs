@@ -4,16 +4,11 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 using Common;
-using VisitList = System.Linq.IQueryable<Common.Visit>;
-using PatronList = System.Linq.IQueryable<Common.Patron>;
 
 namespace EntryApplication
 {
     public partial class PrintForm : DialogForm
     {
-        /*
-         * PRINTING THINGS
-         */
         private int limitsAllowed;
 
         private Visit mVisit;
@@ -46,7 +41,7 @@ namespace EntryApplication
         }
 
         // Figure out the size of the family and allowed limits
-        private void CalculateValues()
+        private void calculateValues()
         {
             var c = patron.Family.Split(',').Length;
 
@@ -64,7 +59,7 @@ namespace EntryApplication
         }
 
         // When the screenPrint document is about to be printed, draw what we want
-        private void ScreenPrintPrintPage(object sender, PrintPageEventArgs e)
+        private void screenPrintPrintPage(object sender, PrintPageEventArgs e)
         {
             // Create the full name of the person
             var name = Constants.ConjuncName(patron.FirstName, patron.MiddleInitial, patron.LastName);
@@ -92,7 +87,7 @@ namespace EntryApplication
             // Draw the image and the text which fills it out
             g.DrawImage(loadedImage, new Point(0, 0));
 
-            CalculateValues();
+            calculateValues();
 
             DrawGenericText(g, name, Constants.NamePoint.X, Constants.NamePoint.Y);
             DrawGenericText(g, limitsAllowed.ToString(), Constants.LimitsPoint.X, Constants.LimitsPoint.Y);
@@ -141,7 +136,7 @@ namespace EntryApplication
                     Constants.SeniorsPoint.Y);
         }
 
-        public void Print(Patron p)
+        private void print(Patron p)
         {
             Logger.Log(
                 "Printing patron: " +
@@ -152,10 +147,10 @@ namespace EntryApplication
 
             var print = new PrintDocument();
 
-            print.PrintPage += ScreenPrintPrintPage;
+            print.PrintPage += screenPrintPrintPage;
 
             patron = p;
-            CalculateValues();
+            calculateValues();
 
             var database = new BountifulHarvestContext(Constants.Isrelease
                 ? Constants.LoadReleaseServerString()
@@ -195,11 +190,9 @@ namespace EntryApplication
             using (var pD = new PrintDialog())
             {
                 pD.Document = print;
-                if (pD.ShowDialog() == DialogResult.OK)
-                {
-                    print.Print();
-                    Close();
-                }
+                if (pD.ShowDialog() != DialogResult.OK) return;
+                print.Print();
+                Close();
             }
         }
 
@@ -220,14 +213,14 @@ namespace EntryApplication
         private void refreshDocumentPreview()
         {
             var document = new PrintDocument();
-            document.PrintPage += ScreenPrintPrintPage;
+            document.PrintPage += screenPrintPrintPage;
             printPreviewControl.Document = document;
             printPreviewControl.Refresh();
         }
 
         private void printButtonClick(object sender, EventArgs e)
         {
-            Print(patron);
+            print(patron);
         }
 
         private delegate void DrawDel(Point p);

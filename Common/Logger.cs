@@ -6,8 +6,8 @@ namespace Common
 {
     public static class Logger
     {
-        private const int SW_HIDE = 0;
-        private const int SW_SHOW = 5;
+        private const int SwHide = 0;
+        private const int SwShow = 5;
 
         public static bool ArgumentDebug = false;
 
@@ -24,7 +24,7 @@ namespace Common
 
         private static void SetConsoleEnabled(bool enabled)
         {
-            ShowWindow(GetConsoleWindow(), enabled ? SW_SHOW : SW_HIDE);
+            ShowWindow(GetConsoleWindow(), enabled ? SwShow : SwHide);
         }
 
         public static void Log(string text)

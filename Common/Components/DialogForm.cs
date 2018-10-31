@@ -6,12 +6,12 @@
 
 namespace Common
 {
-    public abstract class DialogForm : Form
+    public class DialogForm : Form
     {
         // Constants for window size, may need to be tweaked
-        private const int windowWidth = 1920;
+        private const int WindowWidth = 1920;
 
-        private const int windowHeight = 1280;
+        private const int WindowHeight = 1280;
 
         public DialogForm()
         {

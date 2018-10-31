@@ -209,8 +209,8 @@
             this.relativesDataView.RowTemplate.Height = 24;
             this.relativesDataView.Size = new System.Drawing.Size(404, 240);
             this.relativesDataView.TabIndex = 17;
-            this.relativesDataView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.RelativesDataViewEditing);
-            this.relativesDataView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FamilyTextBoxKeyDown);
+            this.relativesDataView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.relativesDataViewEditing);
+            this.relativesDataView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.familyTextBoxKeyDown);
             // 
             // patronFamilyName
             // 
@@ -254,7 +254,7 @@
             this.addRowButton.TabIndex = 16;
             this.addRowButton.Text = "+";
             this.addRowButton.UseVisualStyleBackColor = true;
-            this.addRowButton.Click += new System.EventHandler(this.AddRowButtonClick);
+            this.addRowButton.Click += new System.EventHandler(this.addRowButtonClick);
             // 
             // relationsLabel
             // 
@@ -277,7 +277,7 @@
             this.submitButton.TabIndex = 17;
             this.submitButton.Text = "Submit";
             this.submitButton.UseVisualStyleBackColor = true;
-            this.submitButton.Click += new System.EventHandler(this.SubmitButtonClick);
+            this.submitButton.Click += new System.EventHandler(this.submitButtonClick);
             // 
             // commentsRichTextBox
             // 

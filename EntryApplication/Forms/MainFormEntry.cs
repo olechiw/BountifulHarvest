@@ -8,12 +8,12 @@ using PatronList = System.Linq.IQueryable<Common.Patron>;
 using VisitList = System.Linq.IQueryable<Common.Visit>;
 
 //
-// BeginInterfaceForm - This form's main entry point for the "entry" application. This will be responsible for directly accessing patron data at the entry desk
+// MainFormEntry - This form's main entry point for the "entry" application. This will be responsible for directly accessing patron data at the entry desk
 //
 
 namespace EntryApplication
 {
-    public partial class BeginInterfaceForm : DialogForm
+    public partial class MainFormEntry : DialogForm
     {
         // The type of date we want to display: mm/dd/yy
         private const string DateCode = "d";
@@ -26,7 +26,7 @@ namespace EntryApplication
 
 
         // Constructor
-        public BeginInterfaceForm()
+        public MainFormEntry()
         {
             Logger.Log("Setting Up Components");
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace EntryApplication
             Logger.Log("Setting Up SQL");
             initializeSql();
 
-            dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
+            dateLabel.Text = @"Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
 
             Logger.Log("Entry Application Running!");
         }
@@ -224,7 +224,7 @@ namespace EntryApplication
 
             if (patronId == Constants.InvalidId)
             {
-                MessageBox.Show(@"Something went wrong, failed to turn the ID into an integer");
+                MessageBox.Show(@"Invalid Date of Birth Entered.");
                 Logger.Log("Failed when turning an ID into integer.");
                 return;
             }

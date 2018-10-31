@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Common;
@@ -7,7 +8,7 @@ using PatronList = System.Linq.IQueryable<Common.Patron>;
 
 namespace ExitApplication
 {
-    public partial class BeginInterfaceForm : DialogForm
+    public partial class MainFormExit : DialogForm
     {
         // The database handler, responsible for all sql operations
         // private Common.VisitsSqlHandler sqlHandler;
@@ -21,7 +22,7 @@ namespace ExitApplication
         private string lastDateBeforeEdit;
         private string lastPoundsBeforeEdit;
 
-        public BeginInterfaceForm()
+        public MainFormExit()
         {
             // Setup the form
             Logger.Log("Initialiing Components");
@@ -30,7 +31,7 @@ namespace ExitApplication
             Constants.InitializeDataView(outputDataView);
 
             Logger.Log("Setting up SQL");
-            SetupSQL();
+            setupSql();
 
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
 
@@ -38,7 +39,7 @@ namespace ExitApplication
         }
 
         // Initialize the database in the gridview
-        private void SetupSQL()
+        private void setupSql()
         {
             var connString = Constants.Isrelease
                 ? Constants.LoadReleaseExitString()
@@ -52,7 +53,7 @@ namespace ExitApplication
         }
 
         // Add a row to the output
-        private void AddDataRow(Visit v)
+        private void addDataRow(Visit v)
         {
             var query = from patron in database.Patrons where patron.PatronId == v.PatronID select patron;
 
@@ -97,7 +98,7 @@ namespace ExitApplication
             catch (Exception error)
             {
                 // Let the user know. This should probably never happen but better save than sorry
-                MessageBox.Show("Failed to add row");
+                MessageBox.Show(@"Invalid Date of Birth Entered.");
 
                 Logger.Log("Exception when adding row: " + error.Message);
                 Logger.Log(error.StackTrace);
@@ -119,7 +120,8 @@ namespace ExitApplication
             // Get all the info
             var v = new Visit
             {
-                TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value.ToString()),
+                TotalPounds = Constants.SafeConvertInt(totalPoundsSpinner.Value
+                .ToString(CultureInfo.InvariantCulture)),
                 DateOfVisit = DateTime.Today,
                 PatronID = Constants.SafeConvertInt(patronIDTextBox.Text),
                 Winter = winter.Checked,
@@ -146,7 +148,7 @@ namespace ExitApplication
             {
                 database.Visits.InsertOnSubmit(v);
                 database.SubmitChanges();
-                AddDataRow(v);
+                addDataRow(v);
             }
             catch (Exception error)
             {
@@ -221,7 +223,7 @@ namespace ExitApplication
 
         private void deleteButtonClick(object sender, EventArgs e)
         {
-            var id = Constants.GetSelectedInt(outputDataView, (int) Constants.VisitIndexes.VisitID);
+            var id = Constants.GetSelectedInt(outputDataView, (int) Constants.VisitIndexes.VisitId);
 
             Logger.Log("Deleting patron visit with id: " + id);
 
@@ -248,10 +250,10 @@ namespace ExitApplication
                 Logger.Log(error.StackTrace);
             }
 
-            patronIDChanged(null, null);
+            patronIdChanged(null, null);
         }
 
-        private void patronIDChanged(object sender, EventArgs e)
+        private void patronIdChanged(object sender, EventArgs e)
         {
             outputDataView.Rows.Clear();
 
@@ -264,7 +266,6 @@ namespace ExitApplication
             {
                 Logger.Log("Loading patron visits from ID: " + id);
                 for (var i = 0; i < rows.Count(); ++i)
-                    AddDataRow(rows.AsEnumerable().ElementAt(i));
 
                 if (string.IsNullOrEmpty(patronIDTextBox.Text))
                     outputDataView.Rows.Clear();
@@ -293,17 +294,17 @@ namespace ExitApplication
             // Update the patron when the cells are done editing, to update totalpounds and dateofvisit.
             var poundsColumn = (int) Constants.VisitIndexes.TotalPounds;
             var dateColumn = (int) Constants.VisitIndexes.DateOfVisit;
-            var visitIDColumn = (int) Constants.VisitIndexes.VisitID;
+            var visitIdColumn = (int) Constants.VisitIndexes.VisitId;
             Visit visit;
 
 
             var row = outputDataView.Rows[e.RowIndex];
 
-            var visitID = Constants.SafeConvertInt(row.Cells[visitIDColumn].Value.ToString());
+            var visitId = Constants.SafeConvertInt(row.Cells[visitIdColumn].Value.ToString());
 
             try
             {
-                visit = (from v in database.Visits where v.VisitID == visitID select v).First();
+                visit = (from v in database.Visits where v.VisitID == visitId select v).First();
             }
             catch
             {
@@ -353,7 +354,7 @@ namespace ExitApplication
                 var query = database.Patrons.Where(p => p.FirstName.Contains(queryString) ||
                                                         p.LastName.Contains(queryString));
 
-                if (query.Count() <= 0) return;
+                if (!query.Any()) return;
                 searchDataView.Rows.Clear();
                 foreach (var p in query)
                     searchDataView.Rows.Add(
@@ -385,7 +386,7 @@ namespace ExitApplication
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Calculating...");
+            MessageBox.Show(@"Invalid Date of Birth Entered.");
             var visits = database.Visits.Select(p => p);
             foreach (var visit in visits)
                 try
@@ -402,7 +403,7 @@ namespace ExitApplication
                     Logger.Log(exception.StackTrace);
                 }
 
-            MessageBox.Show("Finished calculatons");
+            MessageBox.Show(@"Invalid Date of Birth Entered.");
         }
     }
 }

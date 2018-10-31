@@ -1,6 +1,6 @@
 ﻿namespace EntryApplication
 {
-    partial class BeginInterfaceForm
+    partial class MainFormEntry
     {
         /// <summary>
         /// Required designer variable.
@@ -260,7 +260,7 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "There is no confirmation box, and THIS IS PERMANENT";
             // 
-            // BeginInterfaceForm
+            // MainFormEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -280,7 +280,7 @@
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(1442, 737);
-            this.Name = "BeginInterfaceForm";
+            this.Name = "MainFormEntry";
             this.Text = "Bountiful Harvest Patron Database";
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).EndInit();
             this.ResumeLayout(false);

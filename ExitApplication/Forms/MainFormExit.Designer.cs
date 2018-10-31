@@ -1,6 +1,6 @@
 ﻿namespace ExitApplication
 {
-    partial class BeginInterfaceForm
+    partial class MainFormExit
     {
         /// <summary>
         /// Required designer variable.
@@ -229,7 +229,7 @@
             this.patronIDTextBox.ReadOnly = true;
             this.patronIDTextBox.Size = new System.Drawing.Size(127, 24);
             this.patronIDTextBox.TabIndex = 17;
-            this.patronIDTextBox.TextChanged += new System.EventHandler(this.patronIDChanged);
+            this.patronIDTextBox.TextChanged += new System.EventHandler(this.patronIdChanged);
             // 
             // label1
             // 
@@ -382,7 +382,7 @@
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // BeginInterfaceForm
+            // MainFormExit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -412,7 +412,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximumSize = new System.Drawing.Size(1918, 898);
-            this.Name = "BeginInterfaceForm";
+            this.Name = "MainFormExit";
             this.Text = "Bountiful Harvest Patron Database";
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.totalPoundsSpinner)).EndInit();

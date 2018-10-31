@@ -31,7 +31,7 @@ namespace EntryApplication
             Logger.Log("Creating new patron form");
             InitializeComponent();
 
-            InitializeComponentManual();
+            initializeComponentManual();
         }
 
         // An alternate constructor for editing patrons
@@ -42,11 +42,11 @@ namespace EntryApplication
             // Standard init
             InitializeComponent();
 
-            InitializeComponentManual();
+            initializeComponentManual();
 
-            firstNameTextBox.KeyDown += FamilyTextBoxKeyDown;
-            lastNameTextBox.KeyDown += FamilyTextBoxKeyDown;
-            middleInitialTextBox.KeyDown += FamilyTextBoxKeyDown;
+            firstNameTextBox.KeyDown += familyTextBoxKeyDown;
+            lastNameTextBox.KeyDown += familyTextBoxKeyDown;
+            middleInitialTextBox.KeyDown += familyTextBoxKeyDown;
 
             // Load the existing patron information into the form.
             firstNameTextBox.Text = p.FirstName;
@@ -92,7 +92,7 @@ namespace EntryApplication
 
             zipCodeUpDown.Value = p.ZipCode;
 
-            InitializeFamily(p);
+            initializeFamily(p);
 
             newPatron = p;
         }
@@ -112,7 +112,7 @@ namespace EntryApplication
             return printVisitCheckBox.Checked;
         }
 
-        private void InitializeComponentManual()
+        private void initializeComponentManual()
         {
             // Do the manual combobox updating
             patronFamilyGender.Items.Add("Male");
@@ -122,7 +122,7 @@ namespace EntryApplication
             genderComboBox.Items.Add("Female");
         }
 
-        private void InitializeFamily(Patron p)
+        private void initializeFamily(Patron p)
         {
             // Load family into the datagridview. Messy but it works.
             if (!string.IsNullOrEmpty(p.Family))
@@ -170,43 +170,13 @@ namespace EntryApplication
         }
 
         // When the '+' button is clicked to add a row, add a row.
-        private void AddRowButtonClick(object sender, EventArgs e)
+        private void addRowButtonClick(object sender, EventArgs e)
         {
             relativesDataView.Rows.Add();
         }
 
-        private void ProcessFamily()
-        {
-            newPatron.Family = "";
-            // Get all of the family members
-            foreach (DataGridViewRow row in relativesDataView.Rows)
-                if (row.Cells[0]?.Value != null && !string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString()))
-                {
-                    newPatron.Family += row.Cells[0].Value.ToString();
-                    newPatron.Family += ',';
-
-                    newPatron.FamilyGenders += row.Cells[1].Value.ToString();
-                    newPatron.FamilyGenders += ',';
-
-                    newPatron.FamilyDateOfBirths += Constants.ConjuncDate(
-                        row.Cells[2].Value.ToString(),
-                        row.Cells[3].Value.ToString(),
-                        row.Cells[4].Value.ToString());
-                }
-
-            // Cut off the last character, a floating comma. But lets not have it be -1
-            if (newPatron.Family.Length != 0)
-                newPatron.Family = newPatron.Family.Substring(0, newPatron.Family.Length - 1);
-
-            if (newPatron.FamilyGenders.Length != 0)
-                newPatron.FamilyGenders = newPatron.FamilyGenders.Substring(0, newPatron.FamilyGenders.Length - 1);
-
-            if (newPatron.FamilyDateOfBirths.Length != 0)
-                newPatron.FamilyGenders = newPatron.FamilyGenders.Substring(0, newPatron.FamilyGenders.Length - 1);
-        }
-
         // Record all of the data, and close the window
-        private void SubmitButtonClick(object sender, EventArgs e)
+        private void submitButtonClick(object sender, EventArgs e)
         {
             // Fill the newPatron structure
             newPatron.FirstName = firstNameTextBox.Text;
@@ -230,7 +200,7 @@ namespace EntryApplication
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Invalid Date of Birth Entered.");
+                    MessageBox.Show(@"Invalid Date of Birth Entered.");
                     return;
                 }
 
@@ -251,19 +221,19 @@ namespace EntryApplication
             var zip = Convert.ToInt32(zipCodeUpDown.Value);
             if (zip == 0)
             {
-                MessageBox.Show("Please enter a Zip Code");
+                MessageBox.Show(@"Invalid Date of Birth Entered.");
                 return;
             }
             newPatron.ZipCode = zip;
 
-            SaveFamily();
+            saveFamily();
 
             saved = true;
 
             Close();
         }
 
-        private void SaveFamily()
+        private void saveFamily()
         {
             // Load the information from the UI about the family. Also messy.
             string family = "", familyGenders = "", familyDates = "";
@@ -279,7 +249,7 @@ namespace EntryApplication
                         : row.Cells[1].Value.ToString()
                           + ',';
 
-                    // Load the dob information. I promise it works??? :(
+                    // Load the dob information.W
                     var m = row.Cells[2].Value?.ToString() ?? " ";
                     var d = row.Cells[3].Value?.ToString() ?? " ";
                     var y = row.Cells[4].Value?.ToString() ?? " ";
@@ -302,7 +272,7 @@ namespace EntryApplication
             newPatron.FamilyDateOfBirths = familyDates;
         }
 
-        private void FamilyTextBoxKeyDown(object sender, KeyEventArgs e)
+        private void familyTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             // Locks out input so that you cant hit random shit in the family text box.
             var key = e.KeyCode;
@@ -330,10 +300,10 @@ namespace EntryApplication
             }
         }
 
-        private void RelativesDataViewEditing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private void relativesDataViewEditing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             // Have to do this for every control, so its inside the datagridview editing handler.
-            e.Control.KeyDown += FamilyTextBoxKeyDown;
+            e.Control.KeyDown += familyTextBoxKeyDown;
         }
 
         private void nameKeyPress(object sender, KeyPressEventArgs e)

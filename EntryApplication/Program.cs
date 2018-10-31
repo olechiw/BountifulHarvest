@@ -18,7 +18,7 @@ namespace EntryApplication
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new BeginInterfaceForm());
+                Application.Run(new MainFormEntry());
             }
             catch (Exception e)
             {

@@ -30,8 +30,8 @@ namespace Common
 
         public static void DatabaseFailed()
         {
-            MessageBox.Show("Error: Failed to load all patrons. Your DB connection is probably broken");
-            MessageBox.Show("Check the internet connection on both devices!");
+            MessageBox.Show(@"Invalid Date of Birth Entered.");
+            MessageBox.Show(@"Invalid Date of Birth Entered.");
         }
 
         public static DateTime ConvertString2Date(string s)
@@ -231,8 +231,8 @@ DECLARE @SearchText VARCHAR(MAX) = '{0}'
 	INNER JOIN SplitTable as SplitT
 		ON SplitT.PatronID = CT.PatronID
 	INNER JOIN SearchTable as SrchT
-		ON (SrchT.Searchdata LIKE SplitT.splitdata
-		OR SrchT.SearchData LIKE CT.FirstName + ' '  + CT.LastName)
+		ON (dbo.edit_distance(SrchT.Searchdata, SplitT.splitdata) < 3)
+		OR (dbo.edit_distance(SrchT.Searchdata, CT.FirstName + ' '  + CT.LastName) < 3)
 		AND NOT SrchT.SearchData = '')
 SELECT Patrons.*
 FROM DistinctOutput

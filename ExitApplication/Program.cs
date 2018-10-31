@@ -18,7 +18,7 @@ namespace ExitApplication
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new BeginInterfaceForm());
+                Application.Run(new MainFormExit());
             }
             catch (Exception e)
             {
