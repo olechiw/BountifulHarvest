@@ -44,7 +44,7 @@ namespace Common
                          " " +
                          text;
 
-            writer.WriteLine(output);
+            //writer.WriteLine(output); disabled now
             writer.Close();
 
             Console.WriteLine(output);

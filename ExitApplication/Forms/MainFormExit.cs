@@ -66,7 +66,7 @@ namespace ExitApplication
             try
             {
                 var extras = "";
-                var delim = ", ";
+                const string delim = ", ";
 
                 // Load the output to show which extras were selected. A wee bit hacky.
                 if (v.Christmas)
@@ -97,8 +97,6 @@ namespace ExitApplication
             }
             catch (Exception error)
             {
-                // Let the user know. This should probably never happen but better save than sorry
-                MessageBox.Show(@"Invalid Date of Birth Entered.");
 
                 Logger.Log("Exception when adding row: " + error.Message);
                 Logger.Log(error.StackTrace);
@@ -109,7 +107,7 @@ namespace ExitApplication
         {
             if (string.IsNullOrEmpty(patronIDTextBox.Text))
                 return;
-            if (string.IsNullOrEmpty(totalPoundsSpinner.Value.ToString()) || totalPoundsSpinner.Value == 0)
+            if (string.IsNullOrEmpty(totalPoundsSpinner.Value.ToString(CultureInfo.InvariantCulture)) || totalPoundsSpinner.Value == 0)
                 return;
 
             // Check that patron exists
