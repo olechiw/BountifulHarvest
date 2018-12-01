@@ -195,9 +195,8 @@ namespace EntryApplication
         private bool checkPatronDuplicates(Patron p)
         {
             var patronName = p.FirstName + ' ' + p.LastName;
-            var similarQuery = string.Format(Constants.DuplicatePatronsQuery(), p.Family + ',' + patronName);
             // Family Duplicates (exact matches only), including main patron's name
-            var similars = database.ExecuteQuery<Patron>(similarQuery);
+            var similars = database.ExecuteQuery<Patron>(Constants.DuplicatePatronsQuery(), p.Family + ',' + patronName);
 
             // Name Duplicates
             var names = database.Patrons.Where(p1 => p1.FirstName.Equals(p.FirstName) &&
