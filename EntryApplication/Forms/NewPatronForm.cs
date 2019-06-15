@@ -240,7 +240,7 @@ namespace EntryApplication
 
             foreach (DataGridViewRow row in relativesDataView.Rows)
                 if (
-                    !string.IsNullOrEmpty(row?.Cells?[0]?.Value?.ToString()))
+                    !string.IsNullOrWhiteSpace(row?.Cells?[0]?.Value?.ToString()))
                 {
                     family += row.Cells[0].Value.ToString() + ',';
 
