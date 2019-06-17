@@ -28,7 +28,7 @@ namespace EntryApplication
             commentsLabel.Text += p.Comments;
             ageLabel.Text += DateTime.Today.Year - p.DateOfBirth.Year;
 
-            foreach (var v in visits.OrderBy(v => v.DateOfVisit).Reverse())
+            foreach (var v in visits.OrderByDescending(v => v.DateOfVisit))
                 addDataRow(p, v);
 
 
