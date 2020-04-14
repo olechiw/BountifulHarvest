@@ -6,6 +6,7 @@ using Common;
 using EntryApplication.Forms;
 using PatronList = System.Linq.IQueryable<Common.Patron>;
 using VisitList = System.Linq.IQueryable<Common.Visit>;
+using System.Reflection;
 
 //
 // MainFormEntry - This form's main entry point for the "entry" application. This will be responsible for directly accessing patron data at the entry desk
@@ -39,6 +40,15 @@ namespace EntryApplication
             dateLabel.Text = @"Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
 
             Logger.Log("Entry Application Running!");
+
+            // Double buffering can make DGV slow in remote desktop
+            if (!System.Windows.Forms.SystemInformation.TerminalServerSession)
+            {
+                //Set Double buffering on the Grid using reflection and the bindingflags enum.
+                typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+                BindingFlags.Instance | BindingFlags.SetProperty, null,
+                outputDataView, new object[] { true });
+            }
         }
 
         // Setup the sql connection
@@ -103,7 +113,8 @@ namespace EntryApplication
         // Add a list of rows
         private void addDataRows(IEnumerable<Patron> ps)
         {
-            foreach (var p in ps)
+            var results = ps.Take(50);
+            foreach (var p in results)
                 addDataRow(p);
         }
 

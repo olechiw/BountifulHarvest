@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Common;
 using VisitList = System.Linq.IQueryable<Common.Visit>;
 using PatronList = System.Linq.IQueryable<Common.Patron>;
+using System.Reflection;
 
 namespace ExitApplication
 {
@@ -36,6 +37,22 @@ namespace ExitApplication
             dateLabel.Text = "Today's Date is: " + Constants.ConvertDateTime(DateTime.Today);
 
             Logger.Log("Exit Application Running");
+
+            // Double buffering can make DGV slow in remote desktop
+            if (!System.Windows.Forms.SystemInformation.TerminalServerSession)
+            {
+                //Set Double buffering on the Grid using reflection and the bindingflags enum.
+                typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+                BindingFlags.Instance | BindingFlags.SetProperty, null,
+                outputDataView, new object[] { true });
+                //Set Double buffering on the Grid using reflection and the bindingflags enum.
+                typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic |
+                BindingFlags.Instance | BindingFlags.SetProperty, null,
+                searchDataView, new object[] { true });
+
+                searchDataView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
+                // or even better, use .DisableResizing. Most time consuming enum is DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+            }
         }
 
         // Initialize the database in the gridview
@@ -263,8 +280,8 @@ namespace ExitApplication
             try
             {
                 Logger.Log("Loading patron visits from ID: " + id);
-                for (var i = 0; i < rows.Count(); ++i)
-
+                foreach (var i in rows)
+                    addDataRow(i);
                 if (string.IsNullOrEmpty(patronIDTextBox.Text))
                     outputDataView.Rows.Clear();
             }
@@ -345,7 +362,7 @@ namespace ExitApplication
         private void patronSearchTextBoxChanged(object sender, EventArgs e)
         {
             searchDataView.Rows.Clear();
-
+            //if (patronSearchTextBox.Text.Length < 3) return;
             try
             {
                 var queryString = patronSearchTextBox.Text;
@@ -354,31 +371,21 @@ namespace ExitApplication
 
                 if (!query.Any()) return;
                 searchDataView.Rows.Clear();
+                searchDataView.SelectionChanged -= onSearchSelectionChanged;
                 foreach (var p in query)
                     searchDataView.Rows.Add(
                         Constants.ConjuncName(p.FirstName, p.MiddleInitial, p.LastName),
                         p.PatronId);
-            }
-            catch (Exception error)
-            {
-                Logger.Log("Exception occured in patron search box: " + error.Message);
-                Logger.Log(error.StackTrace);
-            }
-        }
-
-        private void searchDataViewSelectionChanged(object sender, EventArgs e)
-        {
-            try
-            {
+                searchDataView.SelectionChanged += onSearchSelectionChanged;
                 var id = Constants.SafeConvertInt(
                     searchDataView.SelectedRows[0]
                         .Cells[1].Value.ToString());
                 patronIDTextBox.Text = id == Constants.InvalidId ? "" : id.ToString();
             }
-            catch (Exception)
+            catch (Exception error)
             {
-                // Selected a non-created row or something else, so we just clear everything
-                patronIDTextBox.Text = "";
+                Logger.Log("Exception occured in patron search box: " + error.Message);
+                Logger.Log(error.StackTrace);
             }
         }
 
@@ -402,6 +409,38 @@ namespace ExitApplication
                 }
 
             MessageBox.Show(@"Invalid Date of Birth Entered.");
+        }
+
+        private void onCellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                var id = Constants.SafeConvertInt(
+                    searchDataView.SelectedRows[0]
+                        .Cells[1].Value.ToString());
+                patronIDTextBox.Text = id == Constants.InvalidId ? "" : id.ToString();
+            }
+            catch (Exception)
+            {
+                // Selected a non-created row or something else, so we just clear everything
+                patronIDTextBox.Text = "";
+            }
+        }
+
+        private void onSearchSelectionChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var id = Constants.SafeConvertInt(
+                    searchDataView.SelectedRows[0]
+                        .Cells[1].Value.ToString());
+                patronIDTextBox.Text = id == Constants.InvalidId ? "" : id.ToString();
+            }
+            catch (Exception)
+            {
+                // Selected a non-created row or something else, so we just clear everything
+                patronIDTextBox.Text = "";
+            }
         }
     }
 }

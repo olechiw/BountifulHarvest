@@ -52,6 +52,7 @@
             this.familyAgeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.familyDateOfBirthColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ageLabel = new System.Windows.Forms.Label();
+            this.visitsThisYearLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.outputDataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.familyDataView)).BeginInit();
             this.SuspendLayout();
@@ -300,11 +301,23 @@
             this.ageLabel.TabIndex = 12;
             this.ageLabel.Text = "Age:";
             // 
+            // visitsThisYearLabel
+            // 
+            this.visitsThisYearLabel.AutoSize = true;
+            this.visitsThisYearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.visitsThisYearLabel.Location = new System.Drawing.Point(9, 556);
+            this.visitsThisYearLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.visitsThisYearLabel.Name = "visitsThisYearLabel";
+            this.visitsThisYearLabel.Size = new System.Drawing.Size(164, 26);
+            this.visitsThisYearLabel.TabIndex = 13;
+            this.visitsThisYearLabel.Text = "Visits this Year:";
+            // 
             // MoreInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1318, 625);
+            this.Controls.Add(this.visitsThisYearLabel);
             this.Controls.Add(this.ageLabel);
             this.Controls.Add(this.familyDataView);
             this.Controls.Add(this.initialVisitDate);
@@ -356,5 +369,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn familyGenderColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn familyAgeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn familyDateOfBirthColumn;
+        private System.Windows.Forms.Label visitsThisYearLabel;
     }
 }

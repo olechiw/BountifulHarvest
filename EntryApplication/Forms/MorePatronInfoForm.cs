@@ -33,8 +33,14 @@ namespace EntryApplication
 
 
             if (visits.Any())
+            {
                 initialVisitDate.Text += visits.OrderBy(v => v.DateOfVisit).First().DateOfVisit
                     .ToString(Constants.DateFormat);
+
+                var visitsThisYear = visits.Where(v => v.DateOfVisit.Year == DateTime.Today.Year).Count();
+                visitsThisYearLabel.Text = "Visits this year (" + DateTime.Today.Year + "): " + visitsThisYear;
+            }
+                
 
             addFamilyRows(p);
 

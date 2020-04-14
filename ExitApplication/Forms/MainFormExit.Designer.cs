@@ -253,7 +253,8 @@
             this.searchDataView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.searchDataView.Size = new System.Drawing.Size(328, 442);
             this.searchDataView.TabIndex = 19;
-            this.searchDataView.SelectionChanged += new System.EventHandler(this.searchDataViewSelectionChanged);
+            this.searchDataView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.onCellContentClick);
+            this.searchDataView.SelectionChanged += new System.EventHandler(this.onSearchSelectionChanged);
             // 
             // patronSearchName
             // 
